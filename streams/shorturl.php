@@ -1,5 +1,5 @@
 <?php
-require_once("common.php");
+require_once('init.php');
 
 $url = codeToUrl($_GET["code"]);
 if ($url===false) {

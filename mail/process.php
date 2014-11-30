@@ -1,8 +1,8 @@
 <?php
-$path = dirname(__FILE__);
-require_once("$path/../streams/common.php");
-require_once("$path/../streams/twitter.php");
-require_once("$path/strategy/tasks.php");
+$path = __DIR__;
+require_once($path . '/../streams/init.php');
+require_once(BASEPATH . '_classes/twitter.php');
+require_once($path . '/strategy/tasks.php');
 
 $mail = stream_get_contents(STDIN);
 
