@@ -42,4 +42,3 @@ function deploy($path) {
   }
   return $change;
 }
-?>

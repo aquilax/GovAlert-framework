@@ -21,6 +21,7 @@ function aop_Saobshteniq() {
   if (!checkPageChanged($html,12,0))
     return;
   $items = aop_xpathDoc($html,"//table[@id='resultaTable']//tr");
+// TODO: Figure this out
 echo $items->length;
 exit;
 

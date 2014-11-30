@@ -17,4 +17,3 @@ echo "done\n";
 
 $contents = ob_get_flush();
 file_put_contents("$path/../log/mail.log",$contents,FILE_APPEND);
-?>
