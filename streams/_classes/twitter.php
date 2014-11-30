@@ -213,7 +213,7 @@ function postTwitter() {
 
         if ($row['retweet'] && !$tres->errors) {
           $tweetid=$link->escape_string($tres->id_str);
-          $accounts = split(",",$row['retweet']);
+          $accounts = explode(",",$row['retweet']);
           $query = array();
           foreach ($accounts as $account) {
             $query[]="('$account',now(),'$tweetid')";
