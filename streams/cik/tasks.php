@@ -154,7 +154,8 @@ function cikJalbi() {
   }
 
   echo "Възможни ".count($query)." нови жалби\n";
-  
+
+  // TODO: Figure this out
   $itemids = saveItems($query);
 
   $itemids = saveItems($query);

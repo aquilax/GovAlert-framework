@@ -28,10 +28,9 @@ function codeToId($code) {
 
 function codeToUrl($code) {
 	global $link;
-	if (!$code)
+	if (!$code) {
 		return false;
-
-	$id=false;
+	}
 	if (is_nan(intval($code)))
 		return false;
 	if (substr($code,0,1)=="-") {

@@ -1,7 +1,7 @@
 <?php
 
 function retweetAccounts() {
-  global $link,$session;
+  global $link;
 
   setSession(20,1);
   

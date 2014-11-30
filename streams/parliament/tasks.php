@@ -391,6 +391,7 @@ function parlKomisii() {
     $id = intval($id);
     if (in_array($id,$commissionids))
       continue;
+	// TODO: Figure this out
     $title = parl_cleanText($item->textContent);
     $title = $link->escape_string($item->textContent);
     $commissions[]=array($id,$title);
@@ -512,7 +513,6 @@ function parlKomisiiDokumenti() {
   echo "> Проверявам за документи на комисии в НС\n";
   setSession(4,11);
 
-  $checkUrls = array();
   $res=$link->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id") or reportDBErrorAndDie();
   while ($row = $res->fetch_array()) {
     $commName = $row[1];
