@@ -67,4 +67,3 @@ function nek_cleanText($text) {
 	return $text;
 }
 
-?>

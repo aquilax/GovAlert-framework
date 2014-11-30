@@ -87,5 +87,3 @@ function ar_xpath($html,$q) {
   $doc->loadHTML($html);
   return new DOMXpath($doc);  
 }
-
-?>

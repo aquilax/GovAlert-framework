@@ -96,6 +96,3 @@ function dans_xpath($xml,$isHTML) {
     $doc->loadXML($xml);
   return new DOMXpath($doc);
 }
-
-
-?>

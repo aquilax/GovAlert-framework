@@ -206,5 +206,3 @@ function transliterate($textlat = null) {
 'I','Y','K','L','M','N','O','P','R','S','T','U','F','H','A','J');
     return str_replace($lat,$cyr,$textlat);
 }
-
-?>

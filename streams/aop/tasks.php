@@ -89,4 +89,3 @@ function aop_xpathDoc($html,$q) {
   return is_null($items)?array():$items;
 }
 
-?>

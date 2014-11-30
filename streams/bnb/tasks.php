@@ -222,6 +222,3 @@ function bnb_cleanDescr($description) {
     $description = bnb_cleanText($description);
     return $description;
 }
-
-
-?>

@@ -229,4 +229,3 @@ function mh_cleanText($text) {
 	return $text;
 }
 
-?>

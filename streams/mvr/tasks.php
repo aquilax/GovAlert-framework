@@ -480,5 +480,3 @@ function mvr_xpath($html) {
   $doc->loadHTML($html);
   return new DOMXpath($doc);  
 }
-
-?>

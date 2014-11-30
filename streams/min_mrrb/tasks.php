@@ -81,6 +81,3 @@ function mrrb_cleanText($text) {
   $text = text_fixCase($text);
 	return $text;
 }
-
-
-?>

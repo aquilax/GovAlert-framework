@@ -202,4 +202,3 @@ function vss_cleanText($text) {
 	return $text;
 }
 
-?>

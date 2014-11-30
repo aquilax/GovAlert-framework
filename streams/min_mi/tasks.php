@@ -229,5 +229,3 @@ function mi_cleanText($text) {
   $text = text_fixCase($text);
 	return $text;
 }
-
-?>

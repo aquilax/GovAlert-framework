@@ -34,5 +34,3 @@ function errorcheck() {
   }
   queueTextTweet($tweet ,$row["url"]);
 }
-
-?>

@@ -310,5 +310,3 @@ function gov_xpathDoc($html,$q) {
   $items = $xpath->query($q);
   return is_null($items)?array():$items;
 }
-
-?>

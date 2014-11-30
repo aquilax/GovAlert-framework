@@ -15,4 +15,3 @@ exit;
 }
 
 header('Location: '.$url);
-?>

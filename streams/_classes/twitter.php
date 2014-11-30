@@ -239,6 +239,3 @@ function postTwitter() {
   }
   $res->free();
 }
-
-
-?>
