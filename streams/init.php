@@ -16,10 +16,11 @@ $classesBase = BASEPATH . Config::get('classesBase');
 require_once ($classesBase . '/Database.php');
 require_once ($classesBase . '/Logger.php');
 require_once ($classesBase . '/TaskManager.php');
+require_once ($classesBase . '/Utils.php');
 
 require_once ($classesBase . '/session.php');
 require_once ($classesBase . '/http.php');
-require_once ($classesBase . '/utils.php');
+
 
 $logger = new Logger(Config::get('debugLevel'));
 

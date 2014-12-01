@@ -1,7 +1,19 @@
 <?php
 /*
-    shortcode utils
+    Utils
 */
+
+class Utils {
+
+	static function transliterate($textLat = null) {
+		$cyr = array('Я','Ц','Ц','Ж','Ч','Щ','Ш','Ю','ЙО','С','ИЙ','А','Б','В','Г','Д','Е','З',
+			'И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ъ','Я');
+		$lat = array('YA','TS','TZ','ZH','CH','SHT','SH','YU','YO','SS','YI','A','B','V','G','D','E','Z',
+			'I','Y','K','L','M','N','O','P','R','S','T','U','F','H','A','J');
+		return str_replace($lat, $cyr, $textLat);
+	}
+
+}
 
 function linkCode($id) {
 	$chars ="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
