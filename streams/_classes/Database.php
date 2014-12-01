@@ -5,8 +5,9 @@ class Database {
 	private $config;
 	private $link;
 
-	function __construct($config) {
+	function __construct($config, Logger $logger) {
 		$this->config = $config;
+		$this->logger = $logger;
 	}
 
 	function connect() {
@@ -18,13 +19,17 @@ class Database {
 		$this->link->set_charset($this->config['encoding']);
 		return $this->link;
 	}
-}
 
-function reportDBErrorAndDie() {
-	global $link;
-	$dscr="Грешка при запитване към базата данни.\n".$link->error;
-	reportError($dscr);
-	die($dscr);
+	function query ($sql) {
+		$res = $this->link->query($sql);
+		if ($res === false) {
+			$message = 'Грешка при запитване към базата данни: ' . $this->link->error;
+			$this->logger->error($message);
+			reportError($message);
+			die($message);
+		}
+		return $res;
+	}
 }
 
 function reportError($descr) {

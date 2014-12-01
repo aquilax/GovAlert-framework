@@ -5,7 +5,10 @@ if ($debug) {
 }
 require_once(BASEPATH . "/_classes/twitter.php");
 
-echo "\n\nSTREAMS ".date("r")."\n";
-runTasks(count($argv)>1);
+$logger->info('STREAMS');
+
+$force = count($argv) > 1;
+TaskManager::runTasks($db, $logger, $force );
 postTwitter();
-echo "END\n";
+
+$logger->info('END');

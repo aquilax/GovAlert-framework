@@ -9,18 +9,21 @@ mb_regex_encoding("UTF-8");
 set_error_handler('errorHandler');
 $session = array("sourceid"=>null,"category"=>null,"error"=>false);
 
-
 define('BASEPATH', __DIR__);
-require_once(BASEPATH . '/_config/config.php');
+require_once(BASEPATH . '/_config/Config.php');
 $classesBase = BASEPATH . Config::get('classesBase');
 
 require_once ($classesBase . '/Database.php');
+require_once ($classesBase . '/Logger.php');
+require_once ($classesBase . '/TaskManager.php');
+
 require_once ($classesBase . '/session.php');
 require_once ($classesBase . '/http.php');
-require_once ($classesBase . '/tasks.php');
 require_once ($classesBase . '/utils.php');
 
-$db = new Database(Config::get('db'));
+$logger = new Logger(Config::get('debugLevel'));
+
+$db = new Database(Config::get('db'), $logger);
 $link = $db->connect();
 
 
