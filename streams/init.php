@@ -1,7 +1,5 @@
 <?php
 
-define('BASEPATH', __DIR__);
-
 ini_set('user_agent','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36 (email=yurukov@gmail.com; reason=scraping data,please contact if any issues)');
 ini_set('default_socket_timeout', 30);
 set_time_limit(0);
@@ -9,18 +7,21 @@ date_default_timezone_set('Europe/Sofia');
 mb_internal_encoding("UTF-8");
 mb_regex_encoding("UTF-8");
 set_error_handler('errorHandler');
-
-$link = mysqli_connect('localhost', 'username', 'password', "activist") or die("Не мога да се свържа с базата данни. ".$link->error);
-$link->set_charset("utf8");
-
 $session = array("sourceid"=>null,"category"=>null,"error"=>false);
 
-$commonBase = __DIR__ . '/_classes/';
-require_once ($commonBase . 'session.php');
-require_once ($commonBase . 'db.php');
-require_once ($commonBase . 'http.php');
-require_once ($commonBase . 'tasks.php');
-require_once ($commonBase . 'utils.php');
+
+define('BASEPATH', __DIR__);
+require_once(BASEPATH . '/_config/config.php');
+$classesBase = BASEPATH . Config::get('classesBase');
+
+require_once ($classesBase . '/db.php');
+require_once ($classesBase . '/session.php');
+require_once ($classesBase . '/http.php');
+require_once ($classesBase . '/tasks.php');
+require_once ($classesBase . '/utils.php');
+
+$db = new Database(Config::get('db'));
+$link = $db->connect();
 
 
 function errorHandler($errno, $errstr, $errfile, $errline) {

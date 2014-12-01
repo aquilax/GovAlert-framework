@@ -1,5 +1,25 @@
 <?php
 
+class Database {
+
+	private $config;
+	private $link;
+
+	function __construct($config) {
+		$this->config = $config;
+	}
+
+	function connect() {
+		$this->link = mysqli_connect(
+			$this->config['host'],
+			$this->config['user'],
+			$this->config['pass'],
+			$this->config['name']) or die("Не мога да се свържа с базата данни. " . $this->link->error);
+		$this->link->set_charset($this->config['encoding']);
+		return $this->link;
+	}
+}
+
 function reportDBErrorAndDie() {
 	global $link;
 	$dscr="Грешка при запитване към базата данни.\n".$link->error;
