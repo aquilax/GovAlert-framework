@@ -56,10 +56,6 @@ class Database extends mysqli{
     Saving data
 */
 
-function saveItem($title,$description,$pubts,$url,$hash,$media=null) {
-	return saveItems(array(array($title,$description,$pubts,$url,$hash,$media)));
-}
-
 function saveItems($items) {
 	global $link,$session;
 	if (!checkSession())

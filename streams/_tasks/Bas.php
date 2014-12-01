@@ -116,7 +116,7 @@ class Bas extends Task{
 			if ($inBG || $mag>=4.5) {
 				$media["geoimage"] = array(loadGeoImage($lat,$lng,8),null);
 			}
-			$query[]=array($title, $description, $date, 'http://ndc.niggg.bas.bg', $hash, $media);
+			$query[] = array($title, $description, $date, 'http://ndc.niggg.bas.bg', $hash, $media);
 		}
 		$this->logger->info('Възможни ' . count($query). ' нови земетресения');
 
@@ -161,7 +161,7 @@ class Bas extends Task{
 		else
 			$bearing = "З";
 
-		return array($km,$bearing);
+		return array($km, $bearing);
 	}
 }
 

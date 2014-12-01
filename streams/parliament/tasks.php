@@ -143,7 +143,7 @@ function parlPlenarnoZasedanie() {
   if (is_null($items) || $items->length==0) return;
   $url = $items->item(0)->getAttribute("href");
 
-  $itemids = saveItem($title,$description,"now","http://parliament.bg$url",$hash);
+  $itemids = saveItems([$title,$description,"now","http://parliament.bg$url",$hash]);
   queueTweets($itemids,'narodnosabranie');
 }
 

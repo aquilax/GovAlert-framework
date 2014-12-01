@@ -20,7 +20,7 @@ function errorcheck() {
   $title = "Няма новини от ".$row["shortname"]." от поне две седмици";
   $hash = md5($title.time());
 
-  saveItem($title,null,"now",$row["url"],$hash);
+  saveItems([$title,null,"now",$row["url"],$hash]);
 
   switch (rand(1,4)) {
     case 1: 
