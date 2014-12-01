@@ -21,7 +21,7 @@ require_once ($classesBase . '/Task.php');
 
 require_once ($classesBase . '/session.php');
 require_once ($classesBase . '/http.php');
-
+require_once ($classesBase . '/images.php');
 
 $logger = new Logger(Config::get('debugLevel'));
 
