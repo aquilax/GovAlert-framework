@@ -14,7 +14,7 @@ define('BASEPATH', __DIR__);
 require_once(BASEPATH . '/_config/config.php');
 $classesBase = BASEPATH . Config::get('classesBase');
 
-require_once ($classesBase . '/db.php');
+require_once ($classesBase . '/Database.php');
 require_once ($classesBase . '/session.php');
 require_once ($classesBase . '/http.php');
 require_once ($classesBase . '/tasks.php');
