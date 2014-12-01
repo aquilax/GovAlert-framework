@@ -53,9 +53,9 @@ class TaskManager {
 			if ($run && !$force && $row["delay"] != 0) {
 				if (!$session["error"] || $row["delay"] <= 4) {
 					if ($row["delay"] > 24)
-						$db->query("UPDATE TASK SET lastrun=date_sub(now(),interval " . rand(10, 180) . " minute) where lib='${row["lib"]}' and task='${row["task"]}' limit 1");
+						$db->query("UPDATE task SET lastrun=date_sub(now(),interval " . rand(10, 180) . " minute) where lib='${row["lib"]}' and task='${row["task"]}' limit 1");
 					else
-						$db->query("UPDATE TASK SET lastrun=now() where lib='${row["lib"]}' and task='${row["task"]}' limit 1");
+						$db->query("UPDATE task SET lastrun=now() where lib='${row["lib"]}' and task='${row["task"]}' limit 1");
 				} else
 					$logger->error('Засякох грешка. Не маркирам като пусната задача. Ще опитам пак след малко.');
 			}

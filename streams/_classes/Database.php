@@ -30,7 +30,7 @@ class Database extends mysqli{
 		return $res;
 	}
 
-	private function reportError($message) {
+	public function reportError($message) {
 		global $session,$debug;
 		if ($message === null)
 			return;
