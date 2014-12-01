@@ -73,47 +73,47 @@ class Bnb extends Task{
 	}
 
 	function bnb_PlatejenBalans() {
-		statsHandling(1,"Платежен баланс","ПЛАТЕЖЕН БАЛАНС",
+		$this->statsHandling(1,"Платежен баланс","ПЛАТЕЖЕН БАЛАНС",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSBalancePayments/");
 	}
 
 	function bnb_BrutenVanshenDalg() {
-		statsHandling(2,"Брутен външен дълг","БРУТЕН ВЪНШЕН ДЪЛГ",
+		$this->statsHandling(2,"Брутен външен дълг","БРУТЕН ВЪНШЕН ДЪЛГ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSGrossExternalDebt");
 	}
 
 	function bnb_ParichniDepositi() {
-		statsHandling(3,"Парични, депозитни и кредитни показатели","ПАРИЧНИ, ДЕПОЗИТНИ И КРЕДИТНИ ПОКАЗАТЕЛИ",
+		$this->statsHandling(3,"Парични, депозитни и кредитни показатели","ПАРИЧНИ, ДЕПОЗИТНИ И КРЕДИТНИ ПОКАЗАТЕЛИ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSMonetaryStatistics/POPRSMonetarySurvey");
 	}
 
 	function bnb_KreditiDepositi() {
-		statsHandling(4,"Депозити и кредити по количествени категории и икономически дейности","ДЕПОЗИТИ И КРЕДИТИ ПО КОЛИЧЕСТВЕНИ КАТЕГОРИИ И ИКОНОМИЧЕСКИ ДЕЙНОСТИ",
+		$this->statsHandling(4,"Депозити и кредити по количествени категории и икономически дейности","ДЕПОЗИТИ И КРЕДИТИ ПО КОЛИЧЕСТВЕНИ КАТЕГОРИИ И ИКОНОМИЧЕСКИ ДЕЙНОСТИ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSMonetaryStatistics/POPRSDepositsLoans");
 	}
 
 	function bnb_LihvenaStatistika() {
-		statsHandling(5,"Лихвена статистика","ЛИХВЕНА СТАТИСТИКА",
+		$this->statsHandling(5,"Лихвена статистика","ЛИХВЕНА СТАТИСТИКА",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSInterestRate");
 	}
 
 	function bnb_LizingoviDrujestva() {
-		statsHandling(6,"Статистика на лизинговата дейност","СТАТИСТИКА НА ЛИЗИНГОВАТА ДЕЙНОСТ",
+		$this->statsHandling(6,"Статистика на лизинговата дейност","СТАТИСТИКА НА ЛИЗИНГОВАТА ДЕЙНОСТ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSLeasingCompanies");
 	}
 
 	function bnb_InvesticionniFondove() {
-		statsHandling(7,"Статистика на инвестиционните фондове","СТАТИСТИКА НА ИНВЕСТИЦИОННИТЕ ФОНДОВЕ",
+		$this->statsHandling(7,"Статистика на инвестиционните фондове","СТАТИСТИКА НА ИНВЕСТИЦИОННИТЕ ФОНДОВЕ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSInvestmentFonds");
 	}
 
 	function bnb_KoreditiraneDrujestva() {
-		statsHandling(8,"Дружества, специализирани в кредитиране","СТАТИСТИКА НА ДРУЖЕСТВАТА, СПЕЦИАЛИЗИРАНИ В КРЕДИТИРАНЕ",
+		$this->statsHandling(8,"Дружества, специализирани в кредитиране","СТАТИСТИКА НА ДРУЖЕСТВАТА, СПЕЦИАЛИЗИРАНИ В КРЕДИТИРАНЕ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSLendingCorporations");
 	}
 
 	function bnb_ZastrahovatelnaDeinost() {
-		statsHandling(9,"Статистика на застрахователната дейност","СТАТИСТИКА НА ЗАСТРАХОВАТЕЛНАТА ДЕЙНОСТ",
+		$this->statsHandling(9,"Статистика на застрахователната дейност","СТАТИСТИКА НА ЗАСТРАХОВАТЕЛНАТА ДЕЙНОСТ",
 			"http://bnb.bg/PressOffice/POStatisticalPressReleases/POPRSInsuranceCompanies");
 	}
 
