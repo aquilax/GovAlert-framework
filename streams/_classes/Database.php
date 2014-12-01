@@ -3,7 +3,8 @@
 class Database {
 
 	private $config;
-	private $link;
+	// TODO: Fix visibility
+	public $link;
 
 	function __construct($config, Logger $logger) {
 		$this->config = $config;
@@ -29,6 +30,10 @@ class Database {
 			die($message);
 		}
 		return $res;
+	}
+
+	function escape_string($value) {
+		return $this->link->escape_string($value);
 	}
 }
 

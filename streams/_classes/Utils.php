@@ -13,6 +13,13 @@ class Utils {
 		return str_replace($lat, $cyr, $textLat);
 	}
 
+	static function cleanSpaces($text) {
+		$text = str_replace(" "," ",$text);
+		$text = mb_ereg_replace("[\n\r\t ]+"," ",$text);
+		$text = mb_ereg_replace("(^\s+)|(\s+$)", "", $text);
+		return $text;
+	}
+
 }
 
 function linkCode($id) {
@@ -73,12 +80,7 @@ function codeToUrl($code) {
 -------Text tools----------------------------------------------------------
 */
 
-function text_cleanSpaces($text) {
-	$text = str_replace(" "," ",$text);
-	$text = mb_ereg_replace("[\n\r\t ]+"," ",$text);
-	$text = mb_ereg_replace("(^\s+)|(\s+$)", "", $text);
-	return $text;
-}
+
 
 function text_fixCase($text) {
 	if (mb_convert_case($text,MB_CASE_UPPER)==$text ||

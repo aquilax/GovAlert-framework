@@ -17,6 +17,7 @@ require_once ($classesBase . '/Database.php');
 require_once ($classesBase . '/Logger.php');
 require_once ($classesBase . '/TaskManager.php');
 require_once ($classesBase . '/Utils.php');
+require_once ($classesBase . '/Task.php');
 
 require_once ($classesBase . '/session.php');
 require_once ($classesBase . '/http.php');
