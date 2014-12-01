@@ -49,7 +49,7 @@ class Aop extends Task{
 			$query[]=array($title,$description,1,$date,'http://www.cik.bg/',$hash);
 		}
 
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 		queueTweets($itemids);
 	}
 

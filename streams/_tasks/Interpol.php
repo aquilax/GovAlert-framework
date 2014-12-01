@@ -178,7 +178,7 @@ function interpolProcess($prop) {
 	}
 
 	echo "Възможни ".count($query)." нови ${prop[0]}\n";
-	$itemids = saveItems($query);
+	$itemids = $this->saveItems($query);
 	if (count($itemids)>5)
 		queueTextTweet(sprintf($prop[3],count($itemids)),$prop[3],$prop[6],$prop[7]);
 	else

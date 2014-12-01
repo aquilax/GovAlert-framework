@@ -120,7 +120,7 @@ class Bas extends Task{
 		}
 		$this->logger->info('Възможни ' . count($query). ' нови земетресения');
 
-		$itemIds = saveItems($query);
+		$itemIds = $this->saveItems($query);
 
 		if (count($itemIds) <= 3) {
 			queueTweets($itemIds);

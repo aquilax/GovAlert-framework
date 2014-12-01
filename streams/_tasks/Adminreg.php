@@ -63,7 +63,7 @@ class Adminreg extends Task{
 		}
 
 		echo "Възможни ".count($query)." нови конкурси\n";
-		$itemIds = saveItems($query);
+		$itemIds = $this->saveItems($query);
 
 		if (count($itemIds) <= 3) {
 			queueTweets($itemIds);

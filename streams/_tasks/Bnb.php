@@ -68,7 +68,7 @@ class Bnb extends Task{
 			$query[]=array($title, $description, $date, $url, $hash);
 		}
 		$this->logger->info('Възможни '.count($query).' нови съобщения');
-		$itemIds = saveItems($query);
+		$itemIds = $this->saveItems($query);
 		queueTweets($itemIds);
 	}
 
@@ -188,7 +188,7 @@ class Bnb extends Task{
 		}
 		$this->logger->info('Възможни ' . count($query) . ' нови tweet');
 
-		$itemIds = saveItems($query);
+		$itemIds = $this->saveItems($query);
 		queueTweets($itemIds);
 	}
 

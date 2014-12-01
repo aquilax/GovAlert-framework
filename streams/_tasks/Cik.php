@@ -44,7 +44,7 @@ class Cik extends Task{
 
 		$this->logger->info('Възможни ' . count($query) . ' нови съобщения');
 
-		$itemIds = saveItems($query);
+		$itemIds = $this->saveItems($query);
 		queueTweets($itemIds);
 	}
 
@@ -77,7 +77,7 @@ class Cik extends Task{
 
 		echo "Възможни ".count($query)." нови решения\n";
 
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 		if (count($itemids)<=5)
 			queueTweets($itemids);
 		else
@@ -109,7 +109,7 @@ class Cik extends Task{
 
 		echo "Възможни ".count($query)." нови записа за дневен ред\n";
 
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 		queueTweets($itemids);
 	}
 
@@ -132,7 +132,7 @@ class Cik extends Task{
 
 		echo "Възможни ".count($query)." нови протокола\n";
 
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 		queueTweets($itemids);
 	}
 
@@ -158,9 +158,9 @@ class Cik extends Task{
 		echo "Възможни ".count($query)." нови жалби\n";
 
 		// TODO: Figure this out
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 		if (count($itemids)<=5)
 			queueTweets($itemids);
 		else
@@ -196,7 +196,7 @@ class Cik extends Task{
 
 		echo "Възможни ".count($query)." нови принципни решения\n";
 
-		$itemids = saveItems($query);
+		$itemids = $this->saveItems($query);
 		queueTweets($itemids);
 	}
 
