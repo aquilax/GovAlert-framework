@@ -59,7 +59,7 @@ function govResheniq() {
     if (strtotime($date)<strtotime("-1 month"))
       continue;
     $title = $item->childNodes->item(2)->childNodes->item(0)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
     $title = "Решение: ".text_fixCase($title);
     $url = "http://www.government.bg".$item->childNodes->item(2)->getAttribute("href");
     $query[]=array($title,null,null,$url,$hash);
@@ -87,7 +87,7 @@ function govSabitiq() {
 	foreach ($items as $item) {
     $hash = md5($item->textContent);
     $title = $item->childNodes->item(1)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
     $title = "Събитие: ".text_fixCase($title);
     $url = "http://www.government.bg".$item->getAttribute("href");
     $query[]=array($title,null,null,$url,$hash);
@@ -111,7 +111,7 @@ function govDokumenti() {
 	foreach ($items as $item) {
     $hash = md5($item->textContent);
     $title = $item->childNodes->item(1)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
     $title = "Нов документ: ".text_fixCase($title);
     $url = "http://www.government.bg".$item->getAttribute("href");
     $query[]=array($title,null,null,$url,$hash);
@@ -160,7 +160,7 @@ function govNovini() {
       $description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
       $description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?","",$description);
       $description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
-      $description = text_cleanSpaces($description);
+      $description = Utils::cleanSpaces($description);
 	    $description = html_entity_decode($description);
 
       $itemimgs = $xpathsub->query(".//img",$itemsub->item(0));
@@ -172,14 +172,14 @@ function govNovini() {
             $imageurl="http://www.government.bg/".$imageurl;
           $imageurl=mb_ereg_replace("images","bigimg",$imageurl,"im");
           $imagetitle = trim($itemimg->getAttribute("alt"));
-          $imagetitle = text_cleanSpaces($imagetitle);
+          $imagetitle = Utils::cleanSpaces($imagetitle);
           $media["image"][] = array(loadItemImage($imageurl),$imagetitle);
         }
       }
     }    
 
     $title = $inneritems->item(0)->firstChild->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
 
     $query[]=array($title,$description,$date,$url,$hash,$media);
   }
@@ -230,7 +230,7 @@ function govNovini2() {
       $description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
       $description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?","",$description);
       $description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
-      $description = text_cleanSpaces($description);
+      $description = Utils::cleanSpaces($description);
 	    $description = html_entity_decode($description);
 
       $itemimgs = $xpathsub->query(".//img",$itemsub->item(0));
@@ -242,14 +242,14 @@ function govNovini2() {
             $imageurl="http://www.government.bg/".$imageurl;
           $imageurl=mb_ereg_replace("images","bigimg",$imageurl,"im");
           $imagetitle = trim($itemimg->getAttribute("alt"));
-          $imagetitle = text_cleanSpaces($imagetitle);
+          $imagetitle = Utils::cleanSpaces($imagetitle);
           $media["image"][] = array(loadItemImage($imageurl),$imagetitle);
         }
       }
     } 
 
     $title = $inneritems->item(0)->firstChild->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
 
     $query[]=array($title,$description,$date,$url,$hash,$media);
   }
@@ -272,7 +272,7 @@ function govPorachki() {
 	foreach ($items as $item) {
     $hash = md5($item->textContent);
     $title = $item->childNodes->item(1)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
     $url = "http://www.government.bg".$item->getAttribute("href");
     $query[]=array($title,null,null,$url,$hash);
     if (count($query)>=20)

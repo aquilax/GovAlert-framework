@@ -26,7 +26,8 @@ require_once ($classesBase . '/http.php');
 $logger = new Logger(Config::get('debugLevel'));
 
 $db = new Database(Config::get('db'), $logger);
-$link = $db->connect();
+// TODO: Remove me
+$link = $db;
 
 
 function errorHandler($errno, $errstr, $errfile, $errline) {

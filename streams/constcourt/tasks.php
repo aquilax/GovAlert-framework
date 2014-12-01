@@ -93,7 +93,7 @@ function constcourt_xpathDoc($html,$q) {
 
 
 function constcourt_cleanText($text) {
-  $text = text_cleanSpaces($text);
+  $text = Utils::cleanSpaces($text);
   $text=mb_ereg_replace("Конституционният? съд","КС",$text,"im");
 	$text = html_entity_decode($text);
 	return $text;

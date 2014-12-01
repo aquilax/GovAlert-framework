@@ -256,7 +256,7 @@ function mvrBurgas() {
   $skip=true;
   $query=array();
   foreach ($items as $item) {
-    $fulltext = text_cleanSpaces($item->textContent);
+    $fulltext = Utils::cleanSpaces($item->textContent);
     $item_1 = $xpath->query(".//img",$item);
     if ($skip || ($fulltext=="" && $item_1->length==0)) {
       if ("СЪОБЩЕНИЕ"==$fulltext)
@@ -284,10 +284,10 @@ function mvrBurgas() {
       $description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
       $description = mb_ereg_replace("\s?(title|name|style|class|id|alt|target|align|dir|lang)=[\"'].*?[\"']\s?"," ",$description);
       $description = mb_ereg_replace("<p>[  ]*</p>|<br>[  ]*</br>|<a>[  ]*</a>|<div>[  ]*</div>"," ",$description);
-      $description = text_cleanSpaces($description);
+      $description = Utils::cleanSpaces($description);
       $description = mb_ereg_replace(" >",">",$description);
       $description = mb_ereg_replace("</?span>|&#xD;","",$description);
-      $description = text_cleanSpaces($description);
+      $description = Utils::cleanSpaces($description);
       $description = mb_ereg_replace("> <","><",$description);
       $query[count($query)-1][1].=$description;
 
@@ -335,7 +335,7 @@ function mvrPlovdiv() {
     $date = substr($date,6,4)."-".substr($date,3,2)."-".substr($date,0,2);
 
     $title = $item->childNodes->item(2)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
     $title = text_fixCase($title);
     if (mb_strrpos($title,".")>120) {
       $stoppos=0;
@@ -353,7 +353,7 @@ function mvrPlovdiv() {
     $description = mb_ereg_replace("\s?(title|name|style|class|id|alt|target|align|dir|lang)=[\"'].*?[\"']\s?"," ",$description);
     $description = mb_ereg_replace("<p>[  ]*</p>|<br>[  ]*</br>|<a>[  ]*</a>|<div>[  ]*</div>"," ",$description);
     $description = mb_ereg_replace(" >",">",$description);
-    $description = text_cleanSpaces($description);
+    $description = Utils::cleanSpaces($description);
 
     $query[]=array($title,$description,$date,"http://plovdiv.mvr.bg/news.php",$hash);
   }
@@ -390,19 +390,19 @@ function loadMVRpage($prefix,$logtitle,$logwhat,$num,$url,$urlbase,$retweet=fals
     if ($item_1->length==0 || $item_2->length==0)
       continue;
 
-    $url = $urlbase.text_cleanSpaces($item_1->item(0)->getAttribute("href"));
+    $url = $urlbase. Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
     $hash = md5($url);
     if (!checkHash($hash))
       continue;
 
     $date = $item_2->item(0)->textContent; 
-    $date = text_bgMonth(text_cleanSpaces($date));
+    $date = text_bgMonth(Utils::cleanSpaces($date));
     $date = substr($date,6,4)."-".substr($date,3,2)."-".substr($date,0,2);
     if (strtotime($date)<time()-3600*24*7)
       continue;
 
     $title = $item_1->item(0)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
     $title = $prefix.$title;    
     if (!checkTitle($title))
       continue;
@@ -422,7 +422,7 @@ function loadMVRpage($prefix,$logtitle,$logwhat,$num,$url,$urlbase,$retweet=fals
         $description = mb_ereg_replace("\s?(title|name|style|class|id|alt|target|align|dir)=[\"'].*?[\"']\s?"," ",$description);
         $description = mb_ereg_replace("<p>[  ]*</p>|<br>[  ]*</br>|<a>[  ]*</a>|<div>[  ]*</div>"," ",$description);
         $description = mb_ereg_replace(" >",">",$description);
-        $description = text_cleanSpaces($description);
+        $description = Utils::cleanSpaces($description);
         $description = html_entity_decode($description);
       }
 

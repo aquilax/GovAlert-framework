@@ -132,7 +132,7 @@ function vssNovini() {
     $description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
     $description = mb_ereg_replace("\s?(title|name|style|class|id|face|align|img)=[\"'].*?[\"']\s?","",$description);
     $description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
-    $description = text_cleanSpaces($description);
+    $description = Utils::cleanSpaces($description);
     $description = html_entity_decode($description);
 
     $media=array("image" => array());
@@ -197,7 +197,7 @@ function vss_xpathDoc($html,$q) {
 
 
 function vss_cleanText($text) {
-  $text = text_cleanSpaces($text);
+  $text = Utils::cleanSpaces($text);
 	$text = html_entity_decode($text);
 	return $text;
 }

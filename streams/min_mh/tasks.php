@@ -224,7 +224,7 @@ function mh_xpathDoc($html,$q) {
 
 function mh_cleanText($text) {
 	$text = html_entity_decode($text);
-  $text = text_cleanSpaces($text);
+  $text = Utils::cleanSpaces($text);
   $text = text_fixCase($text);
 	return $text;
 }

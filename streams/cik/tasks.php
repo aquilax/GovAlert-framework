@@ -233,7 +233,7 @@ function cik_cleanTitle($title) {
 }
 
 function cik_cleanText($text) {
-  $text = text_cleanSpaces($text);
+  $text = Utils::cleanSpaces($text);
 	$text = html_entity_decode($text);
 	return $text;
 }

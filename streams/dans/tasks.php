@@ -41,7 +41,7 @@ function dansInformaciq() {
       continue;
 
     $title = $item->childNodes->item(0)->textContent;
-    $title = text_cleanSpaces($title);
+    $title = Utils::cleanSpaces($title);
 
     $url = $item->childNodes->item(1)->textContent;
     $url = str_replace("dans.int/","dans.bg/",$url);
@@ -53,7 +53,7 @@ function dansInformaciq() {
     $description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
     $description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?"," ",$description);
     $description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>"," ",$description);
-    $description = text_cleanSpaces($description);
+    $description = Utils::cleanSpaces($description);
     $description = html_entity_decode($description);
 
     $media=array("image" => array());

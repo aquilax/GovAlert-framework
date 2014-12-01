@@ -201,7 +201,7 @@ function prok_cleanTitle($title) {
 }
 
 function prok_cleanText($text) {
-  $text = text_cleanSpaces($text);
+  $text = Utils::cleanSpaces($text);
 	$text = html_entity_decode($text);
 	return $text;
 }

@@ -1,59 +1,55 @@
 <?php
 
-class Database {
+class Database extends mysqli{
 
 	private $config;
-	// TODO: Fix visibility
-	public $link;
+	private $logger;
 
 	function __construct($config, Logger $logger) {
 		$this->config = $config;
 		$this->logger = $logger;
-	}
-
-	function connect() {
-		$this->link = mysqli_connect(
+		parent::__construct(
 			$this->config['host'],
 			$this->config['user'],
 			$this->config['pass'],
-			$this->config['name']) or die("Не мога да се свържа с базата данни. " . $this->link->error);
-		$this->link->set_charset($this->config['encoding']);
-		return $this->link;
+			$this->config['name']);
+		if ($this->connect_error) {
+			die('Не мога да се свържа с базата данни. ' . $this->connect_error);
+		}
+		$this->set_charset($this->config['encoding']);
 	}
 
-	function query ($sql) {
-		$res = $this->link->query($sql);
+	function query($query, $resultMode = MYSQLI_STORE_RESULT) {
+		$res = parent::query($query, $resultMode);
 		if ($res === false) {
-			$message = 'Грешка при запитване към базата данни: ' . $this->link->error;
+			$message = 'Грешка при запитване към базата данни: ' . $this->error;
 			$this->logger->error($message);
-			reportError($message);
+			$this->reportError($message);
 			die($message);
 		}
 		return $res;
 	}
 
-	function escape_string($value) {
-		return $this->link->escape_string($value);
+	private function reportError($message) {
+		global $session,$debug;
+		if ($message === null)
+			return;
+		$sourceId = $session["sourceid"] != null ? $session["sourceid"] : 0;
+		$category = $session["category"] != null ? $session["category"] : 0;
+		if (is_array($message) || is_object($message))
+			$message = json_encode($message);
+		$e = new Exception();
+		$trace = str_replace("/home/yurukov1/public_html/govalert/","",$e->getTraceAsString());
+		echo "Запазвам грешка [$sourceId,$category]: $message\n$trace\n";
+		if ($debug)
+			return;
+		$message = $this->escape_string("$message\n$trace");
+		$this->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
+		$session["error"]=true;
 	}
 }
 
-function reportError($descr) {
-	global $link,$session,$debug;
-	if ($descr===null)
-		return;
-	$sourceid=$session["sourceid"]!=null ? $session["sourceid"] : 0;
-	$category=$session["category"]!=null ? $session["category"] : 0;
-	if (is_array($descr) || is_object($descr))
-		$descr = json_encode($descr);
-	$e = new Exception();
-	$trace = str_replace("/home/yurukov1/public_html/govalert/","",$e->getTraceAsString());
-	echo "Запазвам грешка [$sourceid,$category]: $descr\n$trace\n";
-	if ($debug)
-		return;
-	$descr = $link->escape_string("$descr\n$trace");
-	$link->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceid,$category,'$descr')") or reportDBErrorAndDie();
-	$session["error"]=true;
-}
+
 
 
 /*

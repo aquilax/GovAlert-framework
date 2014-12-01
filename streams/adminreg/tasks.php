@@ -51,8 +51,8 @@ function arKonkursi() {
       $title.=", ".$item->childNodes->item(1)->textContent;
       $description = $title;
       $title = mb_ereg_replace("Дирекция:|Сектор:|Отдел:|Агенция:","",$title,"im");
-      $title = text_cleanSpaces($title);
-      $description = text_cleanSpaces($description);
+      $title = Utils::cleanSpaces($title);
+      $description = Utils::cleanSpaces($description);
 
       $query[]=array($title,$description,'now',$url,$hash);
     }

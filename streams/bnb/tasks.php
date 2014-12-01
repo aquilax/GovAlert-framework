@@ -143,7 +143,7 @@ function statsHandling($category,$tweet,$titleBig,$url) {
       return;
     }
     $date = $items1->item(0)->textContent;
-    $date = text_cleanSpaces($date);
+    $date = Utils::cleanSpaces($date);
     $datepos = mb_strpos($date," ",mb_strlen("ПРЕССЪОБЩЕНИЕ"))+1;
     $date = mb_substr($date,$datepos,mb_strpos($date,"ч.")-$datepos-1);
     $date = text_bgMonth($date);
@@ -210,7 +210,7 @@ function bnb_xpath($html) {
 
 function bnb_cleanText($text) {
 	$text = html_entity_decode($text);
-  $text = text_cleanSpaces($text);
+  $text = Utils::cleanSpaces($text);
   $text = text_fixCase($text);
 	return $text;
 }
