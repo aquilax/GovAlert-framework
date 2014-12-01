@@ -8,7 +8,9 @@ require_once(BASEPATH . "/_classes/twitter.php");
 $logger->info('STREAMS');
 
 $force = count($argv) > 1;
-TaskManager::runTasks($db, $logger, $force );
+$taskManager = new TaskManager($db, $logger);
+$taskManager->runTasks( $force );
+
 postTwitter();
 
 $logger->info('END');

@@ -5,8 +5,16 @@
 
 class TaskManager {
 
+	private $db;
+	private $logger;
+
+	public function __construct(Database $db, Logger $logger) {
+		$this->db = $db;
+		$this->logger = $logger;
+	}
+
 	// TODO: Remove me when all tasks are migrated to classRun
-	static function legacyRun($lib, $task) {
+	private function legacyRun($lib, $task) {
 		$taskFilePath = BASEPATH . '/' . $lib . '/tasks.php';
 		if (file_exists($taskFilePath)) {
 			require_once($taskFilePath);
@@ -17,51 +25,57 @@ class TaskManager {
 		return false;
 	}
 
-	static function classRun($lib, $method, Database $db, Logger $logger) {
+	private function classRun($lib, $method) {
 		$className = ucfirst($lib);
 		$taskClassFilePath = BASEPATH . '/_tasks/' . $className . '.php';
 		echo $taskClassFilePath.PHP_EOL;
 		if (file_exists($taskClassFilePath)) {
 			require_once($taskClassFilePath);
 			resetSession();
-			$task = new $className($db, $logger);
+			$task = new $className($this->db, $this->logger);
 			$task->{$method}();
 			return true;
 		}
 		return false;
 	}
 
-	static function runTasks(Database $db, Logger $logger, $force) {
+	public function runTask($lib, $task, $delay, $force) {
 		global $session;
-		$res = $db->query('SELECT tasktd FROM task_stat WHERE tasks IS NULL AND tasktd > date_sub(now(), INTERVAL 30 MINUTE) LIMIT 1');
+		$run = self::legacyRun($lib, $task);
+		if (!$run) {
+			$run = self::classRun($lib, $task);
+		}
+		if ($run && !$force && $delay != 0) {
+			if (!$session["error"] || $delay <= 4) {
+				if ($delay > 24) {
+					$this->db->query("UPDATE task SET lastrun=date_sub(now(),interval " . rand(10, 180) . " minute) where lib='${lib}' and task='${task}' limit 1");
+				} else {
+					$this->db->query("UPDATE task SET lastrun=now() where lib='${lib}' and task='${task}' limit 1");
+				}
+			} else {
+				$this->logger->error('Засякох грешка. Не маркирам като пусната задача. Ще опитам пак след малко.');
+			}
+		}
+	}
+
+	public function runTasks($force) {
+		$res = $this->db->query('SELECT tasktd FROM task_stat WHERE tasks IS NULL AND tasktd > date_sub(now(), INTERVAL 30 MINUTE) LIMIT 1');
 		if ($res->num_rows > 0) {
-			$logger->info('Върви друг процес');
+			$this->logger->info('Върви друг процес');
 			return;
 		}
 		$res->free();
-		$db->query('INSERT LOW_PRIORITY ignore INTO task_stat VALUE (now(),null,null)');
+		$this->db->query('INSERT LOW_PRIORITY ignore INTO task_stat VALUE (now(),null,null)');
 
 		$loadStart=microtime(true);
-		$res = $db->query("SELECT lib, task, delay FROM task WHERE active=1".($force?"":" and (lastrun is null or date_add(lastrun, interval delay hour)<=date_add(now(), interval 5 minute))")." order by lib asc, priority desc limit 30");
+		$res = $this->db->query("SELECT lib, task, delay FROM task WHERE active=1".($force?"":" and (lastrun is null or date_add(lastrun, interval delay hour)<=date_add(now(), interval 5 minute))")." order by lib asc, priority desc limit 30");
 		$taskCount = $res->num_rows;
-		$logger->info('Пускам ' . $taskCount . ' задачи');
+		$this->logger->info('Пускам ' . $taskCount . ' задачи');
 		while ($row = $res->fetch_assoc()) {
-			$run = self::legacyRun($row['lib'], $row['task']);
-			if (!$run) {
-				$run = self::classRun($row['lib'], $row['task'], $db, $logger);
-			}
-			if ($run && !$force && $row["delay"] != 0) {
-				if (!$session["error"] || $row["delay"] <= 4) {
-					if ($row["delay"] > 24)
-						$db->query("UPDATE task SET lastrun=date_sub(now(),interval " . rand(10, 180) . " minute) where lib='${row["lib"]}' and task='${row["task"]}' limit 1");
-					else
-						$db->query("UPDATE task SET lastrun=now() where lib='${row["lib"]}' and task='${row["task"]}' limit 1");
-				} else
-					$logger->error('Засякох грешка. Не маркирам като пусната задача. Ще опитам пак след малко.');
-			}
+			$this->runTask($row['lib'], $row['task'], $row['delay'], $force);
 		}
 		$res->free();
-		$tool=ceil((microtime(true)-$loadStart)*1000);
-		$db->query("UPDATE task_stat SET tasks=$taskCount, took=$tool WHERE tasks IS NULL LIMIT 1");
+		$took = ceil((microtime(true) - $loadStart) * 1000);
+		$this->db->query("UPDATE task_stat SET tasks=$taskCount, took=$took WHERE tasks IS NULL LIMIT 1");
 	}
 }

@@ -169,15 +169,15 @@ class Bnb extends Task{
 			$media=null;
 			$items2 = $xpath1->query(".//img",$items1->item(0));
 			foreach ($items2 as $item2) {
-				$imageurl = "http://bnb.bg".$item2->getAttribute("src");
-				$imageurl = loadItemImage($imageurl);
-				if ($imageurl==null) continue;
+				$imageURL = "http://bnb.bg" . $item2->getAttribute("src");
+				$imageURL = loadItemImage($imageURL, []);
+				if ($imageURL==null) continue;
 				if ($media==null)
-					$media = array("image" => array($imageurl,null));
+					$media = array("image" => array($imageURL, null));
 				else {
 					if (!is_array($media["image"][0]))
 						$media["image"] = array($media["image"]);
-					$media["image"][] = array($imageurl,null);
+					$media["image"][] = array($imageURL, null);
 				}
 			}
 
@@ -186,10 +186,10 @@ class Bnb extends Task{
 
 			$query[]=array($title,$description,$date,$url,$hash,$media);
 		}
-		echo "Възможни ".count($query)." нов $tweet\n";
+		$this->logger->info('Възможни ' . count($query) . ' нови tweet');
 
-		$itemids = saveItems($query);
-		queueTweets($itemids);
+		$itemIds = saveItems($query);
+		queueTweets($itemIds);
 	}
 
 	private function xpathDoc($html,$q) {
