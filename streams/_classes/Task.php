@@ -65,8 +65,8 @@ class Task {
 			$query = array_reverse($query);
 			foreach ($query as $value) {
 				$this->db->query("insert LOW_PRIORITY ignore into item (title,description,sourceid,category,pubts,readts,url,hash) value ".$value[0]) or reportDBErrorAndDie();
-				if ($this->db->link->affected_rows>0) {
-					$changed[]=$this->db->link->insert_id;
+				if ($this->db->affected_rows>0) {
+					$changed[]=$this->db->insert_id;
 					if ($value[1] && is_array($value[1])) {
 						$mediaquery = array();
 						foreach ($value[1] as $mediakey => $mediavalue) {
@@ -78,12 +78,12 @@ class Task {
 										continue;
 									$mediavalueitem[0] = "'".$this->db->escape_string($mediavalueitem[0])."'";
 									$mediavalueitem[1] = !$mediavalueitem[1] || $mediavalueitem[1]==null ? "null" : "'".$this->db->escape_string($mediavalueitem[1])."'";
-									$mediaquery[]="(".$$this->db->link->insert_id.",'$mediakey',".$mediavalueitem[0].",".$mediavalueitem[1].")";
+									$mediaquery[]="(".$$this->db->insert_id.",'$mediakey',".$mediavalueitem[0].",".$mediavalueitem[1].")";
 								}
 							} else {
 								$mediavalue[0] = "'".$this->db->escape_string($mediavalue[0])."'";
 								$mediavalue[1] = !$mediavalue[1] || $mediavalue[1]==null ? "null" : "'".$this->db->escape_string($mediavalue[1])."'";
-								$mediaquery[]="(".$$this->db->link->insert_id.",'$mediakey',".$mediavalue[0].",".$mediavalue[1].")";
+								$mediaquery[]="(".$$this->db->insert_id.",'$mediakey',".$mediavalue[0].",".$mediavalue[1].")";
 							}
 						}
 						$this->db->query("insert LOW_PRIORITY ignore into item_media (itemid,type,value,description) values ".implode(",",$mediaquery)) or reportDBErrorAndDie();
