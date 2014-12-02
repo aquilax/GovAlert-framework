@@ -4,12 +4,12 @@
     Session handling
 */
 
-function setSession($sourceid,$category) {
-	global $session;
-	$session["sourceid"]=$sourceid;
-	$session["category"]=$category;
-	$session["error"]=false;
-}
+//function setSession($sourceid,$category) {
+//	global $session;
+//	$session["sourceid"]=$sourceid;
+//	$session["category"]=$category;
+//	$session["error"]=false;
+//}
 
 function resetSession() {
 	global $session;

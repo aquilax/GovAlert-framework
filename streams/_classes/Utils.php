@@ -20,6 +20,30 @@ class Utils {
 		return $text;
 	}
 
+	static function bgMonth($text) {
+		$text = mb_ereg_replace("Януари|януари|ЯНУАРИ","01",$text,"imsr");
+		$text = mb_ereg_replace("Февруари|февруари|ФЕВРУАРИ","02",$text,"imsr");
+		$text = mb_ereg_replace("Март|март|МАРТ","03",$text,"imsr");
+		$text = mb_ereg_replace("Април|април|АПРИЛ","04",$text,"imsr");
+		$text = mb_ereg_replace("Май|май|МАЙ","05",$text,"imsr");
+		$text = mb_ereg_replace("Юни|юни|ЮНИ","06",$text,"imsr");
+		$text = mb_ereg_replace("Юли|юли|ЮЛИ","07",$text,"imsr");
+		$text = mb_ereg_replace("Август|август|АВГУСТ","08",$text,"imsr");
+		$text = mb_ereg_replace("Септември|септември|СЕПТЕМВРИ","09",$text,"imsr");
+		$text = mb_ereg_replace("Октомври|октомври|ОКТОМВРИ","10",$text,"imsr");
+		$text = mb_ereg_replace("Ноември|ноември|НОЕМВРИ","11",$text,"imsr");
+		$text = mb_ereg_replace("Декември|декември|ДЕКЕМВРИ","12",$text,"imsr");
+		return $text;
+	}
+
+
+	static function fixCase($text) {
+		if (mb_convert_case($text,MB_CASE_UPPER)==$text ||
+			mb_convert_case($text,MB_CASE_LOWER)==$text)
+			return mb_convert_case($text,MB_CASE_TITLE);
+		return $text;
+	}
+
 }
 
 function linkCode($id) {
@@ -82,25 +106,4 @@ function codeToUrl($code) {
 
 
 
-function text_fixCase($text) {
-	if (mb_convert_case($text,MB_CASE_UPPER)==$text ||
-		mb_convert_case($text,MB_CASE_LOWER)==$text)
-		return mb_convert_case($text,MB_CASE_TITLE);
-	return $text;
-}
 
-function text_bgMonth($text) {
-	$text = mb_ereg_replace("Януари|януари|ЯНУАРИ","01",$text,"imsr");
-	$text = mb_ereg_replace("Февруари|февруари|ФЕВРУАРИ","02",$text,"imsr");
-	$text = mb_ereg_replace("Март|март|МАРТ","03",$text,"imsr");
-	$text = mb_ereg_replace("Април|април|АПРИЛ","04",$text,"imsr");
-	$text = mb_ereg_replace("Май|май|МАЙ","05",$text,"imsr");
-	$text = mb_ereg_replace("Юни|юни|ЮНИ","06",$text,"imsr");
-	$text = mb_ereg_replace("Юли|юли|ЮЛИ","07",$text,"imsr");
-	$text = mb_ereg_replace("Август|август|АВГУСТ","08",$text,"imsr");
-	$text = mb_ereg_replace("Септември|септември|СЕПТЕМВРИ","09",$text,"imsr");
-	$text = mb_ereg_replace("Октомври|октомври|ОКТОМВРИ","10",$text,"imsr");
-	$text = mb_ereg_replace("Ноември|ноември|НОЕМВРИ","11",$text,"imsr");
-	$text = mb_ereg_replace("Декември|декември|ДЕКЕМВРИ","12",$text,"imsr");
-	return $text;
-}
