@@ -33,7 +33,7 @@ class Government extends Task{
 				continue;
 			}
 			$title = $item->childNodes->item(0)->childNodes->item(1)->textContent;
-			$title = text_fixCase($title);
+			$title = Utils::fixCase($title);
 			$title = mb_ereg_replace("Министерския съвет","МС",$title,"im");
 			$url = "http://www.government.bg".$item->childNodes->item(0)->getAttribute("href");
 			$query[]=array($title,null,null,$url,$hash);
@@ -84,7 +84,7 @@ class Government extends Task{
 
 		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0217&g=",2);
 		if (!$html) return;
-		$items = xpathDoc($html,"//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a");
+		$items = $this->xpathDoc($html,"//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a");
 
 		echo "Открити ".$items->length." събития\n";
 		$query=array();
@@ -177,7 +177,7 @@ class Government extends Task{
 						$imageurl=mb_ereg_replace("images","bigimg",$imageurl,"im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array(loadItemImage($imageurl),$imagetitle);
+						$media["image"][] = array(loadItemImage($imageurl, []),$imagetitle);
 					}
 				}
 			}
@@ -247,7 +247,7 @@ class Government extends Task{
 						$imageurl=mb_ereg_replace("images","bigimg",$imageurl,"im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array(loadItemImage($imageurl),$imagetitle);
+						$media["image"][] = array(loadItemImage($imageurl, []),$imagetitle);
 					}
 				}
 			}
@@ -269,7 +269,7 @@ class Government extends Task{
 
 		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=",6);
 		if (!$html) return;
-		$items = xpathDoc($html,"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']");
+		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']");
 
 		echo "Открити ".$items->length." съобщения за обществени поръчки\n";
 		$query=array();
