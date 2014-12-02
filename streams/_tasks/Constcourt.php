@@ -13,7 +13,7 @@ class Constcourt extends Task{
 		echo "> Проверявам за новини в Конституционен съд\n";
 		$this->setSession(8,0);
 
-		$html = loadURL("http://constcourt.bg/news",0);
+		$html = $this->loadURL("http://constcourt.bg/news",0);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='is-post is-post-excerpt']");
 
@@ -45,7 +45,7 @@ class Constcourt extends Task{
 		echo "> Проверявам за съобщения в Конституционен съд\n";
 		$this->setSession(8,1);
 
-		$html = loadURL("http://constcourt.bg/caseannouncements",1);
+		$html = $this->loadURL("http://constcourt.bg/caseannouncements",1);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='is-post is-post-excerpt']");
 

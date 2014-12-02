@@ -22,7 +22,7 @@ class Bnb extends Task{
 		$this->logger->info('> Проверявам за съобщения в БНБ');
 		$this->setSession(15, 0);
 
-		$html = loadURL("http://bnb.bg/PressOffice/POPressReleases/POPRDate/index.htm",0);
+		$html = $this->loadURL("http://bnb.bg/PressOffice/POPressReleases/POPRDate/index.htm",0);
 		if (!$html) {
 			return;
 		}
@@ -42,7 +42,7 @@ class Bnb extends Task{
 			$url = "http://bnb.bg/PressOffice/POPressReleases/POPRDate/".$item->getAttribute("href");
 			$hash = md5($url);
 
-			$html1 = loadURL($url);
+			$html1 = $this->loadURL($url);
 			if (!$html1) {
 				return;
 			}
@@ -122,7 +122,7 @@ class Bnb extends Task{
 		echo "> Проверявам за $tweet в БНБ\n";
 		setSession(15,$category);
 
-		$html = loadURL("$url/index.htm",$category);
+		$html = $this->loadURL("$url/index.htm",$category);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@id='main']//h4/a");
 		if (!$items || $items->length==0) {
@@ -134,7 +134,7 @@ class Bnb extends Task{
 			$url = $url."/".$item->getAttribute("href");
 			$hash = md5($url);
 
-			$html1 = loadURL($url);
+			$html1 = $this->loadURL($url);
 			if (!$html1) return;
 			$xpath1 = $this->xpath($html1);
 			if (!$xpath1) {

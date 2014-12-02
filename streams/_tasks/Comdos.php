@@ -9,9 +9,9 @@ class Comdos extends Task {
 
 	function comdosResheniq() {
 		echo "> Проверявам за решения на КомДос\n";
-		setSession(5,0);
+		$this->setSession(5,0);
 
-		$html = loadURL("http://www.comdos.bg/",0);
+		$html = $this->loadURL("http://www.comdos.bg/",0);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='contentWrapper']//a");
 

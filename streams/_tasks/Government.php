@@ -17,7 +17,7 @@ class Government extends Task{
 		echo "> Проверявам заседания на кабинета\n";
 		$this->setSession(3,0);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0225&g=",0);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0225&g=",0);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//td[@valign='top' and starts-with(./a/font/text(),'Дневен ред')]");
 
@@ -48,7 +48,7 @@ class Government extends Task{
 		echo "> Проверявам решения на кабинета\n";
 		$this->setSession(3,1);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=",1);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=",1);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Решенията Накратко']//td[@valign='top']/p");
 
@@ -82,7 +82,7 @@ class Government extends Task{
 		echo "> Проверявам събития на кабинета\n";
 		$this->setSession(3,2);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0217&g=",2);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0217&g=",2);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a");
 
@@ -106,7 +106,7 @@ class Government extends Task{
 		echo "> Проверявам документи на кабинета\n";
 		$this->setSession(3,3);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&g=",3);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&g=",3);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']");
 
@@ -130,7 +130,7 @@ class Government extends Task{
 		echo "> Проверявам водещи новини на кабинета\n";
 		$this->setSession(3,4);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0213&g=",4);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0213&g=",4);
 		if (!$html) return;
 		$xpath = $this->xpath($html);
 		if (!$xpath) return;
@@ -156,7 +156,7 @@ class Government extends Task{
 
 			$description=null;
 			$media=null;
-			$htmlsub = loadURL($url,3);
+			$htmlsub = $this->loadURL($url,3);
 			$xpathsub = $this->xpath($htmlsub);
 			$itemsub = $xpathsub->query("//table[./tbody/tr/td/font[@style='FONT-SIZE: 11px; TEXT-TRANSFORM: uppercase']]");
 			if ($itemsub->length>0) {
@@ -198,7 +198,7 @@ class Government extends Task{
 		echo "> Проверявам новини на кабинета\n";
 		$this->setSession(3,5);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0212&g=",5);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0212&g=",5);
 		if (!$html) return;
 		$xpath = $this->xpath($html);
 		if (!$xpath) return;
@@ -226,7 +226,7 @@ class Government extends Task{
 
 			$description=null;
 			$media=null;
-			$htmlsub = loadURL($url,3);
+			$htmlsub = $this->loadURL($url,3);
 			$xpathsub = $this->xpath($htmlsub);
 			$itemsub = $xpathsub->query("//table[./tbody/tr/td/font[@style='FONT-SIZE: 11px; TEXT-TRANSFORM: uppercase']]");
 			if ($itemsub->length>0) {
@@ -267,7 +267,7 @@ class Government extends Task{
 		echo "> Проверявам за съобщения за обществени поръчки на кабинета\n";
 		$this->setSession(3,6);
 
-		$html = loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=",6);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=",6);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']");
 

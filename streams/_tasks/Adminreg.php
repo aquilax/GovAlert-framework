@@ -12,7 +12,7 @@ class Adminreg extends Task{
 		$this->logger->info('> Проверявам за конкурси в АдминРег');
 		$this->setSession(16,0);
 
-		$html = loadURL("http://ar2.government.bg/ras/konkursi/index.html");
+		$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html");
 		if (!$html) return;
 		$xpath = $this->xpath($html);
 		if (!$xpath) {
@@ -29,7 +29,7 @@ class Adminreg extends Task{
 		$query = [];
 		for ($i=1; $i<=$pages; $i++) {
 			if ($i > 1) {
-				$html = loadURL("http://ar2.government.bg/ras/konkursi/index.html?current_page=$i&regTabs=5&menuTab=10&TypeStruct=");
+				$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html?current_page=$i&regTabs=5&menuTab=10&TypeStruct=");
 				if (!$html) {
 					return;
 				}

@@ -4,10 +4,12 @@ class Task {
 
 	protected $db;
 	protected $logger;
+	protected $debug = false;
 
-	public function __construct(Database $db, Logger $logger) {
+	public function __construct(Database $db, Logger $logger, $debug) {
 		$this->db = $db;
 		$this->logger = $logger;
+		$this->debug = $debug;
 	}
 
 	function setSession($sourceid,$category) {
@@ -15,10 +17,6 @@ class Task {
 		$session["sourceid"]=$sourceid;
 		$session["category"]=$category;
 		$session["error"]=false;
-	}
-
-	function loadURL($address, $linki=null) {
-		return loadURL($address, $linki);
 	}
 
 	function checkHash($hash) {
@@ -93,6 +91,130 @@ class Task {
 		}
 		$this->logger->info('записани ' . count($changed));
 		return $changed;
+	}
+
+	function loadURL($address,$linki=null) {
+		global $session;
+		if (!checkSession())
+			return false;
+
+		echo "Зареждам $address... ";
+
+		$address=str_replace(" ","%20",$address);
+		$hashdata=false;
+		$hashdatadirty=false;
+
+		if (!$this->debug && $linki!==null) {
+			$res = $this->db->query("select hash,lastchanged,etag,headpostpone,ignorehead from scrape where sourceid=".$session["sourceid"]." and url=$linki limit 1");
+			if ($res->num_rows>0)
+				$hashdata=$res->fetch_assoc();
+			$res->free();
+			if ($hashdata && !$hashdata['ignorehead']) {
+				$hashdatadirty=array(0,0,0);
+
+				if ($hashdata['lastchanged']!=null || $hashdata['etag']!=null || $hashdata['headpostpone']==null || strtotime($hashdata['headpostpone'])<time()) {
+					$context  = stream_context_create(array('http' =>array('method'=>'HEAD')));
+					$fd = fopen($address, 'rb', false, $context);
+					$headdata = stream_get_meta_data($fd);
+					fclose($fd);
+					$foundlc=false;
+					$foundet=false;
+					foreach ($headdata as $header) {
+						if ($hashdata['lastchanged']!=null && substr($header,0,strlen("Last-Modified: "))=="Last-Modified: ") {
+							$foundlc=true;
+							if (strtotime(substr($header,strlen("Last-Modified: ")))==strtotime($hashdata['lastchanged'])) {
+								echo "страницата не е променена [Last-Modified]\n";
+								return false;
+							} else {
+								$hashdata['lastchanged']="'".$this->db->escape_string(substr($header,strlen("Last-Modified: ")))."'";
+								$hashdatadirty[0]=1;
+							}
+						}
+						if ($hashdata['etag']!=null && substr($header,0,strlen("ETag: "))=="ETag: ") {
+							$foundet=true;
+							if (substr($header,strlen("ETag: "))==$hashdata['etag'] || substr($header,strlen("ETag: ")+2)==$hashdata['etag']) {
+								echo "страницата не е променена [ETag]\n";
+								return false;
+							} else {
+								$hashdata['etag']=substr($header,strlen("ETag: "));
+								if (substr($header,0,strlen("W/"))=="W/")
+									$hashdata['etag']=substr($hashdata['etag'],2);
+								$hashdata['etag']="'".$this->db->escape_string($hashdata['etag'])."'";
+								$hashdatadirty[1]=1;
+							}
+						}
+					}
+					if (!$foundlc && $hashdata['lastchanged']!=null) {
+						$hashdata['lastchanged']='null';
+						$hashdatadirty[0]=1;
+					}
+					if (!$foundet && $hashdata['etag']!=null) {
+						$hashdata['etag']='null';
+						$hashdatadirty[1]=1;
+					}
+					if (!$foundlc && !$foundet) {
+						$hashdata['headpostpone']='DATE_ADD(NOW(),INTERVAL 1 MONTH)';
+						$hashdatadirty[2]=1;
+					} else if ($hashdata['headpostpone']!=null) {
+						$hashdata['headpostpone']='null';
+						$hashdatadirty[2]=1;
+					}
+				}
+			}
+		}
+
+		$loadstart=microtime(true);
+		$html = file_get_contents($address);
+		setPageLoad($linki!==null?$linki:$address,$loadstart);
+		if ($html===false || $html===null) {
+			sleep(2);
+			echo "втори опит... ";
+			$loadstart=microtime(true);
+			$html = file_get_contents($address);
+			setPageLoad($linki!==null?$linki:$address,$loadstart);
+		}
+
+		if ($html===false || $html===null) {
+			$this->db->reportError("Грешка при зареждане на сайта");
+			echo "грешка при зареждането\n";
+			return false;
+		}
+
+		if (!$this->debug && $linki!==null) {
+			if ($hashdata===false) {
+				// TODO: Figure this out
+				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (".$session["sourceid"].",$linki,'$hash',now())");
+			} else {
+				$hash = md5($html);
+				if ($hashdata['hash']!=null && $hashdata['hash']==$hash) {
+					echo "страницата не е променена [hash]\n";
+					if (!$hashdata['ignorehead']) {
+						if ($hashdata['headpostpone']===null)
+							$this->db->query("update scrape set ignorehead=1 where sourceid=".$session["sourceid"]." and url=$linki limit 1");
+						else if ($hashdatadirty[0] || $hashdatadirty[1] || $hashdatadirty[2]) {
+							$setters = array();
+							if ($hashdatadirty[0])
+								$setters[]='lastchanged='.$hashdata['lastchanged'];
+							if ($hashdatadirty[1])
+								$setters[]='etag='.$hashdata['etag'];
+							if ($hashdatadirty[2])
+								$setters[]='headpostpone='.$hashdata['headpostpone'];
+							$this->db->query("update scrape set ".implode(", ",$setters)." where sourceid=".$session["sourceid"]." and url=$linki limit 1");
+						}
+					}
+					return false;
+				}
+
+				$this->db->query("update scrape set ".
+					($hashdatadirty[0]?'lastchanged='.$hashdata['lastchanged'].', ':'').
+					($hashdatadirty[1]?'etag='.$hashdata['etag'].', ':'').
+					($hashdatadirty[2]?'headpostpone='.$hashdata['headpostpone'].', ':'').
+					"hash='$hash', loadts=now() where sourceid=".$session["sourceid"]." and url=$linki limit 1");
+			}
+		}
+
+		echo "готово\n";
+		return $html;
 	}
 
 }

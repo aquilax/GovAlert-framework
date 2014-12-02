@@ -11,7 +11,7 @@ class Dans {
 		echo "> Проверявам за новини в ДАНС\n";
 		$this->setSession(17,1);
 
-		$html = loadURL("http://www.dans.bg/bg/component/bca-rss-syndicator/?feed_id=1",4);
+		$html = $this->loadURL("http://www.dans.bg/bg/component/bca-rss-syndicator/?feed_id=1",4);
 		if (!$html) return;
 		$xpath = $this->xpath($html, false);
 		if (!$xpath) {

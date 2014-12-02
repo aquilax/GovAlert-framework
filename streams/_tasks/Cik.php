@@ -15,7 +15,7 @@ class Cik extends Task{
 		$this->logger->info('> Проверявам за ЦИК съобщения');
 		$this->setSession(1,0);
 
-		$html = loadURL('http://www.cik.bg/', 0);
+		$html = $this->loadURL('http://www.cik.bg/', 0);
 		if (!$html) {
 			return;
 		}
@@ -52,7 +52,7 @@ class Cik extends Task{
 		$this->logger->info('> Проверявам за ЦИК решения');
 		$this->setSession(1,1);
 
-		$html = loadURL("http://www.cik.bg/reshenie",1);
+		$html = $this->loadURL("http://www.cik.bg/reshenie",1);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='block main-block']//li");
 
@@ -88,7 +88,7 @@ class Cik extends Task{
 		echo "> Проверявам за ЦИК дневен ред\n";
 		setSession(1,2);
 
-		$html = loadURL("http://www.cik.bg/406",2);
+		$html = $this->loadURL("http://www.cik.bg/406",2);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='block main-block']//li");
 
@@ -117,7 +117,7 @@ class Cik extends Task{
 		echo "> Проверявам за ЦИК протоколи\n";
 		setSession(1,3);
 
-		$html = loadURL("http://www.cik.bg/405",3);
+		$html = $this->loadURL("http://www.cik.bg/405",3);
 		$items = $this->xpathDoc($html,"//div[@class='block main-block']//li");
 
 		$query=array();
@@ -140,7 +140,7 @@ class Cik extends Task{
 		echo "> Проверявам за ЦИК жалби\n";
 		setSession(1,4);
 
-		$html = loadURL("http://www.cik.bg/jalbi",4);
+		$html = $this->loadURL("http://www.cik.bg/jalbi",4);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='block main-block']//td/a");
 
@@ -171,7 +171,7 @@ class Cik extends Task{
 		echo "> Проверявам за ЦИК принципни решения\n";
 		setSession(1,5);
 
-		$html = loadURL("http://www.cik.bg/reshenie_principni",5);
+		$html = $this->loadURL("http://www.cik.bg/reshenie_principni",5);
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@class='block main-block']//li");
 
