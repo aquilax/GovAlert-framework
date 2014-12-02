@@ -126,14 +126,6 @@ function checkHash($hash) {
 	return $res->num_rows==0;
 }
 
-function checkTitle($title) {
-	global $link,$session;
-	if (!checkSession())
-		return true;
-	$res=$link->query("select hash from item where title='$title' and sourceid=${session['sourceid']} limit 1") or reportDBErrorAndDie();
-	return $res->num_rows==0;
-}
-
 /*
 -------Utils----------------------------------------------------------
 */

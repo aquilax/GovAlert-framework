@@ -217,4 +217,14 @@ class Task {
 		return $html;
 	}
 
+
+	function checkTitle($title) {
+		global $session;
+		if (!checkSession())
+			return true;
+		$res = $this->db->query("select hash from item where title='$title' and sourceid=${session['sourceid']} limit 1");
+		return $res->num_rows==0;
+	}
+
+
 }
