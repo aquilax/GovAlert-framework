@@ -86,7 +86,7 @@ class Cik extends Task{
 
 	function cikDnevenRed() {
 		echo "> Проверявам за ЦИК дневен ред\n";
-		setSession(1,2);
+		$this->setSession(1,2);
 
 		$html = $this->loadURL("http://www.cik.bg/406",2);
 		if (!$html) return;
@@ -115,7 +115,7 @@ class Cik extends Task{
 
 	function cikProtokol() {
 		echo "> Проверявам за ЦИК протоколи\n";
-		setSession(1,3);
+		$this->setSession(1,3);
 
 		$html = $this->loadURL("http://www.cik.bg/405",3);
 		$items = $this->xpathDoc($html,"//div[@class='block main-block']//li");
@@ -138,7 +138,7 @@ class Cik extends Task{
 
 	function cikJalbi() {
 		echo "> Проверявам за ЦИК жалби\n";
-		setSession(1,4);
+		$this->setSession(1,4);
 
 		$html = $this->loadURL("http://www.cik.bg/jalbi",4);
 		if (!$html) return;
@@ -169,7 +169,7 @@ class Cik extends Task{
 
 	function cikPrincipniResheniq() {
 		echo "> Проверявам за ЦИК принципни решения\n";
-		setSession(1,5);
+		$this->setSession(1,5);
 
 		$html = $this->loadURL("http://www.cik.bg/reshenie_principni",5);
 		if (!$html) return;

@@ -19,38 +19,38 @@ class Aop extends Task{
 			"go_page=0&doc_description=&u_id=&key_word=&btn_pressed=%D0%A2%D1%8A%D1%80%D1%81%D0%B8+...");
 		if (!$html)
 			return;
-		if (!checkPageChanged($html,12,0))
+		if (!$this->checkPageChanged($html,12,0))
 			return;
-		$items = xpathDoc($html,"//table[@id='resultaTable']//tr");
+		$items = $this->xpathDoc($html,"//table[@id='resultaTable']//tr");
 // TODO: Figure this out
 		echo $items->length;
 		exit;
-
-		$info = array();
-		$query=array();
-		foreach ($items as $item) {
-			$hash = md5($item->textContent);
-			$date = trim($item->childNodes->item(1)->textContent);
-			$date = substr($date,6,4)."-".substr($date,3,2)."-".substr($date,0,2);
-			$date = $link->escape_string($date);
-			$item->removeAttribute("class");
-			$item->removeChild($item->childNodes->item(1));
-			$item->removeChild($item->childNodes->item(0));
-			$description = $item->C14N();
-			$description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
-			$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?","",$description);
-			$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
-			$description = cik_cleanText($description);
-			$description = $link->escape_string($description);
-			$title = $item->textContent;
-			$title = cik_cleanTitle($title);
-			$title = "Съобщение: ".cik_cleanText($title);
-			$title = $link->escape_string($title);
-			$query[]=array($title,$description,1,$date,'http://www.cik.bg/',$hash);
-		}
-
-		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+//
+//		$info = array();
+//		$query=array();
+//		foreach ($items as $item) {
+//			$hash = md5($item->textContent);
+//			$date = trim($item->childNodes->item(1)->textContent);
+//			$date = substr($date,6,4)."-".substr($date,3,2)."-".substr($date,0,2);
+//			$date = $link->escape_string($date);
+//			$item->removeAttribute("class");
+//			$item->removeChild($item->childNodes->item(1));
+//			$item->removeChild($item->childNodes->item(0));
+//			$description = $item->C14N();
+//			$description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
+//			$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?","",$description);
+//			$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
+//			$description = cik_cleanText($description);
+//			$description = $link->escape_string($description);
+//			$title = $item->textContent;
+//			$title = cik_cleanTitle($title);
+//			$title = "Съобщение: ".cik_cleanText($title);
+//			$title = $link->escape_string($title);
+//			$query[]=array($title,$description,1,$date,'http://www.cik.bg/',$hash);
+//		}
+//
+//		$itemids = $this->saveItems($query);
+//		queueTweets($itemids);
 	}
 
 	/*

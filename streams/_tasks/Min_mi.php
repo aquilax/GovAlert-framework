@@ -13,7 +13,7 @@
 */
 
 
-class Min_mi {
+class Min_mi extends Task {
 
 	function mi_Obqvi() {
 		echo "> Проверявам за обяви в МИЕ\n";
@@ -21,7 +21,7 @@ class Min_mi {
 
 		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c38-1.html",0);
 		if (!$html) return;
-		$items = xpathDoc($html,"//div[@class='col2']/div[@class='row']");
+		$items = $this->xpathDoc($html,"//div[@class='col2']/div[@class='row']");
 
 		$query=array();
 		foreach ($items as $item) {
@@ -184,7 +184,7 @@ class Min_mi {
 		echo "> Проверявам за концентрация фин.ср. в МИЕ\n";
 		$this->setSession(11,6);
 
-		$html = loadURL("http://www.mi.government.bg/bg/themes/nalichie-na-koncentraciya-na-finansovi-sredstva-1314-441.html");
+		$html = $this->loadURL("http://www.mi.government.bg/bg/themes/nalichie-na-koncentraciya-na-finansovi-sredstva-1314-441.html");
 		if (!$html) return;
 		$items = $this->xpathDoc($html,"//div[@id='description']//p[a]");
 

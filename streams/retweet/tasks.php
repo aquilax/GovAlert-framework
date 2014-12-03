@@ -3,7 +3,7 @@
 function retweetAccounts() {
   global $link;
 
-  setSession(20,1);
+  $this->setSession(20,1);
   
   $currentHour = intval(date("H"));  
   
@@ -24,7 +24,7 @@ function retweetAccounts() {
     $attempts--;
 
     $res=$link->query("SELECT twitter, lasttweet, lastretweet, if(tw_num=0,0,(tw_rts+tw_fav)/tw_num*2/3) ".
-      "FROM s_retweet order by lastcheck asc limit 1") or reportDBErrorAndDie();
+      "FROM s_retweet order by lastcheck asc limit 1");
 
     $account='BgPresidency';
     $lasttweet=null;
@@ -89,15 +89,15 @@ function retweetAccounts() {
 
         $link->query("update s_retweet set lasttweet='".$tweets[0][2]."', lastretweet=now(), lastcheck=now(), ".
           "tw_rts=tw_rts+".$tweets[0][0].", tw_fav=tw_fav+".$tweets[0][1].", tw_num=tw_num+1 ".
-          "where twitter='$account' limit 1") or reportDBErrorAndDie();
+          "where twitter='$account' limit 1");
 
-        $link->query("insert LOW_PRIORITY ignore into tweet (account, queued, retweet) value ('govalerteu',now(),'".$tweets[0][2]."')") or reportDBErrorAndDie(); 
+        $link->query("insert LOW_PRIORITY ignore into tweet (account, queued, retweet) value ('govalerteu',now(),'".$tweets[0][2]."')");
 
         break;
       }
     }
 
-    $link->query("update s_retweet set lastcheck=now() where twitter='$account' limit 1") or reportDBErrorAndDie();
+    $link->query("update s_retweet set lastcheck=now() where twitter='$account' limit 1");
   }
 }
 

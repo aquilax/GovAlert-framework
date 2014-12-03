@@ -1,7 +1,7 @@
 <?php
 require_once('init.php');
 
-$url = codeToUrl($_GET["code"]);
+$url = codeToUrl($db, $_GET["code"]);
 if ($url===false) {
   header("HTTP/1.0 404 Not Found");
   echo "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">

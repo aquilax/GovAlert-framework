@@ -4,7 +4,7 @@ Links
 0: информация http://www.dans.bg/bg/component/bca-rss-syndicator/?feed_id=1
 */
 
-class Dans {
+class Dans extends Task{
 
 	function dansInformaciq() {
 
@@ -15,7 +15,7 @@ class Dans {
 		if (!$html) return;
 		$xpath = $this->xpath($html, false);
 		if (!$xpath) {
-			reportError("Грешка при зареждане на отделно съобщение");
+			$this->db->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 		$items = $xpath->query("//item");

@@ -7,7 +7,7 @@
 <br/>
 <br/>
 <br/>
-<center>В процес на разработка. Следете профила ни в <a href="https://twitter.com/GovAlertEu">Twitter</a> междувременно.</center>
+<p style="text-align: center">В процес на разработка. Следете профила ни в <a href="https://twitter.com/GovAlertEu">Twitter</a> междувременно.</p>
 </body>
 </html>
 

@@ -97,7 +97,7 @@ class Vss extends Task {
       $mainurl = $baseurl.date("Y").".htm";
       $html = $this->loadURL($mainurl,2);
       if (!$html) return;
-      $xpath = vss_xpath($html);
+      $xpath = $this->xpath($html);
       if (!$xpath) return;
       $items = $xpath->query("//td/div");
 
@@ -147,7 +147,7 @@ class Vss extends Task {
               $medialist=mb_substr($html,$medialiststart,mb_strpos($html,");",$medialiststart)-$medialiststart);
               $medialist=explode(",",str_replace(array('"',"'"),"",$medialist));
               foreach ($medialist as $mediafile) {
-                $imageurl = loadItemImage($baseurl.$mediafile);
+                $imageurl = loadItemImage($baseurl.$mediafile, []);
                 if ($imageurl)
                   $media["image"][] = array($imageurl);
               }

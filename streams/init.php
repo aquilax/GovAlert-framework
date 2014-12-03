@@ -6,8 +6,6 @@ set_time_limit(0);
 date_default_timezone_set('Europe/Sofia');
 mb_internal_encoding("UTF-8");
 mb_regex_encoding("UTF-8");
-set_error_handler('errorHandler');
-$session = array("sourceid"=>null,"category"=>null,"error"=>false);
 
 define('BASEPATH', __DIR__);
 require_once(BASEPATH . '/_config/Config.php');
@@ -26,29 +24,5 @@ require_once ($classesBase . '/images.php');
 $logger = new Logger(Config::get('debugLevel'));
 
 $db = new Database(Config::get('db'), $logger);
-// TODO: Remove me
-$link = $db;
 
-
-function errorHandler($errno, $errstr, $errfile, $errline) {
-	switch ($errno) {
-		case E_USER_ERROR:
-			reportError("ERROR [$errno] $errstr");
-			exit(1);
-			break;
-
-		case E_USER_WARNING:
-			reportError("WARNING [$errno] $errstr");
-			break;
-
-		case E_USER_NOTICE:
-			reportError("NOTICE [$errno] $errstr");
-			break;
-
-		default:
-			if (strpos($errstr,"htmlParseEntityRef")==-1)
-				reportError("UNKNOWN [$errno] $errstr");
-			break;
-	}
-	return true;
-}
+set_error_handler([$db, 'errorHandler']);

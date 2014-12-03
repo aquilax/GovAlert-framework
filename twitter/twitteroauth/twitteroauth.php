@@ -73,7 +73,7 @@ class TwitterOAuth {
   /**
    * Get a request_token from Twitter
    *
-   * @returns a key/value array containing oauth_token and oauth_token_secret
+   * @returns string a key/value array containing oauth_token and oauth_token_secret
    */
   function getRequestToken($oauth_callback) {
     $parameters = array();
@@ -85,7 +85,7 @@ class TwitterOAuth {
   /**
    * Get the authorize URL
    *
-   * @returns a string
+   * @returns string
    */
   function getAuthorizeURL($token, $sign_in_with_twitter = TRUE) {
     if (is_array($token)) {
@@ -211,7 +211,7 @@ class TwitterOAuth {
   /**
    * Make an HTTP request
    *
-   * @return API results
+   * @return mixed API results
    */
   function http($url, $method, $postfields = NULL, $authorization_header= false) {
     $this->http_info = array();

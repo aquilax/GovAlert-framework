@@ -26,7 +26,7 @@ class Constcourt extends Task{
 
 			$title = $item->childNodes->item(1)->firstChild->firstChild->textContent;
 			$title = $this->cleanText($title);
-			$title = text_fixCase($title);
+			$title = Utils::fixCase($title);
 			$title = "Новина: ".$title;
 
 			$url = $item->childNodes->item(1)->firstChild->firstChild->getAttribute("href");
@@ -58,7 +58,7 @@ class Constcourt extends Task{
 
 			$title = $item->childNodes->item(1)->firstChild->firstChild->textContent;
 			$title = $this->cleanText($title);
-			$title = text_fixCase($title);
+			$title = Utils::fixCase($title);
 			$title = "Съобщение по дело: ".$title;
 
 			$url = $item->childNodes->item(1)->firstChild->firstChild->getAttribute("href");

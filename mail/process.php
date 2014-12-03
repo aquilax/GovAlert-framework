@@ -8,7 +8,7 @@ $mail = stream_get_contents(STDIN);
 
 ob_start();
 
-echo date()."> Нов мейл \n";
+$logger->info('> Нов мейл');
 
 if (strpos($mail,"From: info@strategy.bg")!==false)
   mailStrategy($mail);

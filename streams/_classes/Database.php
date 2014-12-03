@@ -19,6 +19,11 @@ class Database extends mysqli{
 		$this->set_charset($this->config['encoding']);
 	}
 
+	/**
+	 * @param string $query
+	 * @param int $resultMode
+	 * @return bool|mysqli_result
+	 */
 	function query($query, $resultMode = MYSQLI_STORE_RESULT) {
 		$res = parent::query($query, $resultMode);
 		if ($res === false) {
@@ -46,6 +51,29 @@ class Database extends mysqli{
 		$message = $this->escape_string("$message\n$trace");
 		$this->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
 		$session["error"]=true;
+	}
+
+	function errorHandler($errno, $errstr, $errfile, $errline) {
+		switch ($errno) {
+			case E_USER_ERROR:
+				$this->reportError("ERROR [$errno] $errstr");
+				exit(1);
+				break;
+
+			case E_USER_WARNING:
+				$this->reportError("WARNING [$errno] $errstr");
+				break;
+
+			case E_USER_NOTICE:
+				$this->reportError("NOTICE [$errno] $errstr");
+				break;
+
+			default:
+				if (strpos($errstr,"htmlParseEntityRef")==-1)
+					$this->reportError("UNKNOWN [$errno] $errstr");
+				break;
+		}
+		return true;
 	}
 }
 
@@ -120,30 +148,24 @@ class Database extends mysqli{
 //	return $changed;
 //}
 
-function checkHash($hash) {
-	global $link;
-	$res=$link->query("select hash from item where hash='$hash' limit 1") or reportDBErrorAndDie();
-	return $res->num_rows==0;
-}
-
 /*
 -------Utils----------------------------------------------------------
 */
-
-function updateHash($oldhash,$newhash) {
-	global $link;
-	$link->query("update item set hash='$newhash' where hash='$oldhash' limit 1") or reportDBErrorAndDie();
-	echo "update hash $oldhash->$newhash ".($link->affected_rows>0?"ok":"fail")."\n";
-}
-
-function updateHashUrl($url,$newhash) {
-	global $link;
-	$link->query("update item set hash='$newhash' where url='$url'") or reportDBErrorAndDie();
-	echo "update hash $url->$newhash ".($link->affected_rows>0?"ok ".$link->affected_rows:"fail")."\n";
-}
-
-function updateHashTitle($title,$newhash) {
-	global $link;
-	$link->query("update item set hash='$newhash' where title='$title'") or reportDBErrorAndDie();
-	echo "update hash $title->$newhash ".($link->affected_rows>0?"ok ".$link->affected_rows:"fail")."\n";
-}
+//
+//function updateHash($oldhash,$newhash) {
+//	global $link;
+//	$link->query("update item set hash='$newhash' where hash='$oldhash' limit 1");
+//	echo "update hash $oldhash->$newhash ".($link->affected_rows>0?"ok":"fail")."\n";
+//}
+//
+//function updateHashUrl($url,$newhash) {
+//	global $link;
+//	$link->query("update item set hash='$newhash' where url='$url'") or reportDBErrorAndDie();
+//	echo "update hash $url->$newhash ".($link->affected_rows>0?"ok ".$link->affected_rows:"fail")."\n";
+//}
+//
+//function updateHashTitle($title,$newhash) {
+//	global $link;
+//	$link->query("update item set hash='$newhash' where title='$title'") or reportDBErrorAndDie();
+//	echo "update hash $title->$newhash ".($link->affected_rows>0?"ok ".$link->affected_rows:"fail")."\n";
+//}

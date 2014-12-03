@@ -14,12 +14,12 @@ function queueTextTweet($text, $urls, $account='govalerteu',$retweet=false) {
 
   $position=1;
   foreach ($urls as $url) {
-    $res = $link->query("select linkid from link where url='$url'") or reportDBErrorAndDie();
+    $res = $link->query("select linkid from link where url='$url'");
     if ($res->num_rows>0) {
       $row=$res->fetch_assoc();
       $linkid=intval($row['linkid']);
     } else {
-      $link->query("insert LOW_PRIORITY into link (url) value ('$url')") or reportDBErrorAndDie();
+      $link->query("insert LOW_PRIORITY into link (url) value ('$url')");
       $linkid=$link->insert_id;
     }
     if (!$linkid)
@@ -41,7 +41,7 @@ function queueTextTweet($text, $urls, $account='govalerteu',$retweet=false) {
   else
     $retweet="'govalerteu'";
 
-  $link->query("insert LOW_PRIORITY ignore into tweet (account, queued, text, sourceid, priority, retweet) value ('$account',now(),'$text',".$session["sourceid"].",1,$retweet)") or reportDBErrorAndDie(); 
+  $link->query("insert LOW_PRIORITY ignore into tweet (account, queued, text, sourceid, priority, retweet) value ('$account',now(),'$text',".$session["sourceid"].",1,$retweet)");
 }
 
 function queueTweets($itemids, $account='govalerteu',$retweet=false) {
@@ -62,7 +62,7 @@ function queueTweets($itemids, $account='govalerteu',$retweet=false) {
   $query = array();
   foreach ($itemids as $id)
     $query[]="($id,'$account',now(), $retweet)";
-  $link->query("insert LOW_PRIORITY ignore into tweet (itemid, account, queued, retweet) values ".implode(",",$query)) or reportDBErrorAndDie(); 
+  $link->query("insert LOW_PRIORITY ignore into tweet (itemid, account, queued, retweet) values ".implode(",",$query));
 }
 
 function replaceAccounts($title,$cutlen) {
@@ -109,13 +109,13 @@ function postTwitter() {
   global $link;
 
   $twitterAuth=array();
-  $res=$link->query("SELECT handle, token, secret FROM twitter_auth") or reportDBErrorAndDie();  
+  $res=$link->query("SELECT handle, token, secret FROM twitter_auth");
   while ($row=$res->fetch_assoc()) {
     $twitterAuth[strtolower($row['handle'])]=array($row['token'],$row['secret']);
   }
   $res->free();
 
-  $res=$link->query("select t.tweetid, t.itemid, t.text, t.sourceid, t.account, t.retweet, i.title, i.url, s.shortname, s.geo, count(m.type) media from tweet t left outer join item i on i.itemid=t.itemid left outer join source s on i.sourceid=s.sourceid or t.sourceid=s.sourceid left outer join item_media m on m.itemid=t.itemid where error is null group by t.itemid order by t.account, t.priority desc, t.queued, t.itemid limit 5") or reportDBErrorAndDie();  
+  $res=$link->query("select t.tweetid, t.itemid, t.text, t.sourceid, t.account, t.retweet, i.title, i.url, s.shortname, s.geo, count(m.type) media from tweet t left outer join item i on i.itemid=t.itemid left outer join source s on i.sourceid=s.sourceid or t.sourceid=s.sourceid left outer join item_media m on m.itemid=t.itemid where error is null group by t.itemid order by t.account, t.priority desc, t.queued, t.itemid limit 5");
 
   if ($res->num_rows>0) {
     echo "Изпращам ".$res->num_rows." tweet/s\n";
@@ -151,7 +151,7 @@ function postTwitter() {
         if (intval($row['media'])!=0) {
           $connection->host = "https://upload.twitter.com/1.1/";
 
-          $resmedia=$link->query("select type,value from item_media where itemid='".$row['itemid']."' limit 3") or reportDBErrorAndDie();  
+          $resmedia=$link->query("select type,value from item_media where itemid='".$row['itemid']."' limit 3");
           while ($rowmedia=$resmedia->fetch_assoc()) {
               if ($rowmedia['type']=="geo")
                 $geo=explode(",",$rowmedia['value']);
@@ -218,7 +218,7 @@ function postTwitter() {
           foreach ($accounts as $account) {
             $query[]="('$account',now(),'$tweetid')";
           }
-          $link->query("insert LOW_PRIORITY ignore into tweet (account, queued, retweet) values ".implode(",",$query)) or reportDBErrorAndDie(); 
+          $link->query("insert LOW_PRIORITY ignore into tweet (account, queued, retweet) values ".implode(",",$query));
         }
       }
 
@@ -228,10 +228,10 @@ function postTwitter() {
         if ($tres->errors) {
           echo "Грешка: $message\n";
           $errortext = $link->escape_string(json_encode($tres));
-          $link->query("update tweet set error='$errortext' where tweetid=${row['tweetid']} limit 1") or reportDBErrorAndDie();    
+          $link->query("update tweet set error='$errortext' where tweetid=${row['tweetid']} limit 1");
           break;
         } else {
-          $link->query("delete from tweet where tweetid=${row['tweetid']} limit 1") or reportDBErrorAndDie();    
+          $link->query("delete from tweet where tweetid=${row['tweetid']} limit 1");
         }
       }
     }

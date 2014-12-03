@@ -507,7 +507,7 @@ class Parliament extends Task {
 		echo "> Проверявам за документи на комисии в НС\n";
 		$this->setSession(4,11);
 
-		$res = $this->db->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id") or reportDBErrorAndDie();
+		$res = $this->db->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id");
 		while ($row = $res->fetch_array()) {
 			$commName = $row[1];
 			$html = $this->loadURL("http://parliament.bg/bg/parliamentarycommittees/members/".$row[0]."/documents");
@@ -585,7 +585,7 @@ class Parliament extends Task {
 		$this->setSession(4,13);
 
 		$checks = array();
-		$res= $$this->db->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id");
+		$res= $this->db->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id");
 		while ($row = $res->fetch_array()) {
 			$checks[]=array("http://parliament.bg/bg/parliamentarycommittees/members/".$row[0]."/steno/period/".date("Y-m"),$row[01]);
 			$checks[]=array("http://parliament.bg/bg/parliamentarycommittees/members/".$row[0]."/steno/period/".date("Y-m",strtotime("-1 month")),$row[1]);

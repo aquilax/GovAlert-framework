@@ -69,8 +69,7 @@ function codeToId($code) {
 	return $id;
 }
 
-function codeToUrl($code) {
-	global $link;
+function codeToUrl(Database $db, $code) {
 	if (!$code) {
 		return false;
 	}
@@ -86,7 +85,7 @@ function codeToUrl($code) {
 		$codetype='item';
 	}
 
-	$res=$link->query($query1);
+	$res=$db->query($query1);
 	if (!$res)
 		return false;
 	$row = $res->fetch_array();
@@ -95,7 +94,7 @@ function codeToUrl($code) {
 	if ($_SERVER['REMOTE_ADDR']) {
 		$ip = explode('.',$_SERVER['REMOTE_ADDR']);
 		$ip = sprintf("%02X%02X%02X%02X",intval($ip[0]),intval($ip[1]),intval($ip[2]),intval($ip[3]));
-		$link->query("insert LOW_PRIORITY ignore into visit (id,type,ip) value ($id,'$codetype','$ip')");
+		$db->query("insert LOW_PRIORITY ignore into visit (id,type,ip) value ($id,'$codetype','$ip')");
 	}
 	return $row[0];
 }

@@ -15,7 +15,7 @@ class Min_mrrb extends Task{
 
 		$html = $this->loadURL("http://www.mrrb.government.bg/?controller=category&action=notice&catid=38",0);
 		if (!$html) return;
-		$items = xpathDoc($html,"//div[@class='listCategoryArticles']");
+		$items = $this->xpathDoc($html,"//div[@class='listCategoryArticles']");
 
 		$query=array();
 		foreach ($items as $item) {

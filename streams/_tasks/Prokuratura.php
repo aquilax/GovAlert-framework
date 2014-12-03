@@ -28,7 +28,7 @@ class Prokuratura extends Task {
         if (strtotime($date)<strtotime("-2 weeks"))
           continue;
         $description = trim($item->childNodes->item(5+($hasimage?2:0))->textContent);
-        $description = prok_cleanText($description);
+        $description = $this->cleanText($description);
 
         $title = trim($item->childNodes->item(1+($hasimage?2:0))->textContent);
         $title = $this->cleanTitle($title);
@@ -44,7 +44,7 @@ class Prokuratura extends Task {
           $imagetitle = trim($item->childNodes->item(3)->textContent);
           $imagetitle = $this->cleanTitle($imagetitle);
           $imagetitle = $this->cleanText($imagetitle);
-          $media = array("image" => array(loadItemImage($imageurl),$imagetitle));
+          $media = array("image" => array(loadItemImage($imageurl, []),$imagetitle));
         }
 
         $query[]=array($title,$description,$date,$url,$hash,$media);
@@ -75,7 +75,7 @@ class Prokuratura extends Task {
 
         $title = trim($item->childNodes->item(1)->textContent);
         $title = $this->cleanTitle($title);
-        $title = "Документ: ".prok_cleanText($title);
+        $title = "Документ: ".$this->cleanText($title);
 
         $url = "http://www.prb.bg".$item->childNodes->item(1)->firstChild->getAttribute("href");
         $hash = md5($url);
@@ -153,7 +153,7 @@ class Prokuratura extends Task {
           $imageurl = $mitem->getAttribute("href");
           $imageurl = "http://www.prb.bg$imageurl";
           $imageurl = str_replace(array("logo","pic"),"big",$imageurl);
-          $imageurl = $this->loadItemImage($imageurl);
+          $imageurl = $this->loadItemImage($imageurl, []);
           if ($imageurl)
             $media["image"][] = array($imageurl);
         }
