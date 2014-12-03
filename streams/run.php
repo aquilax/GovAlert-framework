@@ -9,7 +9,7 @@ $logger->info('STREAMS');
 
 $force = count($argv) > 1;
 $taskManager = new TaskManager($db, $logger);
-$taskManager->runTasks( $force );
+$taskManager->runTasks($force);
 
 postTwitter();
 

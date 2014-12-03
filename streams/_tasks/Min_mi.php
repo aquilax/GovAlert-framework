@@ -13,220 +13,230 @@
 */
 
 
-class Min_mi extends Task {
+class Min_mi extends Task
+{
 
-	function mi_Obqvi() {
+	function mi_Obqvi()
+	{
 		echo "> Проверявам за обяви в МИЕ\n";
-		$this->setSession(11,0);
+		$this->setSession(11, 0);
 
-		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c38-1.html",0);
+		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c38-1.html", 0);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@class='col2']/div[@class='row']");
+		$items = $this->xpathDoc($html, "//div[@class='col2']/div[@class='row']");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$date = trim($item->childNodes->item(4)->childNodes->item(1)->textContent);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 month"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 month"))
 				continue;
 			$title = $item->childNodes->item(1)->childNodes->item(2)->textContent;
-			$title = "Обява: ".$this->cleanText($title);
-			$url = "http://www.mi.government.bg".$item->childNodes->item(1)->childNodes->item(2)->getAttribute("href");
+			$title = "Обява: " . $this->cleanText($title);
+			$url = "http://www.mi.government.bg" . $item->childNodes->item(1)->childNodes->item(2)->getAttribute("href");
 			$hash = md5($url);
-			$query[]=array($title,null,$date,$url,$hash);
+			$query[] = array($title, null, $date, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови обяви\n";
+		echo "Възможни " . count($query) . " нови обяви\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
-	function mi_Aktivi() {
+	function mi_Aktivi()
+	{
 		echo "> Проверявам за продажба на активи в МИЕ\n";
-		$this->setSession(11,1);
+		$this->setSession(11, 1);
 
-		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c37-1.html",1);
+		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c37-1.html", 1);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@class='col2']/div[@class='row']");
+		$items = $this->xpathDoc($html, "//div[@class='col2']/div[@class='row']");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$date = trim($item->childNodes->item(4)->childNodes->item(1)->textContent);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 month"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 month"))
 				continue;
 			$title = $item->childNodes->item(1)->childNodes->item(2)->textContent;
 			$title = $this->cleanText($title);
-			$url = "http://www.mi.government.bg".$item->childNodes->item(1)->childNodes->item(2)->getAttribute("href");
+			$url = "http://www.mi.government.bg" . $item->childNodes->item(1)->childNodes->item(2)->getAttribute("href");
 			$hash = md5($url);
-			$query[]=array($title,null,$date,$url,$hash);
+			$query[] = array($title, null, $date, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови продажби на активи\n";
+		echo "Възможни " . count($query) . " нови продажби на активи\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
-	function mi_Drugi() {
+	function mi_Drugi()
+	{
 		echo "> Проверявам за други в МИЕ\n";
-		$this->setSession(11,2);
+		$this->setSession(11, 2);
 
-		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c42-1.html",2);
+		$html = $this->loadURL("http://www.mi.government.bg/bg/competitions-c42-1.html", 2);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@class='col2']/div[@class='row']");
+		$items = $this->xpathDoc($html, "//div[@class='col2']/div[@class='row']");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$date = trim($item->childNodes->item(4)->childNodes->item(1)->textContent);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 month"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 month"))
 				continue;
 			$title = $item->childNodes->item(1)->childNodes->item(2)->textContent;
 			$title = $this->cleanText($title);
-			$url = "http://www.mi.government.bg".$item->childNodes->item(1)->childNodes->item(2)->getAttribute("href");
+			$url = "http://www.mi.government.bg" . $item->childNodes->item(1)->childNodes->item(2)->getAttribute("href");
 			$hash = md5($url);
-			$query[]=array($title,null,$date,$url,$hash);
+			$query[] = array($title, null, $date, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови други\n";
+		echo "Възможни " . count($query) . " нови други\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
-	function mi_Obsajdane() {
+	function mi_Obsajdane()
+	{
 		echo "> Проверявам за обществено обсъждане в МИЕ\n";
-		$this->setSession(11,3);
+		$this->setSession(11, 3);
 
 		$html = $this->loadURL("http://www.mi.government.bg/bg/discussion-news-0.html");
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@class='col2']/div[@class='row']");
+		$items = $this->xpathDoc($html, "//div[@class='col2']/div[@class='row']");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$date = trim($item->childNodes->item(1)->textContent);
 			$date = Utils::bgMonth($date);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 week"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 week"))
 				continue;
 			$title = $item->childNodes->item(3)->firstChild->textContent;
-			$title = mb_ereg_replace("МИЕ предлага за обществено обсъждане проект","Проект",$title,"im");
-			$title = "Обществено обсъждане: ".$this->cleanText($title);
+			$title = mb_ereg_replace("МИЕ предлага за обществено обсъждане проект", "Проект", $title, "im");
+			$title = "Обществено обсъждане: " . $this->cleanText($title);
 
-			$url = "http://www.mi.government.bg".$item->childNodes->item(3)->firstChild->getAttribute("href");
+			$url = "http://www.mi.government.bg" . $item->childNodes->item(3)->firstChild->getAttribute("href");
 			$hash = md5($url);
 
 			$description = $item->childNodes->item(5)->textContent;
 			$description = $this->cleanText($description);
 
-			$query[]=array($title,$description,$date,$url,$hash);
+			$query[] = array($title, $description, $date, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови обсъжданя\n";
+		echo "Възможни " . count($query) . " нови обсъжданя\n";
 
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
-	function mi_Makrobiuletin() {
+	function mi_Makrobiuletin()
+	{
 		echo "> Проверявам за макробюлетин в МИЕ\n";
-		$this->setSession(11,4);
+		$this->setSession(11, 4);
 
 		$html = $this->loadURL("http://www.mi.government.bg/bg/pages/macrobulletin-79.html");
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@class='contentColumn']//a");
+		$items = $this->xpathDoc($html, "//div[@class='contentColumn']//a");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$title = $item->textContent;
 			$title = $this->cleanText($title);
 			$title = mb_strtolower($title);
 			$title = "Основни макроикономически показатели за $title";
 
-			$url = "http://www.mi.government.bg/".$item->getAttribute("href");
+			$url = "http://www.mi.government.bg/" . $item->getAttribute("href");
 			$hash = md5($url);
 
-			$query[]=array($title,null,'now',$url,$hash);
+			$query[] = array($title, null, 'now', $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови макробюлетина\n";
+		echo "Възможни " . count($query) . " нови макробюлетина\n";
 
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
-	function mi_Fininst() {
+	function mi_Fininst()
+	{
 		echo "> Проверявам за избор фин.инст. в МИЕ\n";
-		$this->setSession(11,5);
+		$this->setSession(11, 5);
 
 		$html = $this->loadURL("http://www.mi.government.bg/bg/themes/prilagane-na-pravilata-za-izbor-na-finansovi-institucii-1313-441.html");
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@id='description']//p[a]");
+		$items = $this->xpathDoc($html, "//div[@id='description']//p[a]");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$title = $item->textContent;
 			$title = $this->cleanText($title);
 			$title = mb_strtolower($title);
 			$title = "Прилагане на правилата за избор на финансови институции $title";
 
-			$url = "http://www.mi.government.bg/".$item->firstChild->getAttribute("href");
+			$url = "http://www.mi.government.bg/" . $item->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[]=array($title,null,'now',$url,$hash);
+			$query[] = array($title, null, 'now', $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови избор фин.инст.\n";
+		echo "Възможни " . count($query) . " нови избор фин.инст.\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
-	function mi_KoncentraciqFin() {
+	function mi_KoncentraciqFin()
+	{
 		echo "> Проверявам за концентрация фин.ср. в МИЕ\n";
-		$this->setSession(11,6);
+		$this->setSession(11, 6);
 
 		$html = $this->loadURL("http://www.mi.government.bg/bg/themes/nalichie-na-koncentraciya-na-finansovi-sredstva-1314-441.html");
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//div[@id='description']//p[a]");
+		$items = $this->xpathDoc($html, "//div[@id='description']//p[a]");
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$title = $item->textContent;
 			$title = $this->cleanText($title);
 			$title = mb_strtolower($title);
 			$title = "Наличие на концентрация на финансови средства $title";
 
-			$url = "http://www.mi.government.bg/".$item->firstChild->getAttribute("href");
+			$url = "http://www.mi.government.bg/" . $item->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[]=array($title,null,'now',$url,$hash);
+			$query[] = array($title, null, 'now', $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови концентрация фин.ср.\n";
+		echo "Възможни " . count($query) . " нови концентрация фин.ср.\n";
 
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids);
+		$this->queueTweets($itemids);
 	}
 
 	/*
 	-----------------------------------------------------------------
 	*/
 
-	function xpathDoc($html,$q) {
+	function xpathDoc($html, $q)
+	{
 		if (!$html)
 			return array();
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
 		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace=false;
-		$doc->strictErrorChecking=false;
+		$doc->preserveWhiteSpace = false;
+		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
 		$doc->loadHTML($html);
 		$xpath = new DOMXpath($doc);
 
 		$items = $xpath->query($q);
-		return is_null($items)?array():$items;
+		return is_null($items) ? array() : $items;
 	}
 
-	function cleanText($text) {
+	function cleanText($text)
+	{
 		$text = html_entity_decode($text);
 		$text = Utils::cleanSpaces($text);
 		$text = Utils::fixCase($text);

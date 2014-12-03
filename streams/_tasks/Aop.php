@@ -8,9 +8,11 @@ links:
 1: публична покана http://rop3-app1.aop.bg:7778/portal/page?_pageid=93,1488254&_dad=portal&_schema=PORTAL&url=687474703A2F2F7777772E616F702E62672F657365617263685F7070322E706870
 */
 
-class Aop extends Task{
+class Aop extends Task
+{
 
-	function aop_Saobshteniq() {
+	function aop_Saobshteniq()
+	{
 		global $link;
 
 		echo "> Проверявам за нови документи в АОП\n";
@@ -19,9 +21,9 @@ class Aop extends Task{
 			"go_page=0&doc_description=&u_id=&key_word=&btn_pressed=%D0%A2%D1%8A%D1%80%D1%81%D0%B8+...");
 		if (!$html)
 			return;
-		if (!$this->checkPageChanged($html,12,0))
+		if (!$this->checkPageChanged($html, 12, 0))
 			return;
-		$items = $this->xpathDoc($html,"//table[@id='resultaTable']//tr");
+		$items = $this->xpathDoc($html, "//table[@id='resultaTable']//tr");
 // TODO: Figure this out
 		echo $items->length;
 		exit;
@@ -57,37 +59,39 @@ class Aop extends Task{
 	-----------------------------------------------------------------
 	*/
 
-	private function httpPost($url,$data_url) {
+	private function httpPost($url, $data_url)
+	{
 		$data_len = strlen($data_url);
-		$html = file_get_contents ($url, false, stream_context_create (array ('http'=>array(
-			'method'=>'POST',
-			'header'=>"Content-Length: $data_len\r\n".
-				"Connection: keep-alive\r\n".
-				"Cache-Control: max-age=0\r\n".
-				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n".
-				"Origin: http://umispublic.minfin.bg\r\n".
-				"Content-Type: application/x-www-form-urlencoded\r\n".
-				"Referer: http://rop3-app1.aop.bg:7778/portal/\r\n".
+		$html = file_get_contents($url, false, stream_context_create(array('http' => array(
+			'method' => 'POST',
+			'header' => "Content-Length: $data_len\r\n" .
+				"Connection: keep-alive\r\n" .
+				"Cache-Control: max-age=0\r\n" .
+				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n" .
+				"Origin: http://umispublic.minfin.bg\r\n" .
+				"Content-Type: application/x-www-form-urlencoded\r\n" .
+				"Referer: http://rop3-app1.aop.bg:7778/portal/\r\n" .
 				"Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4",
 			'timeout' => 5,
 			'max_redirects' => 5,
-			'content'=>$data_url
+			'content' => $data_url
 		))));
 		return $html;
 	}
 
-	function xpathDoc($html,$q) {
+	function xpathDoc($html, $q)
+	{
 		if (!$html)
 			return array();
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
 		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace=false;
-		$doc->strictErrorChecking=false;
+		$doc->preserveWhiteSpace = false;
+		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
 		$doc->loadHTML($html);
 		$xpath = new DOMXpath($doc);
 
 		$items = $xpath->query($q);
-		return is_null($items)?array():$items;
+		return is_null($items) ? array() : $items;
 	}
 } 

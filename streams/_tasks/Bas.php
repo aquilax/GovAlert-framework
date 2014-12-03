@@ -7,9 +7,11 @@
 */
 
 
-class Bas extends Task{
+class Bas extends Task
+{
 
-	function xpathDoc($html,$q) {
+	function xpathDoc($html, $q)
+	{
 		if (!$html)
 			return array();
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
@@ -25,9 +27,10 @@ class Bas extends Task{
 	}
 
 
-	function basZemetreseniq() {
+	function basZemetreseniq()
+	{
 		$this->logger->info('> Проверявам за земетресения в БАН');
-		$this->setSession(14,0);
+		$this->setSession(14, 0);
 
 		$html = $this->loadURL('http://ndc.niggg.bas.bg/data.xml', 0);
 		if (!$html) {
@@ -35,7 +38,7 @@ class Bas extends Task{
 		}
 		$items = $this->xpathDoc($html, '//marker');
 
-		$query=[];
+		$query = [];
 		foreach ($items as $item) {
 			$mag = doubleval($item->getAttribute('mag'));
 
@@ -56,9 +59,9 @@ class Bas extends Task{
 			if ($dateDiff < 60)
 				$dateDiff = "секунди";
 			elseif ($dateDiff < 100 * 60)
-				$dateDiff = round($dateDiff / 60).' мин.';
+				$dateDiff = round($dateDiff / 60) . ' мин.';
 			elseif ($dateDiff < 4 * 3600)
-				$dateDiff = round($$dateDiff/3600)." ч.";
+				$dateDiff = round($$dateDiff / 3600) . " ч.";
 			else
 				continue;
 
@@ -68,7 +71,7 @@ class Bas extends Task{
 				continue;
 			}
 
-			$res=$this->db->query('SELECT grad, geo FROM s_bas');
+			$res = $this->db->query('SELECT grad, geo FROM s_bas');
 			$town = null;
 			$direction = null;
 			if ($res->num_rows > 0) {
@@ -86,50 +89,51 @@ class Bas extends Task{
 			}
 
 			if ($town == null) {
-				$town="Пловдив";
+				$town = "Пловдив";
 				$direction = $this->direction(42.141948, 24.7465238, $lat, $lng);
 			}
 
 			if ($direction[0] < 15) {
 				$title = 'около ' . $town;
 			} else {
-				$title = 'на ' . $direction[0] . ' км ' . $direction[1] . ' от '. $town;
+				$title = 'на ' . $direction[0] . ' км ' . $direction[1] . ' от ' . $town;
 			}
-			$title = mb_ereg_replace(" ЮИ "," югоизточно ",$title,"im");
-			$title = mb_ereg_replace(" ЮЗ "," югозападно ",$title,"im");
-			$title = mb_ereg_replace(" СИ "," североизточно ",$title,"im");
-			$title = mb_ereg_replace(" СЗ "," северозападно ",$title,"im");
-			$title = mb_ereg_replace(" Ю "," южно ",$title,"im");
-			$title = mb_ereg_replace(" С "," северно ",$title,"im");
-			$title = mb_ereg_replace(" И "," източно ",$title,"im");
-			$title = mb_ereg_replace(" З "," западно ",$title,"im");
+			$title = mb_ereg_replace(" ЮИ ", " югоизточно ", $title, "im");
+			$title = mb_ereg_replace(" ЮЗ ", " югозападно ", $title, "im");
+			$title = mb_ereg_replace(" СИ ", " североизточно ", $title, "im");
+			$title = mb_ereg_replace(" СЗ ", " северозападно ", $title, "im");
+			$title = mb_ereg_replace(" Ю ", " южно ", $title, "im");
+			$title = mb_ereg_replace(" С ", " северно ", $title, "im");
+			$title = mb_ereg_replace(" И ", " източно ", $title, "im");
+			$title = mb_ereg_replace(" З ", " западно ", $title, "im");
 			$title = "Земетресение $mag $title преди $dateDiff";
 
 			$description = Utils::cleanSpaces($item->getAttribute("location"));
-			if ($description=="")
+			if ($description == "")
 				$description = null;
 
 			$media = array(
-				"geo" => array("$lat,$lng",null)
+				"geo" => array("$lat,$lng", null)
 			);
 
-			if ($inBG || $mag>=4.5) {
-				$media["geoimage"] = array(loadGeoImage($lat,$lng,8),null);
+			if ($inBG || $mag >= 4.5) {
+				$media["geoimage"] = array(loadGeoImage($lat, $lng, 8), null);
 			}
 			$query[] = array($title, $description, $date, 'http://ndc.niggg.bas.bg', $hash, $media);
 		}
-		$this->logger->info('Възможни ' . count($query). ' нови земетресения');
+		$this->logger->info('Възможни ' . count($query) . ' нови земетресения');
 
 		$itemIds = $this->saveItems($query);
 
 		if (count($itemIds) <= 3) {
-			queueTweets($itemIds);
+			$this->queueTweets($itemIds);
 		} else {
-			queueTextTweet("В последните минути имаше ".count($itemIds)." земетресения","http://ndc.niggg.bas.bg");
+			$this->queueTextTweet("В последните минути имаше " . count($itemIds) . " земетресения", "http://ndc.niggg.bas.bg");
 		}
 	}
 
-	private function direction($lat1, $lng1, $lat2, $lng2) {
+	private function direction($lat1, $lng1, $lat2, $lng2)
+	{
 		$pi80 = M_PI / 180;
 		$lat1 *= $pi80;
 		$lng1 *= $pi80;
@@ -143,20 +147,20 @@ class Bas extends Task{
 		$c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 		$km = floor($r * $c);
 
-		$bearing=atan2(cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($dlng),sin($dlng)*cos($lat2))/M_PI;
-		if ($bearing<0.125 && $bearing>-0.125)
+		$bearing = atan2(cos($lat1) * sin($lat2) - sin($lat1) * cos($lat2) * cos($dlng), sin($dlng) * cos($lat2)) / M_PI;
+		if ($bearing < 0.125 && $bearing > -0.125)
 			$bearing = "И";
-		else if ($bearing>=0.125 && $bearing<0.375)
+		else if ($bearing >= 0.125 && $bearing < 0.375)
 			$bearing = "СИ";
-		else if ($bearing>=0.375 && $bearing<0.625)
+		else if ($bearing >= 0.375 && $bearing < 0.625)
 			$bearing = "С";
-		else if ($bearing>=0.625 && $bearing<0.875)
+		else if ($bearing >= 0.625 && $bearing < 0.875)
 			$bearing = "СЗ";
-		else if ($bearing<=-0.125 && $bearing>-0.375)
+		else if ($bearing <= -0.125 && $bearing > -0.375)
 			$bearing = "ЮИ";
-		else if ($bearing<=-0.375 && $bearing>-0.625)
+		else if ($bearing <= -0.375 && $bearing > -0.625)
 			$bearing = "Ю";
-		else if ($bearing<=-0.625 && $bearing>-0.875)
+		else if ($bearing <= -0.625 && $bearing > -0.875)
 			$bearing = "ЮЗ";
 		else
 			$bearing = "З";

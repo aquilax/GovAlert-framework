@@ -1,9 +1,10 @@
 <?php
 
-class Config {
+class Config
+{
 
 	private static $config = [
-		'db'=> [
+		'db' => [
 			'host' => 'localhost',
 			'user' => 'username',
 			'pass' => 'password',
@@ -19,7 +20,8 @@ class Config {
 	 * @param string $key
 	 * @return mixed
 	 */
-	static function get($key) {
+	static function get($key)
+	{
 		assert(isset(self::$config[$key]), $key . ' is not defined');
 		return self::$config[$key];
 	}
@@ -30,7 +32,8 @@ class Config {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	static function set($key, $value) {
+	static function set($key, $value)
+	{
 		self::$config[$key] = $value;
 	}
 }

@@ -1,11 +1,13 @@
 <?php
 
-class Database extends mysqli{
+class Database extends mysqli
+{
 
 	private $config;
 	private $logger;
 
-	function __construct($config, Logger $logger) {
+	function __construct($config, Logger $logger)
+	{
 		$this->config = $config;
 		$this->logger = $logger;
 		parent::__construct(
@@ -24,7 +26,8 @@ class Database extends mysqli{
 	 * @param int $resultMode
 	 * @return bool|mysqli_result
 	 */
-	function query($query, $resultMode = MYSQLI_STORE_RESULT) {
+	function query($query, $resultMode = MYSQLI_STORE_RESULT)
+	{
 		$res = parent::query($query, $resultMode);
 		if ($res === false) {
 			$message = 'Грешка при запитване към базата данни: ' . $this->error;
@@ -35,8 +38,9 @@ class Database extends mysqli{
 		return $res;
 	}
 
-	public function reportError($message) {
-		global $session,$debug;
+	public function reportError($message)
+	{
+		global $session, $debug;
 		if ($message === null)
 			return;
 		$sourceId = $session["sourceid"] != null ? $session["sourceid"] : 0;
@@ -44,16 +48,17 @@ class Database extends mysqli{
 		if (is_array($message) || is_object($message))
 			$message = json_encode($message);
 		$e = new Exception();
-		$trace = str_replace("/home/yurukov1/public_html/govalert/","",$e->getTraceAsString());
+		$trace = str_replace("/home/yurukov1/public_html/govalert/", "", $e->getTraceAsString());
 		echo "Запазвам грешка [$sourceId,$category]: $message\n$trace\n";
 		if ($debug)
 			return;
 		$message = $this->escape_string("$message\n$trace");
 		$this->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
-		$session["error"]=true;
+		$session["error"] = true;
 	}
 
-	function errorHandler($errno, $errstr, $errfile, $errline) {
+	function errorHandler($errno, $errstr, $errfile, $errline)
+	{
 		switch ($errno) {
 			case E_USER_ERROR:
 				$this->reportError("ERROR [$errno] $errstr");
@@ -69,7 +74,7 @@ class Database extends mysqli{
 				break;
 
 			default:
-				if (strpos($errstr,"htmlParseEntityRef")==-1)
+				if (strpos($errstr, "htmlParseEntityRef") == -1)
 					$this->reportError("UNKNOWN [$errno] $errstr");
 				break;
 		}

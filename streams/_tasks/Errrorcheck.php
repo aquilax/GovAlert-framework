@@ -1,11 +1,13 @@
 <?php
 
-class Errrorcheck extends Task {
-	function errorcheck() {
+class Errrorcheck extends Task
+{
+	function errorcheck()
+	{
 		echo "> Проверявам за липса на новини и възможни грешки\n";
 
 		$res = $this->db->query("select * from (select s.sourceid sourceid, s.shortname shortname, s.url url, max(i.readts) lastread, count(i.itemid) items from source s left outer join item i on s.sourceid=i.sourceid group by s.name order by max(readts) asc) a where a.lastread<subdate(now(), interval 2 week) limit 1");
-		if ($res->num_rows==0) {
+		if ($res->num_rows == 0) {
 			echo "Няма липса на грешки\n";
 			return;
 		}
@@ -14,23 +16,27 @@ class Errrorcheck extends Task {
 
 		$this->setSession($row["sourceid"], 0);
 
-		echo "Предупреждение за ".$row["shortname"]."\n";
+		echo "Предупреждение за " . $row["shortname"] . "\n";
 
-		$title = "Няма новини от ".$row["shortname"]." от поне две седмици";
-		$hash = md5($title.time());
+		$title = "Няма новини от " . $row["shortname"] . " от поне две седмици";
+		$hash = md5($title . time());
 
-		$this->saveItems([$title,null,"now",$row["url"],$hash]);
+		$this->saveItems([$title, null, "now", $row["url"], $hash]);
 
-		switch (rand(1,4)) {
+		switch (rand(1, 4)) {
 			case 1:
-				$tweet = "@yurukov ".$row["shortname"]." не са пускали нищо наскоро. Може би има проблем:"; break;
+				$tweet = "@yurukov " . $row["shortname"] . " не са пускали нищо наскоро. Може би има проблем:";
+				break;
 			case 2:
-				$tweet = "@yurukov провери дали ".$row["shortname"]." не са си променили сайта, че не намирам нищо ново:"; break;
+				$tweet = "@yurukov провери дали " . $row["shortname"] . " не са си променили сайта, че не намирам нищо ново:";
+				break;
 			case 3:
-				$tweet = "@yurukov от доста време няма новини от ".$row["shortname"].". Провери логовете ми за грешки."; break;
+				$tweet = "@yurukov от доста време няма новини от " . $row["shortname"] . ". Провери логовете ми за грешки.";
+				break;
 			default:
-				$tweet = "@yurukov шефе, няма новини от ".$row["shortname"]." от поне две седмици. Виж дали има проблем със сайта им:"; break;
+				$tweet = "@yurukov шефе, няма новини от " . $row["shortname"] . " от поне две седмици. Виж дали има проблем със сайта им:";
+				break;
 		}
-		queueTextTweet($tweet ,$row["url"]);
+		$this->queueTextTweet($tweet, $row["url"]);
 	}
 } 

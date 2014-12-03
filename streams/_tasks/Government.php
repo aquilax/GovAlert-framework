@@ -11,19 +11,21 @@ Links
 6: обществени поръчки http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=
 */
 
-class Government extends Task{
+class Government extends Task
+{
 
-	function govZasedaniq() {
+	function govZasedaniq()
+	{
 		echo "> Проверявам заседания на кабинета\n";
-		$this->setSession(3,0);
+		$this->setSession(3, 0);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0225&g=",0);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0225&g=", 0);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//td[@valign='top' and starts-with(./a/font/text(),'Дневен ред')]");
+		$items = $this->xpathDoc($html, "//td[@valign='top' and starts-with(./a/font/text(),'Дневен ред')]");
 
-		echo "Открити ".$items->length." заседания\n";
+		echo "Открити " . $items->length . " заседания\n";
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->childNodes->item(1)->textContent);
 			$date = $item->childNodes->item(0)->childNodes->item(1)->textContent;
@@ -34,150 +36,154 @@ class Government extends Task{
 			}
 			$title = $item->childNodes->item(0)->childNodes->item(1)->textContent;
 			$title = Utils::fixCase($title);
-			$title = mb_ereg_replace("Министерския съвет","МС",$title,"im");
-			$url = "http://www.government.bg".$item->childNodes->item(0)->getAttribute("href");
-			$query[]=array($title,null,null,$url,$hash);
+			$title = mb_ereg_replace("Министерския съвет", "МС", $title, "im");
+			$url = "http://www.government.bg" . $item->childNodes->item(0)->getAttribute("href");
+			$query[] = array($title, null, null, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови заседания\n";
+		echo "Възможни " . count($query) . " нови заседания\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids,'GovBulgaria',true);
+		$this->queueTweets($itemids, 'GovBulgaria', true);
 	}
 
-	function govResheniq() {
+	function govResheniq()
+	{
 		echo "> Проверявам решения на кабинета\n";
-		$this->setSession(3,1);
+		$this->setSession(3, 1);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=",1);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=", 1);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Решенията Накратко']//td[@valign='top']/p");
+		$items = $this->xpathDoc($html, "//table[.//a[@class='header']/text()='Решенията Накратко']//td[@valign='top']/p");
 
-		echo "Открити ".$items->length." решения\n";
+		echo "Открити " . $items->length . " решения\n";
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$date = $item->lastChild->childNodes->item(0)->textContent;
 			$date = Utils::bgMonth($date);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 month"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 month"))
 				continue;
 			$title = $item->childNodes->item(2)->childNodes->item(0)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = "Решение: ".Utils::fixCase($title);
-			$url = "http://www.government.bg".$item->childNodes->item(2)->getAttribute("href");
-			$query[]=array($title,null,null,$url,$hash);
+			$title = "Решение: " . Utils::fixCase($title);
+			$url = "http://www.government.bg" . $item->childNodes->item(2)->getAttribute("href");
+			$query[] = array($title, null, null, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови решения\n";
+		echo "Възможни " . count($query) . " нови решения\n";
 		$itemids = $this->saveItems($query);
 
-		if (count($itemids)>3)
-			queueTextTweet("Достъпни са ".count($itemids)." нови решения от последното заседание","http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=",'GovBulgaria',true);
+		if (count($itemids) > 3)
+			$this->queueTextTweet("Достъпни са " . count($itemids) . " нови решения от последното заседание", "http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=", 'GovBulgaria', true);
 		else
-			queueTweets($itemids,'GovBulgaria',true);
+			$this->queueTweets($itemids, 'GovBulgaria', true);
 	}
 
-	function govSabitiq() {
+	function govSabitiq()
+	{
 		echo "> Проверявам събития на кабинета\n";
-		$this->setSession(3,2);
+		$this->setSession(3, 2);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0217&g=",2);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0217&g=", 2);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a");
+		$items = $this->xpathDoc($html, "//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a");
 
-		echo "Открити ".$items->length." събития\n";
-		$query=array();
+		echo "Открити " . $items->length . " събития\n";
+		$query = array();
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = "Събитие: ".Utils::fixCase($title);
-			$url = "http://www.government.bg".$item->getAttribute("href");
-			$query[]=array($title,null,null,$url,$hash);
+			$title = "Събитие: " . Utils::fixCase($title);
+			$url = "http://www.government.bg" . $item->getAttribute("href");
+			$query[] = array($title, null, null, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови събития\n";
+		echo "Възможни " . count($query) . " нови събития\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids,'GovBulgaria');
+		$this->queueTweets($itemids, 'GovBulgaria');
 	}
 
-	function govDokumenti() {
+	function govDokumenti()
+	{
 		echo "> Проверявам документи на кабинета\n";
-		$this->setSession(3,3);
+		$this->setSession(3, 3);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&g=",3);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&g=", 3);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']");
+		$items = $this->xpathDoc($html, "//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']");
 
-		echo "Открити ".$items->length." документи\n";
-		$query=array();
+		echo "Открити " . $items->length . " документи\n";
+		$query = array();
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = "Нов документ: ".Utils::fixCase($title);
-			$url = "http://www.government.bg".$item->getAttribute("href");
-			$query[]=array($title,null,null,$url,$hash);
+			$title = "Нов документ: " . Utils::fixCase($title);
+			$url = "http://www.government.bg" . $item->getAttribute("href");
+			$query[] = array($title, null, null, $url, $hash);
 		}
 
-		echo "Възможни ".count($query)." нови документи\n";
+		echo "Възможни " . count($query) . " нови документи\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids,'GovBulgaria');
+		$this->queueTweets($itemids, 'GovBulgaria');
 	}
 
-	function govNovini() {
+	function govNovini()
+	{
 		echo "> Проверявам водещи новини на кабинета\n";
-		$this->setSession(3,4);
+		$this->setSession(3, 4);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0213&g=",4);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0213&g=", 4);
 		if (!$html) return;
 		$xpath = $this->xpath($html);
 		if (!$xpath) return;
 		$items = $xpath->query("//table[@cellpadding=1]");
 		if (!$items) return;
 
-		echo "Открити ".$items->length." новини\n";
+		echo "Открити " . $items->length . " новини\n";
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
-			$inneritems = $xpath->query(".//td",$item);
-			if ($inneritems->length!=4)
+			$inneritems = $xpath->query(".//td", $item);
+			if ($inneritems->length != 4)
 				continue;
 
 			$date = $inneritems->item(1)->textContent;
 			$date = Utils::bgMonth($date);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 week"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 week"))
 				continue;
 
-			$url = "http://www.government.bg".$inneritems->item(0)->firstChild->getAttribute("href");
+			$url = "http://www.government.bg" . $inneritems->item(0)->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$description=null;
-			$media=null;
-			$htmlsub = $this->loadURL($url,3);
+			$description = null;
+			$media = null;
+			$htmlsub = $this->loadURL($url, 3);
 			$xpathsub = $this->xpath($htmlsub);
 			$itemsub = $xpathsub->query("//table[./tbody/tr/td/font[@style='FONT-SIZE: 11px; TEXT-TRANSFORM: uppercase']]");
-			if ($itemsub->length>0) {
+			if ($itemsub->length > 0) {
 				$description = $itemsub->item(0)->C14N();
-				$description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
-				$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?","",$description);
-				$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
+				$description = mb_ereg_replace(" </", "</", mb_ereg_replace("> ", ">", $description));
+				$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?", "", $description);
+				$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>", "", $description);
 				$description = Utils::cleanSpaces($description);
 				$description = html_entity_decode($description);
 
-				$itemimgs = $xpathsub->query(".//img",$itemsub->item(0));
-				if ($itemimgs->length>0) {
+				$itemimgs = $xpathsub->query(".//img", $itemsub->item(0));
+				if ($itemimgs->length > 0) {
 					$media = array("image" => array());
-					foreach ($itemimgs as $itemimg){
+					foreach ($itemimgs as $itemimg) {
 						$imageurl = $itemimg->getAttribute("src");
-						if (strpos($imageurl,"government.bg")===false)
-							$imageurl="http://www.government.bg/".$imageurl;
-						$imageurl=mb_ereg_replace("images","bigimg",$imageurl,"im");
+						if (strpos($imageurl, "government.bg") === false)
+							$imageurl = "http://www.government.bg/" . $imageurl;
+						$imageurl = mb_ereg_replace("images", "bigimg", $imageurl, "im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array(loadItemImage($imageurl, []),$imagetitle);
+						$media["image"][] = array(loadItemImage($imageurl, []), $imagetitle);
 					}
 				}
 			}
@@ -185,69 +191,70 @@ class Government extends Task{
 			$title = $inneritems->item(0)->firstChild->textContent;
 			$title = Utils::cleanSpaces($title);
 
-			$query[]=array($title,$description,$date,$url,$hash,$media);
+			$query[] = array($title, $description, $date, $url, $hash, $media);
 		}
 
 
-		echo "Възможни ".count($query)." нови новини\n";
+		echo "Възможни " . count($query) . " нови новини\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids,'GovBulgaria');
+		$this->queueTweets($itemids, 'GovBulgaria');
 	}
 
-	function govNovini2() {
+	function govNovini2()
+	{
 		echo "> Проверявам новини на кабинета\n";
-		$this->setSession(3,5);
+		$this->setSession(3, 5);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0212&g=",5);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0212&g=", 5);
 		if (!$html) return;
 		$xpath = $this->xpath($html);
 		if (!$xpath) return;
 		$items = $xpath->query("//table[@cellpadding=1]");
 		if (!$items) return;
 
-		echo "Открити ".$items->length." новини\n";
+		echo "Открити " . $items->length . " новини\n";
 
-		$query=array();
+		$query = array();
 		foreach ($items as $item) {
-			$inneritems = $xpath->query(".//td",$item);
-			if ($inneritems->length!=4)
+			$inneritems = $xpath->query(".//td", $item);
+			if ($inneritems->length != 4)
 				continue;
 
 			$date = $inneritems->item(1)->textContent;
 			$date = Utils::bgMonth($date);
-			$date = mb_substr($date,6,4)."-".mb_substr($date,3,2)."-".mb_substr($date,0,2);
-			if (strtotime($date)<strtotime("-1 week"))
+			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
+			if (strtotime($date) < strtotime("-1 week"))
 				continue;
 
-			$url = "http://www.government.bg".$inneritems->item(0)->firstChild->getAttribute("href");
+			$url = "http://www.government.bg" . $inneritems->item(0)->firstChild->getAttribute("href");
 			$hash = md5($url);
 			if (!checkHash($hash))
 				continue;
 
-			$description=null;
-			$media=null;
-			$htmlsub = $this->loadURL($url,3);
+			$description = null;
+			$media = null;
+			$htmlsub = $this->loadURL($url, 3);
 			$xpathsub = $this->xpath($htmlsub);
 			$itemsub = $xpathsub->query("//table[./tbody/tr/td/font[@style='FONT-SIZE: 11px; TEXT-TRANSFORM: uppercase']]");
-			if ($itemsub->length>0) {
+			if ($itemsub->length > 0) {
 				$description = $itemsub->item(0)->C14N();
-				$description = mb_ereg_replace(" </","</",mb_ereg_replace("> ",">",$description));
-				$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?","",$description);
-				$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>","",$description);
+				$description = mb_ereg_replace(" </", "</", mb_ereg_replace("> ", ">", $description));
+				$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?", "", $description);
+				$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>", "", $description);
 				$description = Utils::cleanSpaces($description);
 				$description = html_entity_decode($description);
 
-				$itemimgs = $xpathsub->query(".//img",$itemsub->item(0));
-				if ($itemimgs->length>0) {
+				$itemimgs = $xpathsub->query(".//img", $itemsub->item(0));
+				if ($itemimgs->length > 0) {
 					$media = array("image" => array());
-					foreach ($itemimgs as $itemimg){
+					foreach ($itemimgs as $itemimg) {
 						$imageurl = $itemimg->getAttribute("src");
-						if (strpos($imageurl,"government.bg")===false)
-							$imageurl="http://www.government.bg/".$imageurl;
-						$imageurl=mb_ereg_replace("images","bigimg",$imageurl,"im");
+						if (strpos($imageurl, "government.bg") === false)
+							$imageurl = "http://www.government.bg/" . $imageurl;
+						$imageurl = mb_ereg_replace("images", "bigimg", $imageurl, "im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array(loadItemImage($imageurl, []),$imagetitle);
+						$media["image"][] = array(loadItemImage($imageurl, []), $imagetitle);
 					}
 				}
 			}
@@ -255,37 +262,38 @@ class Government extends Task{
 			$title = $inneritems->item(0)->firstChild->textContent;
 			$title = Utils::cleanSpaces($title);
 
-			$query[]=array($title,$description,$date,$url,$hash,$media);
+			$query[] = array($title, $description, $date, $url, $hash, $media);
 		}
 
-		echo "Възможни ".count($query)." нови новини\n";
+		echo "Възможни " . count($query) . " нови новини\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids,'GovBulgaria');
+		$this->queueTweets($itemids, 'GovBulgaria');
 	}
 
-	function govPorachki() {
+	function govPorachki()
+	{
 		echo "> Проверявам за съобщения за обществени поръчки на кабинета\n";
-		$this->setSession(3,6);
+		$this->setSession(3, 6);
 
-		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=",6);
+		$html = $this->loadURL("http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=", 6);
 		if (!$html) return;
-		$items = $this->xpathDoc($html,"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']");
+		$items = $this->xpathDoc($html, "//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']");
 
-		echo "Открити ".$items->length." съобщения за обществени поръчки\n";
-		$query=array();
+		echo "Открити " . $items->length . " съобщения за обществени поръчки\n";
+		$query = array();
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$url = "http://www.government.bg".$item->getAttribute("href");
-			$query[]=array($title,null,null,$url,$hash);
-			if (count($query)>=20)
+			$url = "http://www.government.bg" . $item->getAttribute("href");
+			$query[] = array($title, null, null, $url, $hash);
+			if (count($query) >= 20)
 				break;
 		}
 
-		echo "Възможни ".count($query)." нови съобщения за обществени поръчки\n";
+		echo "Възможни " . count($query) . " нови съобщения за обществени поръчки\n";
 		$itemids = $this->saveItems($query);
-		queueTweets($itemids,'GovBulgaria');
+		$this->queueTweets($itemids, 'GovBulgaria');
 	}
 
 
@@ -293,26 +301,28 @@ class Government extends Task{
 	------------------------------------------------------------------------
 	*/
 
-	function xpath($html) {
+	function xpath($html)
+	{
 		if (!$html)
 			return null;
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "cp1251");
 		$doc = new DOMDocument("1.0", "cp1251");
-		$doc->preserveWhiteSpace=false;
-		$doc->strictErrorChecking=false;
+		$doc->preserveWhiteSpace = false;
+		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
 		$doc->loadHTML($html);
 		return new DOMXpath($doc);
 	}
 
-	function xpathDoc($html,$q) {
+	function xpathDoc($html, $q)
+	{
 		$xpath = $this->xpath($html);
 
-		if ($xpath==null)
+		if ($xpath == null)
 			return array();
 
 		$items = $xpath->query($q);
-		return is_null($items)?array():$items;
+		return is_null($items) ? array() : $items;
 	}
 
 } 

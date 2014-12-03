@@ -6,11 +6,13 @@
 
 */
 
-class Adminreg extends Task{
+class Adminreg extends Task
+{
 
-	public function arKonkursi() {
+	public function arKonkursi()
+	{
 		$this->logger->info('> Проверявам за конкурси в АдминРег');
-		$this->setSession(16,0);
+		$this->setSession(16, 0);
 
 		$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html");
 		if (!$html) return;
@@ -20,14 +22,14 @@ class Adminreg extends Task{
 			return;
 		}
 		$items = $xpath->query("//a[contains(@href,'goToPage')]");
-		if (!$items || $items->length==0){
+		if (!$items || $items->length == 0) {
 			$this->db->reportError("Грешка при четене на страницата");
 			return;
 		}
-		$pages = intval($items->item($items->length-2)->textContent);
+		$pages = intval($items->item($items->length - 2)->textContent);
 
 		$query = [];
-		for ($i=1; $i<=$pages; $i++) {
+		for ($i = 1; $i <= $pages; $i++) {
 			if ($i > 1) {
 				$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html?current_page=$i&regTabs=5&menuTab=10&TypeStruct=");
 				if (!$html) {
@@ -44,35 +46,35 @@ class Adminreg extends Task{
 			foreach ($items as $item) {
 				$url = $item->firstChild->firstChild->getAttribute("onclick");
 				$urlPos = mb_strpos($url, "openWin('") + 9;
-				$url = mb_substr($url, $urlPos, mb_strpos($url, "'",$urlPos) - $urlPos);
+				$url = mb_substr($url, $urlPos, mb_strpos($url, "'", $urlPos) - $urlPos);
 				$url = "http://ar2.government.bg/ras/konkursi/$url";
 
-				$hash=md5($url);
+				$hash = md5($url);
 
-				$title = "Конкурс (срок ".$item->childNodes->item(3)->textContent."): ";
+				$title = "Конкурс (срок " . $item->childNodes->item(3)->textContent . "): ";
 				$title .= $item->childNodes->item(0)->textContent;
-				$title .= " в ".$item->childNodes->item(2)->textContent;
-				$title .= ", ".$item->childNodes->item(1)->textContent;
+				$title .= " в " . $item->childNodes->item(2)->textContent;
+				$title .= ", " . $item->childNodes->item(1)->textContent;
 				$description = $title;
-				$title = mb_ereg_replace("Дирекция:|Сектор:|Отдел:|Агенция:","",$title,"im");
+				$title = mb_ereg_replace("Дирекция:|Сектор:|Отдел:|Агенция:", "", $title, "im");
 				$title = Utils::cleanSpaces($title);
 				$description = Utils::cleanSpaces($description);
 
-				$query[]=array($title, $description, 'now', $url, $hash);
+				$query[] = array($title, $description, 'now', $url, $hash);
 			}
 		}
 
-		echo "Възможни ".count($query)." нови конкурси\n";
+		echo "Възможни " . count($query) . " нови конкурси\n";
 		$itemIds = $this->saveItems($query);
 
 		if (count($itemIds) <= 3) {
-			queueTweets($itemIds);
+			$this->queueTweets($itemIds);
 		} else {
-			$pageNum=floor((count($query) - count($itemIds)) / 20) + 1;
+			$pageNum = floor((count($query) - count($itemIds)) / 20) + 1;
 			if ($pageNum < 1 || $pageNum > $pages) {
-				$pageNum=$pages;
+				$pageNum = $pages;
 			}
-			queueTextTweet("Публикувани са ".count($itemIds)." конкурса за свободни позиции в държавната администрация.","http://ar2.government.bg/ras/konkursi/index.html?current_page=$pageNum&regTabs=5&menuTab=10&TypeStruct=");
+			$this->queueTextTweet("Публикувани са " . count($itemIds) . " конкурса за свободни позиции в държавната администрация.", "http://ar2.government.bg/ras/konkursi/index.html?current_page=$pageNum&regTabs=5&menuTab=10&TypeStruct=");
 		}
 	}
 
@@ -81,13 +83,14 @@ class Adminreg extends Task{
 	*/
 
 
-	private function xpath($html) {
+	private function xpath($html)
+	{
 		if (!$html)
 			return null;
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "cp1251");
 		$doc = new DOMDocument("1.0", "cp1251");
-		$doc->preserveWhiteSpace=false;
-		$doc->strictErrorChecking=false;
+		$doc->preserveWhiteSpace = false;
+		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
 		$doc->loadHTML($html);
 		return new DOMXpath($doc);
