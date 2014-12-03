@@ -182,7 +182,7 @@ class Bnb extends Task
 			$items2 = $xpath1->query(".//img", $items1->item(0));
 			foreach ($items2 as $item2) {
 				$imageURL = "http://bnb.bg" . $item2->getAttribute("src");
-				$imageURL = loadItemImage($imageURL, []);
+				$imageURL = $this->loadItemImage($imageURL, []);
 				if ($imageURL == null) continue;
 				if ($media == null)
 					$media = array("image" => array($imageURL, null));

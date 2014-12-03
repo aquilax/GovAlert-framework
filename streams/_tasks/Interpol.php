@@ -158,10 +158,10 @@ class Interpol extends Task
 				$url = $prop[5] . "/" . $row["code"];
 				$this->loadURL($url);
 				$imgoptions = array('doNotReportError' => 1, 'addInterpol' => ($prop[1] == 1 ? 'yellow' : 'red'));
-				$imageurl = loadItemImage("http://www.interpol.int" . $row["photo"], null, $imgoptions);
+				$imageurl = $this->loadItemImage("http://www.interpol.int" . $row["photo"], null, $imgoptions);
 				if ($imageurl == null) {
 					$imageurl = "http://www.interpol.int" . str_replace("ws/", "ws/%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20", $row["photo"]);
-					$imageurl = loadItemImage($imageurl, null, $imgoptions);
+					$imageurl = $this->loadItemImage($imageurl, null, $imgoptions);
 				}
 				if ($imageurl != null) {
 					$imagetitle = $row["name"];

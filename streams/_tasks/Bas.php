@@ -117,7 +117,7 @@ class Bas extends Task
 			);
 
 			if ($inBG || $mag >= 4.5) {
-				$media["geoimage"] = array(loadGeoImage($lat, $lng, 8), null);
+				$media["geoimage"] = array($this->loadGeoImage($lat, $lng, 8), null);
 			}
 			$query[] = array($title, $description, $date, 'http://ndc.niggg.bas.bg', $hash, $media);
 		}

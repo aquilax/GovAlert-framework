@@ -47,7 +47,7 @@ class Prokuratura extends Task
 				$imagetitle = trim($item->childNodes->item(3)->textContent);
 				$imagetitle = $this->cleanTitle($imagetitle);
 				$imagetitle = $this->cleanText($imagetitle);
-				$media = array("image" => array(loadItemImage($imageurl, []), $imagetitle));
+				$media = array("image" => array($this->loadItemImage($imageurl, []), $imagetitle));
 			}
 
 			$query[] = array($title, $description, $date, $url, $hash, $media);

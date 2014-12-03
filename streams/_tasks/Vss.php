@@ -151,7 +151,7 @@ class Vss extends Task
 					$medialist = mb_substr($html, $medialiststart, mb_strpos($html, ");", $medialiststart) - $medialiststart);
 					$medialist = explode(",", str_replace(array('"', "'"), "", $medialist));
 					foreach ($medialist as $mediafile) {
-						$imageurl = loadItemImage($baseurl . $mediafile, []);
+						$imageurl = $this->loadItemImage($baseurl . $mediafile, []);
 						if ($imageurl)
 							$media["image"][] = array($imageurl);
 					}

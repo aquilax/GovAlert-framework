@@ -183,7 +183,7 @@ class Government extends Task
 						$imageurl = mb_ereg_replace("images", "bigimg", $imageurl, "im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array(loadItemImage($imageurl, []), $imagetitle);
+						$media["image"][] = array($this->loadItemImage($imageurl, []), $imagetitle);
 					}
 				}
 			}
@@ -228,7 +228,7 @@ class Government extends Task
 
 			$url = "http://www.government.bg" . $inneritems->item(0)->firstChild->getAttribute("href");
 			$hash = md5($url);
-			if (!checkHash($hash))
+			if (!$this->checkHash($hash))
 				continue;
 
 			$description = null;
@@ -254,7 +254,7 @@ class Government extends Task
 						$imageurl = mb_ereg_replace("images", "bigimg", $imageurl, "im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array(loadItemImage($imageurl, []), $imagetitle);
+						$media["image"][] = array($this->loadItemImage($imageurl, []), $imagetitle);
 					}
 				}
 			}

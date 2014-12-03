@@ -341,7 +341,7 @@ class Mvr extends Task
 
 						foreach ($item_1 as $itemimg) {
 							$imageurl = "http://www.rdvr-burgas.org/Bul/Suobshtenie/" . $itemimg->getAttribute("src");
-							$imageurl = loadItemImage($imageurl, []);
+							$imageurl = $this->loadItemImage($imageurl, []);
 							if ($imageurl) {
 								if ($query[count($query) - 1][5] == null)
 									$query[count($query) - 1][5] = array("image" => array());
@@ -438,7 +438,7 @@ class Mvr extends Task
 
 			$url = $urlbase . Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
 			$hash = md5($url);
-			if (!checkHash($hash))
+			if (!$this->checkHash($hash))
 				continue;
 
 			$date = $item_2->item(0)->textContent;
@@ -479,7 +479,7 @@ class Mvr extends Task
 					$items3 = $this->xpathDoc($html3, "//div[@id='divIllustrationHeap']//img|//div[@id='divIllustration']//img");
 					foreach ($items3 as $item3) {
 						$imageurl = $urlbase . $item3->getAttribute('src');
-						$imageurl = loadItemImage($imageurl, []);
+						$imageurl = $this->loadItemImage($imageurl, []);
 						if ($imageurl) {
 							$media["image"][] = array($imageurl);
 						}

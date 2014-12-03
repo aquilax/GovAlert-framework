@@ -449,7 +449,7 @@ class Parliament extends Task
 			foreach ($items as $item) {
 				$url = 'http://parliament.bg' . $item->getAttribute("href");
 				$hash = md5($url);
-				if (!checkHash($hash))
+				if (!$this->checkHash($hash))
 					continue;
 
 				$html1 = $this->loadURL($url);
@@ -499,7 +499,7 @@ class Parliament extends Task
 			foreach ($items as $item) {
 				$url = 'http://parliament.bg' . $item->getAttribute("href");
 				$hash = md5($url);
-				if (!checkHash($hash))
+				if (!$this->checkHash($hash))
 					continue;
 
 				$title = $this->cleanText($item->textContent);
@@ -533,7 +533,7 @@ class Parliament extends Task
 			foreach ($items as $item) {
 				$url = 'http://parliament.bg' . $item->getAttribute("href");
 				$hash = md5($url);
-				if (!checkHash($hash))
+				if (!$this->checkHash($hash))
 					continue;
 
 				$title = $this->cleanText($item->textContent);

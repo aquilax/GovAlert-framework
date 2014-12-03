@@ -15,7 +15,9 @@ class Adminreg extends Task
 		$this->setSession(16, 0);
 
 		$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html");
-		if (!$html) return;
+		if (!$html) {
+			return;
+		}
 		$xpath = $this->xpath($html);
 		if (!$xpath) {
 			$this->db->reportError("Грешка при зареждане на страницата");
@@ -85,8 +87,9 @@ class Adminreg extends Task
 
 	private function xpath($html)
 	{
-		if (!$html)
+		if (!$html) {
 			return null;
+		}
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "cp1251");
 		$doc = new DOMDocument("1.0", "cp1251");
 		$doc->preserveWhiteSpace = false;

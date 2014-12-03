@@ -31,7 +31,7 @@ class Task
 	function saveItems($items)
 	{
 		global $session;
-		if (!checkSession()) {
+		if (!$this->checkSession()) {
 			return;
 		}
 		if (!$items || count($items) == 0) {
@@ -101,7 +101,7 @@ class Task
 	function loadURL($address, $linki = null)
 	{
 		global $session;
-		if (!checkSession())
+		if (!$this->checkSession())
 			return false;
 
 		echo "Зареждам $address... ";
@@ -227,7 +227,7 @@ class Task
 	function checkTitle($title)
 	{
 		global $session;
-		if (!checkSession())
+		if (!$this->checkSession())
 			return true;
 		$res = $this->db->query("select hash from item where title='$title' and sourceid=${session['sourceid']} limit 1");
 		return $res->num_rows == 0;
@@ -236,7 +236,7 @@ class Task
 	function checkPageChanged($html, $linki)
 	{
 		global $session;
-		if (!checkSession())
+		if (!$this->checkSession())
 			return false;
 		$hash = md5($html);
 		$res = $this->db->query("select hash from scrape where hash='$hash' and sourceid=" . $session["sourceid"] . " and url=$linki limit 1");
@@ -256,40 +256,11 @@ class Task
 		global $session;
 		if ($this->debug)
 			return;
-		if (!checkSession())
+		if (!$this->checkSession())
 			return;
 		$loadtime = round((microtime(true) - $loadstart) * 1000);
 		return $this->db->query("insert LOW_PRIORITY ignore into scrape_load (sourceid,category,url,loadtime) value " .
 			"(" . $session["sourceid"] . "," . $session["category"] . ",'$url',$loadtime)");
-	}
-
-
-	function getUrlFileType($url)
-	{
-		if (strpos($url, ".pdf") !== false)
-			return "[PDF]";
-		if (strpos($url, ".doc") !== false)
-			return "[DOC]";
-		if (strpos($url, ".xls") !== false || strpos($url, ".xlsx") !== false)
-			return "[XLS]";
-
-		$context = stream_context_create(array('http' => array('method' => 'HEAD')));
-		$fd = fopen($url, 'rb', false, $context);
-		$data = stream_get_meta_data($fd);
-		fclose($fd);
-		if (!$data['wrapper_data'])
-			return false;
-
-		foreach ($data['wrapper_data'] as $wr)
-			if (strpos($wr, "Content-Disposition: attachment") !== false) {
-				if (strpos($wr, ".pdf") !== false)
-					return "[PDF]";
-				if (strpos($wr, ".doc") !== false)
-					return "[DOC]";
-				if (strpos($wr, ".xls") !== false || strpos($url, ".xlsx") !== false)
-					return "[XLS]";
-			}
-		return false;
 	}
 
 
@@ -300,12 +271,12 @@ class Task
 			$url = "http://api.tiles.mapbox.com/v3/yurukov.i6nmgf1c/pin-l-star+ff0000($lng,$lat,$zoom)/$lng,$lat,$zoom/640x480.png";
 			$loadstart = microtime(true);
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");
-			setPageLoad($url, $loadstart);
+			$this->setPageLoad($url, $loadstart);
 			usleep(500000);
 		}
 
 		if (!file_exists($filename) || filesize($filename) == 0) {
-			reportError("Грешка при зареждане на геоснимка $lat,$lng,$zoom.");
+			$this->db->reportError("Грешка при зареждане на геоснимка $lat,$lng,$zoom.");
 			return null;
 		}
 
@@ -326,7 +297,7 @@ class Task
 		if (!file_exists($filename)) {
 			$loadstart = microtime(true);
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");
-			setPageLoad($url, $loadstart);
+			$this->setPageLoad($url, $loadstart);
 			if (filesize($filename) >= 1.5 * 1024 * 1024)
 				resizeItemImage($filename, $type);
 			else
@@ -339,7 +310,7 @@ class Task
 			if (file_exists($filename))
 				unlink($filename);
 			if (!array_key_exists("doNotReportError", $options))
-				reportError("Грешка при зареждане на снимка: $url");
+				$this->db->reportError("Грешка при зареждане на снимка: $url");
 			return null;
 		}
 
@@ -358,7 +329,7 @@ class Task
 	{
 		global $session;
 		if ($session["sourceid"] == null) {
-			reportError("Не е заредена сесията");
+			$this->db->reportError("Не е заредена сесията");
 			return false;
 		}
 		return true;

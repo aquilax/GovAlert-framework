@@ -51,6 +51,48 @@ class Utils
 		return $text;
 	}
 
+	static function replaceAccounts($title, $cutlen)
+	{
+		$map = array(
+			"@KGeorgievaEU" => array("Кристалина Георгиева", "Кристалина"),
+			"@CIKBG" => array("Централната избирателна комисия", "ЦИК"),
+			"@BgPresidency" => array("Президентът на РБ", "Президента на РБ", "президентът на Република България", "президента на Република България", "президентът Плевнелиев", "президента Плевнелиев", "президентът Росен Плевнелиев", "президента Росен Плевнелиев"),
+			"@EP_Bulgaria" => array("Европейски Парламент", "Европейския Парламент", "Европейският Парламент"),
+			"@TomislavDonchev" => array("Томислав Дончев"),
+			"@BoykoBorissov" => array("Бойко Борисов"),
+			"@SvMalinov" => array("Светослав Малинов"),
+			"@evapaunova" => array("Ева Паунова"),
+			"@JunckerEU" => array("Юнкер"),
+			"@IvailoKalfin" => array("Ивайло Калфин", "Калфин"),
+			"@FandakovaY" => array("Йорданка Фандъкова", "Фандъкова"),
+			"@Stoli4naOb6tina" => array("Столична община"),
+			"@UniversitySofia" => array("Софийски университет"),
+			"@MoskovPetar" => array("Петър Москов"),
+			"@rmkanev" => array("Радан Кънев")
+		);
+
+		foreach ($map as $account => $strings)
+			$title = self::replaceAccount($title, $account, $cutlen, $strings);
+
+		return $title;
+	}
+
+	static function replaceAccount($title, $account, $cutlen, $texts)
+	{
+		$text = false;
+		foreach ($texts as $textT)
+			if (($loc = mb_stripos($title, $textT)) !== false) {
+				$text = $textT;
+				break;
+			}
+		if ($text === false || $loc + mb_strlen($account) >= $cutlen)
+			return $title;
+		$firstPart = mb_substr($title, 0, $loc);
+		if (trim($firstPart) == '')
+			$firstPart = ".";
+		return $firstPart . $account . mb_substr($title, $loc + mb_strlen($text));
+	}
+
 }
 
 function linkCode($id)

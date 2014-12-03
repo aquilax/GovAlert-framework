@@ -16,19 +16,6 @@ class TaskManager
 		$this->logger = $logger;
 	}
 
-	// TODO: Remove me when all tasks are migrated to classRun
-	private function legacyRun($lib, $task)
-	{
-		$taskFilePath = BASEPATH . '/' . $lib . '/tasks.php';
-		if (file_exists($taskFilePath)) {
-			require_once($taskFilePath);
-			resetSession();
-			call_user_func($task);
-			return true;
-		}
-		return false;
-	}
-
 	private function classRun($lib, $method)
 	{
 		$className = ucfirst($lib);
@@ -36,8 +23,8 @@ class TaskManager
 		echo $taskClassFilePath . PHP_EOL;
 		if (file_exists($taskClassFilePath)) {
 			require_once($taskClassFilePath);
-			resetSession();
 			$task = new $className($this->db, $this->logger);
+			$task->resetSession();
 			$task->{$method}();
 			return true;
 		}

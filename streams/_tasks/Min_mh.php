@@ -79,7 +79,7 @@ class Min_mh extends Task
 				$imageurl = $item->childNodes->item(5)->childNodes->item(1)->getAttribute("src");
 				$imageurl = "http://www.mh.government.bg/$imageurl";
 				$imageurl = mb_ereg_replace("small", "large", $imageurl, "im");
-				$media = array("image" => array(loadItemImage($imageurl, []), null));
+				$media = array("image" => array($this->loadItemImage($imageurl, []), null));
 			}
 
 			$query[] = array($title, $description, $date, $url, $hash, $media);

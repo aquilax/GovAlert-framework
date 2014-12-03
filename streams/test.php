@@ -4,7 +4,7 @@ require_once(BASEPATH . '/_classes/twitter.php');
 $debug = 1;
 
 if ($argc < 3) {
-	die('Необнодимите аргументи са lib task delay' . PHP_EOL);
+	die('Необходимите аргументи са lib task delay' . PHP_EOL);
 }
 
 $taskManager = new TaskManager($db, $logger);

@@ -51,7 +51,7 @@ class Dans extends Task
 			$url = $item->childNodes->item(1)->textContent;
 			$url = str_replace("dans.int/", "dans.bg/", $url);
 			$hash = md5($url);
-			if (!checkHash($hash))
+			if (!$this->checkHash($hash))
 				continue;
 
 			$description = $item->childNodes->item(2)->textContent;
@@ -69,8 +69,8 @@ class Dans extends Task
 				$imageurl = str_replace("http://www.dans.int/", "", $imageurl);
 				if (strpos($imageurl, "dans.bg") === false)
 					$imageurl = "http://www.dans.bg/" . $imageurl;
-				$media["image"][] = array(loadItemImage($imageurl, []));
-				$imageurl = loadItemImage($imageurl, []);
+				$media["image"][] = array($this->loadItemImage($imageurl, []));
+				$imageurl = $this->loadItemImage($imageurl, []);
 				if ($imageurl)
 					$media["image"][] = array($imageurl);
 			}
