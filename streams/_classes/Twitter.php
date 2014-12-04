@@ -5,7 +5,8 @@ class Twitter
 	private $db;
 	private $logger;
 
-	function __construct(Database $db, Logger $logger) {
+    function __construct(Database $db, Logger $logger) 
+    {
 		$this->db = $db;
 		$this->logger = $logger;
 	}
