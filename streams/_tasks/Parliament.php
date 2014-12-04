@@ -67,7 +67,7 @@ class Parliament extends Task
 		$this->queueTweets($itemids, 'narodnosabranie', true);
 
 		$itemids = $this->saveItems($queryGov);
-		$this->queueTweets($itemids, 'narodnosabranie', array("GovAlertEU", "GovBulgaria"));
+		$this->queueTweets($itemids, 'narodnosabranie', ['GovAlertEU', 'GovBulgaria']);
 
 	}
 

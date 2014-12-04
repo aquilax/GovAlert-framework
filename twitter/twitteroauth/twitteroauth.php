@@ -35,7 +35,7 @@ class TwitterOAuth {
   public $useragent = 'TwitterOAuth v0.2.0-beta2';
   /* Immediately retry the API call if the response was not successful. */
   //public $retry = TRUE;
-
+	public $content_type = '';
   /* caching options */
   /* caching responses for an hour only with GET requests */
   public $cache = 0;
@@ -296,15 +296,15 @@ class TwitterOAuth {
 		return 0;
 	}
   
-	function cacheFile($data, $filename) {
+	function cacheFile($data, $fileName) {
 		$new_file = $this->cacheLocation.'/'.$fileName;
 		$fh = fopen($new_file, 'w+');
 		if (!$fh) {
-			$this->cache_error = "Could not open cache file '$filename'";
+			$this->cache_error = "Could not open cache file '$fileName'";
 			return 0;
 		}
 		if (!fwrite($fh, $data)) {
-			$this->cache_error = "Could not write to cache file '$filename'";
+			$this->cache_error = "Could not write to cache file '$fileName'";
 			fclose($fh);
 			return 0;
 		}

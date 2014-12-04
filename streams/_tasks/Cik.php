@@ -165,9 +165,6 @@ class Cik extends Task
 
 		echo "Възможни " . count($query) . " нови жалби\n";
 
-		// TODO: Figure this out
-		$itemids = $this->saveItems($query);
-
 		$itemids = $this->saveItems($query);
 		if (count($itemids) <= 5)
 			$this->queueTweets($itemids);

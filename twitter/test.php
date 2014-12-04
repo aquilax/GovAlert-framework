@@ -372,4 +372,4 @@ twitteroauth_header('OAuth Methods');
 
 /* oauth/request_token */
 $oauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-twitteroauth_row('oauth/reqeust_token', $oauth->getRequestToken(), $oauth->http_code);
+twitteroauth_row('oauth/reqeust_token', $oauth->getRequestToken(function(){}), $oauth->http_code);

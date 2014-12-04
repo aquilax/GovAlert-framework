@@ -23,6 +23,9 @@ class TaskManager
 		echo $taskClassFilePath . PHP_EOL;
 		if (file_exists($taskClassFilePath)) {
 			require_once($taskClassFilePath);
+			/**
+			 * @var $task Task
+			 */
 			$task = new $className($this->db, $this->logger);
 			$task->resetSession();
 			$task->{$method}();
@@ -34,10 +37,7 @@ class TaskManager
 	public function runTask($lib, $task, $delay, $force)
 	{
 		global $session;
-		$run = self::legacyRun($lib, $task);
-		if (!$run) {
-			$run = self::classRun($lib, $task);
-		}
+		$run = self::classRun($lib, $task);
 		if ($run && !$force && $delay != 0) {
 			if (!$session["error"] || $delay <= 4) {
 				if ($delay > 24) {

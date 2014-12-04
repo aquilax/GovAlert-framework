@@ -138,7 +138,7 @@ class Bnb extends Task
 		if (!$html) return;
 		$items = $this->xpathDoc($html, "//div[@id='main']//h4/a");
 		if (!$items || $items->length == 0) {
-			$this->reportError("Грешка при зареждане на страницата");
+			$this->db->reportError("Грешка при зареждане на страницата");
 			return;
 		}
 		$query = array();

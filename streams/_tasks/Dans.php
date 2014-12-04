@@ -31,7 +31,7 @@ class Dans extends Task
 
 		$date = $xpath->query("//lastBuildDate");
 		if (!$date || $date->length == 0) {
-			$this->reportError("Грешка при намирането на последната дата.");
+			$this->db->reportError('Грешка при намирането на последната дата.');
 			return;
 		}
 

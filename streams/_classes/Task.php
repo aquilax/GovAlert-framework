@@ -32,10 +32,10 @@ class Task
 	{
 		global $session;
 		if (!$this->checkSession()) {
-			return;
+			return false;
 		}
 		if (!$items || count($items) == 0) {
-			return;
+			return false;
 		}
 
 		$this->logger->info('Запазвам ' . count($items) . '... ');
@@ -187,11 +187,10 @@ class Task
 		}
 
 		if (!$this->debug && $linki !== null) {
+			$hash = md5($html);
 			if ($hashdata === false) {
-				// TODO: Figure this out
 				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $session["sourceid"] . ",$linki,'$hash',now())");
 			} else {
-				$hash = md5($html);
 				if ($hashdata['hash'] != null && $hashdata['hash'] == $hash) {
 					echo "страницата не е променена [hash]\n";
 					if (!$hashdata['ignorehead']) {
@@ -259,7 +258,7 @@ class Task
 		if (!$this->checkSession())
 			return;
 		$loadtime = round((microtime(true) - $loadstart) * 1000);
-		return $this->db->query("insert LOW_PRIORITY ignore into scrape_load (sourceid,category,url,loadtime) value " .
+		$this->db->query("insert LOW_PRIORITY ignore into scrape_load (sourceid,category,url,loadtime) value " .
 			"(" . $session["sourceid"] . "," . $session["category"] . ",'$url',$loadtime)");
 	}
 
@@ -299,9 +298,9 @@ class Task
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");
 			$this->setPageLoad($url, $loadstart);
 			if (filesize($filename) >= 1.5 * 1024 * 1024)
-				resizeItemImage($filename, $type);
+				Images::resizeItemImage($filename, $type);
 			else
-				fitinItemImage($filename, $type, $options);
+				Images::fitinItemImage($filename, $type, $options);
 
 			usleep(500000);
 		}
@@ -380,6 +379,11 @@ class Task
 		$this->db->query("insert LOW_PRIORITY ignore into tweet (account, queued, text, sourceid, priority, retweet) value ('$account',now(),'$text'," . $session["sourceid"] . ",1,$retweet)");
 	}
 
+	/**
+	 * @param $itemids
+	 * @param string $account
+	 * @param mixed $retweet
+	 */
 	function queueTweets($itemids, $account = 'govalerteu', $retweet = false)
 	{
 		if (!$itemids || count($itemids) == 0)
@@ -396,8 +400,9 @@ class Task
 			$retweet = "govalerteu";
 
 		$query = array();
-		foreach ($itemids as $id)
+		foreach ($itemids as $id) {
 			$query[] = "($id,'$account',now(), $retweet)";
+		}
 		$this->db->query("insert LOW_PRIORITY ignore into tweet (itemid, account, queued, retweet) values " . implode(",", $query));
 	}
 

@@ -20,7 +20,7 @@ class Prokuratura extends Task
 
 		$html = $this->loadURL("http://www.prb.bg/main/bg/News/", 0);
 		if (!$html) return;
-		$items = $tis->xpathDoc($html, "//div[@class='list-inner']");
+		$items = $this->xpathDoc($html, "//div[@class='list-inner']");
 
 		$query = array();
 		foreach ($items as $item) {
@@ -114,7 +114,7 @@ class Prokuratura extends Task
 			$title = trim($item->childNodes->item(1)->textContent);
 			$title = $this->cleanTitle($title);
 			$title = "Конкурс: " . $title;
-
+			// TODO: Figure this out
 			$url = "http://www.prb.bg" . $item->childNodes->item(1 + ($hasimage ? 2 : 0))->firstChild->getAttribute("href");
 			$hash = md5($url);
 

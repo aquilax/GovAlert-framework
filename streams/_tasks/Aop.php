@@ -13,8 +13,6 @@ class Aop extends Task
 
 	function aop_Saobshteniq()
 	{
-		global $link;
-
 		echo "> Проверявам за нови документи в АОП\n";
 
 		$html = $this->httpPost("http://rop3-app1.aop.bg:7778/portal/page?_pageid=93,662251&_dad=portal&_schema=PORTAL",

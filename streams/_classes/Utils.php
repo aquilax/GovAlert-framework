@@ -80,6 +80,7 @@ class Utils
 	static function replaceAccount($title, $account, $cutlen, $texts)
 	{
 		$text = false;
+		$loc = '';
 		foreach ($texts as $textT)
 			if (($loc = mb_stripos($title, $textT)) !== false) {
 				$text = $textT;

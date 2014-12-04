@@ -195,7 +195,7 @@ class Vss extends Task
 		return new DOMXpath($doc);
 	}
 
-	function vss_xpathDoc($html, $q)
+	function xpathDoc($html, $q)
 	{
 		$xpath = $this->xpath($html);
 		if ($xpath == null)

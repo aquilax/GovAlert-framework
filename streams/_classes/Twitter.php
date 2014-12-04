@@ -65,7 +65,7 @@ class Twitter
 					sleep(20);
 				}
 				$first = false;
-
+				$message = '';
 				if ($connection == false || $currentAccount === false || $currentAccount != strtolower($row['account'])) {
 					$currentAccount = strtolower($row['account']);
 					$currentAuth = $twitterAuth[$currentAccount];

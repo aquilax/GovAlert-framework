@@ -57,7 +57,7 @@ class Database extends mysqli
 		$session["error"] = true;
 	}
 
-	function errorHandler($errno, $errstr, $errfile, $errline)
+	function errorHandler($errno, $errstr)
 	{
 		switch ($errno) {
 			case E_USER_ERROR:

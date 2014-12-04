@@ -11,7 +11,7 @@ $force = count($argv) > 1;
 $taskManager = new TaskManager($db, $logger);
 $taskManager->runTasks($force);
 
-$twitter = new Twitter();
+$twitter = new Twitter($db, $logger);
 $twitter->postTwitter();
 
 $logger->info('END');
