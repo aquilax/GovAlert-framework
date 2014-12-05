@@ -302,7 +302,7 @@ class Parliament extends Task
 				$query = array();
 			} else {
 				if ($currentDate == false) {
-					$this->db->reportError("Грешка в събитията на парламента");
+					$this->reportError("Грешка в събитията на парламента");
 				}
 				$time = trim($item->childNodes->item(1)->textContent);
 				$date = "$currentDate $time";

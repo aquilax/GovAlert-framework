@@ -292,7 +292,7 @@ class Mvr extends Task
 		$xpath = $this->xpath($html);
 		$items = $xpath ? $xpath->query("//table[@id='AutoNumber1']//td[1]//p") : false;
 		if (!$items || $items->length == 0) {
-			$this->db->reportError("Грешка при зареждане на отделно съобщение");
+			$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
@@ -368,7 +368,7 @@ class Mvr extends Task
 		$xpath = $this->xpath($html);
 		$items = $xpath ? $xpath->query("//td[@nowrap='nowrap']") : false;
 		if (!$items || $items->length == 0) {
-			$this->db->reportError("Грешка при зареждане на отделно съобщение");
+			$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
@@ -423,7 +423,7 @@ class Mvr extends Task
 		$items = $xpath ? $xpath->query("//ul[@class='categoryList']/li") : false;
 		if (!$items || $items->length == 0) {
 			if (!$expectempty)
-				$this->db->reportError("Грешка при зареждане на отделно съобщение");
+				$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 

@@ -1,6 +1,6 @@
 <?php
 require_once('init.php');
-require_once(BASEPATH . '/_classes/twitter.php');
+require_once(BASEPATH . '/_classes/Twitter.php');
 $debug = 1;
 
 if ($argc < 3) {

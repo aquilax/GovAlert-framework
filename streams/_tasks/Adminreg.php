@@ -20,12 +20,12 @@ class Adminreg extends Task
 		}
 		$xpath = $this->xpath($html);
 		if (!$xpath) {
-			$this->db->reportError("Грешка при зареждане на страницата");
+			$this->reportError("Грешка при зареждане на страницата");
 			return;
 		}
 		$items = $xpath->query("//a[contains(@href,'goToPage')]");
 		if (!$items || $items->length == 0) {
-			$this->db->reportError("Грешка при четене на страницата");
+			$this->reportError("Грешка при четене на страницата");
 			return;
 		}
 		$pages = intval($items->item($items->length - 2)->textContent);
@@ -39,7 +39,7 @@ class Adminreg extends Task
 				}
 				$xpath = $this->xpath($html);
 				if (!$xpath) {
-					$this->db->reportError("Грешка при зареждане на страница $i");
+					$this->reportError("Грешка при зареждане на страница $i");
 					return;
 				}
 			}

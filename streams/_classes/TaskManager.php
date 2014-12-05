@@ -27,7 +27,6 @@ class TaskManager
 			 * @var $task Task
 			 */
 			$task = new $className($this->db, $this->logger);
-			$task->resetSession();
 			$task->{$method}();
 			return true;
 		}

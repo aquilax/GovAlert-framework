@@ -18,12 +18,12 @@ class Dans extends Task
 		if (!$html) return;
 		$xpath = $this->xpath($html, false);
 		if (!$xpath) {
-			$this->db->reportError("Грешка при зареждане на отделно съобщение");
+			$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 		$items = $xpath->query("//item");
 		if (!$items || $items->length == 0) {
-			$this->db->reportError("Грешка при зареждане на отделно съобщение");
+			$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
@@ -31,7 +31,7 @@ class Dans extends Task
 
 		$date = $xpath->query("//lastBuildDate");
 		if (!$date || $date->length == 0) {
-			$this->db->reportError('Грешка при намирането на последната дата.');
+			$this->reportError('Грешка при намирането на последната дата.');
 			return;
 		}
 

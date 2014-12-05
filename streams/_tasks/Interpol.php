@@ -72,12 +72,12 @@ class Interpol extends Task
 			if (!$html) return;
 			$xpath = $this->xpath($html);
 			if (!$xpath) {
-				$this->db->reportError("Грешка при зареждане на начална страница");
+				$this->reportError("Грешка при зареждане на начална страница");
 				return;
 			}
 			$items = $xpath->query("//div[@class='bloc_pagination']");
 			if (!$items || $items->length == 0) {
-				$this->db->reportError("Грешка при откриване на бройка");
+				$this->reportError("Грешка при откриване на бройка");
 				return;
 			}
 			$profiles = $items->item(0)->textContent;
@@ -91,14 +91,14 @@ class Interpol extends Task
 					if (!$html) return;
 					$xpath = $this->xpath($html);
 					if (!$xpath) {
-						$this->db->reportError("Грешка при зареждане на страница " . ($skip / 9 + 1));
+						$this->reportError("Грешка при зареждане на страница " . ($skip / 9 + 1));
 						return;
 					}
 				}
 
 				$items = $xpath->query("//div[@class='bloc_bordure']/div");
 				if (!$items || $items->length == 0) {
-					$this->db->reportError("Грешка при откриване нa профили на страница " . ($skip / 9 + 1));
+					$this->reportError("Грешка при откриване нa профили на страница " . ($skip / 9 + 1));
 					return;
 				}
 				foreach ($items as $item) {

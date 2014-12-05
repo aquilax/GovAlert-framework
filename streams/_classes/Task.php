@@ -6,20 +6,23 @@ class Task
 	protected $db;
 	protected $logger;
 	protected $debug = false;
+	protected $sourceId = null;
+	protected $category = null;
+	protected $error = false;
 
-	public function __construct(Database $db, Logger $logger, $debug)
+	public function __construct(Database $db, Logger $logger, $debug = false)
 	{
 		$this->db = $db;
 		$this->logger = $logger;
 		$this->debug = $debug;
 	}
 
-	function setSession($sourceid, $category)
+
+	function setSession($sourceId, $category)
 	{
-		global $session;
-		$session["sourceid"] = $sourceid;
-		$session["category"] = $category;
-		$session["error"] = false;
+		$this->sourceId = $sourceId;
+		$this->category = $category;
+		$this->error = false;
 	}
 
 	function checkHash($hash)
@@ -30,7 +33,6 @@ class Task
 
 	function saveItems($items)
 	{
-		global $session;
 		if (!$this->checkSession()) {
 			return false;
 		}
@@ -59,7 +61,7 @@ class Task
 			$item[1] = $item[1] !== null ? "'" . $this->db->escape_string($item[1]) . "'" : "null";
 			$item[2] = $item[2] !== null ? ($item[2] == 'now' ? 'now()' : "'" . $this->db->escape_string($item[2]) . "'") : "null";
 			$item[3] = $item[3] !== null ? "'" . $this->db->escape_string($item[3]) . "'" : "null";
-			$query[] = array("(${item[0]},${item[1]},${session['sourceid']},${session['category']},${item[2]},now(),${item[3]},'${item[4]}')", $item[5]);
+			$query[] = array("(${item[0]},${item[1]},".$this->sourceId.",".$this->category.",${item[2]},now(),${item[3]},'${item[4]}')", $item[5]);
 		}
 		$this->logger->info('от тях ' . count($query) . ' са нови... ');
 
@@ -100,7 +102,6 @@ class Task
 
 	function loadURL($address, $linki = null)
 	{
-		global $session;
 		if (!$this->checkSession())
 			return false;
 
@@ -111,7 +112,7 @@ class Task
 		$hashdatadirty = false;
 
 		if (!$this->debug && $linki !== null) {
-			$res = $this->db->query("select hash,lastchanged,etag,headpostpone,ignorehead from scrape where sourceid=" . $session["sourceid"] . " and url=$linki limit 1");
+			$res = $this->db->query("select hash,lastchanged,etag,headpostpone,ignorehead from scrape where sourceid=" . $this->sourceId . " and url=$linki limit 1");
 			if ($res->num_rows > 0)
 				$hashdata = $res->fetch_assoc();
 			$res->free();
@@ -181,7 +182,7 @@ class Task
 		}
 
 		if ($html === false || $html === null) {
-			$this->db->reportError("Грешка при зареждане на сайта");
+			$this->reportError("Грешка при зареждане на сайта");
 			echo "грешка при зареждането\n";
 			return false;
 		}
@@ -189,13 +190,13 @@ class Task
 		if (!$this->debug && $linki !== null) {
 			$hash = md5($html);
 			if ($hashdata === false) {
-				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $session["sourceid"] . ",$linki,'$hash',now())");
+				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $this->sourceId . ",$linki,'$hash',now())");
 			} else {
 				if ($hashdata['hash'] != null && $hashdata['hash'] == $hash) {
 					echo "страницата не е променена [hash]\n";
 					if (!$hashdata['ignorehead']) {
 						if ($hashdata['headpostpone'] === null)
-							$this->db->query("update scrape set ignorehead=1 where sourceid=" . $session["sourceid"] . " and url=$linki limit 1");
+							$this->db->query("update scrape set ignorehead=1 where sourceid=" . $this->sourceId . " and url=$linki limit 1");
 						else if ($hashdatadirty[0] || $hashdatadirty[1] || $hashdatadirty[2]) {
 							$setters = array();
 							if ($hashdatadirty[0])
@@ -204,7 +205,7 @@ class Task
 								$setters[] = 'etag=' . $hashdata['etag'];
 							if ($hashdatadirty[2])
 								$setters[] = 'headpostpone=' . $hashdata['headpostpone'];
-							$this->db->query("update scrape set " . implode(", ", $setters) . " where sourceid=" . $session["sourceid"] . " and url=$linki limit 1");
+							$this->db->query("update scrape set " . implode(", ", $setters) . " where sourceid=" . $this->sourceId . " and url=$linki limit 1");
 						}
 					}
 					return false;
@@ -214,7 +215,7 @@ class Task
 					($hashdatadirty[0] ? 'lastchanged=' . $hashdata['lastchanged'] . ', ' : '') .
 					($hashdatadirty[1] ? 'etag=' . $hashdata['etag'] . ', ' : '') .
 					($hashdatadirty[2] ? 'headpostpone=' . $hashdata['headpostpone'] . ', ' : '') .
-					"hash='$hash', loadts=now() where sourceid=" . $session["sourceid"] . " and url=$linki limit 1");
+					"hash='$hash', loadts=now() where sourceid=" . $this->sourceId . " and url=$linki limit 1");
 			}
 		}
 
@@ -225,41 +226,38 @@ class Task
 
 	function checkTitle($title)
 	{
-		global $session;
 		if (!$this->checkSession())
 			return true;
-		$res = $this->db->query("select hash from item where title='$title' and sourceid=${session['sourceid']} limit 1");
+		$res = $this->db->query("select hash from item where title='$title' and sourceid=".$this->sourceId." limit 1");
 		return $res->num_rows == 0;
 	}
 
 	function checkPageChanged($html, $linki)
 	{
-		global $session;
 		if (!$this->checkSession())
 			return false;
 		$hash = md5($html);
-		$res = $this->db->query("select hash from scrape where hash='$hash' and sourceid=" . $session["sourceid"] . " and url=$linki limit 1");
+		$res = $this->db->query("select hash from scrape where hash='$hash' and sourceid=" . $this->sourceId . " and url=$linki limit 1");
 		if ($res->num_rows > 0) {
 			$res->free();
 			return false;
 		}
 
 		$res->free();
-		$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $session["sourceid"] . ",$linki,'$hash',now())");
+		$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $this->sourceId . ",$linki,'$hash',now())");
 		return true;
 	}
 
 
 	function setPageLoad($url, $loadstart)
 	{
-		global $session;
 		if ($this->debug)
 			return;
 		if (!$this->checkSession())
 			return;
 		$loadtime = round((microtime(true) - $loadstart) * 1000);
 		$this->db->query("insert LOW_PRIORITY ignore into scrape_load (sourceid,category,url,loadtime) value " .
-			"(" . $session["sourceid"] . "," . $session["category"] . ",'$url',$loadtime)");
+			"(" . $this->sourceId . "," . $this->category . ",'$url',$loadtime)");
 	}
 
 
@@ -275,7 +273,7 @@ class Task
 		}
 
 		if (!file_exists($filename) || filesize($filename) == 0) {
-			$this->db->reportError("Грешка при зареждане на геоснимка $lat,$lng,$zoom.");
+			$this->reportError("Грешка при зареждане на геоснимка $lat,$lng,$zoom.");
 			return null;
 		}
 
@@ -309,7 +307,7 @@ class Task
 			if (file_exists($filename))
 				unlink($filename);
 			if (!array_key_exists("doNotReportError", $options))
-				$this->db->reportError("Грешка при зареждане на снимка: $url");
+				$this->reportError("Грешка при зареждане на снимка: $url");
 			return null;
 		}
 
@@ -328,7 +326,7 @@ class Task
 	{
 		global $session;
 		if ($session["sourceid"] == null) {
-			$this->db->reportError("Не е заредена сесията");
+			$this->reportError("Не е заредена сесията");
 			return false;
 		}
 		return true;
@@ -404,6 +402,24 @@ class Task
 			$query[] = "($id,'$account',now(), $retweet)";
 		}
 		$this->db->query("insert LOW_PRIORITY ignore into tweet (itemid, account, queued, retweet) values " . implode(",", $query));
+	}
+
+	public function reportError($message)
+	{
+		if ($message === null)
+			return;
+		$sourceId = $this->sourceId != null ? $this->sourceId : 0;
+		$category = $this->category != null ? $this->category : 0;
+		if (is_array($message) || is_object($message))
+			$message = json_encode($message);
+		$e = new Exception();
+		$trace = str_replace("/home/yurukov1/public_html/govalert/", "", $e->getTraceAsString());
+		echo "Запазвам грешка [$sourceId,$category]: $message\n$trace\n";
+		if ($this->debug)
+			return;
+		$message = $this->escape_string("$message\n$trace");
+		$this->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
+		$session["error"] = true;
 	}
 
 }

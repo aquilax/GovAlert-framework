@@ -30,7 +30,7 @@ class Bnb extends Task
 		}
 		$items = $this->xpathDoc($html, "//div[@id='main']//h3/a");
 		if (!$items || $items->length == 0) {
-			$this->db->reportError('Грешка при зареждане на страницата');
+			$this->reportError('Грешка при зареждане на страницата');
 			return;
 		}
 
@@ -50,7 +50,7 @@ class Bnb extends Task
 			}
 			$items1 = $this->xpathDoc($html1, "//div[@class='doc_entry']");
 			if (!$items1 || $items1->length == 0) {
-				$this->db->reportError("Грешка при зареждане на отделно съобщение");
+				$this->reportError("Грешка при зареждане на отделно съобщение");
 				return;
 			}
 			$title = $items1->item(0)->textContent;
@@ -138,7 +138,7 @@ class Bnb extends Task
 		if (!$html) return;
 		$items = $this->xpathDoc($html, "//div[@id='main']//h4/a");
 		if (!$items || $items->length == 0) {
-			$this->db->reportError("Грешка при зареждане на страницата");
+			$this->reportError("Грешка при зареждане на страницата");
 			return;
 		}
 		$query = array();
@@ -150,12 +150,12 @@ class Bnb extends Task
 			if (!$html1) return;
 			$xpath1 = $this->xpath($html1);
 			if (!$xpath1) {
-				$this->db->reportError("Грешка при зареждане на отделно съобщение");
+				$this->reportError("Грешка при зареждане на отделно съобщение");
 				return;
 			}
 			$items1 = $xpath1->query("//div[@class='doc_entry']");
 			if (!$items1 || $items1->length == 0) {
-				$this->db->reportError("Грешка при зареждане на отделно съобщение");
+				$this->reportError("Грешка при зареждане на отделно съобщение");
 				return;
 			}
 			$date = $items1->item(0)->textContent;
@@ -172,7 +172,7 @@ class Bnb extends Task
 				if (mb_substr($title[$i], 0, mb_strlen($titleBig)) == $titleBig)
 					$title = mb_substr($title[$i + 2], 0, -3);
 			if (mb_strlen($title) > 20) {
-				$this->db->reportError("Грешка във формата на страницата");
+				$this->reportError("Грешка във формата на страницата");
 				return;
 			}
 			$title = mb_convert_case($title, MB_CASE_LOWER);
@@ -204,6 +204,11 @@ class Bnb extends Task
 		$this->queueTweets($itemIds);
 	}
 
+	/**
+	 * @param $html
+	 * @param $q
+	 * @return array|DOMNodeList
+	 */
 	private function xpathDoc($html, $q)
 	{
 		$xpath = $this->xpath($html);
