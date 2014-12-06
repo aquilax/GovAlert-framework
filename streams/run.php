@@ -3,6 +3,7 @@ require_once('init.php');
 if ($debug) {
 	exit;
 }
+
 require_once(BASEPATH . "/_classes/Twitter.php");
 
 $logger->info('STREAMS');

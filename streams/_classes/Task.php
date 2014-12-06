@@ -46,26 +46,80 @@ abstract class Task
 		return $res->num_rows == 0;
 	}
 
-	function saveItems($items)
-	{
-		if (!$this->checkSession()) {
-			return false;
-		}
-		if (!$items || count($items) == 0) {
-			return false;
-		}
-
-		$this->logger->info('Запазвам ' . count($items) . '... ');
-		$hashes = array();
-		foreach ($items as $item) {
-			$hashes[] = "'" . $item[4] . "'";
-		}
-		$res = $this->db->query("select hash from item where hash in (" . implode(",", $hashes) . ") limit " . count($hashes));
-		$hashes = array();
+	private function getHashes(Array $hashes) {
+		array_walk($hashes, function(&$hash) {
+			$hash = Database::quote($hash);
+		});
+		$res = $this->db->query('SELECT hash FROM item WHERE hash IN (' . implode(', ', $hashes) . ') limit ' . count($hashes));
+		$hashes = [];
 		while ($row = $res->fetch_array()) {
 			$hashes[] = $row[0];
 		}
 		$res->free();
+		return $hashes;
+	}
+
+	private function saveMedia($media, $itemId)
+	{
+		$rows = [];
+		foreach ($media as $mediaKey => $mediaValue) {
+			if (!$mediaValue[0] || $mediaValue[0] == null)
+				continue;
+			if (is_array($mediaValue[0])) {
+				foreach ($mediaValue as $mediaValueItem) {
+					if (!$mediaValueItem[0] || $mediaValueItem[0] == null)
+						continue;
+					$rows[] = [
+						'itemid' => $itemId,
+						'type' => $mediaKey,
+						'value' => $mediaValueItem[0],
+						'description' => $mediaValueItem[0]
+					];
+				}
+			} else {
+				$rows[] = [
+					'itemid' => $itemId,
+					'type' => $mediaKey,
+					'value' => $mediaValue[0],
+					'description' => $mediaValue[1]
+				];
+			}
+		}
+		$this->db->batchInsert('item_media', $rows, 'LOW_PRIORITY IGNORE');
+	}
+
+	private function saveItem(Array $item)
+	{
+		$itemId = 0;
+		$media = false;
+
+		// Remove media first
+		if (array_key_exists('media', $item)) {
+			if (is_array($item['media'])) {
+				$media = $item['media'];
+			}
+			unset($item['media']);
+		}
+
+		$this->db->insert('item', $item);
+		if ($this->db->affected_rows > 0) {
+			$itemId = $this->db->insert_id;
+			if ($media) {
+				$this->saveMedia($media, $itemId);
+			}
+		}
+		return $itemId;
+	}
+
+	function saveItems(Array $items)
+	{
+		if (!$this->checkSession() || !$items || count($items) == 0) {
+			return false;
+		}
+
+		$this->logger->info('Запазвам ' . count($items) . '... ');
+
+		$hashes = $this->getHashes(array_column($items, 'hash'));
 
 		$query = array();
 		foreach ($items as $item) {
@@ -80,39 +134,20 @@ abstract class Task
 				'pubts' => $item['date'],
 				'readts' => Utils::now(),
 				'url' => $item['url'],
-				'hash' => $item['hash']
+				'hash' => $item['hash'],
+				'media' => isset($item['media']) ? $item['media'] : null,
 			];
 		}
-		$this->logger->info('от тях ' . count($query) . ' са нови... ');
 
-		$changed = array();
-		if (count($query) > 0) {
+		$this->logger->info('...oт тях ' . count($query) . ' са нови... ');
+		$changed = [];
+
+		if ($query) {
 			$query = array_reverse($query);
 			foreach ($query as $row) {
-				$this->db->insert('item', $row, Database::LOW_PRIORITY . ' ' . Database::IGNORE);
-				if ($this->db->affected_rows > 0) {
-					$changed[] = $this->db->insert_id;
-					if ($value[1] && is_array($value[1])) {
-						$mediaquery = array();
-						foreach ($value[1] as $mediakey => $mediavalue) {
-							if (!$mediavalue[0] || $mediavalue[0] == null)
-								continue;
-							if (is_array($mediavalue[0])) {
-								foreach ($mediavalue as $mediavalueitem) {
-									if (!$mediavalueitem[0] || $mediavalueitem[0] == null)
-										continue;
-									$mediavalueitem[0] = "'" . $this->db->escape_string($mediavalueitem[0]) . "'";
-									$mediavalueitem[1] = !$mediavalueitem[1] || $mediavalueitem[1] == null ? "null" : "'" . $this->db->escape_string($mediavalueitem[1]) . "'";
-									$mediaquery[] = "(" . $$this->db->insert_id . ",'$mediakey'," . $mediavalueitem[0] . "," . $mediavalueitem[1] . ")";
-								}
-							} else {
-								$mediavalue[0] = "'" . $this->db->escape_string($mediavalue[0]) . "'";
-								$mediavalue[1] = !$mediavalue[1] || $mediavalue[1] == null ? "null" : "'" . $this->db->escape_string($mediavalue[1]) . "'";
-								$mediaquery[] = "(" . $$this->db->insert_id . ",'$mediakey'," . $mediavalue[0] . "," . $mediavalue[1] . ")";
-							}
-						}
-						$this->db->query("insert LOW_PRIORITY ignore into item_media (itemid,type,value,description) values " . implode(",", $mediaquery));
-					}
+				$res = $this->saveItem($row);
+				if ($res) {
+					$changed[] = $res;
 				}
 			}
 		}
@@ -271,13 +306,16 @@ abstract class Task
 
 	function setPageLoad($url, $loadstart)
 	{
-		if ($this->debug)
+		if ($this->debug || !$this->checkSession()) {
 			return;
-		if (!$this->checkSession())
-			return;
-		$loadtime = round((microtime(true) - $loadstart) * 1000);
-		$this->db->query("insert LOW_PRIORITY ignore into scrape_load (sourceid,category,url,loadtime) value " .
-			"(" . $this->sourceId . "," . $this->categoryId . ",'$url',$loadtime)");
+		}
+		$row = [
+			'sourceid' => $this->sourceId,
+			'category' => $this->categoryId,
+			'url' => $url,
+			'loadtime' => round((microtime(true) - $loadstart) * 1000)
+		];
+		$this->db->insert('scrape_load', $row);
 	}
 
 
@@ -337,7 +375,7 @@ abstract class Task
 	function checkSession()
 	{
 		if ($this->sourceId == null) {
-			$this->reportError("Не е заредена сесията");
+			$this->reportError('Не е заредена сесията');
 			return false;
 		}
 		return true;

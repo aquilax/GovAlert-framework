@@ -3,8 +3,7 @@
 class Database extends mysqli
 {
 
-	const LOW_PRIORITY = 'LOW_PRIORITY';
-	const IGNORE = 'IGNORE';
+	const DEFAULT_INSERT_PREFIX = 'LOW_PRIORITY IGNORE';
 
 	private $config;
 	private $logger;
@@ -41,13 +40,14 @@ class Database extends mysqli
 		return $res;
 	}
 
-	function insert($table, $fields, $prefix = '') {
+	function insert($table, $fields, $prefix = self::DEFAULT_INSERT_PREFIX) {
+		assert(empty($field));
 		$keys = array_keys($fields);
 		array_walk($fields, function(&$value) {
 			if (is_null($value)) {
 				$value = 'NULL';
 			} else {
-				$value = '\''.$this->real_escape_string($value).'\'';
+				$value = self::quote($this->real_escape_string($value));
 			}
 		});
 		$query = sprintf(
@@ -61,10 +61,14 @@ class Database extends mysqli
 	}
 
 	// FIXME: This is sub-optimal
-	function batchInsert($table, $rows, $prefix = '') {
+	function batchInsert($table, $rows, $prefix = self::DEFAULT_INSERT_PREFIX) {
 		foreach($rows as $row) {
 			$this->insert($table, $row, $prefix);
 		}
+	}
+
+	static function quote($text) {
+		return '\'' . $text . '\'';
 	}
 
 }

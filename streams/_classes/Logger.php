@@ -8,7 +8,7 @@ class Logger
 
 	private function log($severity, $message)
 	{
-		echo '[' . date('c') . '][' . $severity . '] ' . $message . PHP_EOL;
+		//echo '[' . date('c') . '][' . $severity . '] ' . $message . PHP_EOL;
 	}
 
 	public function debug($message)
