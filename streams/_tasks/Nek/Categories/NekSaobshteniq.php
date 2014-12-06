@@ -1,22 +1,13 @@
 <?php
 
-/*
-links:
-0: новини http://www.nek.bg/cgi?d=101
-*/
+class NekSaobshteniq extends Nek {
 
-class Nek extends Task
-{
-	protected $sourceId = 6;
+	protected $categoryId = 0;
+	protected $categoryName = 'съобщения';
+	protected $categoryURL = 'http://www.nek.bg/cgi?d=101';
 
-	function nekSaobshteniq()
+	function execute($html)
 	{
-		$this->setSession(6, 0);
-
-		echo "> Проверявам за съобщения на НЕК\n";
-
-		$html = $this->loadURL("http://www.nek.bg/cgi?d=101", 0);
-		if (!$html) return;
 		$html = mb_convert_encoding($html, "utf8", "cp1251");
 		$items = $this->xpathDoc($html, "//div[@class='subpage']//li");
 
@@ -43,36 +34,4 @@ class Nek extends Task
 		$itemids = $this->saveItems($query);
 		$this->queueTweets($itemids);
 	}
-
-	/*
-	-----------------------------------------------------------------
-	*/
-
-	function xpathDoc($html, $q)
-	{
-		if (!$html)
-			return array();
-		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		$xpath = new DOMXpath($doc);
-
-		$items = $xpath->query($q);
-		return is_null($items) ? array() : $items;
-	}
-
-
-	function cleanText($text)
-	{
-		$text = str_replace(" ", " ", $text);
-		$text = mb_ereg_replace("[\n\r\t ]+", " ", $text);
-		$text = mb_ereg_replace("(^\s+)|(\s+$)", "", $text);
-		$text = html_entity_decode($text);
-		return $text;
-	}
-
-
-} 
+}
