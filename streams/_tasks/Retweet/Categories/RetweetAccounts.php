@@ -1,13 +1,14 @@
 <?php
-class Retweet extends Task
-{
 
-	protected $sourceId = 20;
+class RetweetAccounts {
 
-	function retweetAccounts()
+	protected $categoryId = 1;
+	protected $categoryName = 'съобщения';
+	protected $categoryURL = '';
+
+
+	function execute($html)
 	{
-		$this->setSession(20, 1);
-
 		$currentHour = intval(date("H"));
 
 		if ($currentHour < 9 || $currentHour > 19) {
@@ -85,7 +86,7 @@ class Retweet extends Task
 
 			echo "> Открих " . count($tweets) . " tweet-а от последния RT\n";
 			if (count($tweets) > 0) {
-				usort($tweets, ['Retweet', 'sortTweets']);
+				usort($tweets, ['RetweetAccounts', 'sortTweets']);
 
 				if ($tweets[0][0] + $tweets[0][1] >= $avgActivity || ($forceRT && $tweets[0][0] + $tweets[0][1] >= $minActivity)) {
 					echo "> Tweet-а с най-много интерес (" . ($tweets[0][0] + $tweets[0][1]) . ") ще бъде RT-нат.\n";
@@ -104,7 +105,7 @@ class Retweet extends Task
 		}
 	}
 
-	function sortTweets($a, $b)
+	static function sortTweets($a, $b)
 	{
 		if ($a[3] != $b[3])
 			return $a[3] > $b[3] ? -1 : 1;
@@ -114,6 +115,10 @@ class Retweet extends Task
 			return $a[0] != $b[0] ? 0 : ($a[0] > $b[0] ? -1 : 1);
 		else
 			return $a[0] + $a[1] > $b[0] + $b[1] ? -1 : 1;
+	}
+
+	protected function loader($categoryId, $categoryURL) {
+		return 'placeholder';
 	}
 
 } 
