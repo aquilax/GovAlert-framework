@@ -7,6 +7,7 @@ links:
 
 class Nap extends Task
 {
+	protected $sourceId = 23;
 
 	function napAktualno()
 	{

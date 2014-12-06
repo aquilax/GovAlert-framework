@@ -15,6 +15,7 @@
 
 class Min_mi extends Task
 {
+	protected $sourceId = 11;
 
 	function mi_Obqvi()
 	{

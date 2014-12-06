@@ -13,6 +13,8 @@
 class Prokuratura extends Task
 {
 
+	protected $sourceId = 13;
+
 	function prok_Novini()
 	{
 		echo "> Проверявам за новини в Прокуратурата\n";

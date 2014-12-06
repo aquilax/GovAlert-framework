@@ -21,6 +21,7 @@
 class Parliament extends Task
 {
 
+	protected $sourceId = 4;
 
 	function parlZakonoproekti()
 	{

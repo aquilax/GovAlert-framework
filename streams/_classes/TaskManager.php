@@ -18,16 +18,19 @@ class TaskManager
 
 	private function classRun($lib, $method)
 	{
-		$className = ucfirst($lib);
-		$taskClassFilePath = BASEPATH . '/_tasks/' . $className . '.php';
+		$baseClassName = ucfirst($lib);
+		$className = ucfirst($method);
+		$baseClassFilePath = BASEPATH . '/_tasks/' . $baseClassName . '/' . $baseClassName . '.php';
+		$taskClassFilePath = BASEPATH . '/_tasks/' . $baseClassName . '/Categories/' . $className . '.php';
 		echo $taskClassFilePath . PHP_EOL;
-		if (file_exists($taskClassFilePath)) {
+		if (file_exists($baseClassFilePath) && file_exists($taskClassFilePath)) {
+			require_once($baseClassFilePath);
 			require_once($taskClassFilePath);
 			/**
 			 * @var $task Task
 			 */
 			$task = new $className($this->db, $this->logger);
-			$task->{$method}();
+			$task->run();
 			return true;
 		}
 		return false;

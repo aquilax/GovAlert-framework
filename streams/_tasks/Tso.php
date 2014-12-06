@@ -9,6 +9,8 @@ links:
 class Tso extends Task
 {
 
+	protected $sourceId = 7;
+
 	function tsoNovini()
 	{
 		echo "> Проверявам за новини в ЕСО\n";

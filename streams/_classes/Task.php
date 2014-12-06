@@ -1,14 +1,23 @@
 <?php
 
-class Task
+/**
+ * Class Task - Generic Task class
+ */
+abstract class Task
 {
 
 	protected $db;
 	protected $logger;
 	protected $debug = false;
 	protected $sourceId = null;
-	protected $category = null;
+	protected $sourceName = null;
+	protected $categoryId = null;
+	protected $categoryName = null;
+	protected $categoryURL = null;
 	protected $error = false;
+
+
+	abstract protected function execute($html);
 
 	public function __construct(Database $db, Logger $logger, $debug = false)
 	{
@@ -17,6 +26,15 @@ class Task
 		$this->debug = $debug;
 	}
 
+	public function run () {
+		$this->logger->info(sprintf('Проверявам за %s %s', $this->sourceName, $this->categoryName));
+		$html = $this->loader($this->categoryId, $this->categoryURL);
+		return $this->execute($html);
+	}
+
+	protected function loader($categoryId, $categoryURL) {
+		return $this->loadURL($categoryURL, $categoryId);
+	}
 
 	function setSession($sourceId, $category)
 	{

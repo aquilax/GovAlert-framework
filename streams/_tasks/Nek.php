@@ -7,6 +7,7 @@ links:
 
 class Nek extends Task
 {
+	protected $sourceId = 6;
 
 	function nekSaobshteniq()
 	{

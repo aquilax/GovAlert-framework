@@ -10,6 +10,7 @@
 
 class Vss extends Task
 {
+	protected $sourceId = 9;
 
 	function vssDnevenRed()
 	{

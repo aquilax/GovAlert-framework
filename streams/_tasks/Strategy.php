@@ -1,6 +1,9 @@
 <?php
 
-class Strategy extends Task {
+class Strategy extends Task
+{
+
+	protected $sourceId = 2;
 
     function mailStrategy($mail) {
       $mail=strstr($mail,"\n\n");

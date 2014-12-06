@@ -9,6 +9,7 @@
 
 class Min_mrrb extends Task
 {
+	protected $sourceId = 10;
 
 	function mrrb_Obqvi()
 	{
