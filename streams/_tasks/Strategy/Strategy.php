@@ -4,6 +4,7 @@ class Strategy extends Task
 {
 
 	protected $sourceId = 2;
+	protected $categoryId = 0;
 
 	function mailStrategy($mail)
 	{
@@ -19,7 +20,6 @@ class Strategy extends Task
 
 	function strategy_processUrl($url)
 	{
-		$this->setSession(2, 0);
 		$html = $this->loadURL($url);
 		if (!$html)
 			return;

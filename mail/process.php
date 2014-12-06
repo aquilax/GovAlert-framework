@@ -9,7 +9,7 @@ ob_start();
 
 $logger->info('> Нов мейл');
 
-if (strpos($mail,"From: info@strategy.bg")!==false) {
+if (strpos($mail, "From: info@strategy.bg") !== false) {
 	$strategy = new Strategy($db, $logger);
 	$strategy->mailStrategy($mail);
 }
@@ -17,4 +17,4 @@ if (strpos($mail,"From: info@strategy.bg")!==false) {
 echo "done\n";
 
 $contents = ob_get_flush();
-file_put_contents("$path/../log/mail.log",$contents,FILE_APPEND);
+file_put_contents("$path/../log/mail.log", $contents, FILE_APPEND);

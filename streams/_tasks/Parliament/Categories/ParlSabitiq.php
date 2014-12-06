@@ -1,6 +1,7 @@
 <?php
 
-class ParlSabitiq extends Parliament {
+class ParlSabitiq extends Parliament
+{
 
 	protected $categoryId = 6;
 	protected $categoryName = 'събития';
@@ -73,7 +74,8 @@ class ParlSabitiq extends Parliament {
 	}
 
 	// TODO: Figure this out
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return $this->loadURL($categoryURL, 7);
 	}
 

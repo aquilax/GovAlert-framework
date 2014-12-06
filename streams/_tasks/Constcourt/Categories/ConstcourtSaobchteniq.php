@@ -1,6 +1,7 @@
 <?php
 
-class ConstcourtSaobchteniq extends Constcourt{
+class ConstcourtSaobchteniq extends Constcourt
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'съобщения';

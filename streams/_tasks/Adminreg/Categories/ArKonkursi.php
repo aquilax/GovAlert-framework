@@ -6,7 +6,8 @@
 
 */
 
-class ArKonkursi extends Adminreg {
+class ArKonkursi extends Adminreg
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'конкурси';
@@ -82,7 +83,8 @@ class ArKonkursi extends Adminreg {
 	}
 
 	// TODO: Figure out why this is different
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return $this->loadURL($categoryURL, null);
 	}
 }

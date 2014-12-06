@@ -1,5 +1,7 @@
 <?php
-class Errorcheck extends Task {
+
+class Errorcheck extends Task
+{
 
 	protected $sourceId = 0;
 	protected $sourceName = 'липса на новини и възможни грешки';
@@ -46,7 +48,8 @@ class Errorcheck extends Task {
 		$this->queueTextTweet($tweet, $row["url"]);
 	}
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return 'placeholder';
 	}
 } 

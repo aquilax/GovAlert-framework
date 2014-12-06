@@ -1,6 +1,7 @@
 <?php
 
-class Mi_KoncentraciqFin extends Min_mi{
+class Mi_KoncentraciqFin extends Min_mi
+{
 
 	protected $categoryId = 6;
 	protected $categoryName = 'концентрация фин.ср.';

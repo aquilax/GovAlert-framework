@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_BrutenVanshenDalg extends Bnb {
+class Bnb_BrutenVanshenDalg extends Bnb
+{
 
 	protected $categoryId = 2;
 	protected $categoryName = 'Брутен външен дълг';

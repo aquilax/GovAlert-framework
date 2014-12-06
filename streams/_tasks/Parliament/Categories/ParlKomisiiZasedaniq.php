@@ -1,12 +1,13 @@
 <?php
 
-class ParlKomisiiZasedaniq extends Parliament {
+class ParlKomisiiZasedaniq extends Parliament
+{
 
 	protected $categoryId = 9;
 	protected $categoryName = 'заседания на комисии';
 	protected $categoryURL = '';
 
-	function execute ($html)
+	function execute($html)
 	{
 		$checkUrls = array();
 		$res = $this->db->query("SELECT committee_id FROM s_parliament_committees order by committee_id");
@@ -54,7 +55,8 @@ class ParlKomisiiZasedaniq extends Parliament {
 	}
 
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return 'placeholder';
 	}
 

@@ -1,6 +1,7 @@
 <?php
 
-class Mi_Aktivi extends Min_mi{
+class Mi_Aktivi extends Min_mi
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'продажба на активи';

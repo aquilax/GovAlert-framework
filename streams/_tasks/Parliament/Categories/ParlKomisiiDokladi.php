@@ -1,6 +1,7 @@
 <?php
 
-class ParlKomisiiDokladi extends Parliament {
+class ParlKomisiiDokladi extends Parliament
+{
 
 	protected $categoryId = 12;
 	protected $categoryName = 'доклади на комисии';
@@ -46,7 +47,8 @@ class ParlKomisiiDokladi extends Parliament {
 		$this->queueTweets($itemids, 'narodnosabranie');
 	}
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return 'placeholder';
 	}
 

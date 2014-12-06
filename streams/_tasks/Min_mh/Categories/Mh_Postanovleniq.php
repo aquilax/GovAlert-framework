@@ -1,6 +1,7 @@
 <?php
 
-class Mh_Postanovleniq extends Min_mh{
+class Mh_Postanovleniq extends Min_mh
+{
 
 	protected $categoryId = 4;
 	protected $categoryName = 'постановления';

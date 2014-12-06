@@ -1,6 +1,7 @@
 <?php
 
-class Prok_Dokumenti extends Prokuratura {
+class Prok_Dokumenti extends Prokuratura
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'документи';

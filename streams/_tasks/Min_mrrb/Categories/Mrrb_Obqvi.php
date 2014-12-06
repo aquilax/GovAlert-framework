@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aquilax
  * Date: 12/6/14
  * Time: 5:31 AM
  */
-
-class Mrrb_Obqvi extends Min_mrrb{
+class Mrrb_Obqvi extends Min_mrrb
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'обяви';

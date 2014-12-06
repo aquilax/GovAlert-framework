@@ -1,6 +1,7 @@
 <?php
 
-class Mh_Saobshteniq extends Min_mh {
+class Mh_Saobshteniq extends Min_mh
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'съобщения';

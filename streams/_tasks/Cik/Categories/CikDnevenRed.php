@@ -1,6 +1,7 @@
 <?php
 
-class CikDnevenRed extends Cik{
+class CikDnevenRed extends Cik
+{
 
 	protected $categoryId = 2;
 	protected $categoryName = 'дневен ред';

@@ -1,5 +1,7 @@
 <?php
-class Bnb_ParichniDepositi extends Bnb{
+
+class Bnb_ParichniDepositi extends Bnb
+{
 
 	protected $categoryId = 3;
 	protected $categoryName = 'Парични, депозитни и кредитни показатели';

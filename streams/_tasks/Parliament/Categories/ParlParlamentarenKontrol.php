@@ -1,6 +1,7 @@
 <?php
 
-class ParlParlamentarenKontrol extends Parliament {
+class ParlParlamentarenKontrol extends Parliament
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'парламентарен контрол';

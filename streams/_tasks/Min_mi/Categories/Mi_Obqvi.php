@@ -1,6 +1,7 @@
 <?php
 
-class Mi_Obqvi extends Min_mi{
+class Mi_Obqvi extends Min_mi
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'обяви';

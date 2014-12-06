@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aquilax
  * Date: 12/6/14
  * Time: 5:32 AM
  */
-
-class Mrrb_Informaciq extends Min_mrrb{
+class Mrrb_Informaciq extends Min_mrrb
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'полезна информация';

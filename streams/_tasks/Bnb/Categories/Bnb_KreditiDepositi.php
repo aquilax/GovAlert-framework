@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_KreditiDepositi extends Bnb{
+class Bnb_KreditiDepositi extends Bnb
+{
 
 	protected $categoryId = 4;
 	protected $categoryName = 'Депозити и кредити по количествени категории и икономически дейности';

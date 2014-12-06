@@ -1,6 +1,7 @@
 <?php
 
-class MvrQmbol extends Mvr {
+class MvrQmbol extends Mvr
+{
 
 	protected $channelPrefix = '[Ямбол] ';
 	protected $sourceName = 'МВР Ямбол';

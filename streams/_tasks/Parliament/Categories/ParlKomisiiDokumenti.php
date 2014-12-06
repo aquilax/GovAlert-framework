@@ -1,6 +1,7 @@
 <?php
 
-class ParlKomisiiDokumenti extends Parliament {
+class ParlKomisiiDokumenti extends Parliament
+{
 
 	protected $categoryId = 11;
 	protected $categoryName = 'документи на комисии';
@@ -40,7 +41,8 @@ class ParlKomisiiDokumenti extends Parliament {
 		$res->free();
 	}
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return 'placeholder';
 	}
 

@@ -1,6 +1,7 @@
 <?php
 
-class Mh_Naredbi extends Min_mh{
+class Mh_Naredbi extends Min_mh
+{
 
 	protected $categoryId = 3;
 	protected $categoryName = 'наредби';

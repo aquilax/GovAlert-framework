@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_KoreditiraneDrujestva extends Bnb{
+class Bnb_KoreditiraneDrujestva extends Bnb
+{
 
 	protected $categoryId = 8;
 	protected $categoryName = 'Дружества, специализирани в кредитиране';

@@ -1,6 +1,7 @@
 <?php
 
-class TsoNovini extends Tso{
+class TsoNovini extends Tso
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'новини';

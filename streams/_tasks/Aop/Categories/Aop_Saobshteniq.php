@@ -55,7 +55,8 @@ class Aop_Saobshteniq extends Aop
 	-----------------------------------------------------------------
 	*/
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return $this->httpPost($this->categoryURL, $this->$categoryPostData);
 	}
 

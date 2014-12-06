@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_InvesticionniFondove extends Bnb{
+class Bnb_InvesticionniFondove extends Bnb
+{
 
 	protected $categoryId = 7;
 	protected $categoryName = 'Статистика на инвестиционните фондове';

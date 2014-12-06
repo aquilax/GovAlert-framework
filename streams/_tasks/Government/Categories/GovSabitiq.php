@@ -1,6 +1,7 @@
 <?php
 
-class GovSabitiq extends Government{
+class GovSabitiq extends Government
+{
 
 	protected $categoryId = 2;
 	protected $categoryName = 'събития';

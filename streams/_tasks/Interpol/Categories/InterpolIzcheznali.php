@@ -1,6 +1,7 @@
 <?php
 
-class InterpolIzcheznali extends Interpol {
+class InterpolIzcheznali extends Interpol
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'изчезнали';

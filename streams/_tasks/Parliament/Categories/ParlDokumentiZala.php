@@ -1,6 +1,7 @@
 <?php
 
-class ParlDokumentiZala extends Parliament {
+class ParlDokumentiZala extends Parliament
+{
 
 	protected $categoryId = 4;
 	protected $categoryName = 'документи в зала';

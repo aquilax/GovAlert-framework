@@ -1,6 +1,7 @@
 <?php
 
-class RetweetAccounts {
+class RetweetAccounts extends Retweet
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'съобщения';
@@ -117,7 +118,8 @@ class RetweetAccounts {
 			return $a[0] + $a[1] > $b[0] + $b[1] ? -1 : 1;
 	}
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return 'placeholder';
 	}
 

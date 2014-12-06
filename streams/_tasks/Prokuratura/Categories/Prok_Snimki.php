@@ -1,6 +1,7 @@
 <?php
 
-class Prok_Snimki extends Prokuratura {
+class Prok_Snimki extends Prokuratura
+{
 
 	protected $categoryId = 3;
 	protected $categoryName = 'галерии';

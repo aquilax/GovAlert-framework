@@ -1,6 +1,7 @@
 <?php
 
-class Kfn_Analizi extends Kfn{
+class Kfn_Analizi extends Kfn
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'анализи';

@@ -1,6 +1,7 @@
 <?php
 
-class GovPorachki extends Government{
+class GovPorachki extends Government
+{
 
 	protected $categoryId = 6;
 	protected $categoryName = 'съобщения за обществени поръчки';

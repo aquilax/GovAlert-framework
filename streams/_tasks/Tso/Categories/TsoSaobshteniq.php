@@ -1,6 +1,7 @@
 <?php
 
-class TsoSaobshteniq extends Tso{
+class TsoSaobshteniq extends Tso
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'съобщения';

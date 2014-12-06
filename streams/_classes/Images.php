@@ -1,6 +1,7 @@
 <?php
 
-class Images {
+class Images
+{
 
 
 	static function resizeItemImage($filename, $type)
@@ -76,7 +77,6 @@ class Images {
 			return self::imagecreatefrombmp($filename);
 		return null;
 	}
-
 
 
 	static function saveResizeItemImage($thumb, $filename, $type)

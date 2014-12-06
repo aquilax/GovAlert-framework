@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * 
+ *
  */
 
 /* Load required lib files. */
@@ -11,7 +11,7 @@ require_once('config.php');
 
 /* If access tokens are not available redirect to connect page. */
 if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
-    header('Location: ./clearsessions.php');
+	header('Location: ./clearsessions.php');
 }
 /* Get user access tokens out of the session. */
 $access_token = $_SESSION['access_token'];
@@ -29,56 +29,58 @@ $user = $connection->get('account/verify_credentials');
 
 $active = FALSE;
 if (empty($active) || empty($_GET['confirmed']) || $_GET['confirmed'] !== 'TRUE') {
-  echo '<h1>Warning! This page will make many requests to Twitter.</h1>';
-  echo '<h3>Performing these test might max out your rate limit.</h3>';
-  echo '<h3>Statuses/DMs will be created and deleted. Accounts will be un/followed.</h3>';
-  echo '<h3>Profile information/design will be changed.</h3>';
-  echo '<h2>USE A DEV ACCOUNT!</h2>';
-  echo '<h4>Before use you must set $active = TRUE in test.php</h4>';
-  echo '<a href="./test.php?confirmed=TRUE">Continue</a> or <a href="./index.php">go back</a>.';
-  exit;
+	echo '<h1>Warning! This page will make many requests to Twitter.</h1>';
+	echo '<h3>Performing these test might max out your rate limit.</h3>';
+	echo '<h3>Statuses/DMs will be created and deleted. Accounts will be un/followed.</h3>';
+	echo '<h3>Profile information/design will be changed.</h3>';
+	echo '<h2>USE A DEV ACCOUNT!</h2>';
+	echo '<h4>Before use you must set $active = TRUE in test.php</h4>';
+	echo '<a href="./test.php?confirmed=TRUE">Continue</a> or <a href="./index.php">go back</a>.';
+	exit;
 }
 
-function twitteroauth_row($method, $response, $http_code, $parameters = '') {
-  echo '<tr>';
-  echo "<td><b>{$method}</b></td>";
-  switch ($http_code) {
-    case '200':
-    case '304':
-      $color = 'green';
-      break;
-    case '400':
-    case '401':
-    case '403':
-    case '404':
-    case '406':
-      $color = 'red';
-      break;
-    case '500':
-    case '502':
-    case '503':
-      $color = 'orange';
-      break;
-    default:
-      $color = 'grey';
-  }
-  echo "<td style='background: {$color};'>{$http_code}</td>";
-  if (!is_string($response)) {
-    $response = print_r($response, TRUE);
-  }
-  if (!is_string($parameters)) {
-    $parameters = print_r($parameters, TRUE);
-  }
-  echo '<td>', strlen($response), '</td>';
-  echo '<td>', $parameters, '</td>';
-  echo '</tr><tr>';
-  echo '<td colspan="4">', substr($response, 0, 400), '...</td>';
-  echo '</tr>';
+function twitteroauth_row($method, $response, $http_code, $parameters = '')
+{
+	echo '<tr>';
+	echo "<td><b>{$method}</b></td>";
+	switch ($http_code) {
+		case '200':
+		case '304':
+			$color = 'green';
+			break;
+		case '400':
+		case '401':
+		case '403':
+		case '404':
+		case '406':
+			$color = 'red';
+			break;
+		case '500':
+		case '502':
+		case '503':
+			$color = 'orange';
+			break;
+		default:
+			$color = 'grey';
+	}
+	echo "<td style='background: {$color};'>{$http_code}</td>";
+	if (!is_string($response)) {
+		$response = print_r($response, TRUE);
+	}
+	if (!is_string($parameters)) {
+		$parameters = print_r($parameters, TRUE);
+	}
+	echo '<td>', strlen($response), '</td>';
+	echo '<td>', $parameters, '</td>';
+	echo '</tr><tr>';
+	echo '<td colspan="4">', substr($response, 0, 400), '...</td>';
+	echo '</tr>';
 
 }
 
-function twitteroauth_header($header) {
-  echo '<tr><th colspan="4" style="background: grey;">', $header, '</th></tr>';
+function twitteroauth_header($header)
+{
+	echo '<tr><th colspan="4" style="background: grey;">', $header, '</th></tr>';
 }
 
 /* Start table. */
@@ -308,7 +310,7 @@ twitteroauth_row($method, $connection->delete($method), $connection->http_code);
 
 /**
  * Friendships Methods.
- */ 
+ */
 twitteroauth_header('Friendships Methods');
 
 /* friendships/create */
@@ -363,8 +365,6 @@ $method = 'account/update_profile';
 twitteroauth_row($method, $connection->post($method, $parameters), $connection->http_code, $parameters);
 
 
-
-
 /**
  * OAuth Methods.
  */
@@ -372,4 +372,5 @@ twitteroauth_header('OAuth Methods');
 
 /* oauth/request_token */
 $oauth = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-twitteroauth_row('oauth/reqeust_token', $oauth->getRequestToken(function(){}), $oauth->http_code);
+twitteroauth_row('oauth/reqeust_token', $oauth->getRequestToken(function () {
+		}), $oauth->http_code);

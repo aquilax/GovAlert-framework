@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_ZastrahovatelnaDeinost extends Bnb{
+class Bnb_ZastrahovatelnaDeinost extends Bnb
+{
 
 	protected $categoryId = 9;
 	protected $categoryName = 'Статистика на застрахователната дейност';

@@ -1,6 +1,7 @@
 <?php
 
-class CikSaobshteniq extends Cik{
+class CikSaobshteniq extends Cik
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'съобщения';

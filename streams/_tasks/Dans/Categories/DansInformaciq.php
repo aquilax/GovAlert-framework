@@ -1,6 +1,7 @@
 <?php
 
-class DansInformaciq extends Dans{
+class DansInformaciq extends Dans
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'новини';
@@ -76,7 +77,8 @@ class DansInformaciq extends Dans{
 		$this->queueTweets($itemids, 'GovAlertEU', 'MIBulgaria');
 	}
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		// TODO: Figure this out
 		return $this->loadURL($categoryURL, 4);
 	}

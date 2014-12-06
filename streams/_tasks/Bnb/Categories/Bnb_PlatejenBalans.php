@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_PlatejenBalans extends Bnb{
+class Bnb_PlatejenBalans extends Bnb
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'Платежен баланс';

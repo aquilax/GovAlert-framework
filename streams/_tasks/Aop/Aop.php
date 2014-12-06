@@ -1,6 +1,7 @@
 <?php
 
-abstract class Aop extends Task {
+abstract class Aop extends Task
+{
 
 	protected $sourceId = 12;
 	protected $sourceName = 'АОП';

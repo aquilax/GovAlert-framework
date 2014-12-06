@@ -1,6 +1,7 @@
 <?php
 
-class NekSaobshteniq extends Nek {
+class NekSaobshteniq extends Nek
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'съобщения';

@@ -1,6 +1,7 @@
 <?php
 
-class MvrVidin extends Mvr {
+class MvrVidin extends Mvr
+{
 
 	protected $channelPrefix = '[Видин] ';
 	protected $sourceName = 'МВР Видин';

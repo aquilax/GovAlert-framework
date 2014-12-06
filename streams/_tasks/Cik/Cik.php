@@ -49,7 +49,7 @@ abstract class Cik extends Task
 		return $title;
 	}
 
-	protected  function cleanText($text)
+	protected function cleanText($text)
 	{
 		$text = Utils::cleanSpaces($text);
 		$text = html_entity_decode($text);

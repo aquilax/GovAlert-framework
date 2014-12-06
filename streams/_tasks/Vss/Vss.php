@@ -12,8 +12,10 @@ class Vss extends Task
 {
 	protected $sourceId = 9;
 	protected $sourceName = 'ВСС';
+	protected $categoryURLName = '';
 
-	function __construct(Database $db, Logger $logger, $debug = false) {
+	function __construct(Database $db, Logger $logger, $debug = false)
+	{
 		parent::__construct($db, $logger, $debug);
 		$this->categoryURL = $this->getLink($this->categoryURLName);
 	}

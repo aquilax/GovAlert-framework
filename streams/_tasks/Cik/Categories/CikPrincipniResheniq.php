@@ -1,6 +1,7 @@
 <?php
 
-class CikPrincipniResheniq extends Cik{
+class CikPrincipniResheniq extends Cik
+{
 
 	protected $categoryId = 5;
 	protected $categoryName = 'принципни решения';

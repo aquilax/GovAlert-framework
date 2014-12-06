@@ -1,6 +1,7 @@
 <?php
 
-class NapAktualno extends Nap{
+class NapAktualno extends Nap
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'съобщения';

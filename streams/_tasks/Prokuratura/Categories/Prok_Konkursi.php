@@ -1,6 +1,7 @@
 <?php
 
-class Prok_Konkursi extends Prokuratura {
+class Prok_Konkursi extends Prokuratura
+{
 
 	protected $categoryId = 2;
 	protected $categoryName = 'конкурси';

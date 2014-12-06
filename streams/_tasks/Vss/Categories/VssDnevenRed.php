@@ -1,6 +1,7 @@
 <?php
 
-class VssDnevenRed extends Vss {
+class VssDnevenRed extends Vss
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'дневен ред';

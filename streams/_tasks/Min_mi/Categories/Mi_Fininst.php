@@ -1,6 +1,7 @@
 <?php
 
-class Mi_Fininst extends Min_mi{
+class Mi_Fininst extends Min_mi
+{
 
 	protected $categoryId = 5;
 	protected $categoryName = 'избор фин.инст.';

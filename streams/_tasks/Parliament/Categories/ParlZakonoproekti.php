@@ -1,6 +1,7 @@
 <?php
 
-class ParlZakonoproekti extends Parliament {
+class ParlZakonoproekti extends Parliament
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'законопроекти';

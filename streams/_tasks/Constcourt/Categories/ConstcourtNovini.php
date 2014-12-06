@@ -1,6 +1,7 @@
 <?php
 
-class ConstcourtNovini extends Constcourt{
+class ConstcourtNovini extends Constcourt
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'новини';

@@ -1,6 +1,7 @@
 <?php
 
-class Mi_Makrobiuletin extends Min_mi{
+class Mi_Makrobiuletin extends Min_mi
+{
 
 	protected $categoryId = 4;
 	protected $categoryName = 'макробюлетин';
@@ -30,7 +31,8 @@ class Mi_Makrobiuletin extends Min_mi{
 	}
 
 	// TODO: Figure this out
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return $this->loadURL($categoryURL);
 	}
 } 

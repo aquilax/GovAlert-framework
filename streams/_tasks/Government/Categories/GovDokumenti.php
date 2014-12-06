@@ -1,6 +1,7 @@
 <?php
 
-class GovDokumenti extends Government{
+class GovDokumenti extends Government
+{
 
 	protected $categoryId = 3;
 	protected $categoryName = 'документи';

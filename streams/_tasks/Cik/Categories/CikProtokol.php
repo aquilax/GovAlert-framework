@@ -1,6 +1,7 @@
 <?php
 
-class CikProtokol extends Cik{
+class CikProtokol extends Cik
+{
 
 	protected $categoryId = 3;
 	protected $categoryName = 'протоколи';

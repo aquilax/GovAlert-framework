@@ -1,6 +1,7 @@
 <?php
 
-class Kfn_Novini {
+class Kfn_Novini extends Kfn
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'новини';

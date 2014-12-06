@@ -159,7 +159,8 @@ abstract class Interpol extends Task
 		return new DOMXpath($doc);
 	}
 
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return 'placeholder';
 	}
 

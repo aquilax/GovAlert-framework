@@ -1,6 +1,7 @@
 <?php
 
-class Bnb_LihvenaStatistika extends Bnb{
+class Bnb_LihvenaStatistika extends Bnb
+{
 
 	protected $categoryId = 5;
 	protected $categoryName = 'Лихвена статистика';

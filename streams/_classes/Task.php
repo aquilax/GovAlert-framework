@@ -26,21 +26,16 @@ abstract class Task
 		$this->debug = $debug;
 	}
 
-	public function run () {
+	public function run()
+	{
 		$this->logger->info(sprintf('Проверявам за %s %s', $this->sourceName, $this->categoryName));
 		$html = $this->loader($this->categoryId, $this->categoryURL);
 		return $this->execute($html);
 	}
 
-	protected function loader($categoryId, $categoryURL) {
-		return $this->loadURL($categoryURL, $categoryId);
-	}
-
-	function setSession($sourceId, $category)
+	protected function loader($categoryId, $categoryURL)
 	{
-		$this->sourceId = $sourceId;
-		$this->category = $category;
-		$this->error = false;
+		return $this->loadURL($categoryURL, $categoryId);
 	}
 
 	function checkHash($hash)
@@ -79,7 +74,7 @@ abstract class Task
 			$item[1] = $item[1] !== null ? "'" . $this->db->escape_string($item[1]) . "'" : "null";
 			$item[2] = $item[2] !== null ? ($item[2] == 'now' ? 'now()' : "'" . $this->db->escape_string($item[2]) . "'") : "null";
 			$item[3] = $item[3] !== null ? "'" . $this->db->escape_string($item[3]) . "'" : "null";
-			$query[] = array("(${item[0]},${item[1]},".$this->sourceId.",".$this->category.",${item[2]},now(),${item[3]},'${item[4]}')", $item[5]);
+			$query[] = array("(${item[0]},${item[1]}," . $this->sourceId . "," . $this->categoryId . ",${item[2]},now(),${item[3]},'${item[4]}')", $item[5]);
 		}
 		$this->logger->info('от тях ' . count($query) . ' са нови... ');
 
@@ -246,7 +241,7 @@ abstract class Task
 	{
 		if (!$this->checkSession())
 			return true;
-		$res = $this->db->query("select hash from item where title='$title' and sourceid=".$this->sourceId." limit 1");
+		$res = $this->db->query("select hash from item where title='$title' and sourceid=" . $this->sourceId . " limit 1");
 		return $res->num_rows == 0;
 	}
 
@@ -275,7 +270,7 @@ abstract class Task
 			return;
 		$loadtime = round((microtime(true) - $loadstart) * 1000);
 		$this->db->query("insert LOW_PRIORITY ignore into scrape_load (sourceid,category,url,loadtime) value " .
-			"(" . $this->sourceId . "," . $this->category . ",'$url',$loadtime)");
+			"(" . $this->sourceId . "," . $this->categoryId . ",'$url',$loadtime)");
 	}
 
 
@@ -427,7 +422,7 @@ abstract class Task
 		if ($message === null)
 			return;
 		$sourceId = $this->sourceId != null ? $this->sourceId : 0;
-		$category = $this->category != null ? $this->category : 0;
+		$category = $this->categoryId != null ? $this->categoryId : 0;
 		if (is_array($message) || is_object($message))
 			$message = json_encode($message);
 		$e = new Exception();
@@ -435,8 +430,8 @@ abstract class Task
 		echo "Запазвам грешка [$sourceId,$category]: $message\n$trace\n";
 		if ($this->debug)
 			return;
-		$message = $this->escape_string("$message\n$trace");
-		$this->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
+		$message = $this->db->escape_string("$message\n$trace");
+		$this->db->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
 		$session["error"] = true;
 	}
 

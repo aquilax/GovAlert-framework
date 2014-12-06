@@ -1,6 +1,7 @@
 <?php
 
-class MvrRazgrad extends Mvr {
+class MvrRazgrad extends Mvr
+{
 
 	protected $channelPrefix = '[Разград] ';
 	protected $sourceName = 'МВР Разград';

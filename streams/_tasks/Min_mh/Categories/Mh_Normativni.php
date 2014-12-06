@@ -1,6 +1,7 @@
 <?php
 
-class Mh_Normativni extends Min_mh{
+class Mh_Normativni extends Min_mh
+{
 
 	protected $categoryId = 2;
 	protected $categoryName = 'нормативни актове';

@@ -1,6 +1,7 @@
 <?php
 
-class Mh_Novini extends Min_mh{
+class Mh_Novini extends Min_mh
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'новини';

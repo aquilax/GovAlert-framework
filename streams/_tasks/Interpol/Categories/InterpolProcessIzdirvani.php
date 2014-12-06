@@ -1,6 +1,7 @@
 <?php
 
-class InterpolProcessIzdirvani extends Interpol{
+class InterpolProcessIzdirvani extends Interpol
+{
 
 	protected $categoryId = 0;
 	protected $categoryName = 'издирвани';
@@ -19,5 +20,5 @@ class InterpolProcessIzdirvani extends Interpol{
 			]
 		);
 	}
-	
+
 } 

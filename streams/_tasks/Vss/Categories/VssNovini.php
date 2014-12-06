@@ -1,12 +1,14 @@
 <?php
 
-class VssNovini extends Vss {
+class VssNovini extends Vss
+{
 
 	protected $categoryId = 2;
 	protected $categoryName = 'новини';
 	protected $categoryURL = '';
 
-	function __construct(Database $db, Logger $logger, $debug = false) {
+	function __construct(Database $db, Logger $logger, $debug = false)
+	{
 		parent::__construct($db, $logger, $debug);
 		$this->categoryURL = 'http://www.vss.justice.bg/bg/press/' . date('Y') . '/' . date('Y') . '.htm';
 	}

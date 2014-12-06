@@ -1,19 +1,20 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aquilax
  * Date: 12/6/14
  * Time: 8:54 AM
  */
-
-class VssProtokol {
+class VssProtokol extends Vss
+{
 
 	protected $categoryId = 1;
 	protected $categoryName = 'протоколи';
 	protected $categoryURL = '';
 	protected $categoryURLName = 'Протоколи';
 
-	function vssProtokol()
+	function execute($html)
 	{
 		$items = $this->xpathDoc($html, "//td//a[@class='link']");
 
@@ -30,7 +31,7 @@ class VssProtokol {
 			$title = mb_ereg_replace(" ", " на ", $title, "im");
 			$title = "Публикуван е протокол от заседание " . $title;
 
-			$url = $baseurl . $item->getAttribute("href");
+			$url = $this->categoryURL . $item->getAttribute("href");
 			$hash = md5($url);
 
 			$query[] = array($title, null, 'now', $url, $hash);

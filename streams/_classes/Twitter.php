@@ -5,8 +5,8 @@ class Twitter
 	private $db;
 	private $logger;
 
-    function __construct(Database $db, Logger $logger) 
-    {
+	function __construct(Database $db, Logger $logger)
+	{
 		$this->db = $db;
 		$this->logger = $logger;
 	}
@@ -162,7 +162,7 @@ class Twitter
 					$this->logger->error('Грешка: временна грешка на ауторизацията.');
 				} else {
 					if ($tres->errors) {
-						$this->logger->error('Грешка: '. $message);
+						$this->logger->error('Грешка: ' . $message);
 						$errortext = $this->db->escape_string(json_encode($tres));
 						$this->db->query("update tweet set error='$errortext' where tweetid=${row['tweetid']} limit 1");
 						break;

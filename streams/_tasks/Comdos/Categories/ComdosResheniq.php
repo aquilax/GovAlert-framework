@@ -1,6 +1,7 @@
 <?php
 
-class ComdosResheniq extends Comdos{
+class ComdosResheniq extends Comdos
+{
 
 	protected $categoryId = 5;
 	protected $categoryName = 'решения';

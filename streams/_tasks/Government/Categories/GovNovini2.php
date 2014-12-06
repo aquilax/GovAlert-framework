@@ -1,6 +1,7 @@
 <?php
 
-class GovNovini2 extends Government{
+class GovNovini2 extends Government
+{
 
 	protected $categoryId = 5;
 	protected $categoryName = 'новини';

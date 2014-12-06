@@ -1,6 +1,7 @@
 <?php
 
-class Mi_Obsajdane extends Min_mi{
+class Mi_Obsajdane extends Min_mi
+{
 
 	protected $categoryId = 3;
 	protected $categoryName = 'обществено обсъждане';
@@ -37,7 +38,8 @@ class Mi_Obsajdane extends Min_mi{
 	}
 
 	// TODO: Figure this out
-	protected function loader($categoryId, $categoryURL) {
+	protected function loader($categoryId, $categoryURL)
+	{
 		return $this->loadURL($categoryURL);
 	}
 } 
