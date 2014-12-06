@@ -10,6 +10,7 @@ class Bnb_Saobshtenia extends Bnb
 	protected function execute($html)
 	{
 		$items = $this->xpathDoc($html, "//div[@id='main']//h3/a");
+		var_dump($items);
 		if (!$items || $items->length == 0) {
 			$this->reportError('Грешка при зареждане на страницата');
 			return;
@@ -48,7 +49,13 @@ class Bnb_Saobshtenia extends Bnb
 			$description = $items1->item(0)->C14N();
 			$description = $this->cleanDescr($description);
 
-			$query[] = array($title, $description, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 		$this->logger->info('Възможни ' . count($query) . ' нови съобщения');
 		$itemIds = $this->saveItems($query);

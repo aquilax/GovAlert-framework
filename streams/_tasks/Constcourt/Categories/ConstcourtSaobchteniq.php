@@ -26,7 +26,13 @@ class ConstcourtSaobchteniq extends Constcourt
 			$url = $item->childNodes->item(1)->firstChild->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[] = array($title, null, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови съобщения\n";

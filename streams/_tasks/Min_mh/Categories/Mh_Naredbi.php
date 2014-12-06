@@ -22,7 +22,13 @@ class Mh_Naredbi extends Min_mh
 			$url = "http://www.mh.government.bg/$url";
 			$hash = md5($url);
 
-			$query[] = array($title, null, "now", $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови наредби\n";

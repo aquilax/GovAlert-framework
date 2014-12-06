@@ -35,7 +35,14 @@ class TsoNovini extends Tso
 				$hash = md5($item->textContent);
 			}
 
-			$query[] = array($title, $description, "now", $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 		echo "Възможни " . count($query) . " нови новини\n";
 		$itemids = $this->saveItems($query);

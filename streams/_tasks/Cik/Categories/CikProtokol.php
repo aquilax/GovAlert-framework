@@ -18,7 +18,14 @@ class CikProtokol extends Cik
 			$title = $this->cleanText($title);
 			$title = mb_ereg_replace("/", "за", $title, "im");
 			$url = $item->childNodes->item(0)->getAttribute("href");
-			$query[] = array($title, null, null, "http://www.cik.bg$url", $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => null,
+				'url' => 'http://www.cik.bg' . $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови протокола\n";

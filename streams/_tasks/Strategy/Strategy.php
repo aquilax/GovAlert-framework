@@ -1,6 +1,6 @@
 <?php
 
-class Strategy extends Task
+abstract class Strategy extends Task
 {
 
 	protected $sourceId = 2;

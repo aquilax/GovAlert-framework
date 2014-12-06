@@ -44,7 +44,13 @@ class Mh_Novini extends Min_mh
 				$media = array("image" => array($this->loadItemImage($imageurl, []), null));
 			}
 
-			$query[] = array($title, $description, $date, $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови новини\n";

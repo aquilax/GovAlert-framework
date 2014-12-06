@@ -6,7 +6,7 @@ links:
 2: анализи http://www.fsc.bg/Analizi-na-KFN-bg-29
 */
 
-class Kfn extends Task
+abstract class Kfn extends Task
 {
 	protected $sourceId = 22;
 	protected $sourceName = 'КФН';

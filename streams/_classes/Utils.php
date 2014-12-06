@@ -94,6 +94,10 @@ class Utils
 		return $firstPart . $account . mb_substr($title, $loc + mb_strlen($text));
 	}
 
+	static function now() {
+		return date('c');
+	}
+
 }
 
 function linkCode($id)
@@ -151,10 +155,6 @@ function codeToUrl(Database $db, $code)
 	}
 	return $row[0];
 }
-
-/*
--------Text tools----------------------------------------------------------
-*/
 
 
 

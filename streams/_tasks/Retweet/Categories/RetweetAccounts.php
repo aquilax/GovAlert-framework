@@ -45,8 +45,8 @@ class RetweetAccounts extends Retweet
 
 			echo "> Проверявам за tweets в на $account [спешно=" . ($forceRT ? 1 : 0) . ", средна активност=$avgActivity]\n";
 
-			require_once('/www/govalert/twitter/twitteroauth/twitteroauth.php');
-			require_once('/www/govalert/twitter/config.php');
+			require_once(Config::get('twitterOAuth'));
+			require_once(Config::get('twitterOAuthConfig'));
 
 			$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, CONSUMER_TOKEN_GOVALERTEU, CONSUMER_TOKEN_SECRET_GOVALERTEU);
 			$connection->host = "https://api.twitter.com/1.1/";

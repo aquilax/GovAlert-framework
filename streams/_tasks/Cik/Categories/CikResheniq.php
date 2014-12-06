@@ -28,7 +28,13 @@ class CikResheniq extends Cik
 			$title = $this->cleanText($title);
 			$title = $title . " - " . $description;
 			$url = $item->childNodes->item(0)->getAttribute("href");
-			$query[] = array($title, $description, $date, "http://www.cik.bg$url", $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => 'http://www.cik.bg' . $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови решения\n";

@@ -64,7 +64,13 @@ class ArKonkursi extends Adminreg
 				$title = Utils::cleanSpaces($title);
 				$description = Utils::cleanSpaces($description);
 
-				$query[] = array($title, $description, 'now', $url, $hash);
+				$query[] = [
+					'title' => $title,
+					'description' => $description,
+					'date' => Utils::Now(),
+					'url' => $url,
+					'hash' => $hash
+				];
 			}
 		}
 

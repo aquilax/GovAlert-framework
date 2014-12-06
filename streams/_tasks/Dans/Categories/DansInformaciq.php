@@ -70,7 +70,13 @@ class DansInformaciq extends Dans
 			if (count($media["image"]) == 0)
 				$media = null;
 
-			$query[] = array($title, $description, $date, $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 		echo "Възможни " . count($query) . " нови новини\n";
 		$itemids = $this->saveItems($query);

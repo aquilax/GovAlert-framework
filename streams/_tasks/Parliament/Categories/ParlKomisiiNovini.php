@@ -33,7 +33,13 @@ class ParlKomisiiNovini extends Parliament
 
 				$title = $this->cleanText($item->textContent);
 				$title = "Новина от комисия: $title";
-				$query[] = array($title, null, 'now', $url, $hash);
+				$query[] = [
+					'title' => $title,
+					'description' => null,
+					'date' => Utils::now(),
+					'url' => $url,
+					'hash' => $hash,
+				];
 			}
 		}
 

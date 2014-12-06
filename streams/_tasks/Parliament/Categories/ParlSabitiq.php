@@ -58,7 +58,13 @@ class ParlSabitiq extends Parliament
 				$description = mb_ereg_replace("\s?(title|name|style|class|id)=[\"'].*?[\"']\s?", "", $description);
 				$description = mb_ereg_replace("<br>[  ]*</br>|<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>", "", $description);
 				$description = $this->cleanText($description);
-				$query[] = array($title, $description, "now", "http://parliament.bg$url", $hash);
+				$query[] = [
+					'title' => $title,
+					'description' => $description,
+					'date' => Utils::now(),
+					'url' => 'http://parliament.bg' . $url,
+					'hash' => $hash,
+				];
 			}
 		}
 

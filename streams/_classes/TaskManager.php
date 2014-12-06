@@ -16,40 +16,42 @@ class TaskManager
 		$this->logger = $logger;
 	}
 
-	private function classRun($lib, $method)
+	private function classLoader($lib, $method)
 	{
 		$baseClassName = ucfirst($lib);
 		$className = ucfirst($method);
 		$baseClassFilePath = BASEPATH . '/_tasks/' . $baseClassName . '/' . $baseClassName . '.php';
 		$taskClassFilePath = BASEPATH . '/_tasks/' . $baseClassName . '/Categories/' . $className . '.php';
-		echo $taskClassFilePath . PHP_EOL;
 		if (file_exists($baseClassFilePath) && file_exists($taskClassFilePath)) {
 			require_once($baseClassFilePath);
 			require_once($taskClassFilePath);
 			/**
 			 * @var $task Task
 			 */
-			$task = new $className($this->db, $this->logger);
-			$task->run();
-			return true;
+			$this->logger->debug('Loaded class from: '. $taskClassFilePath);
+			return  new $className($this->db, $this->logger);
 		}
 		return false;
 	}
 
 	public function runTask($lib, $task, $delay, $force)
 	{
-		global $session;
-		$run = self::classRun($lib, $task);
-		if ($run && !$force && $delay != 0) {
-			if (!$session["error"] || $delay <= 4) {
-				if ($delay > 24) {
-					$this->db->query("UPDATE task SET lastrun=date_sub(now(),interval " . rand(10, 180) . " minute) where lib='${lib}' and task='${task}' limit 1");
+		$myTask = $this->classLoader($lib, $task);
+		if ($myTask) {
+			$myTask->run();
+			if (!$force && $delay != 0) {
+				if (!$myTask->getError() || $delay <= 4) {
+					if ($delay > 24) {
+						$this->db->query("UPDATE task SET lastrun=date_sub(now(),interval " . rand(10, 180) . " minute) where lib='${lib}' and task='${task}' limit 1");
+					} else {
+						$this->db->query("UPDATE task SET lastrun=now() where lib='${lib}' and task='${task}' limit 1");
+					}
 				} else {
-					$this->db->query("UPDATE task SET lastrun=now() where lib='${lib}' and task='${task}' limit 1");
+					$this->logger->error('Засякох грешка. Не маркирам като пусната задача. Ще опитам пак след малко.');
 				}
-			} else {
-				$this->logger->error('Засякох грешка. Не маркирам като пусната задача. Ще опитам пак след малко.');
 			}
+		} else {
+			throw new Exception('Task not found lib: ' . $lib. ', task: ' . $task);
 		}
 	}
 
@@ -64,7 +66,7 @@ class TaskManager
 		$this->db->query('INSERT LOW_PRIORITY ignore INTO task_stat VALUE (now(),null,null)');
 
 		$loadStart = microtime(true);
-		$res = $this->db->query("SELECT lib, task, delay FROM task WHERE active=1" . ($force ? "" : " and (lastrun is null or date_add(lastrun, interval delay hour)<=date_add(now(), interval 5 minute))") . " order by lib asc, priority desc limit 30");
+		$res = $this->db->query("SELECT lib, task, delay FROM task WHERE active=1" . ($force ? "" : " AND (lastrun IS NULL OR date_add(lastrun, INTERVAL delay HOUR)<=date_add(now(), INTERVAL 5 MINUTE))") . " ORDER BY lib ASC, priority DESC LIMIT " . Config::get('tasksPerRun'));
 		$taskCount = $res->num_rows;
 		$this->logger->info('Пускам ' . $taskCount . ' задачи');
 		while ($row = $res->fetch_assoc()) {

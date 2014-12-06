@@ -51,7 +51,13 @@ class MvrPlovdiv extends Mvr
 			$description = mb_ereg_replace(" >", ">", $description);
 			$description = Utils::cleanSpaces($description);
 
-			$query[] = array($title, $description, $date, $this->channelURL, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $this->channelURL,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови новини\n";

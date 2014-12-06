@@ -21,7 +21,13 @@ class Kfn_Novini extends Kfn
 
 			$title = $item->textContent;
 			$title = $this->cleanText($title);
-			$query[] = array($title, null, 'now', $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови новини\n";

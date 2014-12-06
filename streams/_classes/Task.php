@@ -30,7 +30,9 @@ abstract class Task
 	{
 		$this->logger->info(sprintf('Проверявам за %s %s', $this->sourceName, $this->categoryName));
 		$html = $this->loader($this->categoryId, $this->categoryURL);
-		return $this->execute($html);
+		if ($html) {
+			return $this->execute($html);
+		}
 	}
 
 	protected function loader($categoryId, $categoryURL)
@@ -67,22 +69,27 @@ abstract class Task
 
 		$query = array();
 		foreach ($items as $item) {
-			if (in_array($item[4], $hashes)) {
+			if (in_array($item['hash'], $hashes)) {
 				continue;
 			}
-			$item[0] = $item[0] !== null ? "'" . $this->db->escape_string($item[0]) . "'" : "null";
-			$item[1] = $item[1] !== null ? "'" . $this->db->escape_string($item[1]) . "'" : "null";
-			$item[2] = $item[2] !== null ? ($item[2] == 'now' ? 'now()' : "'" . $this->db->escape_string($item[2]) . "'") : "null";
-			$item[3] = $item[3] !== null ? "'" . $this->db->escape_string($item[3]) . "'" : "null";
-			$query[] = array("(${item[0]},${item[1]}," . $this->sourceId . "," . $this->categoryId . ",${item[2]},now(),${item[3]},'${item[4]}')", $item[5]);
+			$query[] = [
+				'title' => $item['title'],
+				'description' => $item['description'],
+				'sourceid' => $this->sourceId,
+				'category' => $this->categoryId,
+				'pubts' => $item['date'],
+				'readts' => Utils::now(),
+				'url' => $item['url'],
+				'hash' => $item['hash']
+			];
 		}
 		$this->logger->info('от тях ' . count($query) . ' са нови... ');
 
 		$changed = array();
 		if (count($query) > 0) {
 			$query = array_reverse($query);
-			foreach ($query as $value) {
-				$this->db->query("insert LOW_PRIORITY ignore into item (title,description,sourceid,category,pubts,readts,url,hash) value " . $value[0]);
+			foreach ($query as $row) {
+				$this->db->insert('item', $row, Database::LOW_PRIORITY . ' ' . Database::IGNORE);
 				if ($this->db->affected_rows > 0) {
 					$changed[] = $this->db->insert_id;
 					if ($value[1] && is_array($value[1])) {
@@ -118,7 +125,7 @@ abstract class Task
 		if (!$this->checkSession())
 			return false;
 
-		echo "Зареждам $address... ";
+		$this->logger->info('Зареждам ' . $address .'...');
 
 		$address = str_replace(" ", "%20", $address);
 		$hashdata = false;
@@ -143,7 +150,7 @@ abstract class Task
 						if ($hashdata['lastchanged'] != null && substr($header, 0, strlen("Last-Modified: ")) == "Last-Modified: ") {
 							$foundlc = true;
 							if (strtotime(substr($header, strlen("Last-Modified: "))) == strtotime($hashdata['lastchanged'])) {
-								echo "страницата не е променена [Last-Modified]\n";
+								$this->logger->info('страницата не е променена [Last-Modified]');
 								return false;
 							} else {
 								$hashdata['lastchanged'] = "'" . $this->db->escape_string(substr($header, strlen("Last-Modified: "))) . "'";
@@ -153,7 +160,7 @@ abstract class Task
 						if ($hashdata['etag'] != null && substr($header, 0, strlen("ETag: ")) == "ETag: ") {
 							$foundet = true;
 							if (substr($header, strlen("ETag: ")) == $hashdata['etag'] || substr($header, strlen("ETag: ") + 2) == $hashdata['etag']) {
-								echo "страницата не е променена [ETag]\n";
+								$this->logger->info('страницата не е променена [ETag]');
 								return false;
 							} else {
 								$hashdata['etag'] = substr($header, strlen("ETag: "));
@@ -206,7 +213,7 @@ abstract class Task
 				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $this->sourceId . ",$linki,'$hash',now())");
 			} else {
 				if ($hashdata['hash'] != null && $hashdata['hash'] == $hash) {
-					echo "страницата не е променена [hash]\n";
+					$this->logger->info('страницата не е променена [hash]');
 					if (!$hashdata['ignorehead']) {
 						if ($hashdata['headpostpone'] === null)
 							$this->db->query("update scrape set ignorehead=1 where sourceid=" . $this->sourceId . " and url=$linki limit 1");
@@ -327,18 +334,9 @@ abstract class Task
 		return $filename;
 	}
 
-	function resetSession()
-	{
-		global $session;
-		$session["sourceid"] = null;
-		$session["category"] = null;
-		$session["error"] = false;
-	}
-
 	function checkSession()
 	{
-		global $session;
-		if ($session["sourceid"] == null) {
+		if ($this->sourceId == null) {
 			$this->reportError("Не е заредена сесията");
 			return false;
 		}
@@ -347,7 +345,6 @@ abstract class Task
 
 	function queueTextTweet($text, $urls, $account = 'govalerteu', $retweet = false)
 	{
-		global $session;
 		if (!$this->checkSession())
 			return;
 		if (!$text || mb_strlen($text) == 0)
@@ -356,7 +353,7 @@ abstract class Task
 		if ($urls && !is_array($urls))
 			$urls = array($urls);
 
-		echo "Планирам tweet за srcid=" . $session["sourceid"] . " текст='$text' и адреси " . implode(", ", $urls) . "\n";
+		echo "Планирам tweet за srcid=" . $this->sourceId . " текст='$text' и адреси " . implode(", ", $urls) . "\n";
 
 		$position = 1;
 		foreach ($urls as $url) {
@@ -386,8 +383,15 @@ abstract class Task
 			$retweet = "'" . implode(",", $retweet) . "'";
 		else
 			$retweet = "'govalerteu'";
-
-		$this->db->query("insert LOW_PRIORITY ignore into tweet (account, queued, text, sourceid, priority, retweet) value ('$account',now(),'$text'," . $session["sourceid"] . ",1,$retweet)");
+		$fields = [
+			'account' => $account,
+			'queued' => Utils::now(),
+			'text' => $text,
+			'sourceid' => $this->sourceId,
+			'priority' => 1,
+			'retweet' => $retweet,
+		];
+		$this->db->insert('tweet', $fields, 'LOW_PRIORITY ignore');
 	}
 
 	/**
@@ -435,4 +439,7 @@ abstract class Task
 		$session["error"] = true;
 	}
 
+	public function getError() {
+		return $this->error;
+	}
 }

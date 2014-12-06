@@ -26,7 +26,16 @@ class ConstcourtNovini extends Constcourt
 			$url = $item->childNodes->item(1)->firstChild->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[] = array($title, null, 0, $date, $url, $hash);
+			// TODO: Figure extra parameter
+			//$query[] = array($title, null, 0, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови новини\n";

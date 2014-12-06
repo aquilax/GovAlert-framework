@@ -30,7 +30,13 @@ class CikSaobshteniq extends Cik
 			$title = $item->textContent;
 			$title = $this->cleanTitle($title);
 			$title = "Съобщение: " . $this->cleanText($title);
-			$query[] = array($title, $description, $date, 'http://www.cik.bg/', $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => 'http://www.cik.bg/',
+				'hash' => $hash,
+			];
 		}
 
 		$this->logger->info('Възможни ' . count($query) . ' нови съобщения');

@@ -43,7 +43,13 @@ class ParlKomisii extends Parliament
 			$title = "Нова комисия: " . $commission[1];
 			$url = "http://parliament.bg/bg/parliamentarycommittees/members/" . $commission[0];
 			$hash = md5($url);
-			$query[] = array($title, null, 'now', $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 		$query = array_reverse($query);
 		$itemids = $this->saveItems($query);

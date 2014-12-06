@@ -7,7 +7,7 @@ class ParlParlamentarenKontrol extends Parliament
 	protected $categoryName = 'парламентарен контрол';
 	protected $categoryURL = 'http://parliament.bg/bg/parliamentarycontrol';
 
-	function parlParlamentarenKontrol()
+	function execute($html)
 	{
 		if (mb_strpos($html, "Програмата ще бъде публикувана") !== false)
 			return;
@@ -24,7 +24,13 @@ class ParlParlamentarenKontrol extends Parliament
 			$title = $item->textContent;
 			$title = substr($title, 10) . " - програма за " . substr($title, 0, 2) . "." . substr($title, 3, 2) . "." . substr($title, 6, 4);
 			$title = $this->cleanText($title);
-			$query[] = array($title, null, "now", "http://parliament.bg$url", $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => 'http://parliament.bg' . $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови точки\n";

@@ -30,7 +30,13 @@ class Mh_Normativni extends Min_mh
 			$url = "http://www.mh.government.bg/$url";
 			$hash = md5($url);
 
-			$query[] = array($title, null, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови нормативни актове\n";

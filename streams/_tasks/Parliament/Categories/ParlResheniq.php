@@ -31,7 +31,13 @@ class ParlResheniq extends Parliament
 			$url = $item->childNodes->item(0)->getAttribute("href");
 			$title = $item->childNodes->item(0)->textContent;
 			$title = $this->cleanText($title);
-			$query[] = array($title, null, $date, "http://parliament.bg$url", $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => 'http://parliament.bg' . $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови решения\n";

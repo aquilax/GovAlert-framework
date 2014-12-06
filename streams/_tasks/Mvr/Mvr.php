@@ -51,7 +51,7 @@ Links
 46: ямбол изчезнали http://www.yambol.mvr.bg/Izdirvani_lica/default.htm
 */
 
-class Mvr extends Task
+abstract class Mvr extends Task
 {
 	protected $sourceId = 19;
 
@@ -72,12 +72,12 @@ class Mvr extends Task
 		$xpath = $this->xpath($html);
 		$items = $xpath ? $xpath->query("//ul[@class='categoryList']/li") : false;
 		if (!$items || $items->length == 0) {
-			if (!$expectempty)
+			if (!$this->channelExpectEmpty)
 				$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
-		echo "Открити " . $items->length . " $logwhat\n";
+		echo "Открити " . $items->length . " $this->channelName\n";
 
 		$query = array();
 		foreach ($items as $item) {
@@ -86,7 +86,7 @@ class Mvr extends Task
 			if ($item_1->length == 0 || $item_2->length == 0)
 				continue;
 
-			$url = $urlbase . Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
+			$url = $this->channelURLBase . Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
 			$hash = md5($url);
 			if (!$this->checkHash($hash))
 				continue;
@@ -99,7 +99,7 @@ class Mvr extends Task
 
 			$title = $item_1->item(0)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = $prefix . $title;
+			$title = $this->channelPrefix . $title;
 			if (!$this->checkTitle($title))
 				continue;
 
@@ -124,11 +124,11 @@ class Mvr extends Task
 
 				$items2 = $xpath1->query("//table[@id='content']//div[@id='images']//a[text()='Илюстрация']|//table[@id='content']//p/a[text()='Снимки']");
 				foreach ($items2 as $item2) {
-					$magepageurl = $urlbase . $item2->getAttribute('href');
+					$magepageurl = $this->channelURLBase . $item2->getAttribute('href');
 					$html3 = $this->loadURL($magepageurl);
 					$items3 = $this->xpathDoc($html3, "//div[@id='divIllustrationHeap']//img|//div[@id='divIllustration']//img");
 					foreach ($items3 as $item3) {
-						$imageurl = $urlbase . $item3->getAttribute('src');
+						$imageurl = $this->channelURLBase . $item3->getAttribute('src');
 						$imageurl = $this->loadItemImage($imageurl, []);
 						if ($imageurl) {
 							$media["image"][] = array($imageurl);
@@ -139,16 +139,23 @@ class Mvr extends Task
 
 			if (count($media["image"]) == 0)
 				$media = null;
-			$query[] = array($title, $description, $date, $url, $hash, $media);
+
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
-		echo "Възможни " . count($query) . " нови $logwhat\n";
+		echo "Възможни " . count($query) . " нови $this->channelName\n";
 
 		$itemids = $this->saveItems($query);
-		if ($retweet == "lipsva")
+		if ($this->channelReTweet == "lipsva")
 			$this->queueTweets($itemids, "lipsva", "mibulgaria");
 		else
-			if ($retweet == "govalerteu")
+			if ($this->channelReTweet == "govalerteu")
 				$this->queueTweets($itemids, "mibulgaria", "govalerteu");
 			else
 				$this->queueTweets($itemids, "mibulgaria");

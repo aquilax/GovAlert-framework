@@ -19,7 +19,13 @@ class CikJalbi extends Cik
 			$url = $item->getAttribute("href");
 			if (mb_strpos($url, "http") === false)
 				$url = "http://www.cik.bg$url";
-			$query[] = array($title, null, null, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => null,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови жалби\n";

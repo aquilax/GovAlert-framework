@@ -43,7 +43,14 @@ class Prok_Snimki extends Prokuratura
 			if (count($media["image"]) == 0)
 				$media = null;
 
-			$query[] = array($title, null, $date, $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови галерии\n";

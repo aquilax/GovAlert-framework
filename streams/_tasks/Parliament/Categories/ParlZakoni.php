@@ -28,7 +28,13 @@ class ParlZakoni extends Parliament
 			if (mb_strlen($title) > 88)
 				$title = mb_ereg_replace("Закон за изменение и допълнение", "ЗИД", $title, "im");
 			$title = "ДВ-$title_c/ " . $this->cleanText($title);
-			$query[] = array($title, null, $date, "http://parliament.bg$url", $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => 'http://parliament.bg' . $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови закони\n";

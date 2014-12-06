@@ -27,7 +27,13 @@ class NekSaobshteniq extends Nek
 			$title = mb_ereg_replace("П Р Е С С Ъ О Б Щ Е Н И Е", "Прессъобщение", $title, "im");
 			$title = mb_ereg_replace("О Б Я В Л Е Н И Е", "Обявление", $title, "im");
 			$title = "Съобщение: " . $this->cleanText($title);
-			$query[] = array($title, null, $date, "http://www.nek.bg$url", $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => 'http://www.nek.bg' . $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови съобщения\n";

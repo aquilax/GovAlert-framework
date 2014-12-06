@@ -33,10 +33,16 @@ class ParlDokumentiZala extends Parliament
 				$contents = ftp_nlist($conn_id, substr($url, -11));
 				if (!$contents || count($contents) == 0)
 					continue;
-			} else
+			} else {
 				continue;
-
-			$query[] = array($title, null, 'now', $url, $hash);
+			}
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => 'http://parliament.bg' . $url,
+				'hash' => $hash,
+			];
 		}
 		echo "Възможни " . count($query) . " нови документа\n";
 

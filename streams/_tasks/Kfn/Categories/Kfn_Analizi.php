@@ -20,7 +20,13 @@ class Kfn_Analizi extends Kfn
 
 			$title = $item->childNodes->length > 0 ? $item->firstChild->textContent : $item->textContent;
 			$title = "Анализ: " . $this->cleanText($title);
-			$query[] = array($title, null, 'now', $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови анализи\n";

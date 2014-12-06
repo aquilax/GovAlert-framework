@@ -53,8 +53,8 @@ class Twitter
 		if ($res->num_rows > 0) {
 			echo "Изпращам " . $res->num_rows . " tweet/s\n";
 
-			require_once('/www/govalert/twitter/twitteroauth/twitteroauth.php');
-			require_once('/www/govalert/twitter/config.php');
+			require_once(Config::get('twitterOAuth'));
+			require_once(Config::get('twitterOAuthConfig'));
 
 			$currentAccount = false;
 			$connection = false;
@@ -152,9 +152,13 @@ class Twitter
 						$accounts = explode(",", $row['retweet']);
 						$query = array();
 						foreach ($accounts as $account) {
-							$query[] = "('$account',now(),'$tweetid')";
+							$query[] = [
+								'account' => $account,
+								'queued' => Utils::now(),
+								'retweet' => $tweetid,
+							];
 						}
-						$this->db->query("insert LOW_PRIORITY ignore into tweet (account, queued, retweet) values " . implode(",", $query));
+						$this->db->batchInsert('tweet', $query, 'LOW_PRIORITY IGNORE');
 					}
 				}
 

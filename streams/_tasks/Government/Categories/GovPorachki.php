@@ -18,7 +18,13 @@ class GovPorachki extends Government
 			$title = $item->childNodes->item(1)->textContent;
 			$title = Utils::cleanSpaces($title);
 			$url = "http://www.government.bg" . $item->getAttribute("href");
-			$query[] = array($title, null, null, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => null,
+				'url' => $url,
+				'hash' => $hash,
+			];
 			if (count($query) >= 20)
 				break;
 		}

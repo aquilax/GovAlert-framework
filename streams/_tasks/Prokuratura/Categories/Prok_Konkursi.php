@@ -28,7 +28,14 @@ class Prok_Konkursi extends Prokuratura
 			$url = "http://www.prb.bg" . $item->childNodes->item(1 + ($hasimage ? 2 : 0))->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[] = array($title, $description, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови конкурса\n";

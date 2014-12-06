@@ -35,10 +35,23 @@ class ParlZakonoproekti extends Parliament
 			$importer = $this->cleanText($item->childNodes->item(6)->textContent);
 			$importer = mb_convert_case($importer, MB_CASE_LOWER);
 
-			if ($importer == "министерски съвет")
-				$queryGov[] = array($title, null, $date, $url, $hash);
-			else
-				$query[] = array($title, null, $date, $url, $hash);
+			if ($importer == "министерски съвет") {
+				$queryGov[] = [
+					'title' => $title,
+					'description' => null,
+					'date' => $date,
+					'url' => $url,
+					'hash' => $hash,
+				];
+			} else {
+				$query[] = [
+					'title' => $title,
+					'description' => null,
+					'date' => $date,
+					'url' => $url,
+					'hash' => $hash,
+				];
+			}
 		}
 
 		echo "Възможни " . (count($query) + count($queryGov)) . " нови законопроекта\n";

@@ -28,7 +28,14 @@ class Prok_Dokumenti extends Prokuratura
 			$url = "http://www.prb.bg" . $item->childNodes->item(1)->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[] = array($title, $description, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови документи\n";

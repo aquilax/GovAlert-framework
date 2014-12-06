@@ -2,7 +2,6 @@
 
 class Errorcheck extends Task
 {
-
 	protected $sourceId = 0;
 	protected $sourceName = 'липса на новини и възможни грешки';
 	protected $categoryId = 0;
@@ -28,8 +27,15 @@ class Errorcheck extends Task
 
 		$title = "Няма новини от " . $row["shortname"] . " от поне две седмици";
 		$hash = md5($title . time());
-
-		$this->saveItems([$title, null, "now", $row["url"], $hash]);
+		$query = [];
+		$query[] = [
+			'title' => $title,
+			'description' => null,
+			'date' => Utils::Now(),
+			'url' => $row['url'],
+			'hash' => $hash,
+		];
+		$this->saveItems($query);
 
 		switch (rand(1, 4)) {
 			case 1:

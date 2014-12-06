@@ -95,7 +95,14 @@ abstract class Bnb extends Task
 			$description = $items1->item(0)->C14N();
 			$description = $this->cleanDescr($description);
 
-			$query[] = array($title, $description, $date, $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+				'media' => $media
+			];
 		}
 		$this->logger->info('Възможни ' . count($query) . ' нови tweet');
 

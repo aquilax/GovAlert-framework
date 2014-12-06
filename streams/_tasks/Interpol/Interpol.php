@@ -130,7 +130,13 @@ abstract class Interpol extends Task
 			$suffix = mb_substr($row["name"], -1) == 'а' ? 'а' : '';
 			$title = sprintf($prop[2], $row["name"], $suffix);
 			$hash = md5($row["code"]);
-			$query[] = array($title, null, 'now', $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 			$codes[] = $row["code"];
 		}
 

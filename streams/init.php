@@ -20,3 +20,4 @@ require_once($classesBase . '/Images.php');
 
 $logger = new Logger(Config::get('debugLevel'));
 $db = new Database(Config::get('db'), $logger);
+$debug = false;

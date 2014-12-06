@@ -62,7 +62,13 @@ class GovNovini extends Government
 			$title = $inneritems->item(0)->firstChild->textContent;
 			$title = Utils::cleanSpaces($title);
 
-			$query[] = array($title, $description, $date, $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 

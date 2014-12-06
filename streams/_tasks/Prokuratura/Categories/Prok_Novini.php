@@ -39,7 +39,14 @@ class Prok_Novini extends Prokuratura
 				$media = array("image" => array($this->loadItemImage($imageurl, []), $imagetitle));
 			}
 
-			$query[] = array($title, $description, $date, $url, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови новини\n";

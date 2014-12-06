@@ -1,6 +1,6 @@
 <?php
 
-class Retweet extends Task
+abstract class Retweet extends Task
 {
 
 	protected $sourceId = 20;

@@ -43,7 +43,13 @@ class ParlKomisiiZasedaniq extends Parliament
 				$dateF = str_replace("/", ".", str_replace(", ", " от ", $dateF));
 
 				$title = "Заседание на $dateF на $title";
-				$query[] = array($title, null, 'now', $url, $hash);
+				$query[] = [
+					'title' => $title,
+					'description' => null,
+					'date' => Utils::now(),
+					'url' => $url,
+					'hash' => $hash,
+				];
 			}
 		}
 

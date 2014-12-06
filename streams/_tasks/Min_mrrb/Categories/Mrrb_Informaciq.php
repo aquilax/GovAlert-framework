@@ -23,7 +23,13 @@ class Mrrb_Informaciq extends Min_mrrb
 			$title = "Информация: " . $this->cleanText($title);
 			$url = "http://www.mrrb.government.bg/" . $item->childNodes->item(2)->getAttribute("href");
 			$hash = md5($url);
-			$query[] = array($title, null, null, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => null,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови съобщения за полезна информация\n";

@@ -20,7 +20,14 @@ class Mi_KoncentraciqFin extends Min_mi
 			$url = "http://www.mi.government.bg/" . $item->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			$query[] = array($title, null, 'now', $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови концентрация фин.ср.\n";

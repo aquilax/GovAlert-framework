@@ -39,7 +39,13 @@ class VssNovini extends Vss
 				if ($links->length > 0) {
 					$url = $baseurl . $links->item(0)->getAttribute("href");
 					$hash = md5($url);
-					$query[] = array($title, null, $date, $url, $hash);
+					$query[] = [
+						'title' => $title,
+						'description' => null,
+						'date' => $date,
+						'url' => $url,
+						'hash' => $hash,
+					];
 					continue;
 				}
 			}
@@ -74,7 +80,14 @@ class VssNovini extends Vss
 			if (count($media["image"]) == 0)
 				$media = null;
 
-			$query[] = array($title, $description, $date, $this->categoryURL, $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $this->categoryURL,
+				'hash' => $hash,
+			];
+
 		}
 		echo "Възможни " . count($query) . " нови новини\n";
 

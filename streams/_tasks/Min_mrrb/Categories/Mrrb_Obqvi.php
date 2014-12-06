@@ -27,7 +27,14 @@ class Mrrb_Obqvi extends Min_mrrb
 			$title = "Обява: " . $this->cleanText($title);
 			$url = "http://www.mrrb.government.bg/" . $item->childNodes->item(4)->getAttribute("href");
 			$hash = md5($url);
-			$query[] = array($title, null, $date, $url, $hash);
+
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови обяви\n";

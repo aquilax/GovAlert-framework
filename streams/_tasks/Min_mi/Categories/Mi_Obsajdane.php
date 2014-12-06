@@ -28,7 +28,13 @@ class Mi_Obsajdane extends Min_mi
 			$description = $item->childNodes->item(5)->textContent;
 			$description = $this->cleanText($description);
 
-			$query[] = array($title, $description, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови обсъжданя\n";

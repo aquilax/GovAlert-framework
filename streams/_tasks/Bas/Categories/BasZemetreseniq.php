@@ -40,7 +40,7 @@ class BasZemetreseniq extends Bas
 			elseif ($dateDiff < 100 * 60)
 				$dateDiff = round($dateDiff / 60) . ' мин.';
 			elseif ($dateDiff < 4 * 3600)
-				$dateDiff = round($$dateDiff / 3600) . " ч.";
+				$dateDiff = round($dateDiff / 3600) . " ч.";
 			else
 				continue;
 
@@ -98,7 +98,14 @@ class BasZemetreseniq extends Bas
 			if ($inBG || $mag >= 4.5) {
 				$media["geoimage"] = array($this->loadGeoImage($lat, $lng, 8), null);
 			}
-			$query[] = array($title, $description, $date, 'http://ndc.niggg.bas.bg', $hash, $media);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => $date,
+				'url' => 'http://ndc.niggg.bas.bg',
+				'hash' => $hash,
+				'media' => $media
+			];
 		}
 		$this->logger->info('Възможни ' . count($query) . ' нови земетресения');
 

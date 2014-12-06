@@ -64,7 +64,7 @@ class MvrBurgas extends Mvr
 
 						if ($query[count($query) - 1][4] == null)
 							$query[count($query) - 1][4] = md5($fulltext);
-
+// TODO: FIXME
 						foreach ($item_1 as $itemimg) {
 							$imageurl = "http://www.rdvr-burgas.org/Bul/Suobshtenie/" . $itemimg->getAttribute("src");
 							$imageurl = $this->loadItemImage($imageurl, []);

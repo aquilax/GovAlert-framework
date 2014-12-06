@@ -17,7 +17,13 @@ class Mh_Saobshteniq extends Min_mh
 			$title = "Съобщение: " . $this->cleanText($title);
 			$url = "http://www.mh.government.bg/" . $item->getAttribute("href");
 			$hash = md5($url);
-			$query[] = array($title, null, 'now', $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 			if (count($query) >= 20)
 				break;
 		}

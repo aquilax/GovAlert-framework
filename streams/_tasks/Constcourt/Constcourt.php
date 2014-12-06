@@ -7,7 +7,7 @@
 
 */
 
-class Constcourt extends Task
+abstract class Constcourt extends Task
 {
 	protected $sourceId = 8;
 	protected $sourceName = 'Конституционен съд';

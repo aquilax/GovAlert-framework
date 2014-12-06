@@ -28,7 +28,13 @@ class ParlKomisiiDokumenti extends Parliament
 
 				$title = $this->cleanText($item->textContent);
 				$title = "Документ в комисия: $title";
-				$query[] = array($title, null, 'now', $url, $hash);
+				$query[] = [
+					'title' => $title,
+					'description' => null,
+					'date' => Utils::now(),
+					'url' => $url,
+					'hash' => $hash,
+				];
 			}
 			echo "Възможни " . count($query) . " нови документи\n";
 

@@ -8,7 +8,7 @@
 
 */
 
-class Vss extends Task
+abstract class Vss extends Task
 {
 	protected $sourceId = 9;
 	protected $sourceName = 'ВСС';

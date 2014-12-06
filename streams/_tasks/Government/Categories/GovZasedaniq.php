@@ -26,7 +26,13 @@ class GovZasedaniq extends Government
 			$title = Utils::fixCase($title);
 			$title = mb_ereg_replace("Министерския съвет", "МС", $title, "im");
 			$url = "http://www.government.bg" . $item->childNodes->item(0)->getAttribute("href");
-			$query[] = array($title, null, null, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => null,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови заседания\n";

@@ -36,7 +36,14 @@ class ParlKomisiiDokladi extends Parliament
 				$dateP = substr(str_replace("/", ".", $dateP), 2);
 
 				$title = "Доклад от заседанието на $dateP на " . $check[1];
-				$query[] = array($title, null, 'now', $url, $hash);
+
+				$query[] = [
+					'title' => $title,
+					'description' => null,
+					'date' => Utils::now(),
+					'url' => $url,
+					'hash' => $hash,
+				];
 			}
 		}
 

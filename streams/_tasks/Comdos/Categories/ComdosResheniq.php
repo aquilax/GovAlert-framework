@@ -26,7 +26,14 @@ class ComdosResheniq extends Comdos
 				continue;
 
 			$title = "Решение №" . mb_substr($text, 13, $datepos - 17) . "/" . mb_substr($text, $datepos, 5) . " за " . mb_substr($text, $datepos + 16);
-			$query[] = array($title, null, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
+
 		}
 
 		echo "Възможни " . count($query) . " нови решения\n";

@@ -27,7 +27,13 @@ class NapAktualno extends Nap
 
 			$title = $item->childNodes->item(0)->textContent;
 			$title = $this->cleanText($title);
-			$query[] = array($title, null, $date, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => $date,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови съобщения\n";

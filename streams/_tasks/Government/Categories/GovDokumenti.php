@@ -19,7 +19,13 @@ class GovDokumenti extends Government
 			$title = Utils::cleanSpaces($title);
 			$title = "Нов документ: " . Utils::fixCase($title);
 			$url = "http://www.government.bg" . $item->getAttribute("href");
-			$query[] = array($title, null, null, $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => null,
+				'date' => null,
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 
 		echo "Възможни " . count($query) . " нови документи\n";

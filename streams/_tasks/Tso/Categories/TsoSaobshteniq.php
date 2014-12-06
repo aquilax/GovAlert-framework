@@ -35,7 +35,13 @@ class TsoSaobshteniq extends Tso
 				$hash = md5($item->textContent);
 			}
 
-			$query[] = array($title, $description, "now", $url, $hash);
+			$query[] = [
+				'title' => $title,
+				'description' => $description,
+				'date' => Utils::now(),
+				'url' => $url,
+				'hash' => $hash,
+			];
 		}
 		echo "Възможни " . count($query) . " нови съобщения\n";
 		$itemids = $this->saveItems($query);

@@ -3,6 +3,9 @@
 class Database extends mysqli
 {
 
+	const LOW_PRIORITY = 'LOW_PRIORITY';
+	const IGNORE = 'IGNORE';
+
 	private $config;
 	private $logger;
 
@@ -28,13 +31,40 @@ class Database extends mysqli
 	 */
 	function query($query, $resultMode = MYSQLI_STORE_RESULT)
 	{
+		$this->logger->debug($query);
 		$res = parent::query($query, $resultMode);
 		if ($res === false) {
-			$message = 'Грешка при запитване към базата данни: ' . $this->error;
+			$message = 'Грешка при запитване към базата данни: ' . $this->error . ' : ' . $query;
 			$this->logger->error($message);
 			die($message);
 		}
 		return $res;
+	}
+
+	function insert($table, $fields, $prefix = '') {
+		$keys = array_keys($fields);
+		array_walk($fields, function(&$value) {
+			if (is_null($value)) {
+				$value = 'NULL';
+			} else {
+				$value = '\''.$this->real_escape_string($value).'\'';
+			}
+		});
+		$query = sprintf(
+			'INSERT %s INTO %s (%s) VALUES (%s);',
+			$prefix,
+			$table,
+			implode(', ', $keys),
+			implode(', ', $fields)
+			);
+		return $this->query($query);
+	}
+
+	// FIXME: This is sub-optimal
+	function batchInsert($table, $rows, $prefix = '') {
+		foreach($rows as $row) {
+			$this->insert($table, $row, $prefix);
+		}
 	}
 
 }
