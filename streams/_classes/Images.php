@@ -56,7 +56,7 @@ class Images
 		imagedestroy($source);
 
 		if (array_key_exists("addInterpol", $options)) {
-			$interpol = imagecreatefrompng("/www/govalert/media/res/notice-" . $options["addInterpol"] . ".png");
+			$interpol = imagecreatefrompng(Config::get('mediaPath') . "res/notice-" . $options["addInterpol"] . ".png");
 			imagecopyresampled($thumb, $interpol, $newwidthR - 57, $newheight - 84, 0, 0, 57, 84, 57, 84);
 			imagedestroy($interpol);
 		}

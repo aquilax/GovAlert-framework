@@ -16,7 +16,7 @@ abstract class Task
 	protected $categoryURL = null;
 	protected $error = false;
 	protected $tweetAccount = 'govaleteu';
-	protected $tweetReTweet = nill;
+	protected $tweetReTweet = null;
 
 
 	abstract protected function execute($html);
@@ -361,7 +361,7 @@ abstract class Task
 		if (strtolower($type) != ".jpg" && strtolower($type) != ".jpeg" && strtolower($type) != ".gif" && strtolower($type) != ".png" && strtolower($type) != ".bmp")
 			return null;
 
-		$filename = Config::get('imagesPath') . md5($url) . ($type == ".bmp" ? ".jpg" : $type);
+		$filename = Config::get('mediaPath') .'item_images/'. md5($url) . ($type == ".bmp" ? ".jpg" : $type);
 		if (!file_exists($filename)) {
 			$loadstart = microtime(true);
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");

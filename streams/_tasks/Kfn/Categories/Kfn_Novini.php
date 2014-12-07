@@ -10,7 +10,7 @@ class Kfn_Novini extends Kfn
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='s_news_listing']//h3/a");
+		$items = $this->getXPathItems($this->xpathDoc($html), "//div[@class='s_news_listing']//h3/a");
 
 		$query = [];
 		foreach ($items as $item) {

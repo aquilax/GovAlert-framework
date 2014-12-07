@@ -41,7 +41,6 @@ class VssProtokol extends Vss
 				'url' => $url,
 				'hash' => $hash,
 			];
-
 		}
 		return array_reverse($query);
 	}

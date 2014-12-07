@@ -16,6 +16,9 @@ class Mh_Normativni extends Min_mh
 
 		$query = [];
 		foreach ($items as $item) {
+			if ($item->childNodes->length < 4) {
+				continue;
+			}
 			$date = $item->childNodes->item(3)->textContent;
 			$date = $this->cleanText($date);
 			$date = explode(".", $date);

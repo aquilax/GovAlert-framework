@@ -16,7 +16,7 @@ class Config
 			'classesBase' => '/_classes',
 			'twitterOAuth' => '/www/govalert/twitter/twitteroauth/twitteroauth.php',
 			'twitterOAuthConfig' => '/www/govalert/twitter/config.php',
-			'imagesPath' => '/www/govalert/media/item_images/',
+			'mediaPath' => '/www/govalert/media/',
 		],
 		'test' => [
 			'db' => [
@@ -32,7 +32,7 @@ class Config
 			// TODO: FIX ME
 			'twitterOAuth' => '/home/aquilax/projects/GovAlert-framework/mocks/twitter/twitteroauth/twitteroauth.php',
 			'twitterOAuthConfig' => '/home/aquilax/projects/GovAlert-framework/mocks/twitter/twitteroauth/twitteroauth.php',
-			'imagesPath' => '/tmp/',
+			'mediaPath' => '/tmp/',
 		]
 	];
 
