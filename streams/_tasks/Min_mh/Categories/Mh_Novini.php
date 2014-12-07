@@ -9,13 +9,24 @@ class Mh_Novini extends Min_mh
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//table[@id='ctl00_ContentPlaceClient_ucNewsList_gvwNews']//tr[not(@class)]/td");
+		$items = $this->getXPathItems(
+			$this->getXPath($html),
+			"//table[@id='ctl00_ContentPlaceClient_ucNewsList_gvwNews']//tr[not(@class)]/td"
+		);
 
 		$query = array();
 		foreach ($items as $item) {
+			if ($item->childNodes->length < 4) {
+				// Ignore pagination
+				continue;
+			}
 			$date = $item->childNodes->item(3)->textContent;
 			$date = $this->cleanText($date);
-			$date = explode(".", $date);
+			$date = explode('.', $date);
+			if (count($date) < 3) {
+				// Non valid date string
+				continue;
+			}
 			$date = substr($date[2], 0, 4) . "-" . $date[1] . "-" . $date[0];
 
 			if (strtotime($date) < strtotime("-1 month"))
@@ -41,7 +52,7 @@ class Mh_Novini extends Min_mh
 				$imageurl = $item->childNodes->item(5)->childNodes->item(1)->getAttribute("src");
 				$imageurl = "http://www.mh.government.bg/$imageurl";
 				$imageurl = mb_ereg_replace("small", "large", $imageurl, "im");
-				$media = array("image" => array($this->loadItemImage($imageurl, []), null));
+				$media = array("image" => array($this->loadItemImage($imageurl), null));
 			}
 
 			$query[] = [
@@ -50,6 +61,7 @@ class Mh_Novini extends Min_mh
 				'date' => $date,
 				'url' => $url,
 				'hash' => $hash,
+				'media' => $media,
 			];
 		}
 

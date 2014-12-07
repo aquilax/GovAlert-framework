@@ -9,7 +9,10 @@ class GovSabitiq extends Government
 
 	protected function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a");
+		$items = $this->getXPathItems(
+			$this->getXPath($html, 'cp1251'),
+			"//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a"
+		);
 
 		echo "Открити " . $items->length . " събития\n";
 		$query = array();

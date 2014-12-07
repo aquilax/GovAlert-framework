@@ -15,6 +15,7 @@ class Config
 			'classesBase' => '/_classes',
 			'twitterOAuth' => '/www/govalert/twitter/twitteroauth/twitteroauth.php',
 			'twitterOAuthConfig' => '/www/govalert/twitter/config.php',
+			'imagesPath' => '/www/govalert/media/item_images/',
 		],
 		'test' => [
 			'db' => [
@@ -26,13 +27,15 @@ class Config
 			],
 			'tasksPerRun' => 30,
 			'classesBase' => '/_classes',
-			// TODO: FIXME
+			// TODO: FIX ME
 			'twitterOAuth' => '/home/aquilax/projects/GovAlert-framework/mocks/twitter/twitteroauth/twitteroauth.php',
 			'twitterOAuthConfig' => '/home/aquilax/projects/GovAlert-framework/mocks/twitter/twitteroauth/twitteroauth.php',
+			'imagesPath' => '/tmp/',
 		]
 	];
 
-	static function env() {
+	static function env()
+	{
 		return getenv('GOV_ENV') == 'test' ? 'test' : 'production';
 	}
 

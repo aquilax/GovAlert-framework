@@ -10,7 +10,7 @@ class CikSaobshteniq extends Cik
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='item']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='item']");
 
 		$query = [];
 		foreach ($items as $item) {

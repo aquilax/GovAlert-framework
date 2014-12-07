@@ -9,7 +9,7 @@ class Mi_KoncentraciqFin extends Min_mi
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@id='description']//p[a]");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@id='description']//p[a]");
 		$query = array();
 		foreach ($items as $item) {
 			$title = $item->textContent;

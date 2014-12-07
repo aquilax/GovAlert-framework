@@ -9,7 +9,7 @@ class ConstcourtNovini extends Constcourt
 
 	protected function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='is-post is-post-excerpt']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='is-post is-post-excerpt']");
 
 		$query = array();
 		foreach ($items as $item) {

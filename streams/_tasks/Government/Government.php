@@ -13,33 +13,6 @@ Links
 
 abstract class Government extends Task
 {
-
 	protected $sourceId = 3;
 	protected $sourceName = 'кабинета';
-
-	protected function xpath($html)
-	{
-		if (!$html) {
-			return null;
-		}
-		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "cp1251");
-		$doc = new DOMDocument("1.0", "cp1251");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		return new DOMXpath($doc);
-	}
-
-	protected function xpathDoc($html, $q)
-	{
-		$xpath = $this->xpath($html);
-
-		if ($xpath == null)
-			return array();
-
-		$items = $xpath->query($q);
-		return is_null($items) ? array() : $items;
-	}
-
 } 

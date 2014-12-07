@@ -9,7 +9,7 @@ class Kfn_Analizi extends Kfn
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@id='page_29_files']//li/a");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@id='page_29_files']//li/a");
 
 		$query = array();
 		foreach ($items as $item) {

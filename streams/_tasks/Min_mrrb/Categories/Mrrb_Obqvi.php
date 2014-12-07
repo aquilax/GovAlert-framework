@@ -15,7 +15,7 @@ class Mrrb_Obqvi extends Min_mrrb
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='listCategoryArticles']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='listCategoryArticles']");
 
 		$query = array();
 		foreach ($items as $item) {

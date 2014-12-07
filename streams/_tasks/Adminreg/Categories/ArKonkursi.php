@@ -20,7 +20,7 @@ class ArKonkursi extends Adminreg
 		if (!$html) {
 			return;
 		}
-		$xpath = $this->xpath($html);
+		$xpath = $this->getXPath($html, 'cp1251');
 		if (!$xpath) {
 			$this->reportError("Грешка при зареждане на страницата");
 			return;
@@ -39,7 +39,7 @@ class ArKonkursi extends Adminreg
 				if (!$html) {
 					return;
 				}
-				$xpath = $this->xpath($html);
+				$xpath = $this->getXPath($html, 'cp1251');
 				if (!$xpath) {
 					$this->reportError("Грешка при зареждане на страница $i");
 					return;

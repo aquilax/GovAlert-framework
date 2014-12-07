@@ -9,7 +9,7 @@ class CikJalbi extends Cik
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='block main-block']//td/a");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//td/a");
 
 		$query = array();
 		foreach ($items as $item) {

@@ -9,7 +9,7 @@ class Mi_Makrobiuletin extends Min_mi
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='contentColumn']//a");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='contentColumn']//a");
 
 		$query = array();
 		foreach ($items as $item) {

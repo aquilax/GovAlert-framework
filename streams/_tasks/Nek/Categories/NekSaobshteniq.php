@@ -9,8 +9,9 @@ class NekSaobshteniq extends Nek
 
 	function execute($html)
 	{
+		// TODO: Figure this out
 		$html = mb_convert_encoding($html, "utf8", "cp1251");
-		$items = $this->xpathDoc($html, "//div[@class='subpage']//li");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='subpage']//li");
 
 		$query = array();
 		foreach ($items as $item) {

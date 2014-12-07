@@ -9,7 +9,7 @@ class CikDnevenRed extends Cik
 
 	protected function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='block main-block']//li");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//li");
 
 		$query = array();
 		foreach ($items as $item) {

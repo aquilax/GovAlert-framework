@@ -9,7 +9,7 @@ class Mi_Obsajdane extends Min_mi
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='col2']/div[@class='row']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='col2']/div[@class='row']");
 
 		$query = array();
 		foreach ($items as $item) {

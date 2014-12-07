@@ -9,7 +9,10 @@ class Mh_Normativni extends Min_mh
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//table[@id='ctl00_ContentPlaceClient_ucArticlesList_gvArticles']//tr[not(@class)]/td");
+		$items = $this->getXPathItems(
+			$this->getXPath($html),
+			"//table[@id='ctl00_ContentPlaceClient_ucArticlesList_gvArticles']//tr[not(@class)]/td"
+		);
 
 		$query = array();
 		foreach ($items as $item) {

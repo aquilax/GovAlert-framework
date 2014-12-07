@@ -8,7 +8,6 @@ class Errorcheck extends Task
 	protected $categoryName = '';
 	protected $categoryURL = false;
 
-
 	function execute($html)
 	{
 		$res = $this->db->query('select * from (select s.sourceid sourceid, s.shortname shortname, s.url url, max(i.readts) lastread, count(i.itemid) items from source s left outer join item i on s.sourceid=i.sourceid group by s.name order by max(readts) asc) a where a.lastread<subdate(now(), interval 2 week) limit 1');

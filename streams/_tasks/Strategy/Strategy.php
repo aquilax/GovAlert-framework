@@ -21,18 +21,8 @@ abstract class Strategy extends Task
 	function strategy_processUrl($url)
 	{
 		$html = $this->loadURL($url);
-		if (!$html)
-			return;
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='public_info_strategic']");
 
-		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		$xpath = new DOMXpath($doc);
-
-		$items = $xpath->query("//div[@class='public_info_strategic']");
 		if ($items->length == 0)
 			return;
 		$item = $items->item(0);

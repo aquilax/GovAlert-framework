@@ -46,8 +46,9 @@ abstract class Task
 		return $res->num_rows == 0;
 	}
 
-	private function getHashes(Array $hashes) {
-		array_walk($hashes, function(&$hash) {
+	private function getHashes(Array $hashes)
+	{
+		array_walk($hashes, function (&$hash) {
 			$hash = Database::quote($hash);
 		});
 		$res = $this->db->query('SELECT hash FROM item WHERE hash IN (' . implode(', ', $hashes) . ') limit ' . count($hashes));
@@ -160,14 +161,14 @@ abstract class Task
 		if (!$this->checkSession())
 			return false;
 
-		$this->logger->info('Зареждам ' . $address .'...');
+		$this->logger->info('Зареждам ' . $address . '...');
 
 		$address = str_replace(" ", "%20", $address);
 		$hashdata = false;
 		$hashdatadirty = false;
 
 		if (!$this->debug && $linki !== null) {
-			$res = $this->db->query("select hash,lastchanged,etag,headpostpone,ignorehead from scrape where sourceid=" . $this->sourceId . " and url=$linki limit 1");
+			$res = $this->db->query(sprintf('SELECT hash, lastchanged, etag, headpostpone, ignorehead FROM scrape WHERE sourceid= %d  AND url= %d LIMIT 1', $this->sourceId, $linki));
 			if ($res->num_rows > 0)
 				$hashdata = $res->fetch_assoc();
 			$res->free();
@@ -251,7 +252,7 @@ abstract class Task
 					$this->logger->info('страницата не е променена [hash]');
 					if (!$hashdata['ignorehead']) {
 						if ($hashdata['headpostpone'] === null)
-							$this->db->query("update scrape set ignorehead=1 where sourceid=" . $this->sourceId . " and url=$linki limit 1");
+							$this->db->query('UPDATE scrape SET ignorehead = 1 WHERE sourceid=' . $this->sourceId . ' AND url = ' . $linki . ' LIMIT 1');
 						else if ($hashdatadirty[0] || $hashdatadirty[1] || $hashdatadirty[2]) {
 							$setters = array();
 							if ($hashdatadirty[0])
@@ -260,13 +261,13 @@ abstract class Task
 								$setters[] = 'etag=' . $hashdata['etag'];
 							if ($hashdatadirty[2])
 								$setters[] = 'headpostpone=' . $hashdata['headpostpone'];
-							$this->db->query("update scrape set " . implode(", ", $setters) . " where sourceid=" . $this->sourceId . " and url=$linki limit 1");
+							$this->db->query('UPDATE scrape SET ' . implode(', ', $setters) . ' WHERE sourceid=' . $this->sourceId . ' AND url= ' . $linki . ' LIMIT 1');
 						}
 					}
 					return false;
 				}
 
-				$this->db->query("update scrape set " .
+				$this->db->query("UPDATE scrape SET " .
 					($hashdatadirty[0] ? 'lastchanged=' . $hashdata['lastchanged'] . ', ' : '') .
 					($hashdatadirty[1] ? 'etag=' . $hashdata['etag'] . ', ' : '') .
 					($hashdatadirty[2] ? 'headpostpone=' . $hashdata['headpostpone'] . ', ' : '') .
@@ -338,7 +339,7 @@ abstract class Task
 		return $filename;
 	}
 
-	function loadItemImage($url, $type = null, $options)
+	function loadItemImage($url, $type = null, $options = [])
 	{
 		if ($type === null) {
 			$type = ".jpg";
@@ -348,7 +349,7 @@ abstract class Task
 		if (strtolower($type) != ".jpg" && strtolower($type) != ".jpeg" && strtolower($type) != ".gif" && strtolower($type) != ".png" && strtolower($type) != ".bmp")
 			return null;
 
-		$filename = "/www/govalert/media/item_images/" . md5($url) . ($type == ".bmp" ? ".jpg" : $type);
+		$filename = Config::get('imagesPath') . md5($url) . ($type == ".bmp" ? ".jpg" : $type);
 		if (!file_exists($filename)) {
 			$loadstart = microtime(true);
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");
@@ -454,9 +455,14 @@ abstract class Task
 
 		$query = array();
 		foreach ($itemids as $id) {
-			$query[] = "($id,'$account',now(), $retweet)";
+			$query[] = [
+				'itemid' => $id,
+				'account' => $account,
+				'queued' => Utils::now(),
+				'retweet' => $retweet
+			];
 		}
-		$this->db->query("insert LOW_PRIORITY ignore into tweet (itemid, account, queued, retweet) values " . implode(",", $query));
+		$this->db->batchInsert('tweet', $query);
 	}
 
 	public function reportError($message)
@@ -477,7 +483,52 @@ abstract class Task
 		$session["error"] = true;
 	}
 
-	public function getError() {
+	public function getError()
+	{
 		return $this->error;
+	}
+
+	/**
+	 * @param $html
+	 * @param string $encoding
+	 * @return DOMXpath
+	 * @throws Exception
+	 */
+	protected function getXPath($html, $encoding = 'UTF-8', $isHTML = true)
+	{
+		if (!trim($html)) {
+			throw new Exception('Empty document');
+		}
+		$html = mb_convert_encoding($html, 'HTML-ENTITIES', $encoding);
+		$doc = new DOMDocument('1.0', $encoding);
+		$doc->preserveWhiteSpace = false;
+		$doc->strictErrorChecking = false;
+		$doc->encoding = 'UTF-8';
+		// TODO: handle this better
+		libxml_use_internal_errors(true);
+		if ($isHTML) {
+			$doc->loadHTML($html);
+		} else {
+			$doc->loadXML($html);
+		}
+		libxml_clear_errors();
+
+		return new DOMXpath($doc);
+	}
+
+	/**
+	 * @param DOMXpath $xpath
+	 * @param string $query
+	 * @param DOMNode $contextnode
+	 * @return DOMNodeList
+	 * @throws Exception
+	 */
+	protected function getXPathItems(DOMXpath $xpath, $query, DOMNode $contextNode = null)
+	{
+		$items = $xpath->query($query, $contextNode);
+		if (is_null($items)) {
+			throw new Exception('Path not found: ' . $query);
+		}
+		return $items;
 	}
 }

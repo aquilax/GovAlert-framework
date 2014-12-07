@@ -94,7 +94,8 @@ class Utils
 		return $firstPart . $account . mb_substr($title, $loc + mb_strlen($text));
 	}
 
-	static function now() {
+	static function now()
+	{
 		return date('c');
 	}
 

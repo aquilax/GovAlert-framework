@@ -9,7 +9,7 @@ class Prok_Konkursi extends Prokuratura
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='list-inner']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='list-inner']");
 
 		$query = array();
 		foreach ($items as $item) {

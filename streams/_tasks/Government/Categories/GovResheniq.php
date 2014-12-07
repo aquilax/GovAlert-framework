@@ -9,7 +9,10 @@ class GovResheniq extends Government
 
 	protected function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//table[.//a[@class='header']/text()='Решенията Накратко']//td[@valign='top']/p");
+		$items = $this->getXPathItems(
+			$this->getXPath($html, 'cp1251'),
+			"//table[.//a[@class='header']/text()='Решенията Накратко']//td[@valign='top']/p"
+		);
 
 		echo "Открити " . $items->length . " решения\n";
 

@@ -15,7 +15,7 @@ class BasZemetreseniq extends Bas
 
 	protected function execute($html)
 	{
-		$items = $this->xpathDoc($html, '//marker');
+		$items = $this->getXPathItems($this->getXPath($html), '//marker');
 
 		$query = [];
 		foreach ($items as $item) {

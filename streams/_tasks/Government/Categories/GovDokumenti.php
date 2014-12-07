@@ -9,7 +9,10 @@ class GovDokumenti extends Government
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']");
+		$items = $this->getXPathItems(
+			$this->getXPath($html, 'cp1251'),
+			"//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']"
+		);
 
 		echo "Открити " . $items->length . " документи\n";
 		$query = array();

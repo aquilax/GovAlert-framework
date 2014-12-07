@@ -9,16 +9,10 @@ class DansInformaciq extends Dans
 
 	function execute($html)
 	{
-		$xpath = $this->xpath($html, false);
-		if (!$xpath) {
-			$this->reportError("Грешка при зареждане на отделно съобщение");
-			return;
-		}
-		$items = $xpath->query("//item");
-		if (!$items || $items->length == 0) {
-			$this->reportError("Грешка при зареждане на отделно съобщение");
-			return;
-		}
+		$items = $this->getXPathItems(
+			$this->getXPath($html, 'UTF-8', false),
+			'//item'
+		);
 
 		echo "Открити " . $items->length . " новини\n";
 
@@ -55,8 +49,9 @@ class DansInformaciq extends Dans
 			$description = html_entity_decode($description);
 
 			$media = array("image" => array());
-			$xpathsub = $this->xpath($item->childNodes->item(2)->textContent, true);
-			$itemimgs = $xpathsub->query(".//a[img]");
+
+			$itemimgs = $this->getXPathItems($this->getXPath($item->childNodes->item(2)->textContent), './/a[img]');
+
 			foreach ($itemimgs as $itemimg) {
 				$imageurl = $itemimg->getAttribute("href");
 				$imageurl = str_replace("http://www.dans.int/", "", $imageurl);

@@ -9,20 +9,18 @@ class GovNovini2 extends Government
 
 	function execute($html)
 	{
-		$xpath = $this->xpath($html);
-		if (!$xpath) {
-			return;
-		}
-		$items = $xpath->query("//table[@cellpadding=1]");
-		if (!$items) {
-			return;
-		}
+		$xpath = $this->getXPath($html, 'cp1251');
+		$items = $this->getXPathItems(
+			$xpath,
+			"//table[@cellpadding=1]"
+		);
 
 		echo "Открити " . $items->length . " новини\n";
 
 		$query = array();
 		foreach ($items as $item) {
-			$inneritems = $xpath->query(".//td", $item);
+			$inneritems = $this->getXPathItems($xpath, ".//td", $item);
+
 			if ($inneritems->length != 4)
 				continue;
 
@@ -40,8 +38,13 @@ class GovNovini2 extends Government
 			$description = null;
 			$media = null;
 			$htmlsub = $this->loadURL($url, 3);
-			$xpathsub = $this->xpath($htmlsub);
-			$itemsub = $xpathsub->query("//table[./tbody/tr/td/font[@style='FONT-SIZE: 11px; TEXT-TRANSFORM: uppercase']]");
+
+			$xpathsub = $this->getXPath($htmlsub, 'cp1251');
+			$itemsub = $this->getXPathItems(
+				$xpath,
+				"//table[./tbody/tr/td/font[@style='FONT-SIZE: 11px; TEXT-TRANSFORM: uppercase']]"
+			);
+
 			if ($itemsub->length > 0) {
 				$description = $itemsub->item(0)->C14N();
 				$description = mb_ereg_replace(" </", "</", mb_ereg_replace("> ", ">", $description));

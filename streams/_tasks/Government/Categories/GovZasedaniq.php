@@ -9,7 +9,10 @@ class GovZasedaniq extends Government
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//td[@valign='top' and starts-with(./a/font/text(),'Дневен ред')]");
+		$items = $this->getXPathItems(
+			$this->getXPath($html, 'cp1251'),
+			"//td[@valign='top' and starts-with(./a/font/text(),'Дневен ред')]"
+		);
 
 		echo "Открити " . $items->length . " заседания\n";
 

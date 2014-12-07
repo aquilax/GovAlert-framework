@@ -40,10 +40,11 @@ class Database extends mysqli
 		return $res;
 	}
 
-	function insert($table, $fields, $prefix = self::DEFAULT_INSERT_PREFIX) {
+	function insert($table, $fields, $prefix = self::DEFAULT_INSERT_PREFIX)
+	{
 		assert(empty($field));
 		$keys = array_keys($fields);
-		array_walk($fields, function(&$value) {
+		array_walk($fields, function (&$value) {
 			if (is_null($value)) {
 				$value = 'NULL';
 			} else {
@@ -56,18 +57,20 @@ class Database extends mysqli
 			$table,
 			implode(', ', $keys),
 			implode(', ', $fields)
-			);
+		);
 		return $this->query($query);
 	}
 
 	// FIXME: This is sub-optimal
-	function batchInsert($table, $rows, $prefix = self::DEFAULT_INSERT_PREFIX) {
-		foreach($rows as $row) {
+	function batchInsert($table, $rows, $prefix = self::DEFAULT_INSERT_PREFIX)
+	{
+		foreach ($rows as $row) {
 			$this->insert($table, $row, $prefix);
 		}
 	}
 
-	static function quote($text) {
+	static function quote($text)
+	{
 		return '\'' . $text . '\'';
 	}
 

@@ -9,7 +9,7 @@ class Prok_Snimki extends Prokuratura
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='list-inner']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='list-inner']");
 
 		$query = array();
 		foreach ($items as $item) {
@@ -30,7 +30,7 @@ class Prok_Snimki extends Prokuratura
 			if (!$mhtml)
 				continue;
 
-			$mitems = $this->xpathDoc($mhtml, "//a[@class='thumb']");
+			$mitems = $this->getXPathItems($this->getXPath($mhtml), "//a[@class='thumb']");
 			foreach ($mitems as $mitem) {
 				$imageurl = $mitem->getAttribute("href");
 				$imageurl = "http://www.prb.bg$imageurl";

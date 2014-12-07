@@ -47,7 +47,7 @@ abstract class Bnb extends Task
 
 			$html1 = $this->loadURL($url);
 			if (!$html1) return;
-			$xpath1 = $this->xpath($html1);
+			$xpath1 = $this->getXPath($html1);
 			if (!$xpath1) {
 				$this->reportError("Грешка при зареждане на отделно съобщение");
 				return;
@@ -126,15 +126,8 @@ abstract class Bnb extends Task
 
 	protected function xpath($html)
 	{
-		if (!$html)
-			return null;
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		return new DOMXpath($doc);
+		return $this->getXPath($html);
 	}
 
 	protected function cleanText($text)

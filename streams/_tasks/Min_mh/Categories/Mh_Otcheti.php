@@ -9,7 +9,10 @@ class Mh_Otcheti extends Min_mh
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//table[@id='ctl00_ContentPlaceClient_ucArticlesList_gvArticles']//tr[not(@class)]/td/a[@class='list_article_title']");
+		$items = $this->getXPathItems(
+			$this->getXPath($html),
+			"//table[@id='ctl00_ContentPlaceClient_ucArticlesList_gvArticles']//tr[not(@class)]/td/a[@class='list_article_title']"
+		);
 
 		$query = array();
 		foreach ($items as $item) {

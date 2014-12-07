@@ -27,16 +27,8 @@ abstract class Interpol extends Task
 
 			$html = $this->loadURL(sprintf($propU[0], 0), $propU[1] + 1);
 			if (!$html) return;
-			$xpath = $this->xpath($html);
-			if (!$xpath) {
-				$this->reportError("Грешка при зареждане на начална страница");
-				return;
-			}
-			$items = $xpath->query("//div[@class='bloc_pagination']");
-			if (!$items || $items->length == 0) {
-				$this->reportError("Грешка при откриване на бройка");
-				return;
-			}
+			$xpath = $this->getXPath($html);
+			$items = $this->getXPathItems($xpath, "//div[@class='bloc_pagination']");
 			$profiles = $items->item(0)->textContent;
 			$profiles = intval(str_replace("Search result : ", "", $profiles));
 
@@ -46,14 +38,10 @@ abstract class Interpol extends Task
 				if ($skip > 0) {
 					$html = $this->loadURL(sprintf($propU[0], $skip), $propU[1] + $skip / 9 + 1);
 					if (!$html) return;
-					$xpath = $this->xpath($html);
-					if (!$xpath) {
-						$this->reportError("Грешка при зареждане на страница " . ($skip / 9 + 1));
-						return;
-					}
+					$xpath = $this->getXPath($html);
 				}
 
-				$items = $xpath->query("//div[@class='bloc_bordure']/div");
+				$items = $this->getXPathItems($xpath, "//div[@class='bloc_bordure']/div");
 				if (!$items || $items->length == 0) {
 					$this->reportError("Грешка при откриване нa профили на страница " . ($skip / 9 + 1));
 					return;
@@ -151,18 +139,6 @@ abstract class Interpol extends Task
 			echo "Маркирам " . count($codes) . " ${prop[0]} като съобщени\n";
 			$this->db->query("update s_interpol set processed=1 where code in ('" . implode("','", $codes) . "')");
 		}
-	}
-
-
-	protected function xpath($html)
-	{
-		if (!$html) return null;
-		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		return new DOMXpath($doc);
 	}
 
 	protected function loader($categoryId, $categoryURL)

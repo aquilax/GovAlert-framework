@@ -2,7 +2,6 @@
 
 abstract class Aop extends Task
 {
-
 	protected $sourceId = 12;
 	protected $sourceName = 'АОП';
 
@@ -25,21 +24,4 @@ abstract class Aop extends Task
 		))));
 		return $html;
 	}
-
-	protected function xpathDoc($html, $q)
-	{
-		if (!$html)
-			return array();
-		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		$xpath = new DOMXpath($doc);
-
-		$items = $xpath->query($q);
-		return is_null($items) ? array() : $items;
-	}
-
 } 

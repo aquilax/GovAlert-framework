@@ -9,7 +9,10 @@ class GovPorachki extends Government
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']");
+		$items = $this->getXPathItems(
+			$this->getXPath($html, 'cp1251'),
+			"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']"
+		);
 
 		echo "Открити " . $items->length . " съобщения за обществени поръчки\n";
 		$query = array();

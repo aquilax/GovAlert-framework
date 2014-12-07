@@ -28,8 +28,8 @@ class TaskManager
 			/**
 			 * @var $task Task
 			 */
-			$this->logger->debug('Loaded class from: '. $taskClassFilePath);
-			return  new $className($this->db, $this->logger);
+			$this->logger->debug('Loaded class from: ' . $taskClassFilePath);
+			return new $className($this->db, $this->logger);
 		}
 		return false;
 	}
@@ -51,7 +51,7 @@ class TaskManager
 				}
 			}
 		} else {
-			throw new Exception('Task not found lib: ' . $lib. ', task: ' . $task);
+			throw new Exception('Task not found lib: ' . $lib . ', task: ' . $task);
 		}
 	}
 

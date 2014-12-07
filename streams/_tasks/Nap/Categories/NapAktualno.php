@@ -9,7 +9,7 @@ class NapAktualno extends Nap
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@id='column2']//li[@class='news']");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@id='column2']//li[@class='news']");
 
 		$query = array();
 		foreach ($items as $item) {

@@ -19,7 +19,7 @@ class Aop_Saobshteniq extends Aop
 	{
 		if (!$this->checkPageChanged($html, 12, 0))
 			return;
-		$items = $this->xpathDoc($html, "//table[@id='resultaTable']//tr");
+		$items = $this->getXPathItems($this->getXPath($html), "//table[@id='resultaTable']//tr");
 // TODO: Figure this out
 		echo $items->length;
 		exit;

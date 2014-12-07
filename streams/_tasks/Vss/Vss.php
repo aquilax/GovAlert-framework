@@ -51,7 +51,6 @@ abstract class Vss extends Task
 		return is_null($items) ? array() : $items;
 	}
 
-
 	function cleanText($text)
 	{
 		$text = Utils::cleanSpaces($text);

@@ -9,7 +9,7 @@ class ComdosResheniq extends Comdos
 
 	function execute($html)
 	{
-		$items = $this->xpathDoc($html, "//div[@class='contentWrapper']//a");
+		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='contentWrapper']//a");
 
 		$query = array();
 		foreach ($items as $item) {
