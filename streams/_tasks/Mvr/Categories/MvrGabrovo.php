@@ -9,6 +9,6 @@ class MvrGabrovo extends Mvr
 	protected $channelId = 12;
 	protected $channelURL = 'http://www.gabrovo.mvr.bg/PressOffice/News/default';
 	protected $channelURLBase = 'http://www.gabrovo.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 } 

@@ -9,7 +9,7 @@ class MvrBurgas extends Mvr
 	protected $channelId = 4;
 	protected $channelURL = 'http://www.rdvr-burgas.org/Bul/Suobshtenie/Realno.htm';
 	protected $channelURLBase = '';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 	function execute($html)

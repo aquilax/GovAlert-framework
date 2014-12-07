@@ -30,10 +30,7 @@ class Mi_Drugi extends Min_mi
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови други\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

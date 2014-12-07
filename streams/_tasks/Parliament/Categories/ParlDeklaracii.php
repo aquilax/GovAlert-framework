@@ -40,10 +40,7 @@ class ParlDeklaracii extends Parliament
 			];
 
 		}
-		echo "Възможни " . count($query) . " нови декларации\n";
-		$query = array_reverse($query);
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie', true);
+		return array_reverse($query);
 	}
 
 } 

@@ -9,7 +9,7 @@ class MvrKardjaliIzdirvani extends Mvr
 	protected $channelId = 16;
 	protected $channelURL = 'http://www.kardjali.mvr.bg/PressOffice/Izirva_se/default.htm';
 	protected $channelURLBase = 'http://www.kardjali.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

@@ -61,7 +61,6 @@ abstract class Mvr extends Task
 	protected $channelId = -1;
 	protected $channelURL = '';
 	protected $channelURLBase = '';
-	protected $channelReTweet = false;
 	protected $channelExpectEmpty = false;
 
 	/* crappy, yet standard */
@@ -148,14 +147,17 @@ abstract class Mvr extends Task
 				'hash' => $hash,
 			];
 		}
+		return $query;
+	}
 
-		echo "Възможни " . count($query) . " нови $this->channelName\n";
+	protected  function processItems(Array $query) {
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 
 		$itemids = $this->saveItems($query);
-		if ($this->channelReTweet == "lipsva")
+		if ($this->tweetReTweet == "lipsva")
 			$this->queueTweets($itemids, "lipsva", "mibulgaria");
 		else
-			if ($this->channelReTweet == "govalerteu")
+			if ($this->tweetReTweet == "govalerteu")
 				$this->queueTweets($itemids, "mibulgaria", "govalerteu");
 			else
 				$this->queueTweets($itemids, "mibulgaria");

@@ -43,10 +43,7 @@ class VssProtokol extends Vss
 			];
 
 		}
-		echo "Възможни " . count($query) . " нови протоколи\n";
-		$query = array_reverse($query);
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return array_reverse($query);
 	}
 
 } 

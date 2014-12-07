@@ -15,6 +15,8 @@ abstract class Task
 	protected $categoryName = null;
 	protected $categoryURL = null;
 	protected $error = false;
+	protected $tweetAccount = 'govaleteu';
+	protected $tweetReTweet = nill;
 
 
 	abstract protected function execute($html);
@@ -31,9 +33,19 @@ abstract class Task
 		$this->logger->info(sprintf('Проверявам за %s %s', $this->sourceName, $this->categoryName));
 		$html = $this->loader($this->categoryId, $this->categoryURL);
 		if ($html) {
-			return $this->execute($html);
+			$items = $this->execute($html);
+			if ($items) {
+				$this->processItems($items);
+			}
 		}
 	}
+
+	protected  function processItems(Array $query) {
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
+		$itemIds = $this->saveItems($query);
+		$this->queueTweets($itemIds, $this->tweetAccount, $this->tweetReTweet);
+	}
+
 
 	protected function loader($categoryId, $categoryURL)
 	{
@@ -231,7 +243,7 @@ abstract class Task
 		$this->setPageLoad($linki !== null ? $linki : $address, $loadstart);
 		if ($html === false || $html === null) {
 			sleep(2);
-			echo "втори опит... ";
+			$this->logger->info('...втори опит...');
 			$loadstart = microtime(true);
 			$html = file_get_contents($address);
 			$this->setPageLoad($linki !== null ? $linki : $address, $loadstart);
@@ -239,7 +251,7 @@ abstract class Task
 
 		if ($html === false || $html === null) {
 			$this->reportError("Грешка при зареждане на сайта");
-			echo "грешка при зареждането\n";
+			$this->logger->error('грешка при зареждането');
 			return false;
 		}
 
@@ -275,7 +287,7 @@ abstract class Task
 			}
 		}
 
-		echo "готово\n";
+		$this->logger->info('...готово');
 		return $html;
 	}
 
@@ -392,7 +404,7 @@ abstract class Task
 		if ($urls && !is_array($urls))
 			$urls = array($urls);
 
-		echo "Планирам tweet за srcid=" . $this->sourceId . " текст='$text' и адреси " . implode(", ", $urls) . "\n";
+		$this->logger->info('Планирам tweet за srcid=' . $this->sourceId . ' текст=' . $text. ' и адреси ' . implode(', ', $urls));
 
 		$position = 1;
 		foreach ($urls as $url) {
@@ -442,7 +454,7 @@ abstract class Task
 	{
 		if (!$itemids || count($itemids) == 0)
 			return;
-		echo "Планирам " . count($itemids) . " tweet-а\n";
+		$this->logger->info('Планирам ' . count($itemids) . ' tweet-а');
 
 		if (!$retweet)
 			$retweet = "null";
@@ -475,7 +487,7 @@ abstract class Task
 			$message = json_encode($message);
 		$e = new Exception();
 		$trace = str_replace("/home/yurukov1/public_html/govalert/", "", $e->getTraceAsString());
-		echo "Запазвам грешка [$sourceId,$category]: $message\n$trace\n";
+		$this->logger->error("Запазвам грешка [$sourceId,$category]: $message\n$trace");
 		if ($this->debug)
 			return;
 		$message = $this->db->escape_string("$message\n$trace");

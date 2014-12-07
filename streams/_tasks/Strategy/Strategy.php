@@ -5,6 +5,7 @@ abstract class Strategy extends Task
 
 	protected $sourceId = 2;
 	protected $categoryId = 0;
+	protected $tweetReTweet = 'GovBulgaria';
 
 	function mailStrategy($mail)
 	{
@@ -38,8 +39,7 @@ abstract class Strategy extends Task
 		$description = $this->cleanText($description);
 		$description = str_replace("\\r ", "", $description);
 		$description = mb_ereg_replace("<p>[  ]*</p>|<a>[  ]*</a>|<div>[  ]*</div>", "", $description);
-		$itemids = $this->saveItems([$title, $description, "now", $url, $hash]);
-		$this->queueTweets($itemids, 'govalerteu', 'GovBulgaria');
+		return [[$title, $description, "now", $url, $hash]];
 	}
 
 	function cleanText($text)

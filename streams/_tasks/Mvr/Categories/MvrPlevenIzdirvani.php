@@ -9,7 +9,7 @@ class MvrPlevenIzdirvani extends Mvr
 	protected $channelId = 27;
 	protected $channelURL = 'http://www.pleven.mvr.bg/PressOffice/Wanted/default.htm';
 	protected $channelURLBase = 'http://www.pleven.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

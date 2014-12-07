@@ -46,12 +46,7 @@ class ParlKomisiiDokladi extends Parliament
 				];
 			}
 		}
-
-		echo "Възможни " . count($query) . " нови доклади\n";
-		$query = array_reverse($query);
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie');
+		return array_reverse($query);
 	}
 
 	protected function loader($categoryId, $categoryURL)

@@ -33,9 +33,6 @@ class Mh_Otcheti extends Min_mh
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови отчети\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

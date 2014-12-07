@@ -44,9 +44,7 @@ class TsoNovini extends Tso
 			];
 
 		}
-		echo "Възможни " . count($query) . " нови новини\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

@@ -12,7 +12,7 @@ class CikResheniq extends Cik
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//li");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->textContent);
 			$date = $item->childNodes->item(0)->textContent;
@@ -36,14 +36,17 @@ class CikResheniq extends Cik
 				'hash' => $hash,
 			];
 		}
+		return $query;
+	}
 
-		echo "Възможни " . count($query) . " нови решения\n";
-
-		$itemids = $this->saveItems($query);
-		if (count($itemids) <= 5)
-			$this->queueTweets($itemids);
-		else
-			$this->queueTextTweet("Преди минути са публикувани " . count($itemids) . " нови решения ", "http://www.cik.bg/reshenie");
+	protected  function processItems(Array $query) {
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
+		$itemIds = $this->saveItems($query);
+		if (count($itemIds) <= 5) {
+			$this->queueTweets($itemIds);
+		} else {
+			$this->queueTextTweet("Преди минути са публикувани " . count($itemIds) . " нови решения ", "http://www.cik.bg/reshenie");
+		}
 	}
 
 

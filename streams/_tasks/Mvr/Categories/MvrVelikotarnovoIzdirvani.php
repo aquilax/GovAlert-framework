@@ -9,7 +9,7 @@ class MvrVelikotarnovoIzdirvani extends Mvr
 	protected $channelId = 7;
 	protected $channelURL = 'http://www.veliko-tarnovo.mvr.bg/Prescentar/Izdirvani_lica/';
 	protected $channelURLBase = 'http://www.veliko-tarnovo.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

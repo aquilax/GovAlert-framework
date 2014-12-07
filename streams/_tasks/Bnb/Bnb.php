@@ -24,7 +24,7 @@ abstract class Bnb extends Task
 
 	protected function execute($html)
 	{
-		$this->statsHandling(
+		return $this->statsHandling(
 			$html,
 			$this->categoryId,
 			$this->categoryName,
@@ -104,10 +104,7 @@ abstract class Bnb extends Task
 				'media' => $media
 			];
 		}
-		$this->logger->info('Възможни ' . count($query) . ' нови tweet');
-
-		$itemIds = $this->saveItems($query);
-		$this->queueTweets($itemIds);
+		return $query;
 	}
 
 	/**

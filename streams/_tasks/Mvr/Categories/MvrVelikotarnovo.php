@@ -9,7 +9,7 @@ class MvrVelikotarnovo extends Mvr
 	protected $channelId = 6;
 	protected $channelURL = 'http://www.veliko-tarnovo.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://www.veliko-tarnovo.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

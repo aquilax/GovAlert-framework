@@ -135,11 +135,11 @@ function codeToUrl(Database $db, $code)
 		return false;
 	if (substr($code, 0, 1) == "-") {
 		$id = codeToId(substr($code, 1));
-		$query1 = "select url from link where linkid=$id limit 1";
+		$query1 = "SELECT url FROM link WHERE linkid=$id LIMIT 1";
 		$codetype = 'link';
 	} else {
 		$id = codeToId($code);
-		$query1 = "select url from item where itemid=$id limit 1";
+		$query1 = "SELECT url FROM item WHERE itemid=$id LIMIT 1";
 		$codetype = 'item';
 	}
 
@@ -152,7 +152,11 @@ function codeToUrl(Database $db, $code)
 	if ($_SERVER['REMOTE_ADDR']) {
 		$ip = explode('.', $_SERVER['REMOTE_ADDR']);
 		$ip = sprintf("%02X%02X%02X%02X", intval($ip[0]), intval($ip[1]), intval($ip[2]), intval($ip[3]));
-		$db->query("insert LOW_PRIORITY ignore into visit (id,type,ip) value ($id,'$codetype','$ip')");
+		$db->insert('visit', [
+			'id' => $id,
+			'type' => $codetype,
+			'ip' => $ip,
+		]);
 	}
 	return $row[0];
 }

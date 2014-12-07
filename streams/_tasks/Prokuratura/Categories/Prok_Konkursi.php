@@ -37,9 +37,6 @@ class Prok_Konkursi extends Prokuratura
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови конкурса\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

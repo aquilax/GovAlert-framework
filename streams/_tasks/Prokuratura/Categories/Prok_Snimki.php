@@ -52,10 +52,7 @@ class Prok_Snimki extends Prokuratura
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови галерии\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

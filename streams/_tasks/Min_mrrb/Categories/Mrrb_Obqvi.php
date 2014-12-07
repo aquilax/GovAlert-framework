@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: aquilax
- * Date: 12/6/14
- * Time: 5:31 AM
- */
 class Mrrb_Obqvi extends Min_mrrb
 {
 
@@ -36,10 +30,6 @@ class Mrrb_Obqvi extends Min_mrrb
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови обяви\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

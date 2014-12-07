@@ -64,11 +64,7 @@ class Mh_Novini extends Min_mh
 				'media' => $media,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови новини\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

@@ -9,7 +9,7 @@ class MvrLovechIzdirvani extends Mvr
 	protected $channelId = 19;
 	protected $channelURL = 'http://www.lovech.mvr.bg/PressOffice/Wanted/default.htm';
 	protected $channelURLBase = 'http://www.lovech.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

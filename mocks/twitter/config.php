@@ -1,1 +1,4 @@
 <?php
+
+define('CONSUMER_TOKEN_GOVALERTEU', '');
+define('CONSUMER_TOKEN_SECRET_GOVALERTEU', '');

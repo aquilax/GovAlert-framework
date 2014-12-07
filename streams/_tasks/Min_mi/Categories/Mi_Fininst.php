@@ -29,9 +29,6 @@ class Mi_Fininst extends Min_mi
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови избор фин.инст.\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

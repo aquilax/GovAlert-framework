@@ -9,7 +9,7 @@ class MvrTargovishte extends Mvr
 	protected $channelId = 41;
 	protected $channelURL = 'http://targovishte.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://targovishte.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

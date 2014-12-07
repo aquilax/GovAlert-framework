@@ -48,10 +48,10 @@ class Twitter
 		}
 		$res->free();
 
-		$res = $this->db->query("select t.tweetid, t.itemid, t.text, t.sourceid, t.account, t.retweet, i.title, i.url, s.shortname, s.geo, count(m.type) media from tweet t left outer join item i on i.itemid=t.itemid left outer join source s on i.sourceid=s.sourceid or t.sourceid=s.sourceid left outer join item_media m on m.itemid=t.itemid where error is null group by t.itemid order by t.account, t.priority desc, t.queued, t.itemid limit 5");
+		$res = $this->db->query("SELECT t.tweetid, t.itemid, t.text, t.sourceid, t.account, t.retweet, i.title, i.url, s.shortname, s.geo, count(m.type) media from tweet t left outer join item i on i.itemid=t.itemid left outer join source s on i.sourceid=s.sourceid or t.sourceid=s.sourceid left outer join item_media m on m.itemid=t.itemid where error is null group by t.itemid order by t.account, t.priority desc, t.queued, t.itemid limit 5");
 
 		if ($res->num_rows > 0) {
-			echo "Изпращам " . $res->num_rows . " tweet/s\n";
+			$this->logger->info('Изпращам ' . $res->num_rows . ' tweet/s');
 
 			require_once(Config::get('twitterOAuth'));
 			require_once(Config::get('twitterOAuthConfig'));
@@ -62,7 +62,7 @@ class Twitter
 			$first = true;
 			while ($row = $res->fetch_assoc()) {
 				if (!$first) {
-					sleep(20);
+					sleep(Config::get('sleepBetweenTweets'));
 				}
 				$first = false;
 				$message = '';
@@ -132,11 +132,15 @@ class Twitter
 						$title = mb_substr($title, 0, $messagelen - 1) . "…";
 					}
 					$message = $prefix . $title . $postfix;
-
+					$lat = 0;
+					$lon = 0;
+					if (count($geo) > 1) {
+						list($lat, $lon) = $geo;
+					}
 					$params = array(
 						'status' => $message,
-						'lat' => $geo[0],
-						'long' => $geo[1],
+						'lat' => $lat,
+						'long' => $lon,
 						'place_id' => '1ef1183ed7056dc1',
 						'trim_user' => 'true',
 						'display_coordinates' => 'true'

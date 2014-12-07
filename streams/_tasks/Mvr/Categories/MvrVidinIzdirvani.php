@@ -9,7 +9,7 @@ class MvrVidinIzdirvani extends Mvr
 	protected $channelId = 9;
 	protected $channelURL = 'http://www.vidin.mvr.bg/Pressoffice/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://www.vidin.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

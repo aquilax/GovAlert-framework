@@ -9,7 +9,7 @@ class MvrQmbol extends Mvr
 	protected $channelId = 45;
 	protected $channelURL = 'http://www.yambol.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://www.yambol.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

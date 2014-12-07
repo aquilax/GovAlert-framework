@@ -11,7 +11,7 @@ class CikProtokol extends Cik
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//li");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->textContent);
 			$title = $item->childNodes->item(0)->textContent;
@@ -27,11 +27,7 @@ class CikProtokol extends Cik
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови протокола\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

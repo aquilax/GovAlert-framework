@@ -35,11 +35,7 @@ class CikPrincipniResheniq extends Cik
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови принципни решения\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

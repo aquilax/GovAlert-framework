@@ -12,6 +12,7 @@ class Config
 				'encoding' => 'utf8',
 			],
 			'tasksPerRun' => 30,
+			'sleepBetweenTweets' => 20,
 			'classesBase' => '/_classes',
 			'twitterOAuth' => '/www/govalert/twitter/twitteroauth/twitteroauth.php',
 			'twitterOAuthConfig' => '/www/govalert/twitter/config.php',
@@ -26,6 +27,7 @@ class Config
 				'encoding' => 'utf8',
 			],
 			'tasksPerRun' => 30,
+			'sleepBetweenTweets' => 0,
 			'classesBase' => '/_classes',
 			// TODO: FIX ME
 			'twitterOAuth' => '/home/aquilax/projects/GovAlert-framework/mocks/twitter/twitteroauth/twitteroauth.php',

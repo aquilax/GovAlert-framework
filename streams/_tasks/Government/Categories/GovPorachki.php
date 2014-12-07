@@ -31,9 +31,6 @@ class GovPorachki extends Government
 			if (count($query) >= 20)
 				break;
 		}
-
-		echo "Възможни " . count($query) . " нови съобщения за обществени поръчки\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'GovBulgaria');
+		return $query;
 	}
 } 

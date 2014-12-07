@@ -30,9 +30,6 @@ class Mi_Obqvi extends Min_mi
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови обяви\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

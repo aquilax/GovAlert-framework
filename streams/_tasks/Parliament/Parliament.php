@@ -22,6 +22,7 @@ abstract class Parliament extends Task
 {
 	protected $sourceId = 4;
 	protected $sourceName = 'НС';
+	protected $tweetAccount = 'narodnosabranie';
 
 	function xpathDoc($html)
 	{

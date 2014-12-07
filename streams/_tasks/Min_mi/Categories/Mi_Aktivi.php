@@ -30,10 +30,7 @@ class Mi_Aktivi extends Min_mi
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови продажби на активи\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 }

@@ -9,7 +9,7 @@ class MvrStaraZagora extends Mvr
 	protected $channelId = 39;
 	protected $channelURL = 'http://www.starazagora.mvr.bg/PressOffice/News/default.htm';
 	protected $channelURLBase = 'http://www.starazagora.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 } 

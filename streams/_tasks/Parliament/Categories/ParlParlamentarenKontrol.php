@@ -32,11 +32,7 @@ class ParlParlamentarenKontrol extends Parliament
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови точки\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie');
+		return $query;
 	}
 
 } 

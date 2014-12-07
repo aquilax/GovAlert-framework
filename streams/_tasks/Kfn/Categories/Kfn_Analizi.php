@@ -28,10 +28,6 @@ class Kfn_Analizi extends Kfn
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови анализи\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

@@ -44,10 +44,7 @@ class ParlDokumentiZala extends Parliament
 				'hash' => $hash,
 			];
 		}
-		echo "Възможни " . count($query) . " нови документа\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie');
+		return $query;
 	}
 
 } 

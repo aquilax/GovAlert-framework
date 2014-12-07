@@ -44,12 +44,7 @@ class ParlKomisiiStenogrami extends Parliament
 				];
 			}
 		}
-
-		echo "Възможни " . count($query) . " нови стенограми\n";
-		$query = array_reverse($query);
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie');
+		return array_reverse($query);
 	}
 
 	protected function loader($categoryId, $categoryURL)

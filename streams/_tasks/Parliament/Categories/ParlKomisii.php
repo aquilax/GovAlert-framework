@@ -6,6 +6,7 @@ class ParlKomisii extends Parliament
 	protected $categoryId = 8;
 	protected $categoryName = 'комисии';
 	protected $categoryURL = 'http://parliament.bg/bg/parliamentarycommittees';
+	protected $tweetReTweet = true;
 
 	function execute($html)
 	{
@@ -51,9 +52,7 @@ class ParlKomisii extends Parliament
 				'hash' => $hash,
 			];
 		}
-		$query = array_reverse($query);
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie', true);
+		return $query;
 	}
 
 	// TODO: Figure this out

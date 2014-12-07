@@ -9,7 +9,7 @@ class MvrNovini extends Mvr
 	protected $channelId = 0;
 	protected $channelURL = 'http://press.mvr.bg/default.htm';
 	protected $channelURLBase = 'http://press.mvr.bg';
-	protected $channelReTweet = 'govalerteu';
+	protected $tweetReTweet = 'govalerteu';
 	protected $channelExpectEmpty = false;
 
 } 

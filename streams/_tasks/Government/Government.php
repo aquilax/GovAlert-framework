@@ -15,4 +15,5 @@ abstract class Government extends Task
 {
 	protected $sourceId = 3;
 	protected $sourceName = 'кабинета';
+	protected $tweetAccount = 'GovBulgaria';
 } 

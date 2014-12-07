@@ -9,7 +9,7 @@ class MvrKampanii extends Mvr
 	protected $channelId = 1;
 	protected $channelURL = 'http://press.mvr.bg/Kampanii/default.htm';
 	protected $channelURLBase = 'http://press.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

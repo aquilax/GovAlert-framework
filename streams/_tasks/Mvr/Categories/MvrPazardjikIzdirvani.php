@@ -9,7 +9,7 @@ class MvrPazardjikIzdirvani extends Mvr
 	protected $channelId = 23;
 	protected $channelURL = 'http://pazardjik.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://pazardjik.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 } 

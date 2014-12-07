@@ -6,6 +6,7 @@ class ParlZakoni extends Parliament
 	protected $categoryId = 3;
 	protected $categoryName = 'закони';
 	protected $categoryURL = 'http://parliament.bg/bg/laws';
+	protected $tweetReTweet = nill;
 
 	function execute($html)
 	{
@@ -36,11 +37,7 @@ class ParlZakoni extends Parliament
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови закони\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie', true);
+		return $query;
 	}
 
 

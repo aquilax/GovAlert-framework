@@ -11,7 +11,7 @@ class CikDnevenRed extends Cik
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//li");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->textContent);
 			$date = $item->childNodes->item(0)->textContent;
@@ -30,13 +30,8 @@ class CikDnevenRed extends Cik
 				'url' => 'http://www.cik.bg' . $url,
 				'hash' => $hash,
 			];
-
 		}
-
-		echo "Възможни " . count($query) . " нови записа за дневен ред\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 

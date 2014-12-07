@@ -9,7 +9,7 @@ class MvrVraca extends Mvr
 	protected $channelId = 10;
 	protected $channelURL = 'http://www.vratza.mvr.bg/PressOffice/News/default.htm';
 	protected $channelURLBase = 'http://www.vratza.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 } 

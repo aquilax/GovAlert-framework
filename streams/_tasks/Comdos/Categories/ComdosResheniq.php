@@ -11,7 +11,7 @@ class ComdosResheniq extends Comdos
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='contentWrapper']//a");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$text = $item->textContent;
 			$text = $this->cleanText($text);
@@ -35,11 +35,6 @@ class ComdosResheniq extends Comdos
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови решения\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
 	}
 
 } 

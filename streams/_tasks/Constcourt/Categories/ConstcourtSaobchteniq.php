@@ -11,7 +11,7 @@ class ConstcourtSaobchteniq extends Constcourt
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='is-post is-post-excerpt']");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$date = trim($item->childNodes->item(4)->textContent);
 			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
@@ -34,10 +34,6 @@ class ConstcourtSaobchteniq extends Constcourt
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови съобщения\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

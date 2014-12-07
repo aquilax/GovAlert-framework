@@ -37,10 +37,7 @@ class Prok_Dokumenti extends Prokuratura
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови документи\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

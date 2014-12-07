@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: aquilax
- * Date: 12/6/14
- * Time: 5:32 AM
- */
 class Mrrb_Informaciq extends Min_mrrb
 {
 
@@ -31,9 +25,6 @@ class Mrrb_Informaciq extends Min_mrrb
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови съобщения за полезна информация\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

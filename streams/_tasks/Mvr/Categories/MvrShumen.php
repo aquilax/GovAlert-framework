@@ -9,7 +9,7 @@ class MvrShumen extends Mvr
 	protected $channelId = 43;
 	protected $channelURL = 'http://www.shumen.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://www.shumen.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

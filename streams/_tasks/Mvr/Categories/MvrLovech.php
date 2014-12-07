@@ -9,7 +9,7 @@ class MvrLovech extends Mvr
 	protected $channelId = 18;
 	protected $channelURL = 'http://www.lovech.mvr.bg/PressOffice/News/default.htm';
 	protected $channelURLBase = 'http://www.lovech.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

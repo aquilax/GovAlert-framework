@@ -30,11 +30,7 @@ class Mi_Makrobiuletin extends Min_mi
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови макробюлетина\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 	// TODO: Figure this out

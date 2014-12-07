@@ -9,7 +9,7 @@ class MvrRuseIzdirvani extends Mvr
 	protected $channelId = 31;
 	protected $channelURL = 'http://www.ruse.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://www.ruse.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

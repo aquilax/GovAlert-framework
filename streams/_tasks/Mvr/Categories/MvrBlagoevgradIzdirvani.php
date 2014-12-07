@@ -9,7 +9,7 @@ class MvrBlagoevgradIzdirvani extends Mvr
 	protected $channelId = 3;
 	protected $channelURL = 'http://www.blagoevgrad.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://www.blagoevgrad.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 } 

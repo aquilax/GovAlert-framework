@@ -9,7 +9,7 @@ class MvrSliven extends Mvr
 	protected $channelId = 34;
 	protected $channelURL = 'http://sliven.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://sliven.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

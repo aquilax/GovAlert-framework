@@ -38,11 +38,7 @@ class CikSaobshteniq extends Cik
 				'hash' => $hash,
 			];
 		}
-
-		$this->logger->info('Възможни ' . count($query) . ' нови съобщения');
-
-		$itemIds = $this->saveItems($query);
-		$this->queueTweets($itemIds);
+		return $query;
 	}
 
 } 

@@ -9,7 +9,7 @@ class MvrDobrich extends Mvr
 	protected $channelId = 14;
 	protected $channelURL = 'http://dobrich.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://dobrich.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 } 

@@ -43,9 +43,7 @@ class TsoSaobshteniq extends Tso
 				'hash' => $hash,
 			];
 		}
-		echo "Възможни " . count($query) . " нови съобщения\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 

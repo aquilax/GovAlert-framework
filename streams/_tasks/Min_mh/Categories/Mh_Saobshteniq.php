@@ -30,10 +30,6 @@ class Mh_Saobshteniq extends Min_mh
 			if (count($query) >= 20)
 				break;
 		}
-
-		echo "Възможни " . count($query) . " нови съобщения\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

@@ -6,11 +6,13 @@ class DansInformaciq extends Dans
 	protected $categoryId = 1;
 	protected $categoryName = 'новини';
 	protected $categoryURL = 'http://www.dans.bg/bg/component/bca-rss-syndicator/?feed_id=1';
+	protected $tweetReTweet = 'MIBulgaria';
 
 	function execute($html)
 	{
+		$xpath = $this->getXPath($html, 'UTF-8', false);
 		$items = $this->getXPathItems(
-			$this->getXPath($html, 'UTF-8', false),
+			$xpath,
 			'//item'
 		);
 
@@ -73,9 +75,7 @@ class DansInformaciq extends Dans
 				'hash' => $hash,
 			];
 		}
-		echo "Възможни " . count($query) . " нови новини\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'GovAlertEU', 'MIBulgaria');
+		return $query;
 	}
 
 	protected function loader($categoryId, $categoryURL)

@@ -12,6 +12,7 @@ class ArKonkursi extends Adminreg
 	protected $categoryId = 0;
 	protected $categoryName = 'конкурси';
 	protected $categoryURL = 'http://ar2.government.bg/ras/konkursi/index.html';
+	private $pages = 0;
 
 	protected function execute($html)
 	{
@@ -30,10 +31,10 @@ class ArKonkursi extends Adminreg
 			$this->reportError("Грешка при четене на страницата");
 			return;
 		}
-		$pages = intval($items->item($items->length - 2)->textContent);
+		$this->pages = intval($items->item($items->length - 2)->textContent);
 
 		$query = [];
-		for ($i = 1; $i <= $pages; $i++) {
+		for ($i = 1; $i <= $this->pages; $i++) {
 			if ($i > 1) {
 				$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html?current_page=$i&regTabs=5&menuTab=10&TypeStruct=");
 				if (!$html) {
@@ -73,19 +74,25 @@ class ArKonkursi extends Adminreg
 				];
 			}
 		}
+		return $query;
+	}
 
-		echo "Възможни " . count($query) . " нови конкурси\n";
-		$itemIds = $this->saveItems($query);
+	protected function processItems(Array $items) {
+		$this->logger->info('Възможни ' . count($items) . ' нови ' . $this->categoryName);
+		$itemIds = $this->saveItems($items);
 
 		if (count($itemIds) <= 3) {
 			$this->queueTweets($itemIds);
 		} else {
-			$pageNum = floor((count($query) - count($itemIds)) / 20) + 1;
-			if ($pageNum < 1 || $pageNum > $pages) {
-				$pageNum = $pages;
+			$pageNum = floor((count($items) - count($itemIds)) / 20) + 1;
+			if ($pageNum < 1 || $pageNum > $this->pages) {
+				$pageNum = $this->pages;
 			}
 			$this->queueTextTweet("Публикувани са " . count($itemIds) . " конкурса за свободни позиции в държавната администрация.", "http://ar2.government.bg/ras/konkursi/index.html?current_page=$pageNum&regTabs=5&menuTab=10&TypeStruct=");
 		}
+
+		$itemIds = $this->saveItems($items);
+		$this->queueTweets($itemIds);
 	}
 
 	// TODO: Figure out why this is different

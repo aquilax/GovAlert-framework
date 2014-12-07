@@ -6,6 +6,7 @@ class ParlKomisiiZasedaniq extends Parliament
 	protected $categoryId = 9;
 	protected $categoryName = 'заседания на комисии';
 	protected $categoryURL = '';
+	protected $tweetReTweet = true;
 
 	function execute($html)
 	{
@@ -52,12 +53,7 @@ class ParlKomisiiZasedaniq extends Parliament
 				];
 			}
 		}
-
-		echo "Възможни " . count($query) . " нови заседания\n";
-		$query = array_reverse($query);
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie', true);
+		return array_reverse($query);
 	}
 
 

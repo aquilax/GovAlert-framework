@@ -30,10 +30,7 @@ class GovSabitiq extends Government
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови събития\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'GovBulgaria');
+		return $query;
 	}
 
 

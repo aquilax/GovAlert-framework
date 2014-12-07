@@ -9,7 +9,7 @@ class MvrSofiq extends Mvr
 	protected $channelId = 38;
 	protected $channelURL = 'http://www.odmvr-sofia.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://www.odmvr-sofia.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

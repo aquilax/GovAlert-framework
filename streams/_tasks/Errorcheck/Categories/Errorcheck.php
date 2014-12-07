@@ -7,6 +7,7 @@ class Errorcheck extends Task
 	protected $categoryId = 0;
 	protected $categoryName = '';
 	protected $categoryURL = false;
+	private $shortName = '';
 
 	function execute($html)
 	{
@@ -21,10 +22,11 @@ class Errorcheck extends Task
 		$row = $res->fetch_assoc();
 
 		$this->sourceId = intval($row['sourceid']);
+		$this->shortName = $row["shortname"];
 
-		$this->logger->info('Предупреждение за ' . $row["shortname"]);
+		$this->logger->info('Предупреждение за ' . $this->shortName);
 
-		$title = "Няма новини от " . $row["shortname"] . " от поне две седмици";
+		$title = "Няма новини от " . $this->shortName . " от поне две седмици";
 		$hash = md5($title . time());
 		$query = [];
 		$query[] = [
@@ -34,23 +36,27 @@ class Errorcheck extends Task
 			'url' => $row['url'],
 			'hash' => $hash,
 		];
+		return $query;
+	}
+
+	protected  function processItems(Array $query) {
 		$this->saveItems($query);
 
 		switch (rand(1, 4)) {
 			case 1:
-				$tweet = "@yurukov " . $row["shortname"] . " не са пускали нищо наскоро. Може би има проблем:";
+				$tweet = "@yurukov " . $this->shortName . " не са пускали нищо наскоро. Може би има проблем:";
 				break;
 			case 2:
-				$tweet = "@yurukov провери дали " . $row["shortname"] . " не са си променили сайта, че не намирам нищо ново:";
+				$tweet = "@yurukov провери дали " . $this->shortName . " не са си променили сайта, че не намирам нищо ново:";
 				break;
 			case 3:
-				$tweet = "@yurukov от доста време няма новини от " . $row["shortname"] . ". Провери логовете ми за грешки.";
+				$tweet = "@yurukov от доста време няма новини от " . $this->shortName . ". Провери логовете ми за грешки.";
 				break;
 			default:
-				$tweet = "@yurukov шефе, няма новини от " . $row["shortname"] . " от поне две седмици. Виж дали има проблем със сайта им:";
+				$tweet = "@yurukov шефе, няма новини от " . $this->shortName . " от поне две седмици. Виж дали има проблем със сайта им:";
 				break;
 		}
-		$this->queueTextTweet($tweet, $row["url"]);
+		$this->queueTextTweet($tweet, $query[0]['url']);
 	}
 
 	protected function loader($categoryId, $categoryURL)

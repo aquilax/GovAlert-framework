@@ -29,10 +29,6 @@ class Mi_KoncentraciqFin extends Min_mi
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови концентрация фин.ср.\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 } 

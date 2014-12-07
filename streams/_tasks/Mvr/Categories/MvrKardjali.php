@@ -9,7 +9,7 @@ class MvrKardjali extends Mvr
 	protected $channelId = 15;
 	protected $channelURL = 'http://www.kardjali.mvr.bg/PressOffice/News/default.htm';
 	protected $channelURLBase = 'http://www.kardjali.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

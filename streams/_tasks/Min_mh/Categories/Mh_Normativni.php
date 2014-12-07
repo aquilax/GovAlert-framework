@@ -14,7 +14,7 @@ class Mh_Normativni extends Min_mh
 			"//table[@id='ctl00_ContentPlaceClient_ucArticlesList_gvArticles']//tr[not(@class)]/td"
 		);
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$date = $item->childNodes->item(3)->textContent;
 			$date = $this->cleanText($date);
@@ -41,11 +41,7 @@ class Mh_Normativni extends Min_mh
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови нормативни актове\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

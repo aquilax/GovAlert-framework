@@ -2,7 +2,6 @@
 
 class VssDnevenRed extends Vss
 {
-
 	protected $categoryId = 0;
 	protected $categoryName = 'дневен ред';
 	protected $categoryURL = '';
@@ -51,10 +50,7 @@ class VssDnevenRed extends Vss
 			];
 
 		}
-		echo "Възможни " . count($query) . " нов запис за дневен ред\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

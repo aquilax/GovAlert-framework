@@ -39,12 +39,7 @@ class ParlResheniq extends Parliament
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови решения\n";
-
-		$query = array_reverse($query);
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie');
+		return array_reverse($query);
 	}
 
 } 

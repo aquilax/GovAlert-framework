@@ -12,7 +12,7 @@ class Kfn_Novini extends Kfn
 	{
 		$items = $this->xpathDoc($html, "//div[@class='s_news_listing']//h3/a");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			if (count($query) > 10)
 				break;
@@ -29,11 +29,7 @@ class Kfn_Novini extends Kfn
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови новини\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 

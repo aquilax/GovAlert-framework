@@ -9,7 +9,7 @@ class MvrSilistra extends Mvr
 	protected $channelId = 32;
 	protected $channelURL = 'http://www.silistra.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://www.silistra.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

@@ -46,8 +46,7 @@ class ParlPlenarnoZasedanie extends Parliament
 		if (is_null($items) || $items->length == 0) return;
 		$url = $items->item(0)->getAttribute("href");
 
-		$itemids = $this->saveItems([$title, $description, "now", "http://parliament.bg$url", $hash]);
-		$this->queueTweets($itemids, 'narodnosabranie');
+		return [[$title, $description, "now", "http://parliament.bg$url", $hash]];
 	}
 
 } 

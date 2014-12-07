@@ -6,6 +6,7 @@ class ParlKomisiiNovini extends Parliament
 	protected $categoryId = 10;
 	protected $categoryName = 'новини на комисии';
 	protected $categoryURL = '';
+	protected $tweetReTweet = true;
 
 	function execute($html)
 	{
@@ -42,9 +43,7 @@ class ParlKomisiiNovini extends Parliament
 				];
 			}
 		}
-
-		echo "Възможни " . count($query) . " нови новини\n";
-		$query = array_reverse($query);
+		return array_reverse($query);
 
 		$itemids = $this->saveItems($query);
 		$this->queueTweets($itemids, 'narodnosabranie', true);

@@ -9,7 +9,7 @@ class MvrSmolqnIzdirvani extends Mvr
 	protected $channelId = 37;
 	protected $channelURL = 'http://www.smolyan.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://www.smolyan.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

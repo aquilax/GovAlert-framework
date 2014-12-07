@@ -33,10 +33,7 @@ class Mh_Naredbi extends Min_mh
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови наредби\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

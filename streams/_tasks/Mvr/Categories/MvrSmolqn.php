@@ -9,7 +9,7 @@ class MvrSmolqn extends Mvr
 	protected $channelId = 36;
 	protected $channelURL = 'http://www.smolyan.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://www.smolyan.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

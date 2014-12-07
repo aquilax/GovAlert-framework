@@ -9,7 +9,7 @@ class MvrPazardjik extends Mvr
 	protected $channelId = 22;
 	protected $channelURL = 'http://pazardjik.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://pazardjik.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 } 

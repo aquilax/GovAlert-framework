@@ -35,10 +35,7 @@ class Mh_Postanovleniq extends Min_mh
 			];
 
 		}
-
-		echo "Възможни " . count($query) . " нови постановления\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 } 

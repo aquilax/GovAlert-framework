@@ -37,10 +37,7 @@ class GovZasedaniq extends Government
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови заседания\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'GovBulgaria', true);
+		return $query;
 	}
 
 

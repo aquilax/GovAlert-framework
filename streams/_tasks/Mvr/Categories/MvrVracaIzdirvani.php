@@ -9,7 +9,7 @@ class MvrVracaIzdirvani extends Mvr
 	protected $channelId = 11;
 	protected $channelURL = 'http://www.vratza.mvr.bg/Pressoffice/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://www.vratza.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }

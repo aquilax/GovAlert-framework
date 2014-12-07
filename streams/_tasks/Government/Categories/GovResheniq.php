@@ -36,14 +36,17 @@ class GovResheniq extends Government
 				'hash' => $hash,
 			];
 		}
-
+		return $query;
+	}
+	protected  function processItems(Array $query) {
 		echo "Възможни " . count($query) . " нови решения\n";
 		$itemids = $this->saveItems($query);
 
-		if (count($itemids) > 3)
-			$this->queueTextTweet("Достъпни са " . count($itemids) . " нови решения от последното заседание", "http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=", 'GovBulgaria', true);
-		else
-			$this->queueTweets($itemids, 'GovBulgaria', true);
+		if (count($itemids) > 3) {
+			$this->queueTextTweet("Достъпни са " . count($itemids) . " нови решения от последното заседание", "http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&g=", $this->tweetAccount, true);
+		} else {
+			$this->queueTweets($itemids, $this->tweetAccount, true);
+		}
 	}
 
 } 

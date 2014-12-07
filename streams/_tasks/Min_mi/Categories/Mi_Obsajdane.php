@@ -36,11 +36,7 @@ class Mi_Obsajdane extends Min_mi
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови обсъжданя\n";
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids);
+		return $query;
 	}
 
 	// TODO: Figure this out

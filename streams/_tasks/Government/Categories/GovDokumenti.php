@@ -30,9 +30,6 @@ class GovDokumenti extends Government
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови документи\n";
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'GovBulgaria');
+		return $query;
 	}
 } 

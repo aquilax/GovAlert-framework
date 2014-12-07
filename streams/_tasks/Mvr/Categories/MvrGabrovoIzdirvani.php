@@ -9,7 +9,7 @@ class MvrGabrovoIzdirvani extends Mvr
 	protected $channelId = 13;
 	protected $channelURL = 'http://www.gabrovo.mvr.bg/PressOffice/Wanted/default.htm';
 	protected $channelURLBase = 'http://www.gabrovo.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 } 

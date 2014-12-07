@@ -9,7 +9,7 @@ class MvrVarna extends Mvr
 	protected $channelId = 5;
 	protected $channelURL = 'http://varna.mvr.bg/Prescentar/Novini/default.htm';
 	protected $channelURLBase = 'http://varna.mvr.bg';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 }

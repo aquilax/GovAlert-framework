@@ -11,7 +11,7 @@ class CikJalbi extends Cik
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//td/a");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->textContent;
@@ -27,15 +27,17 @@ class CikJalbi extends Cik
 				'hash' => $hash,
 			];
 		}
-
-		echo "Възможни " . count($query) . " нови жалби\n";
-
-		$itemids = $this->saveItems($query);
-		if (count($itemids) <= 5)
-			$this->queueTweets($itemids);
-		else
-			$this->queueTextTweet("Публикувани са " . count($itemids) . " нови документа във връзка с жалби", "http://www.cik.bg/reshenie");
+		return $query;
 	}
 
+	protected  function processItems(Array $query) {
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
+		$itemIds = $this->saveItems($query);
+		if (count($itemIds) <= 5) {
+			$this->queueTweets($itemIds);
+		} else {
+			$this->queueTextTweet("Публикувани са " . count($itemIds) . " нови документа във връзка с жалби", "http://www.cik.bg/reshenie");
+		}
+	}
 
 } 

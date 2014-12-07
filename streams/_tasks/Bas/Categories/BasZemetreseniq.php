@@ -6,7 +6,6 @@
 
 */
 
-
 class BasZemetreseniq extends Bas
 {
 	protected $categoryId = 0;
@@ -107,10 +106,12 @@ class BasZemetreseniq extends Bas
 				'media' => $media
 			];
 		}
-		$this->logger->info('Възможни ' . count($query) . ' нови земетресения');
+		return $query;
+	}
 
+	protected  function processItems(Array $query) {
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 		$itemIds = $this->saveItems($query);
-
 		if (count($itemIds) <= 3) {
 			$this->queueTweets($itemIds);
 		} else {

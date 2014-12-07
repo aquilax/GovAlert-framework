@@ -9,7 +9,7 @@ class MvrPlovdiv extends Mvr
 	protected $channelId = 28;
 	protected $channelURL = 'http://plovdiv.mvr.bg/news.php';
 	protected $channelURLBase = '';
-	protected $channelReTweet = false;
+	protected $tweetReTweet = false;
 	protected $channelExpectEmpty = false;
 
 

@@ -9,7 +9,7 @@ class MvrSilistraIzdirvani extends Mvr
 	protected $channelId = 33;
 	protected $channelURL = 'http://www.silistra.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
 	protected $channelURLBase = 'http://www.silistra.mvr.bg';
-	protected $channelReTweet = 'lipsva';
+	protected $tweetReTweet = 'lipsva';
 	protected $channelExpectEmpty = true;
 
 }
