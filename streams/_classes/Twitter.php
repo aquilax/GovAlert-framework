@@ -48,7 +48,7 @@ class Twitter
 		}
 		$res->free();
 
-		$res = $this->db->query("SELECT t.tweetid, t.itemid, t.text, t.sourceid, t.account, t.retweet, i.title, i.url, s.shortname, s.geo, count(m.type) media from tweet t left outer join item i on i.itemid=t.itemid left outer join source s on i.sourceid=s.sourceid or t.sourceid=s.sourceid left outer join item_media m on m.itemid=t.itemid where error is null group by t.itemid order by t.account, t.priority desc, t.queued, t.itemid limit 5");
+		$res = $this->db->query("SELECT t.tweetid, t.itemid, t.text, t.sourceid, t.account, t.retweet, i.title, i.url, s.shortname, s.geo, count(m.type) media FROM tweet t LEFT OUTER JOIN item i ON i.itemid=t.itemid LEFT OUTER JOIN source s ON i.sourceid=s.sourceid OR t.sourceid=s.sourceid LEFT OUTER JOIN item_media m ON m.itemid=t.itemid WHERE error IS NULL GROUP BY t.itemid ORDER BY t.account, t.priority DESC, t.queued, t.itemid LIMIT 5");
 
 		if ($res->num_rows > 0) {
 			$this->logger->info('Изпращам ' . $res->num_rows . ' tweet/s');
@@ -85,7 +85,7 @@ class Twitter
 					if (intval($row['media']) != 0) {
 						$connection->host = "https://upload.twitter.com/1.1/";
 
-						$resmedia = $this->db->query("select type,value from item_media where itemid='" . $row['itemid'] . "' limit 3");
+						$resmedia = $this->db->query("SELECT type, value FROM item_media WHERE itemid='" . $row['itemid'] . "' LIMIT 3");
 						while ($rowmedia = $resmedia->fetch_assoc()) {
 							if ($rowmedia['type'] == "geo")
 								$geo = explode(",", $rowmedia['value']);
@@ -172,10 +172,10 @@ class Twitter
 					if ($tres->errors) {
 						$this->logger->error('Грешка: ' . $message);
 						$errortext = $this->db->escape_string(json_encode($tres));
-						$this->db->query("update tweet set error='$errortext' where tweetid=${row['tweetid']} limit 1");
+						$this->db->query("UPDATE tweet SET error = '$errortext' WHERE tweetid = ${row['tweetid']} LIMIT 1");
 						break;
 					} else {
-						$this->db->query("delete from tweet where tweetid=${row['tweetid']} limit 1");
+						$this->db->query("DELETE FROM tweet WHERE tweetid=${row['tweetid']} LIMIT 1");
 					}
 				}
 			}

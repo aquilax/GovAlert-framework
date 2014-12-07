@@ -13,7 +13,7 @@ class RetweetAccounts extends Retweet
 		$currentHour = intval(date("H"));
 
 		if ($currentHour < 9 || $currentHour > 19) {
-			echo "> Ще проверявам за tweet-ове само през деня\n";
+			$this->logger->info('> Ще проверявам за tweet-ове само през деня.');
 			return;
 		}
 
@@ -43,7 +43,7 @@ class RetweetAccounts extends Retweet
 			}
 			$res->free();
 
-			echo "> Проверявам за tweets в на $account [спешно=" . ($forceRT ? 1 : 0) . ", средна активност=$avgActivity]\n";
+			$this->logger->info('> Проверявам за tweets в на $account [спешно=' . ($forceRT ? 1 : 0) . ", средна активност=$avgActivity]");
 
 			require_once(Config::get('twitterOAuth'));
 			require_once(Config::get('twitterOAuthConfig'));
@@ -85,24 +85,27 @@ class RetweetAccounts extends Retweet
 				$tweets[] = array($tweet->retweet_count, $tweet->favorite_count, $tweet->id_str, $zaBulgaria, $otgovor);
 			}
 
-			echo "> Открих " . count($tweets) . " tweet-а от последния RT\n";
+			$this->logger->info('> Открих ' . count($tweets) . ' tweet-а от последния RT');
 			if (count($tweets) > 0) {
 				usort($tweets, ['RetweetAccounts', 'sortTweets']);
 
 				if ($tweets[0][0] + $tweets[0][1] >= $avgActivity || ($forceRT && $tweets[0][0] + $tweets[0][1] >= $minActivity)) {
-					echo "> Tweet-а с най-много интерес (" . ($tweets[0][0] + $tweets[0][1]) . ") ще бъде RT-нат.\n";
+					$this->logger->info('> Tweet-а с най-много интерес (' . ($tweets[0][0] + $tweets[0][1]) . ') ще бъде RT-нат.');
 
-					$this->db->query("update s_retweet set lasttweet='" . $tweets[0][2] . "', lastretweet=now(), lastcheck=now(), " .
+					$this->db->query("UPDATE s_retweet SET lasttweet='" . $tweets[0][2] . "', lastretweet=now(), lastcheck=now(), " .
 						"tw_rts=tw_rts+" . $tweets[0][0] . ", tw_fav=tw_fav+" . $tweets[0][1] . ", tw_num=tw_num+1 " .
-						"where twitter='$account' limit 1");
+						"WHERE twitter='$account' limit 1");
 
-					$this->db->query("insert LOW_PRIORITY ignore into tweet (account, queued, retweet) value ('govalerteu',now(),'" . $tweets[0][2] . "')");
-
+					$this->db->insert('tweet', [
+						'account' => 'govalerteu',
+						'queued' => $tweets[0][2],
+						'retweet' => '',
+					]);
 					break;
 				}
 			}
 
-			$this->db->query("update s_retweet set lastcheck=now() where twitter='$account' limit 1");
+			$this->db->query("UPDATE s_retweet SET lastcheck = now() WHERE twitter = '$account' LIMIT 1");
 		}
 	}
 
@@ -123,4 +126,4 @@ class RetweetAccounts extends Retweet
 		return 'placeholder';
 	}
 
-} 
+}

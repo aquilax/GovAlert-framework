@@ -15,12 +15,4 @@ abstract class Min_mh extends Task
 {
 	protected $sourceId = 21;
 	protected $sourceName = 'МЗ';
-
-	protected function cleanText($text)
-	{
-		$text = html_entity_decode($text);
-		$text = Utils::cleanSpaces($text);
-		$text = Utils::fixCase($text);
-		return $text;
-	}
 }

@@ -3,13 +3,13 @@
 class MvrDobrich extends Mvr
 {
 
-	protected $channelPrefix = '[Добрич] ';
+	protected $categoryPrefix = '[Добрич] ';
 	protected $sourceName = 'МВР Добрич';
-	protected $channelName = 'новини';
-	protected $channelId = 14;
-	protected $channelURL = 'http://dobrich.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://dobrich.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 14;
+	protected $categoryURL = 'http://dobrich.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://dobrich.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 } 

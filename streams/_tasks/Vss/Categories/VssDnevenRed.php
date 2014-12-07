@@ -9,7 +9,6 @@ class VssDnevenRed extends Vss
 
 	function execute($html)
 	{
-		if (!$html) return;
 		$items = $this->xpathDoc($html, "//td//a[@class='link']");
 		$baseurl = substr($this->categoryURL, 0, strrpos($this->categoryURL, "/") + 1);
 

@@ -3,13 +3,13 @@
 class MvrNovini extends Mvr
 {
 
-	protected $channelPrefix = '';
+	protected $categoryPrefix = '';
 	protected $sourceName = 'МВР';
-	protected $channelName = 'новини';
-	protected $channelId = 0;
-	protected $channelURL = 'http://press.mvr.bg/default.htm';
-	protected $channelURLBase = 'http://press.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 0;
+	protected $categoryURL = 'http://press.mvr.bg/default.htm';
+	protected $categoryURLBase = 'http://press.mvr.bg';
 	protected $tweetReTweet = 'govalerteu';
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 } 

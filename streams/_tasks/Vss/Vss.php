@@ -50,12 +50,4 @@ abstract class Vss extends Task
 		$items = $xpath->query($q);
 		return is_null($items) ? array() : $items;
 	}
-
-	function cleanText($text)
-	{
-		$text = Utils::cleanSpaces($text);
-		$text = html_entity_decode($text);
-		return $text;
-	}
-
 }

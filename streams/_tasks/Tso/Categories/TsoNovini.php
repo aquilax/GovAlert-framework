@@ -37,7 +37,7 @@ class TsoNovini extends Tso
 
 			$query[] = [
 				'title' => $title,
-				'description' => null,
+				'description' => $description,
 				'date' => Utils::now(),
 				'url' => $url,
 				'hash' => $hash,

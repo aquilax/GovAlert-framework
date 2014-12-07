@@ -2,12 +2,12 @@
 
 class MvrBlagoevgrad extends Mvr
 {
-	protected $channelPrefix = '[Благоевград] ';
+	protected $categoryPrefix = '[Благоевград] ';
 	protected $sourceName = 'МВР Благоевград';
-	protected $channelName = 'новини';
-	protected $channelId = 2;
-	protected $channelURL = 'http://www.blagoevgrad.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.blagoevgrad.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 2;
+	protected $categoryURL = 'http://www.blagoevgrad.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.blagoevgrad.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 }

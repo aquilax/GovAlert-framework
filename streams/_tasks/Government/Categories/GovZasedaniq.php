@@ -14,9 +14,7 @@ class GovZasedaniq extends Government
 			"//td[@valign='top' and starts-with(./a/font/text(),'Дневен ред')]"
 		);
 
-		echo "Открити " . $items->length . " заседания\n";
-
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->childNodes->item(1)->textContent);
 			$date = $item->childNodes->item(0)->childNodes->item(1)->textContent;

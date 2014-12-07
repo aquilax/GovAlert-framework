@@ -3,13 +3,13 @@
 class MvrPazardjik extends Mvr
 {
 
-	protected $channelPrefix = '[Пазарджик] ';
+	protected $categoryPrefix = '[Пазарджик] ';
 	protected $sourceName = 'МВР Пазарджик';
-	protected $channelName = 'новини';
-	protected $channelId = 22;
-	protected $channelURL = 'http://pazardjik.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://pazardjik.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 22;
+	protected $categoryURL = 'http://pazardjik.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://pazardjik.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 } 

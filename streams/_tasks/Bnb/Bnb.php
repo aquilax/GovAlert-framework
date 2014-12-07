@@ -127,14 +127,6 @@ abstract class Bnb extends Task
 		return $this->getXPath($html);
 	}
 
-	protected function cleanText($text)
-	{
-		$text = html_entity_decode($text);
-		$text = Utils::cleanSpaces($text);
-		$text = Utils::fixCase($text);
-		return $text;
-	}
-
 	protected function cleanDescr($description)
 	{
 		$description = mb_ereg_replace(" </", "</", mb_ereg_replace("> ", ">", $description));

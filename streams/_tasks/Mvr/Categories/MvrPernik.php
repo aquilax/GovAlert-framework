@@ -3,13 +3,13 @@
 class MvrPernik extends Mvr
 {
 
-	protected $channelPrefix = '[Перник] ';
+	protected $categoryPrefix = '[Перник] ';
 	protected $sourceName = 'МВР Перник';
-	protected $channelName = 'новини';
-	protected $channelId = 24;
-	protected $channelURL = 'http://www.pernik.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.pernik.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 24;
+	protected $categoryURL = 'http://www.pernik.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.pernik.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

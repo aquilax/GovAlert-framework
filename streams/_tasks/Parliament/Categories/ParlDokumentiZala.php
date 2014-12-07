@@ -10,7 +10,9 @@ class ParlDokumentiZala extends Parliament
 	function execute($html)
 	{
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) return;
+		if (!$xpath) {
+			return;
+		}
 		$items = $xpath->query("//ul[@class='frontList1']/li/a");
 		if (is_null($items)) return;
 

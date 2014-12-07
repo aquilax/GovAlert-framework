@@ -44,9 +44,6 @@ class ParlKomisiiNovini extends Parliament
 			}
 		}
 		return array_reverse($query);
-
-		$itemids = $this->saveItems($query);
-		$this->queueTweets($itemids, 'narodnosabranie', true);
 	}
 
 	protected function loader($categoryId, $categoryURL)

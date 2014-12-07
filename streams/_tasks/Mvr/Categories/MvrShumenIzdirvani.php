@@ -3,13 +3,13 @@
 class MvrShumenIzdirvani extends Mvr
 {
 
-	protected $channelPrefix = '[Шумен] ';
+	protected $categoryPrefix = '[Шумен] ';
 	protected $sourceName = 'МВР Шумен';
-	protected $channelName = 'изчезнали';
-	protected $channelId = 44;
-	protected $channelURL = 'http://www.shumen.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
-	protected $channelURLBase = 'http://www.shumen.mvr.bg';
+	protected $categoryName = 'изчезнали';
+	protected $categoryId = 44;
+	protected $categoryURL = 'http://www.shumen.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
+	protected $categoryURLBase = 'http://www.shumen.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
-	protected $channelExpectEmpty = true;
+	protected $categoryExpectEmpty = true;
 
 }

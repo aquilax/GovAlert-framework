@@ -14,8 +14,7 @@ class GovSabitiq extends Government
 			"//td[.//a[@class='header']/text()='Предстоящи събития' and table/@bgcolor='#ffffff']//td[@valign='top']/a"
 		);
 
-		echo "Открити " . $items->length . " събития\n";
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;

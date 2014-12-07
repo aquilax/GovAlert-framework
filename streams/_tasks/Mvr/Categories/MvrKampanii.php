@@ -3,13 +3,13 @@
 class MvrKampanii extends Mvr
 {
 
-	protected $channelPrefix = '';
+	protected $categoryPrefix = '';
 	protected $sourceName = 'МВР';
-	protected $channelName = 'кампании';
-	protected $channelId = 1;
-	protected $channelURL = 'http://press.mvr.bg/Kampanii/default.htm';
-	protected $channelURLBase = 'http://press.mvr.bg';
+	protected $categoryName = 'кампании';
+	protected $categoryId = 1;
+	protected $categoryURL = 'http://press.mvr.bg/Kampanii/default.htm';
+	protected $categoryURLBase = 'http://press.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

@@ -11,9 +11,8 @@ class GovNovini extends Government
 	{
 		$doc = $this->getXPath($html, 'cp1251');
 		$items = $this->getXPathItems($doc, "//table[@cellpadding=1]");
-		echo "Открити " . $items->length . " новини\n";
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$innerItems = $this->getXPathItems($doc, ".//td", $item);
 			if ($innerItems->length != 4)

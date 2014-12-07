@@ -3,13 +3,13 @@
 class MvrVidin extends Mvr
 {
 
-	protected $channelPrefix = '[Видин] ';
+	protected $categoryPrefix = '[Видин] ';
 	protected $sourceName = 'МВР Видин';
-	protected $channelName = 'новини';
-	protected $channelId = 8;
-	protected $channelURL = 'http://www.vidin.mvr.bg/PressOffice/News/default.htm';
-	protected $channelURLBase = 'http://www.vidin.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 8;
+	protected $categoryURL = 'http://www.vidin.mvr.bg/PressOffice/News/default.htm';
+	protected $categoryURLBase = 'http://www.vidin.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 } 

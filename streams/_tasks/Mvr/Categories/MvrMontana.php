@@ -3,13 +3,13 @@
 class MvrMontana extends Mvr
 {
 
-	protected $channelPrefix = '[Монтана] ';
+	protected $categoryPrefix = '[Монтана] ';
 	protected $sourceName = 'МВР Монтана';
-	protected $channelName = 'новини';
-	protected $channelId = 20;
-	protected $channelURL = 'http://www.montana.mvr.bg/PressOffice/News/default.htm';
-	protected $channelURLBase = 'http://www.montana.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 20;
+	protected $categoryURL = 'http://www.montana.mvr.bg/PressOffice/News/default.htm';
+	protected $categoryURLBase = 'http://www.montana.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

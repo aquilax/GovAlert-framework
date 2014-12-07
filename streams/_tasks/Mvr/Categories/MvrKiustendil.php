@@ -3,13 +3,13 @@
 class MvrKiustendil extends Mvr
 {
 
-	protected $channelPrefix = '[Кюстендил] ';
+	protected $categoryPrefix = '[Кюстендил] ';
 	protected $sourceName = 'МВР Кюстендил';
-	protected $channelName = 'новини';
-	protected $channelId = 17;
-	protected $channelURL = 'http://www.kustendil.mvr.bg/PressOffice/News/default.htm';
-	protected $channelURLBase = 'http://www.kustendil.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 17;
+	protected $categoryURL = 'http://www.kustendil.mvr.bg/PressOffice/News/default.htm';
+	protected $categoryURLBase = 'http://www.kustendil.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

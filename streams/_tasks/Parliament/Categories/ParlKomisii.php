@@ -36,7 +36,7 @@ class ParlKomisii extends Parliament
 		if (count($commissions) == 0)
 			return;
 
-		echo "Има " . count($commissions) . " нови комисии\n";
+		$this->logger->info('Има ' . count($commissions) . ' нови комисии');
 
 		$query = array();
 		foreach ($commissions as $commission) {

@@ -1,6 +1,6 @@
 <?php
 
-abstract class Strategy extends Task
+class Strategy extends Task
 {
 
 	protected $sourceId = 2;
@@ -49,5 +49,9 @@ abstract class Strategy extends Task
 		$text = mb_ereg_replace("(^\s+)|(\s+$)", "", $text);
 		$text = html_entity_decode($text);
 		return $text;
+	}
+
+	function execute($html) {
+		// placeholder
 	}
 }

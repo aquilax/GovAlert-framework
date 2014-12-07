@@ -6,7 +6,7 @@ class ParlZakoni extends Parliament
 	protected $categoryId = 3;
 	protected $categoryName = 'закони';
 	protected $categoryURL = 'http://parliament.bg/bg/laws';
-	protected $tweetReTweet = nill;
+	protected $tweetReTweet = null;
 
 	function execute($html)
 	{

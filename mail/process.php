@@ -14,7 +14,7 @@ if (strpos($mail, "From: info@strategy.bg") !== false) {
 	$strategy->mailStrategy($mail);
 }
 
-echo "done\n";
+$logger->info('done');
 
 $contents = ob_get_flush();
 file_put_contents("$path/../log/mail.log", $contents, FILE_APPEND);

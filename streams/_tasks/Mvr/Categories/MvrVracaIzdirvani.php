@@ -3,13 +3,13 @@
 class MvrVracaIzdirvani extends Mvr
 {
 
-	protected $channelPrefix = '[Враца] ';
+	protected $categoryPrefix = '[Враца] ';
 	protected $sourceName = 'МВР Враца';
-	protected $channelName = 'изчезнали';
-	protected $channelId = 11;
-	protected $channelURL = 'http://www.vratza.mvr.bg/Pressoffice/Izdirvani_lica/default.htm';
-	protected $channelURLBase = 'http://www.vratza.mvr.bg';
+	protected $categoryName = 'изчезнали';
+	protected $categoryId = 11;
+	protected $categoryURL = 'http://www.vratza.mvr.bg/Pressoffice/Izdirvani_lica/default.htm';
+	protected $categoryURLBase = 'http://www.vratza.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
-	protected $channelExpectEmpty = true;
+	protected $categoryExpectEmpty = true;
 
 }

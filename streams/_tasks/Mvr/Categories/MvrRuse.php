@@ -3,13 +3,13 @@
 class MvrRuse extends Mvr
 {
 
-	protected $channelPrefix = '[Русе] ';
+	protected $categoryPrefix = '[Русе] ';
 	protected $sourceName = 'МВР Русе';
-	protected $channelName = 'новини';
-	protected $channelId = 30;
-	protected $channelURL = 'http://www.ruse.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.ruse.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 30;
+	protected $categoryURL = 'http://www.ruse.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.ruse.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

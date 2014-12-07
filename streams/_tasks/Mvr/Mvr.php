@@ -55,37 +55,35 @@ abstract class Mvr extends Task
 {
 	protected $sourceId = 19;
 
-	protected $channelPrefix = '';
+	protected $categoryPrefix = '';
 	protected $sourceName = '';
-	protected $channelName = '';
-	protected $channelId = -1;
-	protected $channelURL = '';
-	protected $channelURLBase = '';
-	protected $channelExpectEmpty = false;
+	protected $categoryName = '';
+	protected $categoryId = -1;
+	protected $categoryURL = '';
+	protected $categoryURLBase = '';
+	protected $categoryExpectEmpty = false;
 
 	/* crappy, yet standard */
 
 //	function loadMVRpage($prefix, $logtitle, $logwhat, $num, $url, $urlbase, $retweet = false, $expectempty = false)
 	function execute($html)
 	{
-		$xpath = $this->xpath($html);
+		$xpath = $this->getXPath($html);
 		$items = $xpath ? $xpath->query("//ul[@class='categoryList']/li") : false;
 		if (!$items || $items->length == 0) {
-			if (!$this->channelExpectEmpty)
+			if (!$this->categoryExpectEmpty)
 				$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
-		echo "Открити " . $items->length . " $this->channelName\n";
-
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$item_1 = $xpath->query("h3/a", $item);
 			$item_2 = $xpath->query("p[@class='dateOfLink']", $item);
 			if ($item_1->length == 0 || $item_2->length == 0)
 				continue;
 
-			$url = $this->channelURLBase . Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
+			$url = $this->categoryURLBase . Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
 			$hash = md5($url);
 			if (!$this->checkHash($hash))
 				continue;
@@ -98,7 +96,7 @@ abstract class Mvr extends Task
 
 			$title = $item_1->item(0)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = $this->channelPrefix . $title;
+			$title = $this->categoryPrefix . $title;
 			if (!$this->checkTitle($title))
 				continue;
 
@@ -107,7 +105,7 @@ abstract class Mvr extends Task
 
 			$html1 = $this->loadURL($url);
 			if ($html1) {
-				$xpath1 = $this->xpath($html1);
+				$xpath1 = $this->getXPath($html1);
 				$items1 = $xpath1->query("//table[@id='content']//p|//table[@id='content']//h3|//table[@id='content']//div[@id='images']");
 				if ($items1->length > 0) {
 					$description = "";
@@ -123,12 +121,15 @@ abstract class Mvr extends Task
 
 				$items2 = $xpath1->query("//table[@id='content']//div[@id='images']//a[text()='Илюстрация']|//table[@id='content']//p/a[text()='Снимки']");
 				foreach ($items2 as $item2) {
-					$magepageurl = $this->channelURLBase . $item2->getAttribute('href');
+					$magepageurl = $this->categoryURLBase . $item2->getAttribute('href');
 					$html3 = $this->loadURL($magepageurl);
-					$items3 = $this->xpathDoc($html3, "//div[@id='divIllustrationHeap']//img|//div[@id='divIllustration']//img");
+					$items3 = $this->getXPathItems(
+						$this->getXPath($html3),
+						"//div[@id='divIllustrationHeap']//img|//div[@id='divIllustration']//img"
+					);
 					foreach ($items3 as $item3) {
-						$imageurl = $this->channelURLBase . $item3->getAttribute('src');
-						$imageurl = $this->loadItemImage($imageurl, []);
+						$imageurl = $this->categoryURLBase . $item3->getAttribute('src');
+						$imageurl = $this->loadItemImage($imageurl);
 						if ($imageurl) {
 							$media["image"][] = array($imageurl);
 						}
@@ -162,31 +163,4 @@ abstract class Mvr extends Task
 			else
 				$this->queueTweets($itemids, "mibulgaria");
 	}
-
-	/*
-	------------------------------------------------------------------------
-	*/
-
-	function xpath($html)
-	{
-		if (!$html)
-			return null;
-		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-		$doc = new DOMDocument("1.0", "UTF-8");
-		$doc->preserveWhiteSpace = false;
-		$doc->strictErrorChecking = false;
-		$doc->encoding = 'UTF-8';
-		$doc->loadHTML($html);
-		return new DOMXpath($doc);
-	}
-
-	function xpathDoc($html, $q)
-	{
-		$xpath = $this->xpath($html);
-		if ($xpath == null)
-			return array();
-		$items = $xpath->query($q);
-		return is_null($items) ? array() : $items;
-	}
-
 }

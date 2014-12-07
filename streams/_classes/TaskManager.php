@@ -16,6 +16,11 @@ class TaskManager
 		$this->logger = $logger;
 	}
 
+	/**
+	 * @param string $lib
+	 * @param string $method
+	 * @return bool|Task
+	 */
 	private function classLoader($lib, $method)
 	{
 		$baseClassName = ucfirst($lib);
@@ -25,13 +30,10 @@ class TaskManager
 		if (file_exists($baseClassFilePath) && file_exists($taskClassFilePath)) {
 			require_once($baseClassFilePath);
 			require_once($taskClassFilePath);
-			/**
-			 * @var $task Task
-			 */
 			$this->logger->debug('Loaded class from: ' . $taskClassFilePath);
 			return new $className($this->db, $this->logger);
 		}
-		return false;
+		throw new Exception('Task not ' . $method . 'found');
 	}
 
 	public function runTask($lib, $task, $delay, $force)

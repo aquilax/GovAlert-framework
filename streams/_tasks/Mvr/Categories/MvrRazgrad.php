@@ -3,13 +3,13 @@
 class MvrRazgrad extends Mvr
 {
 
-	protected $channelPrefix = '[Разград] ';
+	protected $categoryPrefix = '[Разград] ';
 	protected $sourceName = 'МВР Разград';
-	protected $channelName = 'новини';
-	protected $channelId = 29;
-	protected $channelURL = 'http://www.razgrad.mvr.bg/PressOffice/News/default.htm';
-	protected $channelURLBase = 'http://www.razgrad.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 29;
+	protected $categoryURL = 'http://www.razgrad.mvr.bg/PressOffice/News/default.htm';
+	protected $categoryURLBase = 'http://www.razgrad.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

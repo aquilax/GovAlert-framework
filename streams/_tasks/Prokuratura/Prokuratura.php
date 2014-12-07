@@ -30,12 +30,4 @@ abstract class Prokuratura extends Task
 		$title = mb_ereg_replace("ОБЯВЛЕНИЕОТНОСНО:?|ОТНОСНО:?|С Ъ О Б Щ Е Н И Е|СЪОБЩЕНИЕ|г\.|ч\.|\\\\|„|\"|'", "", $title, "im");
 		return $title;
 	}
-
-	function cleanText($text)
-	{
-		$text = Utils::cleanSpaces($text);
-		$text = html_entity_decode($text);
-		return $text;
-	}
 }
-

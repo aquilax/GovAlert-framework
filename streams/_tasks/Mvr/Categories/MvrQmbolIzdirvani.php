@@ -3,13 +3,13 @@
 class MvrQmbolIzdirvani extends Mvr
 {
 
-	protected $channelPrefix = '[Ямбол] ';
+	protected $categoryPrefix = '[Ямбол] ';
 	protected $sourceName = 'МВР Ямбол';
-	protected $channelName = 'изчезнали';
-	protected $channelId = 46;
-	protected $channelURL = 'http://www.yambol.mvr.bg/Izdirvani_lica/default.htm';
-	protected $channelURLBase = 'http://www.yambol.mvr.bg';
+	protected $categoryName = 'изчезнали';
+	protected $categoryId = 46;
+	protected $categoryURL = 'http://www.yambol.mvr.bg/Izdirvani_lica/default.htm';
+	protected $categoryURLBase = 'http://www.yambol.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
-	protected $channelExpectEmpty = true;
+	protected $categoryExpectEmpty = true;
 
 }

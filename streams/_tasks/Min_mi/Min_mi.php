@@ -17,13 +17,4 @@ abstract class Min_mi extends Task
 {
 	protected $sourceId = 11;
 	protected $sourceName = 'МИЕ';
-
-	protected function cleanText($text)
-	{
-		$text = html_entity_decode($text);
-		$text = Utils::cleanSpaces($text);
-		$text = Utils::fixCase($text);
-		return $text;
-	}
-
 } 

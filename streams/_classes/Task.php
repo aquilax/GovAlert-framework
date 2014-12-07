@@ -46,6 +46,14 @@ abstract class Task
 		$this->queueTweets($itemIds, $this->tweetAccount, $this->tweetReTweet);
 	}
 
+	protected function cleanText($text)
+	{
+		$text = html_entity_decode($text);
+		$text = Utils::cleanSpaces($text);
+		$text = Utils::fixCase($text);
+		return $text;
+	}
+
 
 	protected function loader($categoryId, $categoryURL)
 	{
@@ -54,7 +62,7 @@ abstract class Task
 
 	function checkHash($hash)
 	{
-		$res = $this->db->query("select hash from item where hash='$hash' limit 1");
+		$res = $this->db->query("SELECT hash FROM item WHERE hash='$hash' LIMIT 1");
 		return $res->num_rows == 0;
 	}
 
@@ -245,6 +253,9 @@ abstract class Task
 			sleep(2);
 			$this->logger->info('...втори опит...');
 			$loadstart = microtime(true);
+			if (empty($address)) {
+				throw new Exception('Empty address passed');
+			}
 			$html = file_get_contents($address);
 			$this->setPageLoad($linki !== null ? $linki : $address, $loadstart);
 		}
@@ -296,7 +307,7 @@ abstract class Task
 	{
 		if (!$this->checkSession())
 			return true;
-		$res = $this->db->query("select hash from item where title='$title' and sourceid=" . $this->sourceId . " limit 1");
+		$res = $this->db->query("SELECT hash FROM item WHERE title='$title' AND sourceid=" . $this->sourceId . " LIMIT 1");
 		return $res->num_rows == 0;
 	}
 
@@ -305,7 +316,7 @@ abstract class Task
 		if (!$this->checkSession())
 			return false;
 		$hash = md5($html);
-		$res = $this->db->query("select hash from scrape where hash='$hash' and sourceid=" . $this->sourceId . " and url=$linki limit 1");
+		$res = $this->db->query("SELECT hash FROM scrape WHEREhash='$hash' AND sourceid=" . $this->sourceId . " AND url=$linki LIMIT 1");
 		if ($res->num_rows > 0) {
 			$res->free();
 			return false;
@@ -408,12 +419,12 @@ abstract class Task
 
 		$position = 1;
 		foreach ($urls as $url) {
-			$res = $this->db->query("select linkid from link where url='$url'");
+			$res = $this->db->query("SELECT linkid FROM link WHERE url='$url'");
 			if ($res->num_rows > 0) {
 				$row = $res->fetch_assoc();
 				$linkid = intval($row['linkid']);
 			} else {
-				$this->db->query("insert LOW_PRIORITY into link (url) value ('$url')");
+				$this->db->insert('link',['url' => $url], 'LOW_PRIORITY');
 				$linkid = $this->db->insert_id;
 			}
 			if (!$linkid)
@@ -491,8 +502,12 @@ abstract class Task
 		if ($this->debug)
 			return;
 		$message = $this->db->escape_string("$message\n$trace");
-		$this->db->query("insert LOW_PRIORITY ignore into error (sourceid, category, descr) value ($sourceId,$category,'$message')");
-		$session["error"] = true;
+		$this->db->insert('error', [
+			'sourceid' => $sourceId,
+			'category' => $category,
+			'descr' => $message,
+		]);
+		$this->error = true;
 	}
 
 	public function getError()
@@ -531,7 +546,7 @@ abstract class Task
 	/**
 	 * @param DOMXpath $xpath
 	 * @param string $query
-	 * @param DOMNode $contextnode
+	 * @param DOMNode $contextNode
 	 * @return DOMNodeList
 	 * @throws Exception
 	 */
@@ -541,6 +556,8 @@ abstract class Task
 		if (is_null($items)) {
 			throw new Exception('Path not found: ' . $query);
 		}
+		$this->logger->info('Открити ' . $items->length . ' ' . $this->categoryName);
+
 		return $items;
 	}
 }

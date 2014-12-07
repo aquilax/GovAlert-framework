@@ -3,13 +3,13 @@
 class MvrRuseIzdirvani extends Mvr
 {
 
-	protected $channelPrefix = '[Русе] ';
+	protected $categoryPrefix = '[Русе] ';
 	protected $sourceName = 'МВР Русе';
-	protected $channelName = 'изчезнали';
-	protected $channelId = 31;
-	protected $channelURL = 'http://www.ruse.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
-	protected $channelURLBase = 'http://www.ruse.mvr.bg';
+	protected $categoryName = 'изчезнали';
+	protected $categoryId = 31;
+	protected $categoryURL = 'http://www.ruse.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
+	protected $categoryURLBase = 'http://www.ruse.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
-	protected $channelExpectEmpty = true;
+	protected $categoryExpectEmpty = true;
 
 }

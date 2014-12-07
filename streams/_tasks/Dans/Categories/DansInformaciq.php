@@ -16,8 +16,6 @@ class DansInformaciq extends Dans
 			'//item'
 		);
 
-		echo "Открити " . $items->length . " новини\n";
-
 		$date = $xpath->query("//lastBuildDate");
 		if (!$date || $date->length == 0) {
 			$this->reportError('Грешка при намирането на последната дата.');

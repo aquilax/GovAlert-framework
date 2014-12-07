@@ -3,29 +3,29 @@
 class MvrBurgas extends Mvr
 {
 
-	protected $channelPrefix = '[Бургас] ';
+	protected $categoryPrefix = '[Бургас] ';
 	protected $sourceName = 'Бургас';
-	protected $channelName = 'новини';
-	protected $channelId = 4;
-	protected $channelURL = 'http://www.rdvr-burgas.org/Bul/Suobshtenie/Realno.htm';
-	protected $channelURLBase = '';
+	protected $categoryName = 'новини';
+	protected $categoryId = 4;
+	protected $categoryURL = 'http://www.rdvr-burgas.org/Bul/Suobshtenie/Realno.htm';
+	protected $categoryURLBase = '';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 	function execute($html)
 	{
 		$html = mb_convert_encoding($html, 'UTF-8', 'cp1251');
-		$xpath = $this->xpath($html);
+		$xpath = $this->getXPath($html);
 		$items = $xpath ? $xpath->query("//table[@id='AutoNumber1']//td[1]//p") : false;
 		if (!$items || $items->length == 0) {
 			$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
-		echo "Открити " . $items->length . " параграфа\n";
+		$this->logger->info('Открити ' . $items->length . ' параграфа');
 
 		$skip = true;
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$fulltext = Utils::cleanSpaces($item->textContent);
 			$item_1 = $xpath->query(".//img", $item);
@@ -37,7 +37,7 @@ class MvrBurgas extends Mvr
 					$date = substr($fulltext, 6, 4) . "-" . substr($fulltext, 3, 2) . "-" . substr($fulltext, 0, 2);
 					if (strtotime($date) < time() - 3600 * 24 * 5)
 						break;
-					$query[] = array($this->channelPrefix, "", $date, $this->channelURL, null, null);
+					$query[] = array($this->categoryPrefix, "", $date, $this->categoryURL, null, null);
 				} else
 					if (count($query) > 0) {
 						if (mb_strlen($query[count($query) - 1][0]) < 100) {
@@ -64,7 +64,7 @@ class MvrBurgas extends Mvr
 
 						if ($query[count($query) - 1][4] == null)
 							$query[count($query) - 1][4] = md5($fulltext);
-// TODO: FIXME
+						// TODO: FIXME
 						foreach ($item_1 as $itemimg) {
 							$imageurl = "http://www.rdvr-burgas.org/Bul/Suobshtenie/" . $itemimg->getAttribute("src");
 							$imageurl = $this->loadItemImage($imageurl, []);
@@ -77,8 +77,7 @@ class MvrBurgas extends Mvr
 					}
 		}
 
-		echo "Възможни " . count($query) . " нови новини\n";
-
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 		$itemids = $this->saveItems($query);
 		$this->queueTweets($itemids, "mibulgaria");
 	}

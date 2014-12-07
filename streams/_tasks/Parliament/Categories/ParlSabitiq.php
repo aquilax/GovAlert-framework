@@ -69,7 +69,7 @@ class ParlSabitiq extends Parliament
 		}
 
 		if ($currentDate != false && count($query) > 0) {
-			echo "Възможни " . count($query) . " нови събития\n";
+			$this->logger->info('Възможни ' . count($query) . ' нови събития');
 			$query = array_reverse($query);
 			$itemids = $this->saveItems($query);
 			if (count($itemids) <= 5)

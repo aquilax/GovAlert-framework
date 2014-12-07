@@ -3,13 +3,13 @@
 class MvrLovech extends Mvr
 {
 
-	protected $channelPrefix = '[Ловеч] ';
+	protected $categoryPrefix = '[Ловеч] ';
 	protected $sourceName = 'МВР Ловеч';
-	protected $channelName = 'новини';
-	protected $channelId = 18;
-	protected $channelURL = 'http://www.lovech.mvr.bg/PressOffice/News/default.htm';
-	protected $channelURLBase = 'http://www.lovech.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 18;
+	protected $categoryURL = 'http://www.lovech.mvr.bg/PressOffice/News/default.htm';
+	protected $categoryURLBase = 'http://www.lovech.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

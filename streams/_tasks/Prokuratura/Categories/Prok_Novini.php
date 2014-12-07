@@ -45,8 +45,8 @@ class Prok_Novini extends Prokuratura
 				'date' => $date,
 				'url' => $url,
 				'hash' => $hash,
+				'media' => $media,
 			];
-
 		}
 		return $query;
 	}

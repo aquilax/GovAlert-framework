@@ -3,13 +3,13 @@
 class MvrKardjali extends Mvr
 {
 
-	protected $channelPrefix = '[Кърджали] ';
+	protected $categoryPrefix = '[Кърджали] ';
 	protected $sourceName = 'МВР Кърджали';
-	protected $channelName = 'новини';
-	protected $channelId = 15;
-	protected $channelURL = 'http://www.kardjali.mvr.bg/PressOffice/News/default.htm';
-	protected $channelURLBase = 'http://www.kardjali.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 15;
+	protected $categoryURL = 'http://www.kardjali.mvr.bg/PressOffice/News/default.htm';
+	protected $categoryURLBase = 'http://www.kardjali.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

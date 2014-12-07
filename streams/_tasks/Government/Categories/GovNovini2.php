@@ -15,9 +15,7 @@ class GovNovini2 extends Government
 			"//table[@cellpadding=1]"
 		);
 
-		echo "Открити " . $items->length . " новини\n";
-
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$inneritems = $this->getXPathItems($xpath, ".//td", $item);
 

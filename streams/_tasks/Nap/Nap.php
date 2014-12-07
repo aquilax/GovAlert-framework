@@ -19,4 +19,4 @@ abstract class Nap extends Task
 		return $text;
 	}
 
-} 
+}

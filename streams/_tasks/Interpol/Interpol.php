@@ -18,7 +18,7 @@ abstract class Interpol extends Task
 		$data = array();
 		$available = array();
 
-		$res = $this->db->query("select code from s_interpol where removed is null and missing=${prop[1]}");
+		$res = $this->db->query("SELECT code FROM s_interpol WHERE removed IS NULL AND missing=${prop[1]}");
 		while ($row = $res->fetch_array())
 			$available[] = $row[0];
 		$res->free();
@@ -31,8 +31,6 @@ abstract class Interpol extends Task
 			$items = $this->getXPathItems($xpath, "//div[@class='bloc_pagination']");
 			$profiles = $items->item(0)->textContent;
 			$profiles = intval(str_replace("Search result : ", "", $profiles));
-
-			echo "Открити " . $profiles . " профила. Преглеждам...\n";
 
 			for ($skip = 0; $skip < $profiles; $skip += 9) {
 				if ($skip > 0) {
@@ -71,14 +69,14 @@ abstract class Interpol extends Task
 		$remove = array_diff($available, $codes);
 		$add = array_diff($codes, $available);
 
-		echo "Открити са " . count($add) . " нови съобщения и " . count($remove) . " за премахване.\n";
+		$this->logger->info('Открити са ' . count($add) . ' нови съобщения и ' . count($remove) . ' за премахване.');
 
 		if (count($remove) > 0) {
-			$this->db->query("update s_interpol set removed=now() where code in ('" . implode("','", $remove) . "')");
+			$this->db->query("UPDATE s_interpol SET removed=now() WHERE code IN ('" . implode("','", $remove) . "')");
 		}
 		if (count($add) > 0)
 			foreach ($add as $code) {
-				$this->db->query("insert into s_interpol (code,name,added,photo,missing) value ('$code','" . $data[$code][0] . "',now(),'" . $data[$code][1] . "',${prop[1]}) ON DUPLICATE KEY UPDATE removed=null");
+				$this->db->query("INSERT INTO s_interpol (code, name, added, photo, missing) VALUE ('$code','" . $data[$code][0] . "',now(),'" . $data[$code][1] . "',${prop[1]}) ON DUPLICATE KEY UPDATE removed = null");
 			}
 
 	}
@@ -88,8 +86,8 @@ abstract class Interpol extends Task
 	{
 		$query = array();
 		$codes = array();
-		$res = $this->db->query("SELECT code,name,added,photo FROM s_interpol where processed=0 and missing=${prop[1]} and removed is null");
-		echo "> Има " . $res->num_rows . " ${prop[0]} без да са обявени тук. Зареждам снимките.\n";
+		$res = $this->db->query("SELECT code, name, added, photo FROM s_interpol WHERE processed = 0 AND missing = ${prop[1]} AND removed IS NULL");
+		$this->logger->info('> Има ' . $res->num_rows . ' ' . $prop[0] . ' без да са обявени тук. Зареждам снимките.');
 		if ($res->num_rows == 0) {
 			return;
 		}
@@ -98,6 +96,7 @@ abstract class Interpol extends Task
 			$noimage = substr($row["photo"], -16) == 'NotAvailable.gif';
 
 			$media = null;
+			$url = '';
 			if (!$noimage) {
 				$url = $prop[5] . "/" . $row["code"];
 				$this->loadURL($url);
@@ -128,7 +127,7 @@ abstract class Interpol extends Task
 			$codes[] = $row["code"];
 		}
 
-		echo "Възможни " . count($query) . " нови ${prop[0]}\n";
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 		$itemids = $this->saveItems($query);
 		if (count($itemids) > 5)
 			$this->queueTextTweet(sprintf($prop[3], count($itemids)), $prop[3], $prop[6], $prop[7]);
@@ -136,8 +135,8 @@ abstract class Interpol extends Task
 			$this->queueTweets($itemids, $prop[6], $prop[7]);
 
 		if (count($codes) > 0) {
-			echo "Маркирам " . count($codes) . " ${prop[0]} като съобщени\n";
-			$this->db->query("update s_interpol set processed=1 where code in ('" . implode("','", $codes) . "')");
+			$this->logger->info('Маркирам ' . count($codes) . ' ' . $prop[0] . ' като съобщени');
+			$this->db->query("UPDATE s_interpol SET processed = 1 WHERE code IN ('" . implode("','", $codes) . "')");
 		}
 	}
 

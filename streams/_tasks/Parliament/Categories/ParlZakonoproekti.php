@@ -54,7 +54,7 @@ class ParlZakonoproekti extends Parliament
 			}
 		}
 
-		echo "Възможни " . (count($query) + count($queryGov)) . " нови законопроекта\n";
+		$this->logger->info('Възможни ' . (count($query) + count($queryGov)) . ' нови ' . $this->categoryName);
 
 		$itemids = $this->saveItems($query);
 		$this->queueTweets($itemids, 'narodnosabranie', true);

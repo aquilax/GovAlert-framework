@@ -3,13 +3,13 @@
 class MvrSmolqn extends Mvr
 {
 
-	protected $channelPrefix = '[Смолян] ';
+	protected $categoryPrefix = '[Смолян] ';
 	protected $sourceName = 'МВР Смолян';
-	protected $channelName = 'новини';
-	protected $channelId = 36;
-	protected $channelURL = 'http://www.smolyan.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.smolyan.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 36;
+	protected $categoryURL = 'http://www.smolyan.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.smolyan.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

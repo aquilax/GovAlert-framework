@@ -10,14 +10,20 @@ class ParlDeklaracii extends Parliament
 	function execute($html)
 	{
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) return;
+		if (!$xpath) {
+			return false;
+		}
 		$items = $xpath->query("//div[@class='calendar_columns' and h4/text()='" . date("Y") . "']//li/a");
-		if (is_null($items)) return;
+		if (is_null($items)) {
+			return flase;
+		}
 		$lasturl = $items->item($items->length - 1)->getAttribute("href");
 
 		$html = $this->loadURL("http://parliament.bg$lasturl", 9);
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) return;
+		if (!$xpath) {
+			return false;
+		}
 		$items = $xpath->query("//div[@id='monthview']//li");
 		if (is_null($items)) return;
 

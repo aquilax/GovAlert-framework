@@ -2,14 +2,13 @@
 
 class MvrBlagoevgradIzdirvani extends Mvr
 {
-
-	protected $channelPrefix = '[Благоевград] ';
+	protected $categoryPrefix = '[Благоевград] ';
 	protected $sourceName = 'МВР Благоевград';
-	protected $channelName = 'издирвани';
-	protected $channelId = 3;
-	protected $channelURL = 'http://www.blagoevgrad.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
-	protected $channelURLBase = 'http://www.blagoevgrad.mvr.bg';
+	protected $categoryName = 'издирвани';
+	protected $categoryId = 3;
+	protected $categoryURL = 'http://www.blagoevgrad.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
+	protected $categoryURLBase = 'http://www.blagoevgrad.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
-	protected $channelExpectEmpty = true;
+	protected $categoryExpectEmpty = true;
 
 } 

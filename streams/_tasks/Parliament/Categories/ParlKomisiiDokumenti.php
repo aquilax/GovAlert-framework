@@ -36,7 +36,7 @@ class ParlKomisiiDokumenti extends Parliament
 					'hash' => $hash,
 				];
 			}
-			echo "Възможни " . count($query) . " нови документи\n";
+			$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 
 			$itemids = $this->saveItems($query);
 			if (count($itemids) <= 4)

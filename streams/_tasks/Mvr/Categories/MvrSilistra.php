@@ -3,13 +3,13 @@
 class MvrSilistra extends Mvr
 {
 
-	protected $channelPrefix = '[Силистра] ';
+	protected $categoryPrefix = '[Силистра] ';
 	protected $sourceName = 'МВР Силистра';
-	protected $channelName = 'новини';
-	protected $channelId = 32;
-	protected $channelURL = 'http://www.silistra.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.silistra.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 32;
+	protected $categoryURL = 'http://www.silistra.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.silistra.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

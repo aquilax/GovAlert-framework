@@ -14,9 +14,7 @@ class GovResheniq extends Government
 			"//table[.//a[@class='header']/text()='Решенията Накратко']//td[@valign='top']/p"
 		);
 
-		echo "Открити " . $items->length . " решения\n";
-
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$date = $item->lastChild->childNodes->item(0)->textContent;
@@ -39,7 +37,7 @@ class GovResheniq extends Government
 		return $query;
 	}
 	protected  function processItems(Array $query) {
-		echo "Възможни " . count($query) . " нови решения\n";
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 		$itemids = $this->saveItems($query);
 
 		if (count($itemids) > 3) {

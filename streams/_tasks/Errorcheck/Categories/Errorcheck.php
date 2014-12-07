@@ -11,7 +11,7 @@ class Errorcheck extends Task
 
 	function execute($html)
 	{
-		$res = $this->db->query('select * from (select s.sourceid sourceid, s.shortname shortname, s.url url, max(i.readts) lastread, count(i.itemid) items from source s left outer join item i on s.sourceid=i.sourceid group by s.name order by max(readts) asc) a where a.lastread<subdate(now(), interval 2 week) limit 1');
+		$res = $this->db->query('SELECT * FROM (SELECT s.sourceid sourceid, s.shortname shortname, s.url url, MAX(i.readts) lastread, COUNT(i.itemid) items FROM source s LEFT OUTER JOIN item i ON s.sourceid=i.sourceid GROUP BY s.name ORDER BY MAX(readts) ASC) a WHERE a.lastread < subdate(now(), INTERVAL 2 WEEK) LIMIT 1');
 		if ($res->num_rows == 0) {
 			// TODO: Figure out the message
 			$this->logger->info('Няма липса на грешки');

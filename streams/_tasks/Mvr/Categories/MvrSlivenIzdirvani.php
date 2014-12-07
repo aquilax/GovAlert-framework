@@ -3,13 +3,13 @@
 class MvrSlivenIzdirvani extends Mvr
 {
 
-	protected $channelPrefix = '[Сливен] ';
+	protected $categoryPrefix = '[Сливен] ';
 	protected $sourceName = 'МВР Сливен';
-	protected $channelName = 'изчезнали';
-	protected $channelId = 35;
-	protected $channelURL = 'http://sliven.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
-	protected $channelURLBase = 'http://sliven.mvr.bg';
+	protected $categoryName = 'изчезнали';
+	protected $categoryId = 35;
+	protected $categoryURL = 'http://sliven.mvr.bg/Prescentar/Izdirvani_lica/default.htm';
+	protected $categoryURLBase = 'http://sliven.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
-	protected $channelExpectEmpty = true;
+	protected $categoryExpectEmpty = true;
 
 } 

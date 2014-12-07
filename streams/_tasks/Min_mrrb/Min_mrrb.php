@@ -11,13 +11,4 @@ abstract class Min_mrrb extends Task
 {
 	protected $sourceId = 10;
 	protected $sourceName = 'МРРБ';
-
-	protected function cleanText($text)
-	{
-		$text = html_entity_decode($text);
-		$text = Utils::cleanSpaces($text);
-		$text = Utils::fixCase($text);
-		return $text;
-	}
-
-} 
+}

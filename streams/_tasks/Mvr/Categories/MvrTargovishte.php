@@ -3,13 +3,13 @@
 class MvrTargovishte extends Mvr
 {
 
-	protected $channelPrefix = '[Търговище] ';
+	protected $categoryPrefix = '[Търговище] ';
 	protected $sourceName = 'МВР Търговище';
-	protected $channelName = 'новини';
-	protected $channelId = 41;
-	protected $channelURL = 'http://targovishte.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://targovishte.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 41;
+	protected $categoryURL = 'http://targovishte.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://targovishte.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

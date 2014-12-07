@@ -14,8 +14,7 @@ class GovPorachki extends Government
 			"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']"
 		);
 
-		echo "Открити " . $items->length . " съобщения за обществени поръчки\n";
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;

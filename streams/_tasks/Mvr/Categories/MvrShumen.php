@@ -3,13 +3,13 @@
 class MvrShumen extends Mvr
 {
 
-	protected $channelPrefix = '[Шумен] ';
+	protected $categoryPrefix = '[Шумен] ';
 	protected $sourceName = 'МВР Шумен';
-	protected $channelName = 'новини';
-	protected $channelId = 43;
-	protected $channelURL = 'http://www.shumen.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.shumen.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 43;
+	protected $categoryURL = 'http://www.shumen.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.shumen.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

@@ -3,27 +3,27 @@
 class MvrPlovdiv extends Mvr
 {
 
-	protected $channelPrefix = '[Пловдив] ';
+	protected $categoryPrefix = '[Пловдив] ';
 	protected $sourceName = 'Пловдив';
-	protected $channelName = 'новини';
-	protected $channelId = 28;
-	protected $channelURL = 'http://plovdiv.mvr.bg/news.php';
-	protected $channelURLBase = '';
+	protected $categoryName = 'новини';
+	protected $categoryId = 28;
+	protected $categoryURL = 'http://plovdiv.mvr.bg/news.php';
+	protected $categoryURLBase = '';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 
 	function execute($html)
 	{
 		$html = mb_convert_encoding($html, 'UTF-8', 'cp1251');
-		$xpath = $this->xpath($html);
+		$xpath = $this->getXPath($html);
 		$items = $xpath ? $xpath->query("//td[@nowrap='nowrap']") : false;
 		if (!$items || $items->length == 0) {
 			$this->reportError("Грешка при зареждане на отделно съобщение");
 			return;
 		}
 
-		echo "Открити " . $items->length . " новини\n";
+		$this->logger->info('Открити ' . $items->length . ' новини');
 
 		$query = array();
 		foreach ($items as $item) {
@@ -38,7 +38,7 @@ class MvrPlovdiv extends Mvr
 				while (($stoppos = mb_strpos($title, ".", $stoppos + 1)) <= 120) ;
 				$title = mb_substr($title, 0, $stoppos);
 			}
-			$title = $this->channelPrefix . $title;
+			$title = $this->categoryPrefix . $title;
 			if (!$this->checkTitle($title))
 				continue;
 
@@ -55,12 +55,12 @@ class MvrPlovdiv extends Mvr
 				'title' => $title,
 				'description' => $description,
 				'date' => $date,
-				'url' => $this->channelURL,
+				'url' => $this->categoryURL,
 				'hash' => $hash,
 			];
 		}
 
-		echo "Възможни " . count($query) . " нови новини\n";
+		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 
 		$itemids = $this->saveItems($query);
 		$this->queueTweets($itemids, "mibulgaria");

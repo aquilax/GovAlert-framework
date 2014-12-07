@@ -3,13 +3,13 @@
 class MvrVelikotarnovo extends Mvr
 {
 
-	protected $channelPrefix = '[В.Търново] ';
+	protected $categoryPrefix = '[В.Търново] ';
 	protected $sourceName = 'МВР В.Търново';
-	protected $channelName = 'новини';
-	protected $channelId = 6;
-	protected $channelURL = 'http://www.veliko-tarnovo.mvr.bg/Prescentar/Novini/default.htm';
-	protected $channelURLBase = 'http://www.veliko-tarnovo.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 6;
+	protected $categoryURL = 'http://www.veliko-tarnovo.mvr.bg/Prescentar/Novini/default.htm';
+	protected $categoryURLBase = 'http://www.veliko-tarnovo.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 
 }

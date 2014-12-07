@@ -3,12 +3,12 @@
 class MvrGabrovo extends Mvr
 {
 
-	protected $channelPrefix = '[Габрово] ';
+	protected $categoryPrefix = '[Габрово] ';
 	protected $sourceName = 'МВР Габрово';
-	protected $channelName = 'новини';
-	protected $channelId = 12;
-	protected $channelURL = 'http://www.gabrovo.mvr.bg/PressOffice/News/default';
-	protected $channelURLBase = 'http://www.gabrovo.mvr.bg';
+	protected $categoryName = 'новини';
+	protected $categoryId = 12;
+	protected $categoryURL = 'http://www.gabrovo.mvr.bg/PressOffice/News/default';
+	protected $categoryURLBase = 'http://www.gabrovo.mvr.bg';
 	protected $tweetReTweet = false;
-	protected $channelExpectEmpty = false;
+	protected $categoryExpectEmpty = false;
 } 

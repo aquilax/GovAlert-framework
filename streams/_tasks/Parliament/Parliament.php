@@ -46,5 +46,4 @@ abstract class Parliament extends Task
 		$text = html_entity_decode($text);
 		return $text;
 	}
-
-} 
+}

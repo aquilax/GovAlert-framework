@@ -14,8 +14,7 @@ class GovDokumenti extends Government
 			"//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']"
 		);
 
-		echo "Открити " . $items->length . " документи\n";
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;
