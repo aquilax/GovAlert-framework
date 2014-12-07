@@ -30,7 +30,6 @@ class ParlKomisii extends Parliament
 			if (in_array($id, $commissionids))
 				continue;
 			$title = $this->cleanText($item->textContent);
-			$title = $this->db->escape_string($title);
 			$commissions[] = array($id, $title);
 		}
 		if (count($commissions) == 0)
@@ -40,7 +39,11 @@ class ParlKomisii extends Parliament
 
 		$query = array();
 		foreach ($commissions as $commission) {
-			$this->db->query("insert LOW_PRIORITY ignore into s_parliament_committees (committee_id,name) value (" . $commission[0] . ",'" . $commission[1] . "')");
+			$this->db->insert('s_parliament_committees', [
+				'committee_id' => $commission[0],
+				'name' => $commission[1]
+			]);
+
 			$title = "Нова комисия: " . $commission[1];
 			$url = "http://parliament.bg/bg/parliamentarycommittees/members/" . $commission[0];
 			$hash = md5($url);

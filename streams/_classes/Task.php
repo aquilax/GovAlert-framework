@@ -501,7 +501,7 @@ abstract class Task
 		$this->logger->error("Запазвам грешка [$sourceId,$category]: $message\n$trace");
 		if ($this->debug)
 			return;
-		$message = $this->db->escape_string("$message\n$trace");
+		$message = $message . PHP_EOL . $trace;
 		$this->db->insert('error', [
 			'sourceid' => $sourceId,
 			'category' => $category,

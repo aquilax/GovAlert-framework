@@ -152,7 +152,7 @@ class Twitter
 					$tres = $connection->post('statuses/update', $params);
 
 					if ($row['retweet'] && !$tres->errors) {
-						$tweetid = $this->db->escape_string($tres->id_str);
+						$tweetid = $tres->id_str;
 						$accounts = explode(",", $row['retweet']);
 						$query = array();
 						foreach ($accounts as $account) {
