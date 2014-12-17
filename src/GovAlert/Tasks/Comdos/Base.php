@@ -6,7 +6,9 @@
 
 */
 
-abstract class Comdos extends Task
+namespace GovAlert\Tasks\Comdos;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 5;
 	protected $sourceName = 'КомДос';

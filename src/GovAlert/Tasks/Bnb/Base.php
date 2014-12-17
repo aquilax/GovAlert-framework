@@ -15,8 +15,11 @@
 
 */
 
+namespace GovAlert\Tasks\Bnb;
 
-abstract class Bnb extends Task
+use GovAlert\Common\Utils;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 
 	protected $sourceId = 15;

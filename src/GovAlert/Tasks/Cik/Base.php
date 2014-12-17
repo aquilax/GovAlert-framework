@@ -1,5 +1,7 @@
 <?php
 
+namespace GovAlert\Tasks\Cik;
+
 /*
 
 0: съобщения http://www.cik.bg/
@@ -11,7 +13,8 @@
 
 */
 
-abstract class Cik extends Task
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 1;
 	protected $sourceName = 'ЦИК';

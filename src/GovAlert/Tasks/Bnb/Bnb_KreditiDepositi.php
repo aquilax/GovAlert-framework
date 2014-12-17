@@ -1,6 +1,8 @@
 <?php
 
-class Bnb_KreditiDepositi extends Bnb
+namespace GovAlert\Tasks\Bnb;
+
+class Bnb_KreditiDepositi extends Base
 {
 
 	protected $categoryId = 4;

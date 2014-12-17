@@ -1,6 +1,8 @@
 <?php
 
-class Bnb_LihvenaStatistika extends Bnb
+namespace GovAlert\Tasks\Bnb;
+
+class Bnb_LihvenaStatistika extends Base
 {
 
 	protected $categoryId = 5;

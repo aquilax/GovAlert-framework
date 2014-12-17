@@ -1,6 +1,8 @@
 <?php
 
-class ComdosResheniq extends Comdos
+namespace GovAlert\Tasks\Comdos;
+
+class ComdosResheniq extends Base
 {
 
 	protected $categoryId = 5;

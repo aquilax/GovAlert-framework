@@ -1,11 +1,13 @@
 <?php
 
-class ConstcourtNovini extends Constcourt
+namespace GovAlert\Tasks\Constcourt;
+
+class ConstcourtSaobchteniq extends Base
 {
 
-	protected $categoryId = 0;
-	protected $categoryName = 'новини';
-	protected $categoryURL = 'http://constcourt.bg/news';
+	protected $categoryId = 1;
+	protected $categoryName = 'съобщения';
+	protected $categoryURL = 'http://constcourt.bg/caseannouncements';
 
 	protected function execute($html)
 	{
@@ -21,13 +23,11 @@ class ConstcourtNovini extends Constcourt
 			$title = $item->childNodes->item(1)->firstChild->firstChild->textContent;
 			$title = $this->cleanText($title);
 			$title = Utils::fixCase($title);
-			$title = "Новина: " . $title;
+			$title = "Съобщение по дело: " . $title;
 
 			$url = $item->childNodes->item(1)->firstChild->firstChild->getAttribute("href");
 			$hash = md5($url);
 
-			// TODO: Figure extra parameter
-			//$query[] = array($title, null, 0, $date, $url, $hash);
 			$query[] = [
 				'title' => $title,
 				'description' => null,
@@ -35,10 +35,7 @@ class ConstcourtNovini extends Constcourt
 				'url' => $url,
 				'hash' => $hash,
 			];
-
 		}
 		return $query;
 	}
-
-
 } 

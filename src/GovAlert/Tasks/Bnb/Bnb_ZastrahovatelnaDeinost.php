@@ -1,6 +1,8 @@
 <?php
 
-class Bnb_ZastrahovatelnaDeinost extends Bnb
+namespace GovAlert\Tasks\Bnb;
+
+class Bnb_ZastrahovatelnaDeinost extends Base
 {
 
 	protected $categoryId = 9;

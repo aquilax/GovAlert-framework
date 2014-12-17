@@ -1,6 +1,8 @@
 <?php
 
-class Bnb_BrutenVanshenDalg extends Bnb
+namespace GovAlert\Tasks\Bnb;
+
+class Bnb_BrutenVanshenDalg extends Base
 {
 
 	protected $categoryId = 2;

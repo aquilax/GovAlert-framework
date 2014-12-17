@@ -1,6 +1,9 @@
 <?php
 
-class DansInformaciq extends Dans
+namespace GovAlert\Tasks\Dans;
+
+
+class DansInformaciq extends Base
 {
 
 	protected $categoryId = 1;

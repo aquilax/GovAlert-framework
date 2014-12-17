@@ -1,6 +1,8 @@
 <?php
 
-class Bnb_PlatejenBalans extends Bnb
+namespace GovAlert\Tasks\Bnb;
+
+class Bnb_PlatejenBalans extends Base
 {
 
 	protected $categoryId = 1;

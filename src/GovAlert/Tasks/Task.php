@@ -501,7 +501,7 @@ abstract class Task
 		$category = $this->categoryId != null ? $this->categoryId : 0;
 		if (is_array($message) || is_object($message))
 			$message = json_encode($message);
-		$e = new Exception();
+		$e = new \Exception();
 		$trace = str_replace("/home/yurukov1/public_html/govalert/", "", $e->getTraceAsString());
 		$this->logger->error("Запазвам грешка [$sourceId,$category]: $message\n$trace");
 		if ($this->debug)

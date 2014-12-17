@@ -1,6 +1,8 @@
 <?php
 
-class CikJalbi extends Cik
+namespace GovAlert\Tasks\Cik;
+
+class CikJalbi extends Base
 {
 
 	protected $categoryId = 4;

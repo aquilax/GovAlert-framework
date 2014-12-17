@@ -1,6 +1,8 @@
 <?php
 
-class CikProtokol extends Cik
+namespace GovAlert\Tasks\Cik;
+
+class CikProtokol extends Base
 {
 
 	protected $categoryId = 3;

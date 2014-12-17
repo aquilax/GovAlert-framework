@@ -1,21 +1,22 @@
 <?php
 
-class CikResheniq extends Cik
+namespace GovAlert\Tasks\Cik;
+
+class CikPrincipniResheniq extends Base
 {
 
-	protected $categoryId = 1;
-	protected $categoryName = 'решения';
-	protected $categoryURL = 'http://www.cik.bg/reshenie';
-
+	protected $categoryId = 5;
+	protected $categoryName = 'принципни решения';
+	protected $categoryURL = 'http://www.cik.bg/reshenie_principni';
 
 	function execute($html)
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='block main-block']//li");
 
-		$query = [];
+		$query = array();
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->textContent);
-			$date = $item->childNodes->item(0)->textContent;
+			$date = trim($item->childNodes->item(0)->textContent);
 			$date = mb_substr($date, mb_strpos($date, "/ ") + 2);
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
 			if (strtotime($date) < strtotime("-1 month"))
@@ -38,16 +39,5 @@ class CikResheniq extends Cik
 		}
 		return $query;
 	}
-
-	protected  function processItems(Array $query) {
-		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
-		$itemIds = $this->saveItems($query);
-		if (count($itemIds) <= 5) {
-			$this->queueTweets($itemIds);
-		} else {
-			$this->queueTextTweet("Преди минути са публикувани " . count($itemIds) . " нови решения ", "http://www.cik.bg/reshenie");
-		}
-	}
-
 
 } 

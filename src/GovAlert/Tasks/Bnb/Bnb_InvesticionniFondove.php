@@ -1,6 +1,8 @@
 <?php
 
-class Bnb_InvesticionniFondove extends Bnb
+namespace GovAlert\Tasks\Bnb;
+
+class Bnb_InvesticionniFondove extends Base
 {
 
 	protected $categoryId = 7;

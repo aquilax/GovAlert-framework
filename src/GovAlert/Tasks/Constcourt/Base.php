@@ -1,5 +1,7 @@
 <?php
 
+namespace GovAlert\Tasks\Constcourt;
+
 /*
 
 0: новини http://constcourt.bg/news
@@ -7,7 +9,7 @@
 
 */
 
-abstract class Constcourt extends Task
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 8;
 	protected $sourceName = 'Конституционен съд';
