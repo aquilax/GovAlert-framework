@@ -1,6 +1,8 @@
 <?php
 
-abstract class Aop extends Task
+namespace GovAlert\Tasks\Aop;
+
+abstract class Aop extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 12;
 	protected $sourceName = 'АОП';

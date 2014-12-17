@@ -4,6 +4,8 @@
     Running tasks
 */
 
+namespace GovAlert\Common;
+
 class TaskManager
 {
 
@@ -23,17 +25,9 @@ class TaskManager
 	 */
 	private function classLoader($lib, $method)
 	{
-		$baseClassName = ucfirst($lib);
-		$className = ucfirst($method);
-		$baseClassFilePath = BASEPATH . '/_tasks/' . $baseClassName . '/' . $baseClassName . '.php';
-		$taskClassFilePath = BASEPATH . '/_tasks/' . $baseClassName . '/Categories/' . $className . '.php';
-		if (file_exists($baseClassFilePath) && file_exists($taskClassFilePath)) {
-			require_once($baseClassFilePath);
-			require_once($taskClassFilePath);
-			$this->logger->debug('Loaded class from: ' . $taskClassFilePath);
-			return new $className($this->db, $this->logger);
-		}
-		throw new Exception('Task not ' . $method . 'found');
+		$className = '\\' . implode('\\', ['GovAlert', 'Tasks', ucfirst($lib), ucfirst($method)]);
+		$this->logger->debug('Loading class from: ' . $className);
+		return new $className($this->db, $this->logger);
 	}
 
 	public function runTask($lib, $task, $delay, $force)
@@ -68,7 +62,7 @@ class TaskManager
 		$this->db->query('INSERT LOW_PRIORITY ignore INTO task_stat VALUE (now(),null,null)');
 
 		$loadStart = microtime(true);
-		$res = $this->db->query("SELECT lib, task, delay FROM task WHERE active=1" . ($force ? "" : " AND (lastrun IS NULL OR date_add(lastrun, INTERVAL delay HOUR)<=date_add(now(), INTERVAL 5 MINUTE))") . " ORDER BY lib ASC, priority DESC LIMIT " . Config::get('tasksPerRun'));
+		$res = $this->db->query("SELECT lib, task, delay FROM task WHERE active=1" . ($force ? "" : " AND (lastrun IS NULL OR date_add(lastrun, INTERVAL delay HOUR)<=date_add(now(), INTERVAL 5 MINUTE))") . " ORDER BY lib ASC, priority DESC LIMIT " . \GovAlert\Config::get('tasksPerRun'));
 		$taskCount = $res->num_rows;
 		$this->logger->info('Пускам ' . $taskCount . ' задачи');
 		while ($row = $res->fetch_assoc()) {

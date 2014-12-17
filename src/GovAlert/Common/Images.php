@@ -1,5 +1,7 @@
 <?php
 
+namespace GovAlert\Common;
+
 class Images
 {
 

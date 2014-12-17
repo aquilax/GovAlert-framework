@@ -3,6 +3,10 @@
 /**
  * Class Task - Generic Task class
  */
+namespace GovAlert\Tasks;
+use \GovAlert\Common\Database;
+use \GovAlert\Common\Utils;
+
 abstract class Task
 {
 
@@ -21,7 +25,7 @@ abstract class Task
 
 	abstract protected function execute($html);
 
-	public function __construct(Database $db, Logger $logger, $debug = false)
+	public function __construct(\GovAlert\Common\Database $db, \GovAlert\Common\Logger $logger, $debug = false)
 	{
 		$this->db = $db;
 		$this->logger = $logger;
@@ -429,7 +433,8 @@ abstract class Task
 			}
 			if (!$linkid)
 				return;
-			$urltext = "http://GovAlert.eu/-" . linkCode($linkid);
+
+			$urltext = "http://GovAlert.eu/-" . Utils::linkCode($linkid);
 			if (mb_strpos($text, "$" . $position))
 				$text = mb_ereg_replace("\\$" . $position, $urltext, $text);
 			else
@@ -524,10 +529,10 @@ abstract class Task
 	protected function getXPath($html, $encoding = 'UTF-8', $isHTML = true)
 	{
 		if (!trim($html)) {
-			throw new Exception('Empty document');
+			throw new \Exception('Empty document');
 		}
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', $encoding);
-		$doc = new DOMDocument('1.0', $encoding);
+		$doc = new \DOMDocument('1.0', $encoding);
 		$doc->preserveWhiteSpace = false;
 		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
@@ -540,7 +545,7 @@ abstract class Task
 		}
 		libxml_clear_errors();
 
-		return new DOMXpath($doc);
+		return new \DOMXpath($doc);
 	}
 
 	/**
@@ -550,11 +555,11 @@ abstract class Task
 	 * @return DOMNodeList
 	 * @throws Exception
 	 */
-	protected function getXPathItems(DOMXpath $xpath, $query, DOMNode $contextNode = null)
+	protected function getXPathItems(\DOMXpath $xpath, $query, \DOMNode $contextNode = null)
 	{
 		$items = $xpath->query($query, $contextNode);
 		if (is_null($items)) {
-			throw new Exception('Path not found: ' . $query);
+			throw new \Exception('Path not found: ' . $query);
 		}
 		$this->logger->info('Открити ' . $items->length . ' ' . $this->categoryName);
 

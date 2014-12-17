@@ -1,5 +1,7 @@
 <?php
 
+namespace GovAlert;
+
 class Config
 {
 	private static $config = [

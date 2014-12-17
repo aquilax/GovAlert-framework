@@ -1,5 +1,7 @@
 <?php
 
+namespace GovAlert\Common;
+
 class Logger
 {
 	const M_INFO = 'INFO';

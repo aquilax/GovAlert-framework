@@ -4,6 +4,8 @@
     Utils
 */
 
+namespace GovAlert\Common;
+
 class Utils
 {
 
@@ -99,18 +101,18 @@ class Utils
 		return date('c');
 	}
 
-}
-
-function linkCode($id)
-{
-	$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	$code = "";
-	while ($id > 0) {
-		$rest = $id % strlen($chars);
-		$code = substr($chars, $rest, 1) . $code;
-		$id = floor($id / strlen($chars));
+	function linkCode($id)
+	{
+		$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		$code = "";
+		while ($id > 0) {
+			$rest = $id % strlen($chars);
+			$code = substr($chars, $rest, 1) . $code;
+			$id = floor($id / strlen($chars));
+		}
+		return $code;
 	}
-	return $code;
+
 }
 
 function codeToId($code)

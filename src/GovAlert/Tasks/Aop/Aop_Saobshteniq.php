@@ -8,6 +8,8 @@ links:
 1: публична покана http://rop3-app1.aop.bg:7778/portal/page?_pageid=93,1488254&_dad=portal&_schema=PORTAL&url=687474703A2F2F7777772E616F702E62672F657365617263685F7070322E706870
 */
 
+namespace GovAlert\Tasks\Aop;
+
 class Aop_Saobshteniq extends Aop
 {
 	protected $categoryId = 0;

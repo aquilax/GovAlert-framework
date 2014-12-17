@@ -6,7 +6,9 @@
 
 */
 
-class BasZemetreseniq extends Bas
+namespace GovAlert\Tasks\Bas;
+
+class BasZemetreseniq extends Base
 {
 	protected $categoryId = 0;
 	protected $categoryName = 'земетресения';

@@ -1,5 +1,7 @@
 <?php
 
+namespace GovAlert\Common;
+
 class Twitter
 {
 	private $db;
@@ -53,8 +55,8 @@ class Twitter
 		if ($res->num_rows > 0) {
 			$this->logger->info('Изпращам ' . $res->num_rows . ' tweet/s');
 
-			require_once(Config::get('twitterOAuth'));
-			require_once(Config::get('twitterOAuthConfig'));
+			require_once(\GovAlert\Config::get('twitterOAuth'));
+			require_once(\GovAlert\Config::get('twitterOAuthConfig'));
 
 			$currentAccount = false;
 			$connection = false;

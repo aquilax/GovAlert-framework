@@ -1,3 +1,4 @@
 prod
 .idea
 /vendor/
+composer.lock

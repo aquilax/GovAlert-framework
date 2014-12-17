@@ -6,7 +6,10 @@
 
 */
 
-class ArKonkursi extends Adminreg
+namespace GovAlert\Tasks\Adminreg;
+use \GovAlert\Common\Utils;
+
+class ArKonkursi extends Base
 {
 
 	protected $categoryId = 0;

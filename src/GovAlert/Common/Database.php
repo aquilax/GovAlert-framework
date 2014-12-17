@@ -1,6 +1,8 @@
 <?php
 
-class Database extends mysqli
+namespace GovAlert\Common;
+
+class Database extends \mysqli
 {
 
 	const DEFAULT_INSERT_PREFIX = 'LOW_PRIORITY IGNORE';
