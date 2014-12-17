@@ -30,6 +30,8 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 //			], [
 				'\GovAlert\Tasks\Cik\CikDnevenRed',
 				'Cik/CikDnevenRed.html',
+				'2014-12-11T23:24:23+01:00',
+				1,
 				[
 					[
 						'title' => 'Дневен ред за 16.12.2014',
@@ -42,6 +44,8 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			], [
 				'\GovAlert\Tasks\Cik\CikJalbi',
 				'Cik/CikJalbi.html',
+				'2014-12-11T23:24:23+01:00',
+				3,
 				[
 					[
 						'title' => 'Решение № 1371-НС/ 18.11.2014',
@@ -66,6 +70,8 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			], [
 				'\GovAlert\Tasks\Cik\CikProtokol',
 				'Cik/CikProtokol.html',
+				'2014-12-11T23:24:23+01:00',
+				1,
 				[
 					[
 						'title' => 'Протокол №147 за 24.11.2014',
@@ -78,6 +84,8 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			], [
 				'\GovAlert\Tasks\Cik\CikResheniq',
 				'Cik/CikResheniq.html',
+				'2014-12-11T23:24:23+01:00',
+				1,
 				[
 					[
 						'title' => 'Решение №1389-НС/16.12.2014 - поправка на техническа грешка в Решение № 1158-НС от 30 септември 2014 г. на ЦИК за предизборна агитация в гр. Долни чифлик, област Варна',
@@ -90,6 +98,8 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			], [
 				'\GovAlert\Tasks\Cik\CikSaobshteniq',
 				'Cik/CikSaobshteniq.html',
+				'2014-12-11T23:24:23+01:00',
+				1,
 				[
 					[
 						'title' => 'Съобщение: Заседанието на ЦИК на 18 декември 2014 е насрочено за 10.30 часа.',
@@ -101,15 +111,28 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => 'e9528811c8263cdc85568dc386217f99',
 					],
 				],
-
-			]
+			], [
+				'\GovAlert\Tasks\Comdos\ComdosResheniq',
+				'Comdos/ComdosResheniq.html',
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Решение №2-441/09.12 за Висше транспортно училище "Тодор Каблешков"',
+						'description' => null,
+						'date' => '2014-12-09',
+						'url' => 'http://www.comdos.bg/Начало/Decision-View/p/view?DecisionID=713',
+						'hash' => '3b6cf505c5b94495a2ed3d9120b9c496'
+					],
+				],
+			],
 		];
 	}
 
 	/**
 	 * @dataProvider tasksProvider
 	 */
-	public function testTask($className, $fixture, $items)
+	public function testTask($className, $fixture, $date, $limit, $items)
 	{
 		$dbMock = $this->getMockBuilder('\GovAlert\Common\Database')
 			->setMethods(['time'])
@@ -117,7 +140,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 
 		$dbMock->method('time')
-			->willReturn(strtotime('2014-12-11T23:24:23+01:00'));
+			->willReturn(strtotime($date));
 
 		$logMock = $this->getMockBuilder('\GovAlert\Common\Logger')
 			->disableOriginalConstructor()
@@ -139,7 +162,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 		$processorMock->expects($this->once())
 			->method('saveItems')
-			->with($this->equalTo($items));
+			->with($this->callback(function ($subject) use ($limit, $items) {
+				return array_slice($subject, 0, $limit) == $items;
+			}));
 		$processorMock->method('checkHash')
 			->willReturn(true);
 

@@ -37,6 +37,6 @@ class ComdosResheniq extends Base
 			];
 
 		}
+		return $query;
 	}
-
 } 
