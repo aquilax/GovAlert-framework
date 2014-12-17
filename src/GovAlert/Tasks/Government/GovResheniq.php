@@ -1,6 +1,8 @@
 <?php
 
-class GovResheniq extends Government
+namespace GovAlert\Tasks\Government;
+
+class GovResheniq extends Base
 {
 
 	protected $categoryId = 1;

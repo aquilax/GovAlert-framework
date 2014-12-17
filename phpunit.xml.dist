@@ -6,4 +6,9 @@
             <directory>tests/GovAlert/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/GovAlert/</directory>
+        </whitelist>
+    </filter>
 </phpunit>

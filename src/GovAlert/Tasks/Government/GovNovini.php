@@ -1,6 +1,8 @@
 <?php
 
-class GovNovini extends Government
+namespace GovAlert\Tasks\Government;
+
+class GovNovini extends Base
 {
 
 	protected $categoryId = 4;

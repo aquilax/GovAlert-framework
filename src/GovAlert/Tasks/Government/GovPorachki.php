@@ -1,17 +1,19 @@
 <?php
 
-class GovDokumenti extends Government
+namespace GovAlert\Tasks\Government;
+
+class GovPorachki extends Base
 {
 
-	protected $categoryId = 3;
-	protected $categoryName = 'документи';
-	protected $categoryURL = 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&g=';
+	protected $categoryId = 6;
+	protected $categoryName = 'съобщения за обществени поръчки';
+	protected $categoryURL = 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=';
 
 	function execute($html)
 	{
 		$items = $this->getXPathItems(
 			$this->getXPath($html, 'cp1251'),
-			"//table[.//a[@class='header']/text()='Документи']//td[@valign='top']/a[@target='_self']"
+			"//table[.//a[@class='header']/text()='Обществени поръчки до 1.10.2014']//td[@valign='top']/a[@target='_self']"
 		);
 
 		$query = [];
@@ -19,7 +21,6 @@ class GovDokumenti extends Government
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = "Нов документ: " . Utils::fixCase($title);
 			$url = "http://www.government.bg" . $item->getAttribute("href");
 			$query[] = [
 				'title' => $title,
@@ -28,6 +29,8 @@ class GovDokumenti extends Government
 				'url' => $url,
 				'hash' => $hash,
 			];
+			if (count($query) >= 20)
+				break;
 		}
 		return $query;
 	}

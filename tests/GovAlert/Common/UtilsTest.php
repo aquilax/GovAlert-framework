@@ -37,4 +37,19 @@ class UtilsTest extends \PHPUnit_Framework_TestCase{
 		$this->assertEquals($expected, Utils::cleanSpaces($given));
 	}
 
+	public function bgMonthProvider() {
+		return [
+			['Януари', '01'],
+			['ноември', '11'],
+			['кифла', 'кифла'],
+		];
+	}
+
+	/**
+	 * @dataProvider bgMonthProvider
+	 */
+	public function testBgMonth($given, $expected) {
+		$this->assertEquals($expected, Utils::bgMonth($given));
+	}
+
 }

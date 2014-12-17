@@ -11,7 +11,9 @@ Links
 6: обществени поръчки http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&g=
 */
 
-abstract class Government extends Task
+namespace GovAlert\Tasks\Government;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 3;
 	protected $sourceName = 'кабинета';

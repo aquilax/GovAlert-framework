@@ -1,6 +1,8 @@
 <?php
 
-class GovZasedaniq extends Government
+namespace GovAlert\Tasks\Government;
+
+class GovZasedaniq extends Base
 {
 
 	protected $categoryId = 0;

@@ -1,13 +1,13 @@
 <?php
 
-namespace GovAlert\Tasks\Constcourt;
-
 /*
 
 0: новини http://constcourt.bg/news
 1: съобщения по дела http://constcourt.bg/caseannouncements
 
 */
+
+namespace GovAlert\Tasks\Constcourt;
 
 abstract class Base extends \GovAlert\Tasks\Task
 {
