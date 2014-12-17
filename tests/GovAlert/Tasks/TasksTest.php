@@ -9,9 +9,11 @@
 namespace GovAlert\Tasks;
 
 
-class TasksTest extends \PHPUnit_Framework_TestCase {
+class TasksTest extends \PHPUnit_Framework_TestCase
+{
 
-	public function tasksProvider(){
+	public function tasksProvider()
+	{
 		return [
 			[
 //				'\GovAlert\Tasks\Bas\BasZemetreseniq',
@@ -48,19 +50,58 @@ class TasksTest extends \PHPUnit_Framework_TestCase {
 						'url' => 'http://www.cik.bg/reshenie/?no=1371&date=18.11.2014',
 						'hash' => '57b529a5cde7819b4359d696a45f90f9',
 					], [
-						'title' => 'Жалба до ВАС срещу Решение № 1371-НС от 18.11.2014 г., постъпила на 24.11.2014 г.',
-						'description' => null,
-						'date' => null,
-						'url' => 'http://www.cik.bg/f/j_2_360',
-						'hash' => '805fa624bfcd2998783739206242e482',
-					], [
-						'title' => 'Определение № 14206 на ВАС от 27.11.2014 г. по адм. дело № 14736/ 2014 г.',
-						'description' => null,
-						'date' => null,
-						'url' => 'http://www.sac.government.bg/court22.nsf/d038edcf49190344c2256b7600367606/b0c90f2a3a6eb233c2257d9d002fd237?OpenDocument',
-						'hash' => 'faa5aac3e812ced156045740a13db0f4',
-					],
+					'title' => 'Жалба до ВАС срещу Решение № 1371-НС от 18.11.2014 г., постъпила на 24.11.2014 г.',
+					'description' => null,
+					'date' => null,
+					'url' => 'http://www.cik.bg/f/j_2_360',
+					'hash' => '805fa624bfcd2998783739206242e482',
+				], [
+					'title' => 'Определение № 14206 на ВАС от 27.11.2014 г. по адм. дело № 14736/ 2014 г.',
+					'description' => null,
+					'date' => null,
+					'url' => 'http://www.sac.government.bg/court22.nsf/d038edcf49190344c2256b7600367606/b0c90f2a3a6eb233c2257d9d002fd237?OpenDocument',
+					'hash' => 'faa5aac3e812ced156045740a13db0f4',
+				],
 				]
+			], [
+				'\GovAlert\Tasks\Cik\CikProtokol',
+				'Cik/CikProtokol.html',
+				[
+					[
+						'title' => 'Протокол №147 за 24.11.2014',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.cik.bg/f/972',
+						'hash' => '14bf2a4d01bb0883bf4c29f087c416f4',
+					]
+				],
+			], [
+				'\GovAlert\Tasks\Cik\CikResheniq',
+				'Cik/CikResheniq.html',
+				[
+					[
+						'title' => 'Решение №1389-НС/16.12.2014 - поправка на техническа грешка в Решение № 1158-НС от 30 септември 2014 г. на ЦИК за предизборна агитация в гр. Долни чифлик, област Варна',
+						'description' => 'поправка на техническа грешка в Решение № 1158-НС от 30 септември 2014 г. на ЦИК за предизборна агитация в гр. Долни чифлик, област Варна',
+						'date' => '2014-12-16',
+						'url' => 'http://www.cik.bg/reshenie/?no=1389&date=16.12.2014',
+						'hash' => 'b2ce72f3f3b02f146602edafa8ac1f0f',
+					],
+				],
+			], [
+				'\GovAlert\Tasks\Cik\CikSaobshteniq',
+				'Cik/CikSaobshteniq.html',
+				[
+					[
+						'title' => 'Съобщение: Заседанието на ЦИК на 18 декември 2014 е насрочено за 10.30 часа.',
+						'description' => '<div><p>СЪОБЩЕНИЕ</p><p> Заседанието на Централната избирателна комисия на 18 декември 2014 г. е насрочено за 10.30 часа. </p></div>',
+						'date' => '2014-12-16',
+						'url' => 'http://www.cik.bg/reshenie/?no=1389&date=16.12.2014',
+						'hash' => 'b2ce72f3f3b02f146602edafa8ac1f0f',
+						'url' => 'http://www.cik.bg/',
+						'hash' => 'e9528811c8263cdc85568dc386217f99',
+					],
+				],
+
 			]
 		];
 	}
@@ -68,7 +109,8 @@ class TasksTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider tasksProvider
 	 */
-	public function testTask($className, $fixture, $items) {
+	public function testTask($className, $fixture, $items)
+	{
 		$dbMock = $this->getMockBuilder('\GovAlert\Common\Database')
 			->setMethods(['time'])
 			->disableOriginalConstructor()

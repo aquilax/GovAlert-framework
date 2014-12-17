@@ -2,3 +2,4 @@ prod
 .idea
 /vendor/
 composer.lock
+/coverage
