@@ -28,7 +28,7 @@ class Database extends \mysqli
 	/**
 	 * @param string $query
 	 * @param int $resultMode
-	 * @return bool|mysqli_result
+	 * @return mysqli_result
 	 */
 	function query($query, $resultMode = MYSQLI_STORE_RESULT)
 	{
@@ -74,6 +74,18 @@ class Database extends \mysqli
 	static function quote($text)
 	{
 		return '\'' . $text . '\'';
+	}
+
+	function time() {
+		return time();
+	}
+
+	static function now($timestamp = null)
+	{
+		if (is_null($timestamp)) {
+			$timestamp = self::time();
+		}
+		return date('c', $timestamp);
 	}
 
 }

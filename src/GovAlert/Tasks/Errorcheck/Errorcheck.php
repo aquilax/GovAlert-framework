@@ -29,12 +29,12 @@ class Errorcheck extends \GovAlert\Tasks\Task
 		$this->logger->info('Предупреждение за ' . $this->shortName);
 
 		$title = "Няма новини от " . $this->shortName . " от поне две седмици";
-		$hash = md5($title . time());
+		$hash = md5($title . $this->db->time());
 		$query = [];
 		$query[] = [
 			'title' => $title,
 			'description' => null,
-			'date' => Utils::Now(),
+			'date' => Database::now(),
 			'url' => $row['url'],
 			'hash' => $hash,
 		];

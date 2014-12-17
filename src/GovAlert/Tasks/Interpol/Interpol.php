@@ -120,7 +120,7 @@ abstract class Interpol extends Task
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Utils::now(),
+				'date' => Database::now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

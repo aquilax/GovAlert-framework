@@ -34,7 +34,7 @@ class ParlResheniq extends Parliament
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Utils::now(),
+				'date' => \GovAlert\Common\Database::now(),
 				'url' => 'http://parliament.bg' . $url,
 				'hash' => $hash,
 			];

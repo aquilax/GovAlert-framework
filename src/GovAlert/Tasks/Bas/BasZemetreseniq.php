@@ -8,6 +8,8 @@
 
 namespace GovAlert\Tasks\Bas;
 
+use GovAlert\Common\Database;
+
 class BasZemetreseniq extends Base
 {
 	protected $categoryId = 0;
@@ -28,22 +30,23 @@ class BasZemetreseniq extends Base
 			$hash = md5(substr($date, 0, -1));
 			$inBG = $lat > 41.32 && $lat < 44.04 && $lng > 22.55 && $lng < 28.60;
 
-			if ($mag < 3 && !($mag > 2 && $inBG))
+			if ($mag < 3 && !($mag > 2 && $inBG)) {
 				continue;
-
+			}
 			$date = strtotime($date . 'UTC');
-			if ($date < strtotime('-1 day'))
+			if ($date < strtotime(date('c', $this->db->time()) . ' -1 day')) {
 				continue;
-
-			$dateDiff = time() - $date;
-			if ($dateDiff < 60)
+			}
+			$dateDiff = $this->db->time() - $date;
+			if ($dateDiff < 60) {
 				$dateDiff = "секунди";
-			elseif ($dateDiff < 100 * 60)
+			} elseif ($dateDiff < 100 * 60) {
 				$dateDiff = round($dateDiff / 60) . ' мин.';
-			elseif ($dateDiff < 4 * 3600)
+			} elseif ($dateDiff < 4 * 3600) {
 				$dateDiff = round($dateDiff / 3600) . " ч.";
-			else
+			} else {
 				continue;
+			}
 
 			$date = date("Y-m-d H:i:s", $date);
 
@@ -51,6 +54,7 @@ class BasZemetreseniq extends Base
 				continue;
 			}
 
+			list($town, $direction) = $this->processor->getTownAndDirection($lat, $lng);
 			$res = $this->db->query('SELECT grad, geo FROM s_bas');
 			$town = null;
 			$direction = null;
@@ -89,15 +93,16 @@ class BasZemetreseniq extends Base
 			$title = "Земетресение $mag $title преди $dateDiff";
 
 			$description = Utils::cleanSpaces($item->getAttribute("location"));
-			if ($description == "")
+			if ($description == '') {
 				$description = null;
+			}
 
-			$media = array(
-				"geo" => array("$lat,$lng", null)
-			);
+			$media = [
+				"geo" => ["$lat,$lng", null]
+			];
 
 			if ($inBG || $mag >= 4.5) {
-				$media["geoimage"] = array($this->loadGeoImage($lat, $lng, 8), null);
+				$media['geoimage'] = array($this->loadGeoImage($lat, $lng, 8), null);
 			}
 			$query[] = [
 				'title' => $title,
@@ -111,7 +116,7 @@ class BasZemetreseniq extends Base
 		return $query;
 	}
 
-	protected  function processItems(Array $query) {
+	protected function processItems(Array $query) {
 		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 		$itemIds = $this->saveItems($query);
 		if (count($itemIds) <= 3) {
@@ -154,7 +159,7 @@ class BasZemetreseniq extends Base
 		else
 			$bearing = "З";
 
-		return array($km, $bearing);
+		return [$km, $bearing];
 	}
 }
 

@@ -91,7 +91,7 @@ abstract class Mvr extends Task
 			$date = $item_2->item(0)->textContent;
 			$date = Utils::bgMonth(Utils::cleanSpaces($date));
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
-			if (strtotime($date) < time() - 3600 * 24 * 7)
+			if (strtotime($date) < $this->db->time() - 3600 * 24 * 7)
 				continue;
 
 			$title = $item_1->item(0)->textContent;

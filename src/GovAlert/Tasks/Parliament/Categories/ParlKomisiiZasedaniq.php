@@ -47,7 +47,7 @@ class ParlKomisiiZasedaniq extends Parliament
 				$query[] = [
 					'title' => $title,
 					'description' => null,
-					'date' => Utils::now(),
+					'date' => \GovAlert\Common\Database::now(),
 					'url' => $url,
 					'hash' => $hash,
 				];

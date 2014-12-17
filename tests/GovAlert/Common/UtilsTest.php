@@ -52,4 +52,18 @@ class UtilsTest extends \PHPUnit_Framework_TestCase{
 		$this->assertEquals($expected, Utils::bgMonth($given));
 	}
 
+	public function fixCaseProvider () {
+		return [
+			['КИФЛА', 'Кифла'],
+			['кифла', 'Кифла'],
+			['Кифла', 'Кифла'],
+		];
+	}
+
+	/**
+	 * @dataProvider fixCaseProvider
+	 */
+	public function testFixCase($given, $expected) {
+		$this->assertEquals($expected, Utils::fixCase($given));
+	}
 }

@@ -8,6 +8,7 @@
 
 namespace GovAlert\Tasks\Adminreg;
 use \GovAlert\Common\Utils;
+use \GovAlert\Common\Database;
 
 class ArKonkursi extends Base
 {
@@ -19,16 +20,7 @@ class ArKonkursi extends Base
 
 	protected function execute($html)
 	{
-
-		$html = $this->loadURL($this->categoryURL);
-		if (!$html) {
-			return;
-		}
 		$xpath = $this->getXPath($html, 'cp1251');
-		if (!$xpath) {
-			$this->reportError("Грешка при зареждане на страницата");
-			return;
-		}
 		$items = $xpath->query("//a[contains(@href,'goToPage')]");
 		if (!$items || $items->length == 0) {
 			$this->reportError("Грешка при четене на страницата");
@@ -41,12 +33,12 @@ class ArKonkursi extends Base
 			if ($i > 1) {
 				$html = $this->loadURL("http://ar2.government.bg/ras/konkursi/index.html?current_page=$i&regTabs=5&menuTab=10&TypeStruct=");
 				if (!$html) {
-					return;
+					return false;
 				}
 				$xpath = $this->getXPath($html, 'cp1251');
 				if (!$xpath) {
 					$this->reportError("Грешка при зареждане на страница $i");
-					return;
+					return false;
 				}
 			}
 
@@ -71,7 +63,7 @@ class ArKonkursi extends Base
 				$query[] = [
 					'title' => $title,
 					'description' => $description,
-					'date' => Utils::Now(),
+					'date' => Database::Now(),
 					'url' => $url,
 					'hash' => $hash
 				];

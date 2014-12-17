@@ -24,7 +24,7 @@ class Kfn_Novini extends Kfn
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Utils::now(),
+				'date' => \GovAlert\Common\Database::now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

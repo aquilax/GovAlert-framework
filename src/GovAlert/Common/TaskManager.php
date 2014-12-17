@@ -11,11 +11,15 @@ class TaskManager
 
 	private $db;
 	private $logger;
+	private $loader;
+	private $processor;
 
 	public function __construct(Database $db, Logger $logger)
 	{
 		$this->db = $db;
 		$this->logger = $logger;
+		$this->loader = new Loader($db, $logger);
+		$this->processor = new Processor($db, $logger);
 	}
 
 	/**
@@ -27,7 +31,7 @@ class TaskManager
 	{
 		$className = '\\' . implode('\\', ['GovAlert', 'Tasks', ucfirst($lib), ucfirst($method)]);
 		$this->logger->debug('Loading class from: ' . $className);
-		return new $className($this->db, $this->logger);
+		return new $className($this->db, $this->logger, $this->loader, $this->processor);
 	}
 
 	public function runTask($lib, $task, $delay, $force)

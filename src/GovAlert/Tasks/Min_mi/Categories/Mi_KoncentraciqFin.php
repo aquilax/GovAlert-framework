@@ -23,7 +23,7 @@ class Mi_KoncentraciqFin extends Min_mi
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Utils::now(),
+				'date' => \GovAlert\Common\Database::now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

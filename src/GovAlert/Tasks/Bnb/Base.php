@@ -41,10 +41,10 @@ abstract class Base extends \GovAlert\Tasks\Task
 		$items = $this->xpathDoc($html, "//div[@id='main']//h4/a");
 		if (!$items || $items->length == 0) {
 			$this->reportError("Грешка при зареждане на страницата");
-			return;
+			return false;
 		}
 		$query = array();
-		foreach ($items as $item) {
+		foreach ($items as $item) {var_dump($item);
 			$url = $url . "/" . $item->getAttribute("href");
 			$hash = md5($url);
 
@@ -52,13 +52,13 @@ abstract class Base extends \GovAlert\Tasks\Task
 			if (!$html1) return;
 			$xpath1 = $this->getXPath($html1);
 			if (!$xpath1) {
-				$this->reportError("Грешка при зареждане на отделно съобщение");
-				return;
+				$this->db->reportError("Грешка при зареждане на отделно съобщение");
+				return false;
 			}
 			$items1 = $xpath1->query("//div[@class='doc_entry']");
 			if (!$items1 || $items1->length == 0) {
-				$this->reportError("Грешка при зареждане на отделно съобщение");
-				return;
+				$this->db->reportError("Грешка при зареждане на отделно съобщение");
+				return false;
 			}
 			$date = $items1->item(0)->textContent;
 			$date = Utils::cleanSpaces($date);

@@ -38,7 +38,7 @@ class RetweetAccounts extends Retweet
 			if ($row = $res->fetch_array()) {
 				$account = $row[0];
 				$lasttweet = $row[1];
-				$forceRT = $row[2] == null || (time() - strtotime($row[2])) > $maxtimetowait;
+				$forceRT = $row[2] == null || ($this->db->time() - strtotime($row[2])) > $maxtimetowait;
 				$avgActivity = $row[3] > $minActivity ? $row[3] : $minActivity;
 			}
 			$res->free();
@@ -67,7 +67,7 @@ class RetweetAccounts extends Retweet
 			foreach ($tres as $tweet) {
 				if ($lasttweet != null && $tweet->id_str <= $lasttweet)
 					break;
-				$period = time() - strtotime($tweet->created_at);
+				$period = $this->db->time() - strtotime($tweet->created_at);
 				if ($period > $maxtimetocheck || $period < $mintimetocheck)
 					break;
 

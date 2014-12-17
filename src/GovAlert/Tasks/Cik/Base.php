@@ -1,6 +1,7 @@
 <?php
 
 namespace GovAlert\Tasks\Cik;
+use GovAlert\Common\Utils;
 
 /*
 

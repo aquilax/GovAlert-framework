@@ -28,18 +28,18 @@ class Utils
 
 	static function bgMonth($text)
 	{
-		$text = mb_ereg_replace("Януари|януари|ЯНУАРИ", "01", $text, "imsr");
-		$text = mb_ereg_replace("Февруари|февруари|ФЕВРУАРИ", "02", $text, "imsr");
-		$text = mb_ereg_replace("Март|март|МАРТ", "03", $text, "imsr");
-		$text = mb_ereg_replace("Април|април|АПРИЛ", "04", $text, "imsr");
-		$text = mb_ereg_replace("Май|май|МАЙ", "05", $text, "imsr");
-		$text = mb_ereg_replace("Юни|юни|ЮНИ", "06", $text, "imsr");
-		$text = mb_ereg_replace("Юли|юли|ЮЛИ", "07", $text, "imsr");
-		$text = mb_ereg_replace("Август|август|АВГУСТ", "08", $text, "imsr");
-		$text = mb_ereg_replace("Септември|септември|СЕПТЕМВРИ", "09", $text, "imsr");
-		$text = mb_ereg_replace("Октомври|октомври|ОКТОМВРИ", "10", $text, "imsr");
-		$text = mb_ereg_replace("Ноември|ноември|НОЕМВРИ", "11", $text, "imsr");
-		$text = mb_ereg_replace("Декември|декември|ДЕКЕМВРИ", "12", $text, "imsr");
+		$text = mb_ereg_replace('Януари|януари|ЯНУАРИ', '01', $text, 'imsr');
+		$text = mb_ereg_replace('Февруари|февруари|ФЕВРУАРИ', '02', $text, 'imsr');
+		$text = mb_ereg_replace('Март|март|МАРТ', '03', $text, 'imsr');
+		$text = mb_ereg_replace('Април|април|АПРИЛ', '04', $text, 'imsr');
+		$text = mb_ereg_replace('Май|май|МАЙ', '05', $text, 'imsr');
+		$text = mb_ereg_replace('Юни|юни|ЮНИ', '06', $text, 'imsr');
+		$text = mb_ereg_replace('Юли|юли|ЮЛИ', '07', $text, 'imsr');
+		$text = mb_ereg_replace('Август|август|АВГУСТ', '08', $text, 'imsr');
+		$text = mb_ereg_replace('Септември|септември|СЕПТЕМВРИ', '09', $text, 'imsr');
+		$text = mb_ereg_replace('Октомври|октомври|ОКТОМВРИ', '10', $text, 'imsr');
+		$text = mb_ereg_replace('Ноември|ноември|НОЕМВРИ', '11', $text, 'imsr');
+		$text = mb_ereg_replace('Декември|декември|ДЕКЕМВРИ', '12', $text, 'imsr');
 		return $text;
 	}
 
@@ -48,12 +48,13 @@ class Utils
 	{
 		if (mb_convert_case($text, MB_CASE_UPPER) == $text ||
 			mb_convert_case($text, MB_CASE_LOWER) == $text
-		)
+		) {
 			return mb_convert_case($text, MB_CASE_TITLE);
+		}
 		return $text;
 	}
 
-	static function replaceAccounts($title, $cutlen)
+	static function replaceAccounts($title, $cutLen)
 	{
 		$map = array(
 			"@KGeorgievaEU" => array("Кристалина Георгиева", "Кристалина"),
@@ -73,32 +74,30 @@ class Utils
 			"@rmkanev" => array("Радан Кънев")
 		);
 
-		foreach ($map as $account => $strings)
-			$title = self::replaceAccount($title, $account, $cutlen, $strings);
-
+		foreach ($map as $account => $strings) {
+			$title = self::replaceAccount($title, $account, $cutLen, $strings);
+		}
 		return $title;
 	}
 
-	static function replaceAccount($title, $account, $cutlen, $texts)
+	static function replaceAccount($title, $account, $cutLen, $texts)
 	{
 		$text = false;
 		$loc = '';
-		foreach ($texts as $textT)
+		foreach ($texts as $textT) {
 			if (($loc = mb_stripos($title, $textT)) !== false) {
 				$text = $textT;
 				break;
 			}
-		if ($text === false || $loc + mb_strlen($account) >= $cutlen)
+		}
+		if ($text === false || $loc + mb_strlen($account) >= $cutLen) {
 			return $title;
+		}
 		$firstPart = mb_substr($title, 0, $loc);
-		if (trim($firstPart) == '')
-			$firstPart = ".";
+		if (trim($firstPart) == '') {
+			$firstPart = '.';
+		}
 		return $firstPart . $account . mb_substr($title, $loc + mb_strlen($text));
-	}
-
-	static function now()
-	{
-		return date('c');
 	}
 
 	function linkCode($id)
@@ -112,7 +111,6 @@ class Utils
 		}
 		return $code;
 	}
-
 }
 
 function codeToId($code)

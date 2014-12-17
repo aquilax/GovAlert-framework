@@ -38,7 +38,7 @@ class TsoSaobshteniq extends Tso
 			$query[] = [
 				'title' => $title,
 				'description' => $description,
-				'date' => Utils::now(),
+				'date' => \GovAlert\Common\Database::now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

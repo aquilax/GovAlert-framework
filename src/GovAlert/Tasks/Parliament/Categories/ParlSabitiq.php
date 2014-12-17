@@ -40,7 +40,7 @@ class ParlSabitiq extends Parliament
 				}
 				$time = trim($item->childNodes->item(1)->textContent);
 				$date = "$currentDate $time";
-				if (strtotime($date) < time())
+				if (strtotime($date) < $this->db->time())
 					continue;
 
 				if ($item->childNodes->item(3)->nodeName == "a")
@@ -61,7 +61,7 @@ class ParlSabitiq extends Parliament
 				$query[] = [
 					'title' => $title,
 					'description' => $description,
-					'date' => Utils::now(),
+					'date' => \GovAlert\Common\Database::now(),
 					'url' => 'http://parliament.bg' . $url,
 					'hash' => $hash,
 				];

@@ -29,7 +29,7 @@ class Mh_Postanovleniq extends Min_mh
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Utils::now(),
+				'date' => \GovAlert\Common\Database::now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

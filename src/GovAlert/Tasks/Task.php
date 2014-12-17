@@ -12,6 +12,7 @@ abstract class Task
 
 	protected $db;
 	protected $logger;
+	protected $loader;
 	protected $debug = false;
 	protected $sourceId = null;
 	protected $sourceName = null;
@@ -21,21 +22,28 @@ abstract class Task
 	protected $error = false;
 	protected $tweetAccount = 'govaleteu';
 	protected $tweetReTweet = null;
+	protected $linki = false;
 
 
 	abstract protected function execute($html);
 
-	public function __construct(\GovAlert\Common\Database $db, \GovAlert\Common\Logger $logger, $debug = false)
+	public function __construct(\GovAlert\Common\Database $db,
+								\GovAlert\Common\Logger $logger,
+								\GovAlert\Common\Loader $loader,
+								\GovAlert\Common\Processor $processor,
+								$debug = false)
 	{
 		$this->db = $db;
 		$this->logger = $logger;
+		$this->loader = $loader;
+		$this->processor = $processor;
 		$this->debug = $debug;
 	}
 
 	public function run()
 	{
 		$this->logger->info(sprintf('Проверявам за %s %s', $this->sourceName, $this->categoryName));
-		$html = $this->loader($this->categoryId, $this->categoryURL);
+		$html = $this->loadURL($this->categoryURL, $this->linki);
 		if ($html) {
 			$items = $this->execute($html);
 			if ($items) {
@@ -44,10 +52,19 @@ abstract class Task
 		}
 	}
 
-	protected  function processItems(Array $query) {
+	protected
+	function loadUrl($url, $linki = null) {
+		return $this->loader->loadURL($this->sourceId, $this->categoryId, $url, $linki);
+	}
+
+	protected function processItems(Array $query) {
 		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
-		$itemIds = $this->saveItems($query);
+		$itemIds = $this->saveItems($query, $this);
 		$this->queueTweets($itemIds, $this->tweetAccount, $this->tweetReTweet);
+	}
+
+	protected function saveItems(Array $query) {
+		return $this->processor->saveItems($query, $this);
 	}
 
 	protected function cleanText($text)
@@ -58,254 +75,10 @@ abstract class Task
 		return $text;
 	}
 
-
-	protected function loader($categoryId, $categoryURL)
-	{
-		return $this->loadURL($categoryURL, $categoryId);
-	}
-
 	function checkHash($hash)
 	{
-		$res = $this->db->query("SELECT hash FROM item WHERE hash='$hash' LIMIT 1");
-		return $res->num_rows == 0;
+		return $this->processor->checkHash($hash);
 	}
-
-	private function getHashes(Array $hashes)
-	{
-		array_walk($hashes, function (&$hash) {
-			$hash = Database::quote($hash);
-		});
-		$res = $this->db->query('SELECT hash FROM item WHERE hash IN (' . implode(', ', $hashes) . ') limit ' . count($hashes));
-		$hashes = [];
-		while ($row = $res->fetch_array()) {
-			$hashes[] = $row[0];
-		}
-		$res->free();
-		return $hashes;
-	}
-
-	private function saveMedia($media, $itemId)
-	{
-		$rows = [];
-		foreach ($media as $mediaKey => $mediaValue) {
-			if (!$mediaValue[0] || $mediaValue[0] == null)
-				continue;
-			if (is_array($mediaValue[0])) {
-				foreach ($mediaValue as $mediaValueItem) {
-					if (!$mediaValueItem[0] || $mediaValueItem[0] == null)
-						continue;
-					$rows[] = [
-						'itemid' => $itemId,
-						'type' => $mediaKey,
-						'value' => $mediaValueItem[0],
-						'description' => $mediaValueItem[0]
-					];
-				}
-			} else {
-				$rows[] = [
-					'itemid' => $itemId,
-					'type' => $mediaKey,
-					'value' => $mediaValue[0],
-					'description' => $mediaValue[1]
-				];
-			}
-		}
-		$this->db->batchInsert('item_media', $rows, 'LOW_PRIORITY IGNORE');
-	}
-
-	private function saveItem(Array $item)
-	{
-		$itemId = 0;
-		$media = false;
-
-		// Remove media first
-		if (array_key_exists('media', $item)) {
-			if (is_array($item['media'])) {
-				$media = $item['media'];
-			}
-			unset($item['media']);
-		}
-
-		$this->db->insert('item', $item);
-		if ($this->db->affected_rows > 0) {
-			$itemId = $this->db->insert_id;
-			if ($media) {
-				$this->saveMedia($media, $itemId);
-			}
-		}
-		return $itemId;
-	}
-
-	function saveItems(Array $items)
-	{
-		if (!$this->checkSession() || !$items || count($items) == 0) {
-			return false;
-		}
-
-		$this->logger->info('Запазвам ' . count($items) . '... ');
-
-		$hashes = $this->getHashes(array_column($items, 'hash'));
-
-		$query = array();
-		foreach ($items as $item) {
-			if (in_array($item['hash'], $hashes)) {
-				continue;
-			}
-			$query[] = [
-				'title' => $item['title'],
-				'description' => $item['description'],
-				'sourceid' => $this->sourceId,
-				'category' => $this->categoryId,
-				'pubts' => $item['date'],
-				'readts' => Utils::now(),
-				'url' => $item['url'],
-				'hash' => $item['hash'],
-				'media' => isset($item['media']) ? $item['media'] : null,
-			];
-		}
-
-		$this->logger->info('...oт тях ' . count($query) . ' са нови... ');
-		$changed = [];
-
-		if ($query) {
-			$query = array_reverse($query);
-			foreach ($query as $row) {
-				$res = $this->saveItem($row);
-				if ($res) {
-					$changed[] = $res;
-				}
-			}
-		}
-		$this->logger->info('записани ' . count($changed));
-		return $changed;
-	}
-
-	function loadURL($address, $linki = null)
-	{
-		if (!$this->checkSession())
-			return false;
-
-		$this->logger->info('Зареждам ' . $address . '...');
-
-		$address = str_replace(" ", "%20", $address);
-		$hashdata = false;
-		$hashdatadirty = false;
-
-		if (!$this->debug && $linki !== null) {
-			$res = $this->db->query(sprintf('SELECT hash, lastchanged, etag, headpostpone, ignorehead FROM scrape WHERE sourceid= %d  AND url= %d LIMIT 1', $this->sourceId, $linki));
-			if ($res->num_rows > 0)
-				$hashdata = $res->fetch_assoc();
-			$res->free();
-			if ($hashdata && !$hashdata['ignorehead']) {
-				$hashdatadirty = array(0, 0, 0);
-
-				if ($hashdata['lastchanged'] != null || $hashdata['etag'] != null || $hashdata['headpostpone'] == null || strtotime($hashdata['headpostpone']) < time()) {
-					$context = stream_context_create(array('http' => array('method' => 'HEAD')));
-					$fd = fopen($address, 'rb', false, $context);
-					$headdata = stream_get_meta_data($fd);
-					fclose($fd);
-					$foundlc = false;
-					$foundet = false;
-					foreach ($headdata as $header) {
-						if ($hashdata['lastchanged'] != null && substr($header, 0, strlen("Last-Modified: ")) == "Last-Modified: ") {
-							$foundlc = true;
-							if (strtotime(substr($header, strlen("Last-Modified: "))) == strtotime($hashdata['lastchanged'])) {
-								$this->logger->info('страницата не е променена [Last-Modified]');
-								return false;
-							} else {
-								$hashdata['lastchanged'] = "'" . $this->db->escape_string(substr($header, strlen("Last-Modified: "))) . "'";
-								$hashdatadirty[0] = 1;
-							}
-						}
-						if ($hashdata['etag'] != null && substr($header, 0, strlen("ETag: ")) == "ETag: ") {
-							$foundet = true;
-							if (substr($header, strlen("ETag: ")) == $hashdata['etag'] || substr($header, strlen("ETag: ") + 2) == $hashdata['etag']) {
-								$this->logger->info('страницата не е променена [ETag]');
-								return false;
-							} else {
-								$hashdata['etag'] = substr($header, strlen("ETag: "));
-								if (substr($header, 0, strlen("W/")) == "W/")
-									$hashdata['etag'] = substr($hashdata['etag'], 2);
-								$hashdata['etag'] = "'" . $this->db->escape_string($hashdata['etag']) . "'";
-								$hashdatadirty[1] = 1;
-							}
-						}
-					}
-					if (!$foundlc && $hashdata['lastchanged'] != null) {
-						$hashdata['lastchanged'] = 'null';
-						$hashdatadirty[0] = 1;
-					}
-					if (!$foundet && $hashdata['etag'] != null) {
-						$hashdata['etag'] = 'null';
-						$hashdatadirty[1] = 1;
-					}
-					if (!$foundlc && !$foundet) {
-						$hashdata['headpostpone'] = 'DATE_ADD(NOW(),INTERVAL 1 MONTH)';
-						$hashdatadirty[2] = 1;
-					} else if ($hashdata['headpostpone'] != null) {
-						$hashdata['headpostpone'] = 'null';
-						$hashdatadirty[2] = 1;
-					}
-				}
-			}
-		}
-
-		$loadstart = microtime(true);
-		$html = file_get_contents($address);
-		$this->setPageLoad($linki !== null ? $linki : $address, $loadstart);
-		if ($html === false || $html === null) {
-			sleep(2);
-			$this->logger->info('...втори опит...');
-			$loadstart = microtime(true);
-			if (empty($address)) {
-				throw new Exception('Empty address passed');
-			}
-			$html = file_get_contents($address);
-			$this->setPageLoad($linki !== null ? $linki : $address, $loadstart);
-		}
-
-		if ($html === false || $html === null) {
-			$this->reportError("Грешка при зареждане на сайта");
-			$this->logger->error('грешка при зареждането');
-			return false;
-		}
-
-		if (!$this->debug && $linki !== null) {
-			$hash = md5($html);
-			if ($hashdata === false) {
-				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $this->sourceId . ",$linki,'$hash',now())");
-			} else {
-				if ($hashdata['hash'] != null && $hashdata['hash'] == $hash) {
-					$this->logger->info('страницата не е променена [hash]');
-					if (!$hashdata['ignorehead']) {
-						if ($hashdata['headpostpone'] === null)
-							$this->db->query('UPDATE scrape SET ignorehead = 1 WHERE sourceid=' . $this->sourceId . ' AND url = ' . $linki . ' LIMIT 1');
-						else if ($hashdatadirty[0] || $hashdatadirty[1] || $hashdatadirty[2]) {
-							$setters = array();
-							if ($hashdatadirty[0])
-								$setters[] = 'lastchanged=' . $hashdata['lastchanged'];
-							if ($hashdatadirty[1])
-								$setters[] = 'etag=' . $hashdata['etag'];
-							if ($hashdatadirty[2])
-								$setters[] = 'headpostpone=' . $hashdata['headpostpone'];
-							$this->db->query('UPDATE scrape SET ' . implode(', ', $setters) . ' WHERE sourceid=' . $this->sourceId . ' AND url= ' . $linki . ' LIMIT 1');
-						}
-					}
-					return false;
-				}
-
-				$this->db->query("UPDATE scrape SET " .
-					($hashdatadirty[0] ? 'lastchanged=' . $hashdata['lastchanged'] . ', ' : '') .
-					($hashdatadirty[1] ? 'etag=' . $hashdata['etag'] . ', ' : '') .
-					($hashdatadirty[2] ? 'headpostpone=' . $hashdata['headpostpone'] . ', ' : '') .
-					"hash='$hash', loadts=now() where sourceid=" . $this->sourceId . " and url=$linki limit 1");
-			}
-		}
-
-		$this->logger->info('...готово');
-		return $html;
-	}
-
 
 	function checkTitle($title)
 	{
@@ -330,22 +103,6 @@ abstract class Task
 		$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $this->sourceId . ",$linki,'$hash',now())");
 		return true;
 	}
-
-
-	function setPageLoad($url, $loadstart)
-	{
-		if ($this->debug || !$this->checkSession()) {
-			return;
-		}
-		$row = [
-			'sourceid' => $this->sourceId,
-			'category' => $this->categoryId,
-			'url' => $url,
-			'loadtime' => round((microtime(true) - $loadstart) * 1000)
-		];
-		$this->db->insert('scrape_load', $row);
-	}
-
 
 	function loadGeoImage($lat, $lng, $zoom)
 	{
@@ -452,7 +209,7 @@ abstract class Task
 			$retweet = "'govalerteu'";
 		$fields = [
 			'account' => $account,
-			'queued' => Utils::now(),
+			'queued' => Database::now(),
 			'text' => $text,
 			'sourceid' => $this->sourceId,
 			'priority' => 1,
@@ -486,33 +243,11 @@ abstract class Task
 			$query[] = [
 				'itemid' => $id,
 				'account' => $account,
-				'queued' => Utils::now(),
+				'queued' => Database::now(),
 				'retweet' => $retweet
 			];
 		}
 		$this->db->batchInsert('tweet', $query);
-	}
-
-	public function reportError($message)
-	{
-		if ($message === null)
-			return;
-		$sourceId = $this->sourceId != null ? $this->sourceId : 0;
-		$category = $this->categoryId != null ? $this->categoryId : 0;
-		if (is_array($message) || is_object($message))
-			$message = json_encode($message);
-		$e = new \Exception();
-		$trace = str_replace("/home/yurukov1/public_html/govalert/", "", $e->getTraceAsString());
-		$this->logger->error("Запазвам грешка [$sourceId,$category]: $message\n$trace");
-		if ($this->debug)
-			return;
-		$message = $message . PHP_EOL . $trace;
-		$this->db->insert('error', [
-			'sourceid' => $sourceId,
-			'category' => $category,
-			'descr' => $message,
-		]);
-		$this->error = true;
 	}
 
 	public function getError()
@@ -523,8 +258,8 @@ abstract class Task
 	/**
 	 * @param $html
 	 * @param string $encoding
-	 * @return DOMXpath
-	 * @throws Exception
+	 * @return \DOMXpath
+	 * @throws \Exception
 	 */
 	protected function getXPath($html, $encoding = 'UTF-8', $isHTML = true)
 	{
@@ -564,5 +299,46 @@ abstract class Task
 		$this->logger->info('Открити ' . $items->length . ' ' . $this->categoryName);
 
 		return $items;
+	}
+
+
+	/**
+	 * @return null
+	 */
+	public function getCategoryId()
+	{
+		return $this->categoryId;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getSourceId()
+	{
+		return $this->sourceId;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTweetAccount()
+	{
+		return $this->tweetAccount;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getSourceName()
+	{
+		return $this->sourceName;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getTweetReTweet()
+	{
+		return $this->tweetReTweet;
 	}
 }

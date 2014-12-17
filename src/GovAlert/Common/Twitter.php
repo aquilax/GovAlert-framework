@@ -160,7 +160,7 @@ class Twitter
 						foreach ($accounts as $account) {
 							$query[] = [
 								'account' => $account,
-								'queued' => Utils::now(),
+								'queued' => Database::now(),
 								'retweet' => $tweetid,
 							];
 						}
