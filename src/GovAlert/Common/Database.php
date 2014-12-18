@@ -80,10 +80,10 @@ class Database extends \mysqli
 		return time();
 	}
 
-	static function now($timestamp = null)
+	function now($timestamp = null)
 	{
 		if (is_null($timestamp)) {
-			$timestamp = self::time();
+			$timestamp = $this->time();
 		}
 		return date('c', $timestamp);
 	}

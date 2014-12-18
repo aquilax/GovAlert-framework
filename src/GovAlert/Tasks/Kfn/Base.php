@@ -6,7 +6,9 @@ links:
 2: анализи http://www.fsc.bg/Analizi-na-KFN-bg-29
 */
 
-abstract class Kfn extends Task
+namespace GovAlert\Tasks\Kfn;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 22;
 	protected $sourceName = 'КФН';

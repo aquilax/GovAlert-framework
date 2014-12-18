@@ -1,6 +1,8 @@
 <?php
 
-class Kfn_Analizi extends Kfn
+namespace GovAlert\Tasks\Kfn;
+
+class Kfn_Analizi extends Base
 {
 
 	protected $categoryId = 1;
@@ -11,19 +13,20 @@ class Kfn_Analizi extends Kfn
 	{
 		$items = $this->getXPathItems($this->getXPath($html), "//div[@id='page_29_files']//li/a");
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
-			if (count($query) > 10)
+			if (count($query) > 10) {
 				break;
-			$url = "http://www.fsc.bg" . $item->getAttribute("href");
+			}
+			$url = 'http://www.fsc.bg' . $item->getAttribute('href');
 			$hash = md5($url);
 
 			$title = $item->childNodes->length > 0 ? $item->firstChild->textContent : $item->textContent;
-			$title = "Анализ: " . $this->cleanText($title);
+			$title = 'Анализ: ' . $this->cleanText($title);
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

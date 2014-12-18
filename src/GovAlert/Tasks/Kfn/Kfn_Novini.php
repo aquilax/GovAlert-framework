@@ -1,12 +1,12 @@
 <?php
 
-class Kfn_Novini extends Kfn
-{
+namespace GovAlert\Tasks\Kfn;
 
+class Kfn_Novini extends Base
+{
 	protected $categoryId = 0;
 	protected $categoryName = 'новини';
 	protected $categoryURL = 'http://www.fsc.bg/Novini-bg';
-
 
 	function execute($html)
 	{
@@ -24,7 +24,7 @@ class Kfn_Novini extends Kfn
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

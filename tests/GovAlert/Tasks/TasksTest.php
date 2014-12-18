@@ -115,8 +115,6 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'title' => 'Съобщение: Заседанието на ЦИК на 18 декември 2014 е насрочено за 10.30 часа.',
 						'description' => '<div><p>СЪОБЩЕНИЕ</p><p> Заседанието на Централната избирателна комисия на 18 декември 2014 г. е насрочено за 10.30 часа. </p></div>',
 						'date' => '2014-12-16',
-						'url' => 'http://www.cik.bg/reshenie/?no=1389&date=16.12.2014',
-						'hash' => 'b2ce72f3f3b02f146602edafa8ac1f0f',
 						'url' => 'http://www.cik.bg/',
 						'hash' => 'e9528811c8263cdc85568dc386217f99',
 					],
@@ -281,7 +279,38 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '9bee5df3ae49590e902321323810e9f0',
 					]
 				]
-
+			], [
+				'\GovAlert\Tasks\Kfn\Kfn_Analizi',
+				[
+					'Kfn/Kfn_Analizi.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Анализ: Преглед на международната среда, октомври 2014 г.',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.fsc.bg/public/upload/files/menu/Pregled_na_mejdunarodnata_sreda_oktomvri_2014.pdf',
+						'hash' => 'c2a36d20c439df8ffb2866a783e9abb5',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Kfn\Kfn_Novini',
+				[
+					'Kfn/Kfn_Novini.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Съобщение във връзка с провеждането на изпитите за придобиване на право за извършване на дейност като брокер на ценни книжа и инвестиционен консултант',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.fsc.bg/Saobshtenie-vav-vrazka-s-provejdaneto-na-izpitite-za-pridobivane-na-pravo-za-izvarshvane-na-deynost-kato-broker-na-cenni-knija-i-investicionen-konsultant-news-3877-bg',
+						'hash' => 'abbafbe9f0b37dcb84ca6b99dc770c36',
+					]
+				]
 			]
 		];
 	}
@@ -331,6 +360,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 		$processorMock->method('checkHash')
 			->willReturn(true);
 
+		/**
+		 * @var \GovAlert\Tasks\Task $testClass
+		 */
 		$testClass = new $className($dbMock, $logMock, $loaderMock, $processorMock);
 		$testClass->run();
 	}
