@@ -21,7 +21,7 @@ class NekSaobshteniq extends Nek
 
 			$date = $item->childNodes->item(0)->textContent;
 			$date = mb_substr($date, 9, 4) . "-" . mb_substr($date, 5, 2) . "-" . mb_substr($date, 1, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 			$url = $item->childNodes->item(2)->getAttribute("href");
 			$title = $item->childNodes->item(2)->textContent;

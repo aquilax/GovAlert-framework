@@ -301,6 +301,9 @@ abstract class Task
 		return $items;
 	}
 
+	function timeDiff($diff) {
+		return strtotime(date('c', $this->db->time()) . ' ' . $diff);
+	}
 
 	/**
 	 * @return null

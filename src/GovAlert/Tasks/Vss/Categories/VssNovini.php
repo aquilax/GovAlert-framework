@@ -26,7 +26,7 @@ class VssNovini extends Vss
 			$date = $this->cleanText($date);
 			$date = Utils::bgMonth($date);
 			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-1 week"))
+			if (strtotime($date) < $this->timeDiff('-1 week'))
 				continue;
 
 			$item->removeChild($item->childNodes->item(1));

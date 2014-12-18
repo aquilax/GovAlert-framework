@@ -29,7 +29,7 @@ class Mh_Novini extends Min_mh
 			}
 			$date = substr($date[2], 0, 4) . "-" . $date[1] . "-" . $date[0];
 
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 
 			$title = $item->childNodes->item(1)->textContent;

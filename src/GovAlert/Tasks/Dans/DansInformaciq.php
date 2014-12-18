@@ -26,7 +26,7 @@ class DansInformaciq extends Base
 		}
 
 		$date = strtotime($date->item(0)->textContent);
-		if ($date < strtotime("-1 week"))
+		if ($date < $this->timeDiff('-1 week'))
 			$items = array();
 		$date = date("Y-m-d H:i:s", $date);
 

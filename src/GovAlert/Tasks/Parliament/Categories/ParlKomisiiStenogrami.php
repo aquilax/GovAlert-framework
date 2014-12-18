@@ -13,7 +13,7 @@ class ParlKomisiiStenogrami extends Parliament
 		$res = $this->db->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id");
 		while ($row = $res->fetch_array()) {
 			$checks[] = array("http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/steno/period/" . date("Y-m"), $row[01]);
-			$checks[] = array("http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/steno/period/" . date("Y-m", strtotime("-1 month")), $row[1]);
+			$checks[] = array("http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/steno/period/" . date("Y-m", $this->timeDiff('-1 month')), $row[1]);
 		}
 		$res->free();
 

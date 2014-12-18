@@ -18,16 +18,15 @@ class ComdosResheniq extends Base
 			$text = $item->textContent;
 			$text = $this->cleanText($text);
 
-			$url = "http://www.comdos.bg" . $item->getAttribute("href");
-
-			$hash = md5($url);
-
-			$datepos = mb_strpos($text, " от ") + 4;
-			$date = mb_substr($text, $datepos + 6, 4) . "-" . mb_substr($text, $datepos + 3, 2) . "-" . mb_substr($text, $datepos, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			$datePos = mb_strpos($text, " от ") + 4;
+			$date = mb_substr($text, $datePos + 6, 4) . "-" . mb_substr($text, $datePos + 3, 2) . "-" . mb_substr($text, $datePos, 2);
+			if (strtotime($date) < $this->timeDiff('-1 month')) {
 				continue;
+			}
 
-			$title = "Решение №" . mb_substr($text, 13, $datepos - 17) . "/" . mb_substr($text, $datepos, 5) . " за " . mb_substr($text, $datepos + 16);
+			$url = "http://www.comdos.bg" . $item->getAttribute("href");
+			$hash = md5($url);
+			$title = "Решение №" . mb_substr($text, 13, $datePos - 17) . "/" . mb_substr($text, $datePos, 5) . " за " . mb_substr($text, $datePos + 16);
 			$query[] = [
 				'title' => $title,
 				'description' => null,

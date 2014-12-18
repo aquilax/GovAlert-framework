@@ -20,7 +20,7 @@ class ParlZakonoproekti extends Parliament
 			$hash = md5($item->childNodes->item(0)->childNodes->item(1)->getAttribute("href"));
 			$date = trim($item->childNodes->item(4)->textContent);
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 			$url = $item->childNodes->item(0)->childNodes->item(1)->getAttribute("href");
 			$url = "http://parliament.bg$url";

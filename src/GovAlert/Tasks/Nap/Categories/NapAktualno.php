@@ -18,7 +18,7 @@ class NapAktualno extends Nap
 			$date = $item->childNodes->item(1)->textContent;
 			$date = Utils::bgMonth($date);
 			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-2 week"))
+			if (strtotime($date) < $this->timeDiff('-2 week'))
 				continue;
 
 			$url = $item->childNodes->item(0)->getAttribute("onclick");

@@ -22,7 +22,7 @@ class Bnb_Saobshtenia extends Base
 		foreach ($items as $item) {
 			$date = trim($item->textContent);
 			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-3 day")) {
+			if (strtotime($date) < $this->timeDiff('-3 day')) {
 				continue;
 			}
 			$url = "http://bnb.bg/PressOffice/POPressReleases/POPRDate/" . $item->getAttribute("href");

@@ -15,7 +15,7 @@ class Mrrb_Obqvi extends Min_mrrb
 		foreach ($items as $item) {
 			$date = Utils::bgMonth(trim($item->childNodes->item(2)->textContent));
 			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 			$title = $item->childNodes->item(4)->textContent;
 			$title = "Обява: " . $this->cleanText($title);

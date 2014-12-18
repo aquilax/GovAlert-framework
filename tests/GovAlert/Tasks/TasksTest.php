@@ -114,7 +114,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			], [
 				'\GovAlert\Tasks\Comdos\ComdosResheniq',
 				'Comdos/ComdosResheniq.html',
-				'2014-11-11T23:24:23+01:00',
+				'2014-12-02T23:24:23+01:00',
 				1,
 				[
 					[
@@ -125,7 +125,35 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '3b6cf505c5b94495a2ed3d9120b9c496'
 					],
 				],
-			],
+			], [
+				'\GovAlert\Tasks\Constcourt\ConstcourtNovini',
+				'Constcourt/ConstcourtNovini.html',
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Новина: Честване на 50 години конституционно правосъдие в Черна Гора 26-29 ноември 2014 г.',
+						'description' => null,
+						'date' => '2014-12-02',
+						'url' => 'http://constcourt.bg/news/Post/890/Честване-на-50-години-конституционно-правосъдие-в-Черна-Гора-26-29-ноември-2014-г',
+						'hash' => '47f94838be5695a0d4865c5d81c9c723',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Constcourt\ConstcourtSaobchteniq',
+				'Constcourt/ConstcourtSaobchteniq.html',
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Съобщение по дело: КС образува конституционно дело № 13/2014 г.',
+						'description' => null,
+						'date' => '2014-12-04',
+						'url' => 'http://constcourt.bg/caseannouncements/Post/891/Конституционният-съд-образува-конституционно-дело-13-2014-г',
+						'hash' => 'e18ba7ea2c9c3f9d8ea7d20a0f775039',
+					]
+				],
+			]
 		];
 	}
 

@@ -22,7 +22,7 @@ class VssProtokol extends Vss
 		foreach ($items as $item) {
 			$date = trim($item->textContent);
 			$date = "20" . mb_substr($date, -2) . "-" . mb_substr($date, -5, 2) . "-" . mb_substr($date, -8, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 
 			$title = $item->textContent;

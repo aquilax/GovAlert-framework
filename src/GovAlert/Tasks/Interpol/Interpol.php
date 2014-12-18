@@ -92,7 +92,7 @@ abstract class Interpol extends Task
 			return;
 		}
 		while ($row = $res->fetch_assoc()) {
-			$old = strtotime($row["added"]) < strtotime("-2 days");
+			$old = strtotime($row["added"]) < $this->timeDiff('-2 days');
 			$noimage = substr($row["photo"], -16) == 'NotAvailable.gif';
 
 			$media = null;

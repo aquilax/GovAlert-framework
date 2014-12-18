@@ -14,7 +14,7 @@ class ParlKomisiiNovini extends Parliament
 		$res = $this->db->query("SELECT committee_id FROM s_parliament_committees order by committee_id");
 		while ($row = $res->fetch_array()) {
 			$checkUrls[] = "http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/news/period/" . date("Y-m");
-			$checkUrls[] = "http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/news/period/" . date("Y-m", strtotime("-1 month"));
+			$checkUrls[] = "http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/news/period/" . date("Y-m", $this->timeDiff('-1 month'));
 		}
 		$res->free();
 

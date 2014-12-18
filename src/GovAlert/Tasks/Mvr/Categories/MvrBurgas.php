@@ -35,7 +35,7 @@ class MvrBurgas extends Mvr
 			} else
 				if (mb_substr($fulltext, -7) == date("Y") . " г." && $item_1->length == 0) {
 					$date = substr($fulltext, 6, 4) . "-" . substr($fulltext, 3, 2) . "-" . substr($fulltext, 0, 2);
-					if (strtotime($date) < $this->db->time() - 3600 * 24 * 5)
+					if (strtotime($date) < $this->timeDiff('-5 days'))
 						break;
 					$query[] = array($this->categoryPrefix, "", $date, $this->categoryURL, null, null);
 				} else

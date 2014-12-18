@@ -22,7 +22,7 @@ class GovResheniq extends Base
 			$date = $item->lastChild->childNodes->item(0)->textContent;
 			$date = Utils::bgMonth($date);
 			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 			$title = $item->childNodes->item(2)->childNodes->item(0)->textContent;
 			$title = Utils::cleanSpaces($title);

@@ -24,7 +24,7 @@ class Mh_Normativni extends Min_mh
 			$date = explode(".", $date);
 			$date = substr($date[2], 0, 4) . "-" . $date[1] . "-" . substr($date[0], -2);
 
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 
 			$title = $item->childNodes->item(1)->textContent;

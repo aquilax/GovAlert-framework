@@ -20,7 +20,7 @@ class CikResheniq extends Base
 			$date = $item->childNodes->item(0)->textContent;
 			$date = mb_substr($date, mb_strpos($date, "/ ") + 2);
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
-			if (strtotime($date) < strtotime("-1 month"))
+			if (strtotime($date) < $this->timeDiff('-1 month'))
 				continue;
 			$description = $item->childNodes->item(2)->textContent;
 			$description = mb_ereg_replace("ОТНОСНО:? ?", "", $description, "im");

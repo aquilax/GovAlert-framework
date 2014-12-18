@@ -8,6 +8,7 @@
 */
 
 namespace GovAlert\Tasks\Constcourt;
+use GovAlert\Common\Utils;
 
 abstract class Base extends \GovAlert\Tasks\Task
 {
@@ -19,6 +20,7 @@ abstract class Base extends \GovAlert\Tasks\Task
 		$text = Utils::cleanSpaces($text);
 		$text = mb_ereg_replace("Конституционният? съд", "КС", $text, "im");
 		$text = html_entity_decode($text);
+		$text = Utils::fixCase($text);
 		return $text;
 	}
 }

@@ -34,7 +34,7 @@ class BasZemetreseniq extends Base
 				continue;
 			}
 			$date = strtotime($date . 'UTC');
-			if ($date < strtotime(date('c', $this->db->time()) . ' -1 day')) {
+			if ($date < $this->timeDiff('-1 day')) {
 				continue;
 			}
 			$dateDiff = $this->db->time() - $date;

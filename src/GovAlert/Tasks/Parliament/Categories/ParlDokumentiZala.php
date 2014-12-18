@@ -27,7 +27,7 @@ class ParlDokumentiZala extends Parliament
 
 			$date = mb_substr($item->textContent, -10);
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
-			if (strtotime($date) > strtotime("-1 week")) {
+			if (strtotime($date) > $this->timeDiff('-1 week')) {
 				$conn_id = ftp_connect("193.109.55.85");
 				if (!$conn_id) continue;
 				$login_result = ftp_login($conn_id, "anonymous", "");
