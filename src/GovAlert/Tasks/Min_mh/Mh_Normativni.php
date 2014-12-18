@@ -1,8 +1,9 @@
 <?php
 
-class Mh_Normativni extends Min_mh
-{
+namespace GovAlert\Tasks\Min_mh;
 
+class Mh_Normativni extends Base
+{
 	protected $categoryId = 2;
 	protected $categoryName = 'нормативни актове';
 	protected $categoryURL = 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=393';
@@ -24,16 +25,16 @@ class Mh_Normativni extends Min_mh
 			$date = explode(".", $date);
 			$date = substr($date[2], 0, 4) . "-" . $date[1] . "-" . substr($date[0], -2);
 
-			if (strtotime($date) < $this->timeDiff('-1 month'))
+			if (strtotime($date) < $this->timeDiff('-1 month')) {
 				continue;
-
+			}
 			$title = $item->childNodes->item(1)->textContent;
 			$title = $this->cleanText($title);
 
-			$url = $item->childNodes->item(1)->getAttribute("href");
-			$urlstart = strpos($url, 'Articles.aspx');
-			$url = substr($url, $urlstart, strpos($url, '"', $urlstart) - $urlstart);
-			$url = "http://www.mh.government.bg/$url";
+			$url = $item->childNodes->item(1)->getAttribute('href');
+			$urlStart = strpos($url, 'Articles.aspx');
+			$url = substr($url, $urlStart, strpos($url, '"', $urlStart) - $urlStart);
+			$url = 'http://www.mh.government.bg/' . $url;
 			$hash = md5($url);
 
 			$query[] = [
@@ -46,5 +47,4 @@ class Mh_Normativni extends Min_mh
 		}
 		return $query;
 	}
-
 } 

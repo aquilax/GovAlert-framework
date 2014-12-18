@@ -311,6 +311,104 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => 'abbafbe9f0b37dcb84ca6b99dc770c36',
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Min_mh\Mh_Naredbi',
+				[
+					'Min_mh/Mh_Naredbi.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Наредба за изменение и допълнение на Наредба № 6 от 2007 г. за утвърждаване на медицински стандарт за трансплантация на органи, тъкани и клетки',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=391&categoryid=7368',
+						'hash' => '7794c7607fa9e0113ed5473e35ae0857',
+
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mh\Mh_Normativni',
+				[
+					'Min_mh/Mh_Normativni.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Проект на Постановление на Министерския съвет за одобряване на вътрешнокомпенсирани промени на утвърдените разходи по области на политики/ бюджетни програми по бюджета на Министерство на здравеопазването за 2014 г.',
+						'description' => null,
+						'date' => '2014-12-16',
+						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=393&categoryid=7398',
+						'hash' => '8f8260a925ab872f348250f62bc10122',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mh\Mh_Novini',
+				[
+					'Min_mh/Mh_Novini.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Министър Москов Ще Посети Мбал „Д-Р Тота Венкова” Ад, Гр. Габрово',
+						'description' => 'Утре, 18 декември, министърът на здравеопазването д-р Петър Москов и заместник-министър д-р Ваньо Шарков ще посетят МБАЛ „Д-р Тота Венкова” АД, гр. Габрово по случай...',
+						'date' => '2014-12-17',
+						'url' => 'http://www.mh.government.bg/News.aspx?pageid=401&newsid=4457',
+						'hash' => '4e45e81d60b82f474ea1a3be76cafc5d',
+						'media' => null,
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mh\Mh_Otcheti',
+				[
+					'Min_mh/Mh_Otcheti.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Тримесечен отчет на МЗ за изпълнение на бюджета (към 30.09.2014 г.)',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=532&categoryid=7319',
+						'hash' => 'deef77a93d03a7ac39eeca77db790df0',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mh\Mh_Postanovleniq',
+				[
+					'Min_mh/Mh_Postanovleniq.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Постановление № 233 от 31 юли 2014 г. за изменение и допълнение на Наредбата за условията, правилата и реда за регулиране и регистриране на цените на лекарствените продукти, приета с Постановление № 97 на Министерския съвет от 2013 г.',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=381&categoryid=7108',
+						'hash' => 'fa0ba7719dfeb52ba02a512894520a78',
+					]
+				],
+			], [
+				'\GovAlert\Tasks\Min_mh\Mh_Saobshteniq',
+				[
+					'Min_mh/Mh_Saobshteniq.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Съобщение: Съобщение заверка от Министерството на здравеопазването на документи и други книжа, които са предназначени за използване в чужбина и се легализират от Министерството на външните работи',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=426&categoryid=7386&home=true',
+						'hash' => '01a000420b62cae16f254e50df29b437',
+					]
+				]
 			]
 		];
 	}

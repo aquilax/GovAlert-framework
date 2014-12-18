@@ -1,11 +1,12 @@
 <?php
 
-class Mh_Naredbi extends Min_mh
-{
+namespace GovAlert\Tasks\Min_mh;
 
-	protected $categoryId = 3;
-	protected $categoryName = 'наредби';
-	protected $categoryURL = 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=391';
+class Mh_Otcheti extends Base
+{
+	protected $categoryId = 5;
+	protected $categoryName = 'отчети';
+	protected $categoryURL = 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=532';
 
 	function execute($html)
 	{
@@ -19,21 +20,20 @@ class Mh_Naredbi extends Min_mh
 			$title = $item->textContent;
 			$title = $this->cleanText($title);
 
-			$url = $item->getAttribute("href");
-			$urlstart = strpos($url, 'Articles.aspx');
-			$url = substr($url, $urlstart, strpos($url, '"', $urlstart) - $urlstart);
-			$url = "http://www.mh.government.bg/$url";
+			$url = $item->getAttribute('href');
+			$urlStart = strpos($url, 'Articles.aspx');
+			$url = substr($url, $urlStart, strpos($url, '"', $urlStart) - $urlStart);
+			$url = 'http://www.mh.government.bg/'. $url;
 			$hash = md5($url);
 
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];
 		}
 		return $query;
 	}
-
 } 

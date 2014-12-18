@@ -1,8 +1,9 @@
 <?php
 
-class Mh_Saobshteniq extends Min_mh
-{
+namespace GovAlert\Tasks\Min_mh;
 
+class Mh_Saobshteniq extends Base
+{
 	protected $categoryId = 0;
 	protected $categoryName = 'съобщения';
 	protected $categoryURL = 'http://www.mh.government.bg/AllMessages.aspx';
@@ -14,16 +15,16 @@ class Mh_Saobshteniq extends Min_mh
 			"//table[@id='ctl00_ContentPlaceClient_gvMessages']//a"
 		);
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$title = $item->textContent;
-			$title = "Съобщение: " . $this->cleanText($title);
-			$url = "http://www.mh.government.bg/" . $item->getAttribute("href");
+			$title = 'Съобщение: ' . $this->cleanText($title);
+			$url = 'http://www.mh.government.bg/' . $item->getAttribute('href');
 			$hash = md5($url);
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];
@@ -32,4 +33,4 @@ class Mh_Saobshteniq extends Min_mh
 		}
 		return $query;
 	}
-} 
+}
