@@ -1,6 +1,8 @@
 <?php
 
-class Mrrb_Informaciq extends Min_mrrb
+namespace GovAlert\Tasks\Min_mrrb;
+
+class Mrrb_Informaciq extends Base
 {
 
 	protected $categoryId = 1;
@@ -27,4 +29,4 @@ class Mrrb_Informaciq extends Min_mrrb
 		}
 		return $query;
 	}
-} 
+}

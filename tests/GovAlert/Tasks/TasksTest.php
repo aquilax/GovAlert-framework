@@ -521,6 +521,39 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '2cf3dae4d89e5c8b8a6c6f0430ee082b',
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Min_mrrb\Mrrb_Obqvi',
+				[
+					'Min_mrrb/Mrrb_Obqvi.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Обява: Одобрена е Методика за оценка на геоложкия риск',
+						'description' => null,
+						'date' => '2014-12-15',
+						'url' => 'http://www.mrrb.government.bg/?controller=articles&id=6027',
+						'hash' => '05a9822b1abffc9d443edb3127bc6dad',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mrrb\Mrrb_Informaciq',
+				[
+					'Min_mrrb/Mrrb_Informaciq.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Информация: Правила за устройството, организацията на работа и дейността на Съвета по регионална политика към министъра на регионалното развитие и благоустройството',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.mrrb.government.bg/?controller=articles&id=6001',
+						'hash' => 'e3c1d7b2b85a28fc6a169fc83def0381',
+
+					]
+				]
 			]
 		];
 	}

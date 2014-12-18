@@ -1,0 +1,215 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Министерство на регионалното развитие</title>
+		<link rel="stylesheet" type="text/css" href="css.css" />
+		<script type="text/javascript" src="js/jquery.js?t=1"></script>
+		<script type="text/javascript" src="js/main.js?t=1"></script>
+		<script type="text/javascript" src="js/highslide-with-gallery.packed.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+                		
+		<link rel="stylesheet" type="text/css" href="js/highslide.css" />
+	
+		<script type="text/javascript">
+			hs.graphicsDir = 'js/graphics/';
+			hs.showCredits = false;
+			hs.align = 'center';
+		</script>
+	</head>
+	<body>
+		<div class="main">
+			<div id="firstLine">
+				<a href="./">Начало</a> | 
+				<a href="?controller=category&catid=40">Контакти</a> | 
+				<a href="./en/" class="en_flag">English <img src="images/en_flag.gif" border="0" style="margin-top:5px;float:right;margin-left:4px;" /></a> 
+				
+			</div>
+			
+			<div id="header">
+				<a href="./"><img border="0" src="images/logo.gif" id="logo" /></a>
+				
+				<div id="headerSearch">
+					<form method="post" id="searchFrm" action="?controller=search">
+						<input onfocus="if(this.value == 'дума или новина') { this.value='';}" type="text" name="q" value="дума или новина" />
+						<span onclick="$('#searchFrm').submit();" id="searchBtn">Търси</span>
+					</form>
+				</div>
+			</div>
+			
+			<div id="menu">
+				<a class="aMinistry" href="?controller=category&catid=1">МИНИСТЕРСТВО</a><img src="images/menu_sep.gif" align="left" /><a class="aPrograms" href="?controller=category&catid=2">ПРОГРАМИ</a><img src="images/menu_sep.gif" align="left" /><a class="aInfrastructure" href="?controller=category&catid=3">ИНФРАСТРУКТУРA</a><img src="images/menu_sep.gif" align="left" /><a class="aProgress" href="?controller=category&catid=4">РЕГИОНАЛНО РАЗВИТИЕ</a><img src="images/menu_sep.gif" align="left" /><a class="aHomeUpdate" href="?controller=category&catid=5">ОБНОВЯВАНЕ НА ЖИЛИЩА</a><img src="images/menu_sep.gif" align="left" /><a class="aNormativeActs" href="?controller=category&catid=6">НОРМАТИВНИ АКТОВЕ</a><img src="images/menu_sep.gif" align="left" /><a class="aMedia active_menu" href="?controller=news&action=listall">ЗА МЕДИИТЕ</a>			</div>
+			
+			<div id="content">
+				<div id="path">
+					<a href="./">Начало</a>
+				</div>
+				
+				<div id="left">
+					
+					
+										<div id="subMenuLeft">
+						<div id="subMenuLeftHeader"></div>
+						
+						
+						<a href="?controller=news&action=listall&catid=37" ><span>Новини</span></a>
+									<div class="subMenuSep"></div><a href="?controller=category&action=interviews&catid=64" ><span>Интервюта</span></a>
+									<div class="subMenuSep"></div><a href="?controller=category&action=notice&catid=38"  class="subMenuTopActive"><span>Обяви</span></a>
+									<div class="subMenuSep"></div><a href="?controller=gallery&action=listall&catid=43" ><span>Фото галерия</span></a>
+									<div class="subMenuSep"></div><a href="?controller=category&catid=39" ><span>Полезна информация</span></a>
+									<div class="subMenuSep"></div>						
+						
+					</div>
+						
+
+<div class="categoryInner"><div class="catTitle">Обяви</div><div style="float:left;width:470px;margin-top:30px;"><form method="get">
+					<input type="hidden" name="controller" value="category" />
+					<input type="hidden" name="catid" value="38" />
+					<input type="hidden" name="action" value="notice" />
+					<div style="margin-bottom:10px;width:455px;padding:10px;border-top:1px solid #cccccc;border-bottom:1px solid #cccccc;overflow:hidden;background-color:#eaedef;">
+						<div style="overflow:hidden;height:25px;">
+							<div style="font-family:Tahoma;width:103px;float:left;color:#174c94;padding-left:10px;padding-right:10px;font-size:11px;line-height:20px;">
+								Изберете месец:
+							</div>
+							<select style="float:left;display:block;margin-right:8px;width:110px;" name="month">
+								<option value="1">януари<option value="2">февруари<option value="3">март<option value="4">април<option value="5">май<option value="6">юни<option value="7">юли<option value="8">август<option value="9">септември<option value="10">октомври<option value="11">ноември<option selected value="12">декември
+							</select>
+							<input type="submit" class="filterFrmButton" value="ПОКАЖИ">
+						</div>
+						<div style="overflow:hidden;height:25px;">
+							<div style="font-family:Tahoma;width:103px;float:left;color:#174c94;padding-left:10px;padding-right:10px;font-size:11px;line-height:20px;">
+								Изберете година:
+							</div>
+							<select name="year" style="width:110px;">
+								<option value="2008">2008<option value="2009">2009<option value="2010">2010<option value="2011">2011<option value="2012">2012<option value="2013">2013<option selected value="2014">2014
+							</select>
+						</div>
+						<input type="hidden" name="filter" value="0" id="srchFrmFilter" />
+						<input type="submit" style="float:right;" onclick="$('#srchFrmFilter').val('1')" class="filterFrmButton" value="Покажи всички налични записи">
+
+					</div>
+
+				</form>
+			<div class="listCategoryArticles">
+				<img src="images.php?src=pics/default.gif&w=80" align="left" />
+				<font color="red">15 декември 2014</font><br />
+				<a href="?controller=articles&id=6027" style="font-weight:bold;">Одобрена е Методика за оценка на геоложкия риск</a><Br />
+				<p><i></i></p>
+					
+				<div>
+					<a href="?controller=articles&id=6027" style="font-weight:normal;">виж повече</a>
+				</div>
+				
+			</div>
+			
+			<div class="listCategoryArticles">
+				<img src="images.php?src=pics/default.gif&w=80" align="left" />
+				<font color="red">12 декември 2014</font><br />
+				<a href="?controller=articles&id=6019" style="font-weight:bold;">ГД „ПРР“ приема оферти за отдаване под наем на помещение за съхранение на документи на хартиен носител по изпълнение на ОПРР</a><Br />
+				<p><i></i></p>
+					
+				<div>
+					<a href="?controller=articles&id=6019" style="font-weight:normal;">виж повече</a>
+				</div>
+				
+			</div>
+			</div></div>									
+				</div>
+				
+				<div id="right">
+										
+					<div class="rightBanner" id="banner">
+						<a href="./?controller=category&catid=5"><img src="images/mrrb.gif" /></a>
+					</div>
+					
+					
+					
+					<div class="calendarTitle">
+						КАЛЕНДАР
+					</div>
+					<table cellspacing="0" border="0" cellpadding="0" class="calendar"><tbody>
+<tr class="clendarHeader">
+<th colspan="7" align="center">Декември 2014</th>
+</tr>
+<tr class="calendarDay_names">
+<th align="center" class="day_name ">Н</th>
+<th align="center" class="day_name ">П</th>
+<th align="center" class="day_name ">В</th>
+<th align="center" class="day_name ">С</th>
+<th align="center" class="day_name ">Ч</th>
+<th align="center" class="day_name ">П</th>
+<th align="center" class="day_name ">С</th>
+</tr>
+<tr class="week week1">
+<td align="center" class="day " rel="day0"></td>
+<td align="center" class="day " rel="day1">1</td>
+<td align="center" class="day " rel="day2">2</td>
+<td align="center" class="day " rel="day3">3</td>
+<td align="center" class="day " rel="day4">4</td>
+<td align="center" class="day " rel="day5">5</td>
+<td align="center" class="day " rel="day6">6</td>
+</tr>
+<tr class="week week2">
+<td align="center" class="day " rel="day0">7</td>
+<td align="center" class="day " rel="day1">8</td>
+<td align="center" class="day " rel="day2">9</td>
+<td align="center" class="day " rel="day3">10</td>
+<td align="center" class="day " rel="day4">11</td>
+<td align="center" class="day " rel="day5"><a class="calendarActive" href="?controller=category&action=calendar&day=12">12</a></td>
+<td align="center" class="day " rel="day6">13</td>
+</tr>
+<tr class="week week3">
+<td align="center" class="day " rel="day0"><a class="calendarActive" href="?controller=category&action=calendar&day=14">14</a></td>
+<td align="center" class="day " rel="day1"><a class="calendarActive" href="?controller=category&action=calendar&day=15">15</a></td>
+<td align="center" class="day " rel="day2"><a class="calendarActive" href="?controller=category&action=calendar&day=16">16</a></td>
+<td align="center" class="day " rel="day3"><a class="calendarActive" href="?controller=category&action=calendar&day=17">17</a></td>
+<td align="center" class="day " rel="day4">18</td>
+<td align="center" class="day " rel="day5">19</td>
+<td align="center" class="day " rel="day6">20</td>
+</tr>
+<tr class="week week4">
+<td align="center" class="day " rel="day0">21</td>
+<td align="center" class="day " rel="day1">22</td>
+<td align="center" class="day " rel="day2">23</td>
+<td align="center" class="day " rel="day3">24</td>
+<td align="center" class="day " rel="day4">25</td>
+<td align="center" class="day " rel="day5">26</td>
+<td align="center" class="day " rel="day6">27</td>
+</tr>
+<tr class="week week5">
+<td align="center" class="day " rel="day0">28</td>
+<td align="center" class="day " rel="day1">29</td>
+<td align="center" class="day " rel="day2">30</td>
+<td align="center" class="day " rel="day3">31</td>
+</tr>
+<tbody></table>					
+					
+					
+					<a class="rightButton" href="?controller=category&catid=41"><img src="images/corruption_img.gif" border="0" align="left" />СИГНАЛИ ЗА КОРУПЦИЯ</a>
+					<a class="rightButton" href="?controller=category&catid=42"><img src="images/open_management.gif" border="0" align="left" />ОТКРИТО УПРАВЛЕНИЕ</a>
+					<a class="rightButton" style="padding-top:6px;height:40px;line-height:17px;" href="http://e-services.mrrb.government.bg/" target="_blank"><img style="margin-top:5px;" src="images/open_management.gif" border="0" align="left" />E-УСЛУГИ, ПРЕДОСТАВЯНИ ОТ МРР</a>
+					<a class="rightButton" style="padding-top:6px;height:40px;line-height:17px;" href="?controller=category&catid=80"><img style="margin-top:5px;" src="images/open_management.gif" border="0" align="left" />РЕГИСТЪР НА АГЛОМЕРАЦИИТЕ</a>
+					
+				</div>
+			</div>
+		</div>
+                        <div id="footer">
+                <div class="main">
+                     <div class="footerLeft"><a target="_blank" href="http://www.grao.bg/">Гражданска регистрация и административно обслужване (ГРАО)</a><a target="_blank" href="http://www.flag-bg.com/">Фонд за органите на местното самоуправление в България - ФЛАГ</a><a target="_blank" href="http://optransport.bg/">Оперативна програма "Транспорт"</a><a target="_blank" href="http://www.eufunds.bg/">Структурните фондове в България</a></div><div class="footerCenter"><a target="_blank" href="https://212.122.182.73:8181/">Регистър на вътрешноведомствени документи на Министерството на регионалното развитие</a><a target="_blank" href="http://gis.mrrb.government.bg/MRRB/">Географска информационна система</a><a target="_blank" href="http://www.strategy.bg/">Портал за обществени консултации</a><a target="_blank" href="http://fra.europa.eu/en">Агенция за основните права в Европейския съюз</a></div>                   
+                        <div class="footerRight">
+                                <a target="_blank" href="http://www.bgregio.eu/"><img border="0" src="images/oop_rr.gif" /></a>
+                                <a style="margin-right: 10px;" target="_blank" href="http://www.api.government.bg/"><img border="0" width="180" height="100" src="images/api.png" /></a>
+                        </div>
+
+                        <div class="bottomLine">
+                                2014 &copy; www.mrrb.government.bg / Всички права запазени
+                        </div>
+
+                </div>
+        </div>
+	</body>
+</html>
+
+
+
