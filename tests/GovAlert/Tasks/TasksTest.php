@@ -32,7 +32,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Cik/CikDnevenRed.html'
 				],
-				'2014-12-11T23:24:23+01:00',
+				'2014-12-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -48,7 +48,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Cik/CikJalbi.html',
 				],
-				'2014-12-11T23:24:23+01:00',
+				'2014-12-11T23:24:23+02:00',
 				3,
 				[
 					[
@@ -76,7 +76,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Cik/CikProtokol.html'
 				],
-				'2014-12-11T23:24:23+01:00',
+				'2014-12-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -92,7 +92,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Cik/CikResheniq.html',
 				],
-				'2014-12-11T23:24:23+01:00',
+				'2014-12-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -108,7 +108,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Cik/CikSaobshteniq.html',
 				],
-				'2014-12-11T23:24:23+01:00',
+				'2014-12-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -124,7 +124,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Comdos/ComdosResheniq.html',
 				],
-				'2014-12-02T23:24:23+01:00',
+				'2014-12-02T23:24:23+02:00',
 				1,
 				[
 					[
@@ -140,7 +140,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Constcourt/ConstcourtNovini.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -156,7 +156,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Constcourt/ConstcourtSaobchteniq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -172,7 +172,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovDokumenti.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -188,7 +188,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovNovini.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -204,7 +204,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovNovini2.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -220,7 +220,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovPorachki.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -236,7 +236,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovResheniq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -252,7 +252,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovSabitiq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -268,7 +268,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Government/GovZasedaniq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -284,13 +284,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Kfn/Kfn_Analizi.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Анализ: Преглед на международната среда, октомври 2014 г.',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.fsc.bg/public/upload/files/menu/Pregled_na_mejdunarodnata_sreda_oktomvri_2014.pdf',
 						'hash' => 'c2a36d20c439df8ffb2866a783e9abb5',
 					]
@@ -300,13 +300,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Kfn/Kfn_Novini.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Съобщение във връзка с провеждането на изпитите за придобиване на право за извършване на дейност като брокер на ценни книжа и инвестиционен консултант',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.fsc.bg/Saobshtenie-vav-vrazka-s-provejdaneto-na-izpitite-za-pridobivane-na-pravo-za-izvarshvane-na-deynost-kato-broker-na-cenni-knija-i-investicionen-konsultant-news-3877-bg',
 						'hash' => 'abbafbe9f0b37dcb84ca6b99dc770c36',
 					]
@@ -316,13 +316,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mh/Mh_Naredbi.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Наредба за изменение и допълнение на Наредба № 6 от 2007 г. за утвърждаване на медицински стандарт за трансплантация на органи, тъкани и клетки',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=391&categoryid=7368',
 						'hash' => '7794c7607fa9e0113ed5473e35ae0857',
 
@@ -333,7 +333,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mh/Mh_Normativni.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -349,7 +349,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mh/Mh_Novini.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -366,13 +366,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mh/Mh_Otcheti.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Тримесечен отчет на МЗ за изпълнение на бюджета (към 30.09.2014 г.)',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=532&categoryid=7319',
 						'hash' => 'deef77a93d03a7ac39eeca77db790df0',
 					]
@@ -382,13 +382,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mh/Mh_Postanovleniq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Постановление № 233 от 31 юли 2014 г. за изменение и допълнение на Наредбата за условията, правилата и реда за регулиране и регистриране на цените на лекарствените продукти, приета с Постановление № 97 на Министерския съвет от 2013 г.',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=381&categoryid=7108',
 						'hash' => 'fa0ba7719dfeb52ba02a512894520a78',
 					]
@@ -398,13 +398,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mh/Mh_Saobshteniq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Съобщение: Съобщение заверка от Министерството на здравеопазването на документи и други книжа, които са предназначени за използване в чужбина и се легализират от Министерството на външните работи',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mh.government.bg/Articles.aspx?lang=bg-BG&pageid=426&categoryid=7386&home=true',
 						'hash' => '01a000420b62cae16f254e50df29b437',
 					]
@@ -414,7 +414,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_Aktivi.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -430,7 +430,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_Drugi.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -446,13 +446,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_Fininst.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Прилагане на правилата за избор на финансови институции към 30.09.2014 г.',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mi.government.bg/files/useruploads/files/updu/info_prilagane_pravila-30_09_2014.doc',
 						'hash' => '5dbd00717130b7e71b192c7315af65eb',
 					]
@@ -462,13 +462,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_KoncentraciqFin.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Наличие на концентрация на финансови средства към 30.09.2014 г.',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mi.government.bg/files/useruploads/files/updu/spravka_koncentraciq-za_ka4vane.xlsx',
 						'hash' => '3be528976138e3c4780d3dee90e520ce',
 					]
@@ -478,13 +478,13 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_Makrobiuletin.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
 						'title' => 'Основни макроикономически показатели за октомври 2014 г.',
 						'description' => null,
-						'date' => '2014-11-11T23:24:23+01:00',
+						'date' => '2014-11-11T23:24:23+02:00',
 						'url' => 'http://www.mi.government.bg/files/useruploads/files/macrobuletin/bg_macro_bulletin_10-2014.pdf',
 						'hash' => '1fe02d8bca093b5e5566700635ff4da3',
 					]
@@ -494,7 +494,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_Obqvi.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -510,7 +510,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mi/Mi_Obsajdane.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -526,7 +526,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mrrb/Mrrb_Obqvi.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -542,7 +542,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Min_mrrb/Mrrb_Informaciq.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -559,7 +559,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					'Nap/NapAktualno.html',
 				],
-				'2014-11-11T23:24:23+01:00',
+				'2014-11-11T23:24:23+02:00',
 				1,
 				[
 					[
@@ -575,7 +575,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 //				[
 //					'Nek/NekSaobshteniq.html',
 //				],
-//				'2014-11-11T23:24:23+01:00',
+//				'2014-11-11T23:24:23+02:00',
 //				1,
 //				[]
 			]
