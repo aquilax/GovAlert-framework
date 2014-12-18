@@ -2,6 +2,8 @@
 
 namespace GovAlert\Tasks\Government;
 
+use GovAlert\Common\Utils;
+
 class GovZasedaniq extends Base
 {
 

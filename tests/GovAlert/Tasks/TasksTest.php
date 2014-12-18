@@ -217,6 +217,71 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '5cabaab6feb25d4e21999940c862e44d',
 					]
 				],
+			], [
+				'\GovAlert\Tasks\Government\GovPorachki',
+				[
+					'Government/GovPorachki.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'СЪОБЩЕНИЕ ЗА ПРОМЯНА НА ДАТАТА НА ПУБЛИЧНОТО ЗАСЕДАНИЕ ПО ОТВАРЯНЕ И ОПОВЕСТЯВАНЕ НА ЦЕНОВИТЕ ОФЕРТИ - Обявеното публично заседание за 13 ноември 2014 г. (четвъртък) от 15.00 ч., в сградата на Министерския съвет – гр. София, бул. „Княз Ал. Дондуков“ № 1, по отваряне и оповестяване на ценовите оферти на участниците в открита процедура за възлагане на обществена поръчка с предмет: „Извършване на независим финансов одит по изпълнение на дейностите и отчитане на разходите по Фонд Техническа помощ (ФТП) и Помощ за подготовка на проекти (ППП) по Българо-швейцарската програма за сътрудничество“ се отменя. Същото ще бъде проведено на 17.11.2014 г. (понеделник) ) от 15.00 ч., в сградата на Министерския съвет – гр. София, бул. „Княз Ал. Дондуков“ № 1.',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0235&n=693&g=',
+						'hash' => '9a1541c1bf37ca11cdc3696867e073c6',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Government\GovResheniq',
+				[
+					'Government/GovResheniq.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Решение: Одобрен е Национален план за 2015 г. за насърчаване на равнопоставеността на жените и мъжете',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0228&n=6581&g=',
+						'hash' => '5168df717e06b4dfe4473869c6b25c8b',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Government\GovSabitiq',
+				[
+					'Government/GovSabitiq.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Събитие: 18 и 19 декември - Премиерът Бойко Борисов ще участва в редовното заседание на Европейския съвет',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0217&n=3853&g=',
+						'hash' => 'e290fe7ebfa5b13492f6c857dc129adf',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Government\GovZasedaniq',
+				[
+					'Government/GovZasedaniq.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Дневен ред на заседанието на МС на 17.12.2014 г.',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0225&n=274&g=',
+						'hash' => '9bee5df3ae49590e902321323810e9f0',
+					]
+				]
+
 			]
 		];
 	}
@@ -244,7 +309,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 
 		$i = 0;
-		foreach($fixtures as $fixture) {
+		foreach ($fixtures as $fixture) {
 			$loaderMock->expects($this->at($i++))
 				->method('loadURL')
 				->willReturn(file_get_contents(FIXTURES_BASE . $fixture));
