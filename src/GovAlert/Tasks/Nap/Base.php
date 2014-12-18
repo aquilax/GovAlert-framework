@@ -5,7 +5,9 @@ links:
 0: новини http://www.nap.bg/page?id=223
 */
 
-abstract class Nap extends Task
+namespace GovAlert\Tasks\Nap;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 23;
 	protected $sourceName = 'НАП';

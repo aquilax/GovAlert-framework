@@ -554,6 +554,22 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Nap\NapAktualno',
+				[
+					'Nap/NapAktualno.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Без достъп до електронни услуги в събота от 09:00 ч. до 17:00 ч.',
+						'description' => null,
+						'date' => '2014-12-18',
+						'url' => 'http://www.nap.bg/news?id=1925',
+						'hash' => 'e8e9b1dff95531895c5fc840ee5e446d',
+					]
+				]
 			]
 		];
 	}
