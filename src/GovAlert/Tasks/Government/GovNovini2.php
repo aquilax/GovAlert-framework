@@ -1,6 +1,7 @@
 <?php
 
 namespace GovAlert\Tasks\Government;
+use GovAlert\Common\Utils;
 
 class GovNovini2 extends Base
 {
@@ -19,21 +20,23 @@ class GovNovini2 extends Base
 
 		$query = [];
 		foreach ($items as $item) {
-			$inneritems = $this->getXPathItems($xpath, ".//td", $item);
+			$innerItems = $this->getXPathItems($xpath, ".//td", $item);
 
-			if ($inneritems->length != 4)
+			if ($innerItems->length != 4) {
 				continue;
+			}
 
-			$date = $inneritems->item(1)->textContent;
+			$date = $innerItems->item(1)->textContent;
 			$date = Utils::bgMonth($date);
-			$date = mb_substr($date, 6, 4) . "-" . mb_substr($date, 3, 2) . "-" . mb_substr($date, 0, 2);
-			if (strtotime($date) < $this->timeDiff('-1 week'))
+			$date = mb_substr($date, 6, 4) . '-' . mb_substr($date, 3, 2) . '-' . mb_substr($date, 0, 2);
+			if (strtotime($date) < $this->timeDiff('-1 week')) {
 				continue;
-
-			$url = "http://www.government.bg" . $inneritems->item(0)->firstChild->getAttribute("href");
+			}
+			$url = 'http://www.government.bg' . $innerItems->item(0)->firstChild->getAttribute('href');
 			$hash = md5($url);
-			if (!$this->checkHash($hash))
+			if (!$this->checkHash($hash)) {
 				continue;
+			}
 
 			$description = null;
 			$media = null;
@@ -68,7 +71,7 @@ class GovNovini2 extends Base
 				}
 			}
 
-			$title = $inneritems->item(0)->firstChild->textContent;
+			$title = $innerItems->item(0)->firstChild->textContent;
 			$title = Utils::cleanSpaces($title);
 
 			$query[] = [

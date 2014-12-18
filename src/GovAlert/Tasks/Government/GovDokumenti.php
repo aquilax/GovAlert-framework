@@ -1,10 +1,10 @@
 <?php
 
 namespace GovAlert\Tasks\Government;
+use GovAlert\Common\Utils;
 
 class GovDokumenti extends Base
 {
-
 	protected $categoryId = 3;
 	protected $categoryName = 'документи';
 	protected $categoryURL = 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&g=';
@@ -21,8 +21,8 @@ class GovDokumenti extends Base
 			$hash = md5($item->textContent);
 			$title = $item->childNodes->item(1)->textContent;
 			$title = Utils::cleanSpaces($title);
-			$title = "Нов документ: " . Utils::fixCase($title);
-			$url = "http://www.government.bg" . $item->getAttribute("href");
+			$title = 'Нов документ: ' . Utils::fixCase($title);
+			$url = 'http://www.government.bg' . $item->getAttribute('href');
 			$query[] = [
 				'title' => $title,
 				'description' => null,

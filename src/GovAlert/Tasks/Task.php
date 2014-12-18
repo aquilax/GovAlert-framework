@@ -52,8 +52,7 @@ abstract class Task
 		}
 	}
 
-	protected
-	function loadUrl($url, $linki = null) {
+	protected function loadUrl($url, $linki = null) {
 		return $this->loader->loadURL($this->sourceId, $this->categoryId, $url, $linki);
 	}
 

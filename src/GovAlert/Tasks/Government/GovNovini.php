@@ -1,6 +1,7 @@
 <?php
 
 namespace GovAlert\Tasks\Government;
+use GovAlert\Common\Utils;
 
 class GovNovini extends Base
 {
@@ -26,7 +27,7 @@ class GovNovini extends Base
 			if (strtotime($date) < $this->timeDiff('-1 week'))
 				continue;
 
-			$url = "http://www.government.bg" . $innerItems->item(0)->firstChild->getAttribute("href");
+			$url = 'http://www.government.bg' . $innerItems->item(0)->firstChild->getAttribute('href');
 			$hash = md5($url);
 
 			$description = null;
@@ -48,20 +49,21 @@ class GovNovini extends Base
 
 				$itemImages = $this->getXPathItems(
 					$xpathSub,
-					".//img",
+					'.//img',
 					$itemSub->item(0)
 				);
 
 				if ($itemImages->length > 0) {
-					$media = array("image" => array());
+					$media = ['image' => []];
 					foreach ($itemImages as $itemImg) {
-						$imageURL = $itemImg->getAttribute("src");
-						if (strpos($imageURL, "government.bg") === false)
-							$imageURL = "http://www.government.bg/" . $imageURL;
-						$imageURL = mb_ereg_replace("images", "bigimg", $imageURL, "im");
-						$imageTitle = trim($itemImg->getAttribute("alt"));
+						$imageURL = $itemImg->getAttribute('src');
+						if (strpos($imageURL, 'government.bg') === false) {
+							$imageURL = 'http://www.government.bg/' . $imageURL;
+						}
+						$imageURL = mb_ereg_replace('images', 'bigimg', $imageURL, 'im');
+						$imageTitle = trim($itemImg->getAttribute('alt'));
 						$imageTitle = Utils::cleanSpaces($imageTitle);
-						$media["image"][] = array($this->loadItemImage($imageURL, []), $imageTitle);
+						$media['image'][] = [$this->loadItemImage($imageURL, []), $imageTitle];
 					}
 				}
 			}

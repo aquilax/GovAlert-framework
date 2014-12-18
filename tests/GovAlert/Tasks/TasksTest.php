@@ -29,7 +29,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 //				[]
 //			], [
 				'\GovAlert\Tasks\Cik\CikDnevenRed',
-				'Cik/CikDnevenRed.html',
+				[
+					'Cik/CikDnevenRed.html'
+				],
 				'2014-12-11T23:24:23+01:00',
 				1,
 				[
@@ -43,7 +45,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				]
 			], [
 				'\GovAlert\Tasks\Cik\CikJalbi',
-				'Cik/CikJalbi.html',
+				[
+					'Cik/CikJalbi.html',
+				],
 				'2014-12-11T23:24:23+01:00',
 				3,
 				[
@@ -69,7 +73,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				]
 			], [
 				'\GovAlert\Tasks\Cik\CikProtokol',
-				'Cik/CikProtokol.html',
+				[
+					'Cik/CikProtokol.html'
+				],
 				'2014-12-11T23:24:23+01:00',
 				1,
 				[
@@ -83,7 +89,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				],
 			], [
 				'\GovAlert\Tasks\Cik\CikResheniq',
-				'Cik/CikResheniq.html',
+				[
+					'Cik/CikResheniq.html',
+				],
 				'2014-12-11T23:24:23+01:00',
 				1,
 				[
@@ -97,7 +105,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				],
 			], [
 				'\GovAlert\Tasks\Cik\CikSaobshteniq',
-				'Cik/CikSaobshteniq.html',
+				[
+					'Cik/CikSaobshteniq.html',
+				],
 				'2014-12-11T23:24:23+01:00',
 				1,
 				[
@@ -113,7 +123,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				],
 			], [
 				'\GovAlert\Tasks\Comdos\ComdosResheniq',
-				'Comdos/ComdosResheniq.html',
+				[
+					'Comdos/ComdosResheniq.html',
+				],
 				'2014-12-02T23:24:23+01:00',
 				1,
 				[
@@ -127,7 +139,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				],
 			], [
 				'\GovAlert\Tasks\Constcourt\ConstcourtNovini',
-				'Constcourt/ConstcourtNovini.html',
+				[
+					'Constcourt/ConstcourtNovini.html',
+				],
 				'2014-11-11T23:24:23+01:00',
 				1,
 				[
@@ -141,7 +155,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				]
 			], [
 				'\GovAlert\Tasks\Constcourt\ConstcourtSaobchteniq',
-				'Constcourt/ConstcourtSaobchteniq.html',
+				[
+					'Constcourt/ConstcourtSaobchteniq.html',
+				],
 				'2014-11-11T23:24:23+01:00',
 				1,
 				[
@@ -153,6 +169,54 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => 'e18ba7ea2c9c3f9d8ea7d20a0f775039',
 					]
 				],
+			], [
+				'\GovAlert\Tasks\Government\GovDokumenti',
+				[
+					'Government/GovDokumenti.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Нов документ: Заповед на заместник министър-председателя по координация на европейските политики и институционалните въпроси за обявяване на процедура за публично изслушване на кандидати за председател на ДАБЧ',
+						'description' => null,
+						'date' => null,
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0211&n=129&g=',
+						'hash' => 'bb3b2e23b6eece23bb75a18bec3b9612',
+					]
+				],
+			], [
+				'\GovAlert\Tasks\Government\GovNovini',
+				[
+					'Government/GovNovini.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Германия застава зад България за разрешаването на ситуацията около „Южен поток”',
+						'description' => null,
+						'date' => '2014-12-15',
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0213&n=910&g=',
+						'hash' => '3c8b70507f3d9eccee67f69ea8a869fb',
+					]
+				],
+			], [
+				'\GovAlert\Tasks\Government\GovNovini2',
+				[
+					'Government/GovNovini2.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Осигуряване на европейски стандарт на правосъдие е целта на приета от правителството актуализирана стратегия за продължаване на реформата в съдебната система',
+						'description' => null,
+						'date' => '2014-12-17',
+						'url' => 'http://www.government.bg/cgi-bin/e-cms/vis/vis.pl?s=001&p=0212&n=3345&g=',
+						'hash' => '5cabaab6feb25d4e21999940c862e44d',
+					]
+				],
 			]
 		];
 	}
@@ -160,7 +224,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider tasksProvider
 	 */
-	public function testTask($className, $fixture, $date, $limit, $items)
+	public function testTask($className, $fixtures, $date, $limit, $items)
 	{
 		$dbMock = $this->getMockBuilder('\GovAlert\Common\Database')
 			->setMethods(['time'])
@@ -174,15 +238,21 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$fixture = file_get_contents(FIXTURES_BASE . $fixture);
-
 		$loaderMock = $this->getMockBuilder('\GovAlert\Common\Loader')
 			->setMethods(['loadURL'])
 			->disableOriginalConstructor()
 			->getMock();
 
-		$loaderMock->method('loadURL')
-			->willReturn($fixture);
+		$i = 0;
+		foreach($fixtures as $fixture) {
+			$loaderMock->expects($this->at($i++))
+				->method('loadURL')
+				->willReturn(file_get_contents(FIXTURES_BASE . $fixture));
+		}
+
+		$loaderMock->expects($this->any())
+			->method('loadURL')
+			->willReturn('<html />');
 
 		$processorMock = $this->getMockBuilder('\GovAlert\Common\Processor')
 			->setMethods(['saveItems', 'checkHash'])
