@@ -1,0 +1,754 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+
+    <head>
+        <base href="http://www.mi.government.bg/" />
+        <title>Министерство на икономиката</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="author" content="www.icygen.com" />
+        <meta name="robots" content="index, follow" />
+        
+<script type="text/javascript" src="scripts/jQuery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-ui-1.7.2.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-ui-i18n.min.js"></script>
+
+<link href="themes/default/css/competition.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/tool.css" media="screen" rel="stylesheet" type="text/css" /><script type="text/javascript">
+    //<![CDATA[
+var siteLanguage = "bg";    //]]>
+</script>
+<script type="text/javascript" src="scripts/jQuery-ext/jquery.base64.min.js"></script>
+<script type="text/javascript">
+    //<![CDATA[
+$("img").error(function () {
+  $(this).unbind("error").attr("src", "broken.gif");
+});
+jQuery(this).ready(function () {
+
+	jQuery("div.archive ul li").mouseenter(function(){
+		jQuery(this).find("div").show();
+	})
+	jQuery("div.archive ul li").mouseleave(function(){
+		jQuery(this).find("div").hide();
+	})
+	
+	
+    jQuery('#filter').click(function () {
+        filter();
+    });
+    jQuery('#order').click(function () {
+        filter(1);
+    });
+
+    jQuery("input.trigger-filter").click(function(){
+    	jQuery(this).val('');
+   	})
+});
+
+function fillDate(year,month) {
+
+	 jQuery('#year').val(year);
+	 jQuery('#month').val(month);	 
+	 filter();
+	 return false;
+}
+function filter(isOrder) {
+    var period = 0;
+    var keywords = '';
+    var order = 0;
+    var year = '';
+    var month = '';
+	
+	if(jQuery('#month').val()) {
+        month = jQuery('#month').val();
+    }
+    if(jQuery('#year').val()) {
+        year = jQuery('#year').val();
+    }
+    if(jQuery('#period').val()) {
+        period = jQuery('#period').val();
+    }
+    if(jQuery('#keywords').val()) {
+        keywords = jQuery('#keywords').val();
+    }
+
+    if(jQuery('#order:checked').val()) {
+        order = 1;
+    }
+    
+    
+    if(year || month || period || keywords != 'Ключова дума' || isOrder) {
+
+        keywords = encodeURIComponent(keywords);
+        paramsUrl = jQuery.base64.encode('{"period": "'+period+'", "keywords" : "'+keywords+'", "order" : "'+order+'", "year" : "'+year+'", "month" : "'+month+'"}');
+
+        window.location.href = '/bg/competitions-c42-1.html?p=' + paramsUrl;
+    }
+
+
+
+
+    return false;
+}
+
+    //]]>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+jQuery(document).ready(function(){
+	jQuery("#showAllFiles").click(function(){
+		if(jQuery(".importantFiles li").hasClass('hidden')) {
+			jQuery(".importantFiles li.hidden").removeClass("hidden").addClass("visible");
+		} else {
+			jQuery(".importantFiles li.visible").removeClass("visible").addClass("hidden");
+		}
+	})
+})
+    //]]>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+jQuery(document).ready(function(){
+	jQuery("#showAllRegs").click(function(){
+		if(jQuery(".registersWidget li").hasClass('hidden')) {
+			jQuery(".registersWidget li.hidden").removeClass("hidden").addClass("visible");
+		} else {
+			jQuery(".registersWidget li.visible").removeClass("visible").addClass("hidden");
+		}
+	})
+})
+    //]]>
+</script>        
+        			<link rel="stylesheet" type="text/css" href="themes/default/css/main.css" media="all"/>
+        	<link rel="stylesheet" type="text/css" href="themes/default/css/tools.css" media="all"/>
+        	<link rel="stylesheet" type="text/css" href="themes/default/css/styles.css" media="all"/>
+			        
+    </head>
+    <body>
+		
+        <div id="shadow">
+            <div class="width-wrap">
+            	                <div id="menu-top">
+                    				<a href="/en/competitions-c42-1.html" class="bold">
+		<img src="themes/admin/images/flags/en.gif" width="20" height="13" alt="" class="flag" />
+		English		</a>
+		
+        <div class="separator">&nbsp;</div>	    
+		
+  		  			<a href="/bg/default/contact" >Контакти</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="/bg/pages/help-67.html" >Помощ</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="https://dmi-vpn.mee.government.bg:8443/sslvpn/login" class="imgM" target='_blank'>
+  				<img width="17" height="8" class="key" alt=""
+  				src="themes/default/images/icons/key.gif" />
+  			</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="https://webmail.mee.government.bg/gw/webacc" class="imgM" target='_blank'>
+  				<img width="17" height="8" class="webmail" alt=""
+  				src="themes/default/images/icons/webmail.gif" />
+  			</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="/bg/sitemap.html" >Карта на сайта</a>
+  		
+      <div class="separator">&nbsp;</div>
+
+
+<a href="/index/set-site-style/lang/bg/siteStyle/0/url/L2JnL2NvbXBldGl0aW9ucy1jNDItMS5odG1s">
+	Текстова версия</a>
+<div class="separator">&nbsp;</div>
+
+<!-- end navigation top -->
+
+                </div>
+                <div id="header">
+					
+                    <div class="fontsize">
+                        <script type="text/javascript">
+
+function zoomin(zlevel) {
+	var zlevelCurrent = parseInt(jQuery("#zlevel").val());
+	var level = zlevelCurrent+parseInt(zlevel);
+	jQuery("#zlevel").val(level);
+
+   jQuery("body").css("font-size",level);
+}
+
+</script>
+ 
+ <a href="javascript:;" onclick="zoomin(-1);"><img src="themes/default/images/icons/minus.gif" width="8" height="8" alt="" /></a>
+ <div class="separator">&nbsp;</div>
+ <a href="javascript:;" onclick="zoomin(1);"><img src="themes/default/images/icons/plus.gif" width="8" height="8" alt="" /></a>
+ <div class="separator">&nbsp;</div>
+ <div class="right">Размер на шрифта&nbsp;</div>
+
+<input type="hidden" value="12" id="zlevel" />						<a href="/bg/rss.html" class="rss">RSS</a>
+                    </div>
+                    <div class="search-form">
+                        <script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("#quicksearch-keywords").click(function(){
+		if(jQuery(this).val() == 'Търсене') {
+			jQuery(this).val('');
+		}
+		return false;
+	})
+})
+</script>
+
+<form id="quickSearch" action="/search/index/index/lang/bg" method="post">
+    <input type="text" id="quicksearch-keywords" name="keywords" value="Търсене" class="keywords" />
+    <input type="submit" name="go" value="Търсене" class="submit" onclick="quickSearch.submit();" />
+</form>                    </div>
+                    <a href="/bg">
+                                            	<img src="themes/default/images/logo_bg.png" alt="" class="logo" />
+                    </a>
+                </div>
+                <div id="menu-main">
+                    <div class="cl">
+                        <div class="cr">
+                            <ul>
+    <li>
+    	<div >
+        	<a href="/bg/pages/about-us-1.html" >Министерство</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/themes-c238.html" >Икономика</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/news.html" >Новини</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/services-c36-1.html" >Административни услуги</a>
+    	</div>
+    </li>
+    <li>
+    	<div  class="active">
+        	<a href="/bg/competitions-c341-1.html" >Обяви и търгове</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/themes-c305.html" >Регистри</a>
+    	</div>
+    </li>
+</ul>
+
+<!-- end navigation top -->
+
+                        </div>
+                    </div>
+                </div>
+                <div id="breadcrumb">
+                 <a id="breadcrumbs-menu5" href="/bg">Начало</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> <a id="breadcrumbs-232" href="/bg/competitions-c341-1.html">Обяви и търгове</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> <a id="breadcrumbs-224" href="/bg/competitions-c224-1.html">Обяви и търгове</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> Други                   
+                </div>
+                <div class="forPrint">
+                    <div id="page">
+                                            <div class="col1">
+                            <div id="side-menu">
+    <ul>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="#" >Профил на купувача</a>
+            </div>
+            <ul>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c346-1.html" >Вътрешни правила за възлагане на обществени поръчки в МИЕ </a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c341-1.html" >Процедури</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c342-1.html" >Публични покани</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c343-1.html" >Покани</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c345-1.html" >Обявления за предварителна информация</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c352-1.html" >Предварителен контрол</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c351-1.html" >Становища на АОП по запитвания</a>
+            </div>
+                </li>
+    </ul>        </li>
+            <li  class="active">
+            <div>
+            <img src="themes/default/images/icons/arr-6.gif" width="6" height="6" alt="" />                
+                            <a href="#" >Обяви и търгове</a>
+            </div>
+            <ul>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c39-1.html" >Обществени поръчки до 2014 г.</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c37-1.html" >Разпродажба на активи</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="http://ispn.mjs.bg/MJ/ispn.nsf/public_announcements.xsp" target="_blank">Бюлетин продажби на синдиците</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c38-1.html" >Обяви</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c169-1.html" >Избор на одитори</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c281-1.html" >Международни търгове на НАТО</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c336-1.html" >Покани на търговски дружества за предоставяне на финансови услуги</a>
+            </div>
+                </li>
+            <li  class="active">
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/competitions-c42-1.html" >Други</a>
+            </div>
+                </li>
+    </ul>        </li>
+        </ul>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function () {
+	$('div#side-menu a').each(function () {
+		if ($(this).attr('href') == '#') {
+			var iUl = $(this).parent().next('ul:eq(0)');
+			if ($(this).parents('li:eq(0)').hasClass('active')) {
+				iUl.show();
+			} else {
+				iUl.hide();
+			}
+			$(this).click(function () {
+				iUl.toggle();
+				return false;
+			});
+		}
+	});
+});
+//]]>
+</script><div class="highlights">
+    <div class="title-4">Новини</div>
+        <div class="row">
+        <div class="date">17 декември 2014</div>
+        <a href="/bg/news/zam-ministar-petrov-vrachi-nagradi-na-nai-otlichenite-eksportyori-za-2013-g-1984.html?p=eyJ0eXBlIjoiaG90In0=">Зам.-министър Петров връчи награди на най-отличените експортьори за 2013 г.</a>
+    </div>
+        <div class="row">
+        <div class="date">16 декември 2014</div>
+        <a href="/bg/news/balgariya-i-sarbiya-shte-uskoryat-rabotata-po-proekt-za-gazova-vrazka-1983.html?p=eyJ0eXBlIjoiaG90In0=">България и Сърбия ще ускорят работата по проект за газова връзка</a>
+    </div>
+        <div class="row">
+        <div class="date">16 декември 2014</div>
+        <a href="/bg/news/ministar-lukarski-prizova-kitaiski-kompanii-da-investirat-v-industrialnite-zoni-u-nas-i-v-sofiya-teh-1982.html?p=eyJ0eXBlIjoiaG90In0=">Министър Лукарски призова китайски компании да инвестират в Индустриалните зони у нас и в София Тех Парк</a>
+    </div>
+        <div class="butt-1 left"><div class="cr"><div>
+        <a href="/bg/news.html">още от рубриката</a>
+    </div></div></div>
+    <div class="clear1">&nbsp;</div>
+</div><div class="gallery">
+	<div id="tabGallery" class="tab active">фотогалерия</div>
+    <div id="tabVideo" class="tab">видео</div>
+    <a href="/bg/galleries-1.html" class="all">Всички</a>
+    <div id="contentGallery" class="content left">
+        	<img style="cursor: pointer;" id="prevGallery" src="themes/default/images/icons/arr-3-rtl.gif" width="12" height="23" alt="" class="arr left" />
+    	<div id="cycleGallery" class="left">
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-907-2944.JPG" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-908-2945.JPG" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-909-2946.JPG" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-910-2947.jpg" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-911-2948.jpg" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	</div>
+    	<img style="cursor: pointer;" id="nextGallery" src="themes/default/images/icons/arr-3-ltr.gif" width="12" height="23" alt="" class="arr left" />
+    	</div>
+    <div id="contentVideo" class="content" style="display: none;">
+        	<div class="left">&nbsp;</div>
+    	    	<a href="/bg/video-147.html"><img src="files/videos/image/listV_video-147-2863.jpg" alt="" class="clear" /></a>
+		<div class="linkVideo"><a href="/bg/video-147.html">Васил Щонов: Фокусът на работата ни е реформиране на енергийния сектор и повишаване на ефективността в него</a></div>
+        </div>
+</div>
+<script type="text/javascript" src="scripts/jQuery-ext/jquery.cycle.all.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(document).ready(function () {
+	jQuery('div.gallery div.tab').click(function () {
+		jQuery('div.gallery div.tab').removeClass('active');
+		jQuery(this).addClass('active');
+		switch(jQuery(this).attr('id')) {
+    		case 'tabGallery' :
+    			jQuery('#contentVideo').hide();
+        		jQuery('#contentGallery').show();
+        		jQuery('div.gallery a.all').attr('href', '/bg/galleries-1.html');
+    			break;
+    		case 'tabVideo' :
+    			jQuery('#contentGallery').hide();
+    			jQuery('#contentVideo').show();
+    			jQuery('div.gallery a.all').attr('href', '/bg/videos.html');
+    			break;
+		}
+	});
+	jQuery('#cycleGallery').cycle({
+	    fx:     'scrollHorz',
+	    prev:   '#prevGallery',
+	    next:   '#nextGallery',
+	    timeout: 0,
+	    containerResize: 1,
+	});
+});
+//]]>
+</script>                        </div>
+                        <div class="col2">
+                            <div class="title-1">Други</div>
+
+<div class="title-2">Филтрирай по:</div>
+<div>
+    <form action="" id="filterForm" method="post" class="filter-team">
+                <select name="period" id="period" class="trigger-filter filter-team">
+            <option value="">Дата</option>
+                        <option value="1">24 часа</option>
+                        <option value="7">1 седмица</option>
+                        <option value="30">1 месец</option>
+                    </select>
+                        <input type="text" name="keywords" id="keywords" value="Ключова дума" class="trigger-filter name"/>
+        		
+        <div class="butt-1 left"><div class="cr"><div>
+            <a href="javascript:;" id="filter">филтър</a>
+        </div></div></div>
+<div class="clear1">&nbsp;</div>
+<div class="title-2" style="float:left">
+    			<div style="float:left">Сортирай по азбучен ред: </div>
+    			<input type="checkbox" style="margin: 0 0 0 5px; float:left" name="order" id="order"  class="trigger-filter checkbox"/>
+    </div>
+		
+	<input type="hidden" name="year" id="year" value="" />
+	<input type="hidden" name="month" id="month" value="" />
+	
+	
+	<div class="archive" >
+	<ul>
+		<li style="position: relative;" >
+			2014			<div class="archive-months">
+							<ol ><a href="javascript:;" onclick="fillDate('2014','1')">Януари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','2')">Февруари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','3')">Март</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','4')">Април</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','5')">Май</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','6')">Юни</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','7')">Юли</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','8')">Август</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','9')">Септември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','10')">Октомври</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2014','11')">Ноември</a></ol>
+						</div>
+		</li>
+				<li style="position: relative;" >
+			2013			<div class="archive-months">
+							<ol ><a href="javascript:;" onclick="fillDate('2013','1')">Януари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','2')">Февруари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','3')">Март</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','4')">Април</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','5')">Май</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','6')">Юни</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','7')">Юли</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','8')">Август</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','9')">Септември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','10')">Октомври</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','11')">Ноември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2013','12')">Декември</a></ol>
+						</div>
+		</li>
+				<li style="position: relative;" >
+			2012			<div class="archive-months">
+							<ol ><a href="javascript:;" onclick="fillDate('2012','1')">Януари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','2')">Февруари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','3')">Март</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','4')">Април</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','5')">Май</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','6')">Юни</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','7')">Юли</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','8')">Август</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','9')">Септември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','10')">Октомври</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','11')">Ноември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2012','12')">Декември</a></ol>
+						</div>
+		</li>
+				<li style="position: relative;" >
+			2011			<div class="archive-months">
+							<ol ><a href="javascript:;" onclick="fillDate('2011','1')">Януари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','2')">Февруари</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','3')">Март</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','4')">Април</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','5')">Май</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','6')">Юни</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','7')">Юли</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','8')">Август</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','9')">Септември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','10')">Октомври</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','11')">Ноември</a></ol>
+							<ol ><a href="javascript:;" onclick="fillDate('2011','12')">Декември</a></ol>
+						</div>
+		</li>
+				
+	</ul>
+	</div><br/>
+    </form>
+</div>
+
+<div class="separator">&nbsp;</div>
+                <div class="row">
+           <strong><a href="#" class="bold"></a>
+           <a href="/bg/competitions/targ-za-otdavane-pod-naem-na-aktivi-nahodyashti-se-v-s-eleshnica-obshtina-razlog-sobstvenost-na-redki-927-c42-1.html?p=e30=">Tърг за отдаване под наем на активи, находящи се в с. Елешница, Oбщина Разлог, собственост на "Редки метали" ЕООД (л), Бухово</a></strong><br />
+           <br />
+           <div class="PB4"><strong>Дата на обявяване: </strong>12.11.2014</div>
+		              		   <div class="text">Ликвидаторът на "Редки метали" ЕООД (л), Бухово, на основание чл. 268, ал. 1 от Търговския закон, Протоколи №№ РД-21-60/18.03.2009г. и РД-21-102/23.10.2014г. на Министъра на икономиката и енергетиката...</div>
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/competitions/targ-za-otdavane-pod-naem-na-aktivi-nahodyashti-se-v-s-eleshnica-obshtina-razlog-sobstvenost-na-redki-927-c42-1.html?p=e30=">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+		<div class="clear1">&nbsp;</div>
+
+		                <div class="row">
+           <strong><a href="#" class="bold"></a>
+           <a href="/bg/competitions/aktualizirani-programi-za-tehnicheska-likvidaciya-i-konservaciya-na-obekti-ot-minnodobivniya-otrasal-za-907-c42-1.html?p=e30=">Актуализирани програми за техническа ликвидация и консервация на обекти от миннодобивния отрасъл за 2014 г.</a></strong><br />
+           <br />
+           <div class="PB4"><strong>Дата на обявяване: </strong>17.10.2014</div>
+		              		   <div class="text">Разпределение на средствата по актуализирани програми за техническа ликвидация и консервация на обекти от миннодобивния отрасъл за 2014 г....</div>
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/competitions/aktualizirani-programi-za-tehnicheska-likvidaciya-i-konservaciya-na-obekti-ot-minnodobivniya-otrasal-za-907-c42-1.html?p=e30=">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+		<div class="clear1">&nbsp;</div>
+
+		                <div class="row">
+           <strong><a href="#" class="bold"></a>
+           <a href="/bg/competitions/naemane-na-pomeshtenie-v-koeto-da-se-dostavyat-skladirat-i-sahranyavat-reklamno-informaciaonni-materi-889-c42-1.html?p=e30=">"Наемане на помещение, в което да се доставят, складират и съхраняват рекламно-информациаонни материали, собственост на Министерството на икономиката и енергетиката"</a></strong><br />
+           <br />
+           <div class="PB4"><strong>Дата на обявяване: </strong>03.10.2014</div>
+		                 		       <div class="PB4"><strong>Крайна дата за подаване на документи: </strong>15.10.2014</div>
+   		   		   <div class="text">"Наемане на помещение, в което да се доставят, складират и съхраняват рекламно-информациаонни материали, собственост на Министерството на икономиката и енергетиката"...</div>
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/competitions/naemane-na-pomeshtenie-v-koeto-da-se-dostavyat-skladirat-i-sahranyavat-reklamno-informaciaonni-materi-889-c42-1.html?p=e30=">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+		<div class="clear1">&nbsp;</div>
+
+		                <div class="row">
+           <strong><a href="#" class="bold"></a>
+           <a href="/bg/competitions/targ-s-taino-naddavane-za-za-otdavane-pod-naem-na-chast-ot-nedvijim-imot-publichna-darjavna-sobstven-737-c42-1.html?p=e30=">Търг с тайно наддаване за за отдаване под наем на част от недвижим имот – публична държавна собственост, представляващ 239 кв.м. от покривното пространство на административната  сграда, на ул. „Триадица” № 8 в гр. София</a></strong><br />
+           <br />
+           <div class="PB4"><strong>Дата на обявяване: </strong>01.04.2014</div>
+		                 		       <div class="PB4"><strong>Крайна дата за подаване на документи: </strong>16.05.2014</div>
+   		   		   <div class="text">Търг с тайно наддаване за за отдаване под наем на част от недвижим имот – публична държавна собственост, представляващ 239 кв.м. от покривното пространство на административната  сграда, на ул. „Триади...</div>
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/competitions/targ-s-taino-naddavane-za-za-otdavane-pod-naem-na-chast-ot-nedvijim-imot-publichna-darjavna-sobstven-737-c42-1.html?p=e30=">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+		<div class="clear1">&nbsp;</div>
+
+		                <div class="row">
+           <strong><a href="#" class="bold"></a>
+           <a href="/bg/competitions/razpredelenie-na-sredstvata-po-programi-za-tehnicheska-likvidaciya-i-konservaciya-na-obekti-ot-minnodob-738-c42-1.html?p=e30=">Разпределение на средствата по програми за техническа ликвидация и консервация на обекти от миннодобивния отрасъл за 2014 г. </a></strong><br />
+           <br />
+           <div class="PB4"><strong>Дата на обявяване: </strong>01.04.2014</div>
+		              		   <div class="text">С ПМС № 3/ 15.01.2014г. за изпълнение на държавния бюджет на Република България за 2014г. е утвърдено разпределение на средства в размер на 10 млн. лева за изпълнение на програми за техническа ликвида...</div>
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/competitions/razpredelenie-na-sredstvata-po-programi-za-tehnicheska-likvidaciya-i-konservaciya-na-obekti-ot-minnodob-738-c42-1.html?p=e30=">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+		<div class="clear1">&nbsp;</div>
+
+		                <div class="row">
+           <strong><a href="#" class="bold"></a>
+           <a href="/bg/competitions/pokana-za-uchastie-na-nepravitelstveni-organizacii-v-izbora-na-predstaviteli-na-nepravitelstveniya-sek-703-c42-1.html?p=e30=">Покана за участие на неправителствени организации в избора на представители на неправителствения сектор в комитета за наблюдение на ОП "Конкурентоспособност" 2007 - 2013 </a></strong><br />
+           <br />
+           <div class="PB4"><strong>Дата на обявяване: </strong>18.02.2014</div>
+		              		   <div class="text">Управляващият орган на Оперативна програма "Развитие на конкурентоспособността на българската икономика" 2007-2013 кани желаещите неправителствени организации да участват в избора на представители в К...</div>
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/competitions/pokana-za-uchastie-na-nepravitelstveni-organizacii-v-izbora-na-predstaviteli-na-nepravitelstveniya-sek-703-c42-1.html?p=e30=">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+		<div class="clear1">&nbsp;</div>
+
+		    
+                        </div>
+                        <div class="col3">
+    	                    
+<div class="box-2 calendar">
+     <div class="title">Предстоящи събития</div>
+     	<!--<div class="butt-2 left"><div class="cr"><div>
+        	    	</div></div></div>-->
+        <div class="clear1"></div>
+                <div class="text"><span style="color:#fff">17.12.2014</span><br />
+			<a href="/bg/calendar-news-view/ministar-lukarski-zaminava-na-rabotno-poseshtenie-v-sasht-1985-1.html">
+    		Министър Лукарски заминава на работно посещение в САЩ     		</a>
+    	</div>
+        <div class="butt-1 left"><div class="cr"><div>
+         <a href="/bg/calendar-news-1.html">
+                всички</a>
+        </div></div></div>
+      <div class="clear1"></div>
+</div> <div class ="">
+                <a target="_blank" href="/banners/index/click/lang/bg/id/3" title="eufunds">
+                <img border="0" src="files/banners/file/banner-3-36.jpg" alt="eufunds" class="PR3"/></a>
+</div><div class="box-3 ">
+  <div class="title-2">Регистри</div>
+	 <ul class="registersWidget">
+				<li >
+	    <a href="/bg/themes/spisak-na-oficialnite-organi-v-darjavata-na-proizhoda-za-strani-nechlenki-na-es-kompetentni-da-izdav-609-395.html">
+	    	Списък на официалните органи в държавата на произхода за страни-нечленки на ЕС, компетентни да издават атестация за внасяните в Република България етилов алкохол от земеделски произход, дестилати и спиртни напитки	    </a>
+	    <div class="separator-1">&nbsp;</div>
+	  	</li>
+				<li >
+	    <a href="/bg/themes/spisak-na-oficialnite-organi-v-darjavata-na-proizhoda-za-strani-nechlenki-na-es-kompetentni-da-izdav-608-395.html">
+	    	Списък на официалните органи в държавата на произхода за страни-нечленки на ЕС, компетентни да издават протоколи от изпитване (анализни свидетелства) за внасяните в Република България етилов алкохол от земеделски произход, дестилати и спиртни напитки	    </a>
+	    <div class="separator-1">&nbsp;</div>
+	  	</li>
+				<li >
+	    <a href="/bg/themes/publichen-registar-na-firmite-registrirani-za-deinosti-s-prekursori-ot-kategoriya-2-i-kategoriya-3-614-395.html">
+	    	Публичен регистър на фирмите, регистрирани за дейности с прекурсори от Категория 2 и Категория 3	    </a>
+	    <div class="separator-1">&nbsp;</div>
+	  	</li>
+	  	</ul>
+  	   <div class="clear2"></div>
+</div>
+<div class="box-2 contacts">
+                            <div class="title">Пишете ни</div>
+                            <div class="butt-2 left"><div class="cr"><div>
+                                <a href="mailto:e-docs@mee.government.bg">e-docs@mee.government.bg</a>
+                            </div></div></div>  
+                            
+                            <div class="text">Министерство на икономиката<br />
+                            ул. "Славянска" № 8<br />
+                            ЕИК 130169256</div>
+                                                   
+                            <div class="butt-2 left"><div class="cr"><div>
+                              тел. централа: +359 2 940 7001 
+                            </div></div></div>
+                            <div class="clear1"></div><br />
+                            <div class="butt-2 left"><div class="cr"><div>
+                                факс: +359 2 9872190; 02 9819970                            </div></div></div>
+                            <div class="clear1"></div>
+                        </div>                        </div>
+                        <div class="clear3">&nbsp;</div>
+                                        </div>
+                </div>
+                <div style="clear:left;padding-top:10px;">
+                                    <a target="_blank" href="/banners/index/click/lang/bg/id/7" title="Сайт на Управляващия орган на ОП &amp;quot;Конкурентоспособност&amp;quot; - в нов прозорец">
+                <img border="0" src="files/banners/file/banner-7-590.jpg" alt="Сайт на Управляващия орган на ОП &quot;Конкурентоспособност&quot; - в нов прозорец" class="PR3"/></a>
+                <object width="250" height="90" id="file-5" codebase="http://active.macromedia.com/flash4/cabs/swflash.cab#version=4,0,0,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+                    <param value="files/banners/file/banner-5-417.swf" name="movie" />
+                    <param value="high" name="quality" />
+                    <embed width="250" height="90" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" quality="high" src="files/banners/file/banner-5-417.swf" name="name" />
+                </object>
+                </div>
+                <div id="contacts">
+                  <span class="title">Контакти:</span> <span>София 1052</span> <span>ул. "Славянска" 8</span> <span>тел. центр.: +359 2 9407001</span> <span><a href="mailto:e-docs@mee.government.bg">e-docs@mee.government.bg</a></span>                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="blend">
+                <div class="width-fwrap">
+                	
+		       	 <a class="left" href="/bg/pages/accessibility-72.html" >Достъпност</a>
+   				       	 <a class="left" href="/bg/pages/security-71.html" >Сигурност</a>
+   						  			<a class="left" href="http://old1.mee.government.bg" target="blank">Архив (сайт на МИЕ - не се актуализира)</a>
+					
+
+
+
+                    <div class="icygen"><a href="http://www.icygen.com/" target="_blank">Web Design Internet Marketing</a> by ICYGEN</div>
+                    <div class="copy">© Министерство на икономиката на Република България</div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-25796155-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </body>
+</html>

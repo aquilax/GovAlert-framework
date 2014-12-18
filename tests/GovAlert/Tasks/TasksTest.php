@@ -409,6 +409,118 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '01a000420b62cae16f254e50df29b437',
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_Aktivi',
+				[
+					'Min_mi/Mi_Aktivi.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Продажба на активи, собственост на "Овча купел" ЕООД, гр. София',
+        				'description' => null,
+        				'date' => '2014-12-10',
+        				'url' => 'http://www.mi.government.bg/bg/competitions/prodajba-na-aktivi-sobstvenost-na-ovcha-kupel-eood-gr-sofiya-935-c37-1.html?p=e30=',
+        				'hash' => 'c27feaddc27f31f0f0fe5d8c4dfe4328',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_Drugi',
+				[
+					'Min_mi/Mi_Drugi.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Tърг за отдаване под наем на активи, находящи се в с. Елешница, Oбщина Разлог, собственост на "Редки метали" ЕООД (л), Бухово',
+						'description' => null,
+						'date' => '2014-11-12',
+						'url' => 'http://www.mi.government.bg/bg/competitions/targ-za-otdavane-pod-naem-na-aktivi-nahodyashti-se-v-s-eleshnica-obshtina-razlog-sobstvenost-na-redki-927-c42-1.html?p=e30=',
+						'hash' => '5c05c3ac85771891fea2687cb1a418e9',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_Fininst',
+				[
+					'Min_mi/Mi_Fininst.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Прилагане на правилата за избор на финансови институции към 30.09.2014 г.',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mi.government.bg/files/useruploads/files/updu/info_prilagane_pravila-30_09_2014.doc',
+						'hash' => '5dbd00717130b7e71b192c7315af65eb',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_KoncentraciqFin',
+				[
+					'Min_mi/Mi_KoncentraciqFin.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Наличие на концентрация на финансови средства към 30.09.2014 г.',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mi.government.bg/files/useruploads/files/updu/spravka_koncentraciq-za_ka4vane.xlsx',
+						'hash' => '3be528976138e3c4780d3dee90e520ce',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_Makrobiuletin',
+				[
+					'Min_mi/Mi_Makrobiuletin.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Основни макроикономически показатели за октомври 2014 г.',
+						'description' => null,
+						'date' => '2014-11-11T23:24:23+01:00',
+						'url' => 'http://www.mi.government.bg/files/useruploads/files/macrobuletin/bg_macro_bulletin_10-2014.pdf',
+						'hash' => '1fe02d8bca093b5e5566700635ff4da3',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_Obqvi',
+				[
+					'Min_mi/Mi_Obqvi.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Обява: Откриване на производство по предоставяне на разрешение за проучване на строителни материали в площ "Кошарите", област Варна',
+						'description' => null,
+						'date' => '2014-11-25',
+						'url' => 'http://www.mi.government.bg/bg/competitions/otkrivane-na-proizvodstvo-po-predostavyane-na-razreshenie-za-prouchvane-na-stroitelni-materiali-v-plosht-933-c38-1.html?p=e30=',
+						'hash' => 'cd13292a433297600112eac6adfb7f2f',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Min_mi\Mi_Obsajdane',
+				[
+					'Min_mi/Mi_Obsajdane.html',
+				],
+				'2014-11-11T23:24:23+01:00',
+				1,
+				[
+					[
+						'title' => 'Обществено обсъждане: Проект на ПМС за допълнение на Наредба за допълнителните мерки съгласно Директива за определяне на екодизайна към продуктите, свързани с енергопотреблението',
+						'description' => 'С наредбата за допълнителните мерки от 2010 г. се определиха процедурите за оценяване на съответствието на конкретните продуктови групи от обхвата на приетите регламенти, съгласно Директива за изискванията за екодизайн към продуктите, свързани с енергопотреблението, с изискванията за екопроектиране.',
+						'date' => '2014-12-17',
+						'url' => 'http://www.mi.government.bg/bg/discussion-news/proekt-na-pms-za-dopalnenie-na-naredba-za-dopalnitelnite-merki-saglasno-direktiva-za-opredelyane-na-e-1986-m268-a0-1.html',
+						'hash' => '2cf3dae4d89e5c8b8a6c6f0430ee082b',
+					]
+				]
 			]
 		];
 	}

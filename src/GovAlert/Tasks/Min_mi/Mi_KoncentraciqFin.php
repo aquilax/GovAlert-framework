@@ -1,6 +1,8 @@
 <?php
 
-class Mi_KoncentraciqFin extends Min_mi
+namespace GovAlert\Tasks\Min_mi;
+
+class Mi_KoncentraciqFin extends Base
 {
 
 	protected $categoryId = 6;
@@ -15,20 +17,19 @@ class Mi_KoncentraciqFin extends Min_mi
 			$title = $item->textContent;
 			$title = $this->cleanText($title);
 			$title = mb_strtolower($title);
-			$title = "Наличие на концентрация на финансови средства $title";
+			$title = 'Наличие на концентрация на финансови средства ' . $title;
 
-			$url = "http://www.mi.government.bg/" . $item->firstChild->getAttribute("href");
+			$url = 'http://www.mi.government.bg/' . $item->firstChild->getAttribute('href');
 			$hash = md5($url);
 
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];
-
 		}
 		return $query;
 	}
-} 
+}

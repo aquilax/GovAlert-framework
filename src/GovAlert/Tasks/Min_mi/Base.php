@@ -12,8 +12,10 @@
 
 */
 
+namespace GovAlert\Tasks\Min_mi;
 
-abstract class Min_mi extends Task
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 11;
 	protected $sourceName = 'МИЕ';
