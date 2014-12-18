@@ -5,7 +5,9 @@ links:
 0: новини http://www.nek.bg/cgi?d=101
 */
 
-abstract class Nek extends Task
+namespace GovAlert\Tasks\Nek;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 6;
 	protected $sourceName = 'НЕК';

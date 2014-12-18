@@ -1,19 +1,18 @@
 <?php
 
-class NekSaobshteniq extends Nek
-{
+namespace GovAlert\Tasks\Nek;
 
+class NekSaobshteniq extends Base
+{
 	protected $categoryId = 0;
 	protected $categoryName = 'съобщения';
-	protected $categoryURL = 'http://www.nek.bg/cgi?d=101';
+	protected $categoryURL = 'http://www.nek.bg/index.php/bg/za-nas/novini';
 
 	function execute($html)
 	{
-		// TODO: Figure this out
-		$html = mb_convert_encoding($html, "utf8", "cp1251");
-		$items = $this->getXPathItems($this->getXPath($html), "//div[@class='subpage']//li");
-
-		$query = array();
+		// TODO: FIXME
+		$items = $this->getXPathItems($this->getXPath($html), '//div[@class="items-leading"]/div');
+		$query = [];
 		foreach ($items as $item) {
 			if (count($query) > 15)
 				break;
