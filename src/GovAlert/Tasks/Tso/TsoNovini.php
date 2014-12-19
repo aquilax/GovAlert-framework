@@ -1,23 +1,31 @@
 <?php
 
-class TsoSaobshteniq extends Tso
+namespace GovAlert\Tasks\Tso;
+
+// TODO: Switch to http://www.tso.bg/sitefeed.aspx?feedid=121
+
+class TsoNovini extends Base
 {
 
-	protected $categoryId = 1;
-	protected $categoryName = 'съобщения';
-	protected $categoryURL = 'http://www.tso.bg/default.aspx/saobshtenija/bg';
+	protected $categoryId = 0;
+	protected $categoryName = 'новини';
+	protected $categoryURL = 'http://www.tso.bg/default.aspx/novini/bg';
 
 	function execute($html)
 	{
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) return;
+		if (!$xpath) {
+			return;
+		}
 		$items = $xpath->query("//table[@id='ctl7_myDataList']//td");
-		if (!$items) return;
+		if (!$items) {
+			return;
+		}
 
 		$query = array();
 		foreach ($items as $item) {
 			$title = $item->childNodes->item(1)->textContent;
-			$title = "Съобщение: " . $this->cleanText($title);
+			$title = "Новина: " . $this->cleanText($title);
 
 			$description = $item->childNodes->item(4)->C14N();
 			$description = mb_ereg_replace(" </", "</", mb_ereg_replace("> ", ">", $description));
@@ -31,20 +39,20 @@ class TsoSaobshteniq extends Tso
 				$url = mb_strpos($url, "http") != 0 ? "http://www.tso.bg$url" : $url;
 				$hash = md5($url);
 			} else {
-				$url = "http://www.tso.bg/default.aspx/saobshtenija/bg";
+				$url = "http://www.tso.bg/default.aspx/novini/bg";
 				$hash = md5($item->textContent);
 			}
 
 			$query[] = [
 				'title' => $title,
 				'description' => $description,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];
+
 		}
 		return $query;
 	}
-
 
 } 

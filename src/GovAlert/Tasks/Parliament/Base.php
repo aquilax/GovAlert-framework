@@ -18,7 +18,9 @@
 - комисии - стенограми http://parliament.bg/bg/parliamentarycommittees/members/2289/steno/period/2014-11
 */
 
-abstract class Parliament extends Task
+namespace GovAlert\Tasks\Parliament;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 4;
 	protected $sourceName = 'НС';
@@ -30,12 +32,12 @@ abstract class Parliament extends Task
 			return null;
 		}
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-		$doc = new DOMDocument("1.0", "UTF-8");
+		$doc = new \DOMDocument("1.0", "UTF-8");
 		$doc->preserveWhiteSpace = false;
 		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
 		$doc->loadHTML($html);
-		return new DOMXpath($doc);
+		return new \DOMXpath($doc);
 	}
 
 	function cleanText($text)

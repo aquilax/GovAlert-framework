@@ -1,6 +1,8 @@
 <?php
 
-class Prok_Dokumenti extends Prokuratura
+namespace GovAlert\Tasks\Prokuratura;
+
+class Prok_Dokumenti extends Base
 {
 
 	protected $categoryId = 1;

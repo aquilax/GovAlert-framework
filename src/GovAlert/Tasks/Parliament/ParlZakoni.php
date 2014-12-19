@@ -1,6 +1,8 @@
 <?php
 
-class ParlZakoni extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlZakoni extends Base
 {
 
 	protected $categoryId = 3;
@@ -11,28 +13,34 @@ class ParlZakoni extends Parliament
 	function execute($html)
 	{
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) return;
+		if (!$xpath) {
+			return;
+		}
 		$items = $xpath->query("//table[@class='billsresult']//tr[not(@class)]");
-		if (is_null($items)) return;
+		if (is_null($items)) {
+			return;
+		}
 
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			$hash = md5($item->childNodes->item(0)->childNodes->item(1)->getAttribute("href"));
 			$date = trim($item->childNodes->item(2)->textContent);
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
-			if (strtotime($date) < $this->timeDiff('-1 month'))
+			if (strtotime($date) < $this->timeDiff('-1 month')){
 				continue;
+			}
 			$url = $item->childNodes->item(0)->childNodes->item(1)->getAttribute("href");
 			$title_c = $item->childNodes->item(4)->textContent;
 			$title_c = $this->cleanText($title_c);
 			$title = $item->childNodes->item(0)->textContent;
-			if (mb_strlen($title) > 88)
+			if (mb_strlen($title) > 88) {
 				$title = mb_ereg_replace("Закон за изменение и допълнение", "ЗИД", $title, "im");
+			}
 			$title = "ДВ-$title_c/ " . $this->cleanText($title);
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => 'http://parliament.bg' . $url,
 				'hash' => $hash,
 			];

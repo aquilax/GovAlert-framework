@@ -571,13 +571,69 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 					]
 				]
 //			], [
-//				'\GovAlert\Tasks\Nek\NekSaobshteniq',
+//				'\GovAlert\Tasks\Parliament\ParlSabitiq',
 //				[
-//					'Nek/NekSaobshteniq.html',
+//					'Parliament/ParlSabitiq.html',
 //				],
-//				'2014-11-11T23:24:23+02:00',
+//				'2014-12-16T23:24:23+02:00',
 //				1,
-//				[]
+//				[
+//					[
+//						'title' => 'Събитие [2014-12-17 15:30] Заседание на Комисия по земеделието и храните',
+//						'description' => '<li><a href="/bg/parliamentarycommittees/members/2336/sittings/ID/7145">Заседание на Комисия по земеделието и храните</a></li>',
+//						'date' => '2014-12-16T23:24:23+02:00',
+//						'url' => 'http://parliament.bg/bg/parliamentarycommittees/members/2336/sittings/ID/7145',
+//						'hash' => 'a4fc3dae885837c4a9b6345193e4544c',
+//					]
+//				]
+			], [
+				'\GovAlert\Tasks\Parliament\ParlZakoni',
+				[
+					'Parliament/ParlZakoni.html',
+				],
+				'2014-12-16T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => 'ДВ-103/2014/ Закон за ратифициране на Договора за заем между Република България и ЕЙЧ ЕС БИ СИ БАНК ПИ ЕЛ СИ, СОСИЕТЕ ЖЕНЕРАЛ, СИТИБАНК, ЕН ЕЙ (клон Лондон) и "УНИКРЕДИТ БУЛБАНК" АД - в ролята на регистратори и упълномощени водещи организатори, и "УНИКРЕДИТ БАНК" АГ (клон Лондон) - в ролята на агент',
+        				'description' => null,
+        				'date' => '2014-12-16T23:24:23+02:00',
+        				'url' => 'http://parliament.bg/bg/laws/ID/15122/',
+        				'hash' => '97a627a43a99e3f4df972a9ca821054d',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Tso\TsoNovini',
+				[
+					'Tso/TsoNovini.html',
+				],
+				'2014-12-16T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => 'Новина: Отстранени са тежките аварии по електропреносната мрежа',
+						'description' => '<span>В периодът 3- 13 декември, в резултат на влошена климатична обстановка</span>',
+        				'date' => '2014-12-16T23:24:23+02:00',
+        				'url' => 'http://www.tso.bg/default.aspx/novini/bg',
+        				'hash' => '5b8b536ce523716441e49f3c93a6934d',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Tso\TsoSaobshteniq',
+				[
+					'Tso/TsoSaobshteniq.html',
+				],
+				'2014-12-16T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => 'Съобщение: Промяна в ръководството на ЕСО ЕАД',
+						'description' => '<span>На вниманието на всички заинтересовани</span>',
+						'date' => '2014-12-16T23:24:23+02:00',
+						'url' => 'http://www.tso.bg/default.aspx/saobshtenija/bg',
+						'hash' => 'f701f68c98ca157e88d3611b3d9d4b5e',
+					]
+				]
 			]
 		];
 	}

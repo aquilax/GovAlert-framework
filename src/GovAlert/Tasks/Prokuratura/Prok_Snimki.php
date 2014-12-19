@@ -1,11 +1,13 @@
 <?php
 
-class Prok_Snimki extends Prokuratura
+namespace GovAlert\Tasks\Prokuratura;
+
+class Prok_Snimki extends Base
 {
 
 	protected $categoryId = 3;
 	protected $categoryName = 'галерии';
-	protected $categoryURL = 'http://www.prb.bg/main/bg/gallery/';
+	protected $categoryURL = 'http://www.prb.bg/bg/news/gallery/';
 
 	function execute($html)
 	{

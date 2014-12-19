@@ -1,8 +1,9 @@
 <?php
 
-class ParlDokumentiZala extends Parliament
-{
+namespace GovAlert\Tasks\Parliament;
 
+class ParlDokumentiZala extends Base
+{
 	protected $categoryId = 4;
 	protected $categoryName = 'документи в зала';
 	protected $categoryURL = 'http://parliament.bg/bg/doc';
@@ -10,11 +11,10 @@ class ParlDokumentiZala extends Parliament
 	function execute($html)
 	{
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) {
+		$items = $xpath->query("//ul[@class='frontList1']/li/a");
+		if (is_null($items)) {
 			return;
 		}
-		$items = $xpath->query("//ul[@class='frontList1']/li/a");
-		if (is_null($items)) return;
 
 		$query = array();
 		foreach ($items as $item) {

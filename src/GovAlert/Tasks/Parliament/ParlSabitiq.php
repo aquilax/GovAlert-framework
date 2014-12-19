@@ -1,6 +1,8 @@
 <?php
 
-class ParlSabitiq extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlSabitiq extends Base
 {
 
 	protected $categoryId = 6;
@@ -10,13 +12,17 @@ class ParlSabitiq extends Parliament
 	function execute($html)
 	{
 		$xpath = $this->xpathDoc($html);
-		if (!$xpath) return;
+		if (!$xpath) {
+			return;
+		}
 		$items = $xpath->query("//div[@class='markframe']//*[local-name()='div' or local-name()='li']");
-		if (is_null($items)) return;
+		if (is_null($items)) {
+			return;
+		}
 
 		$currentDateT = false;
 		$currentDate = false;
-		$query = array();
+		$query = [];
 		foreach ($items as $item) {
 			if ($item->nodeName == 'div') {
 				if ($currentDate != false && count($query) > 0) {
@@ -29,19 +35,23 @@ class ParlSabitiq extends Parliament
 				}
 
 				$currentDate = $item->textContent;
-				$currentDate = substr($currentDate, -10, 2) . "." . substr($currentDate, -7, 2);
+
+				$currentDate = trim(array_pop(explode(',', $currentDate)));
+				list($d, $m, $y) = explode('/', $currentDate);
+				$currentDate = implode('-', [$y, $m, $d]);
 				$currentDateT = $item->textContent;
 				$currentDateT = str_replace("/", ".", $currentDateT);
 
-				$query = array();
+				$query = [];
 			} else {
 				if ($currentDate == false) {
 					$this->reportError("Грешка в събитията на парламента");
 				}
 				$time = trim($item->childNodes->item(1)->textContent);
 				$date = "$currentDate $time";
-				if (strtotime($date) < $this->db->time())
+				if (strtotime($date) < $this->db->time()) {
 					continue;
+				}
 
 				if ($item->childNodes->item(3)->nodeName == "a")
 					$url = $item->childNodes->item(3)->getAttribute("href");
@@ -61,7 +71,7 @@ class ParlSabitiq extends Parliament
 				$query[] = [
 					'title' => $title,
 					'description' => $description,
-					'date' => \GovAlert\Common\Database::now(),
+					'date' => $this->db->now(),
 					'url' => 'http://parliament.bg' . $url,
 					'hash' => $hash,
 				];

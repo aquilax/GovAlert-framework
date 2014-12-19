@@ -9,8 +9,9 @@
 
 */
 
+namespace GovAlert\Tasks\Prokuratura;
 
-abstract class Prokuratura extends Task
+abstract class Base extends \GovAlert\Tasks\Task
 {
 
 	protected $sourceId = 13;

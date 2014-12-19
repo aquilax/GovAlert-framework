@@ -1,6 +1,8 @@
 <?php
 
-class Prok_Novini extends Prokuratura
+namespace GovAlert\Tasks\Prokuratura;
+
+class Prok_Novini extends Base
 {
 
 	protected $categoryId = 0;
@@ -50,4 +52,4 @@ class Prok_Novini extends Prokuratura
 		}
 		return $query;
 	}
-} 
+}

@@ -1,6 +1,8 @@
 <?php
 
-class ParlKomisii extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlKomisii extends Base
 {
 
 	protected $categoryId = 8;
@@ -10,7 +12,6 @@ class ParlKomisii extends Parliament
 
 	function execute($html)
 	{
-		if (!$html) return;
 		$xpath = $this->xpathDoc($html);
 		if (!$xpath) return;
 		$items = $xpath->query("//label[@for]/a");
@@ -50,7 +51,7 @@ class ParlKomisii extends Parliament
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

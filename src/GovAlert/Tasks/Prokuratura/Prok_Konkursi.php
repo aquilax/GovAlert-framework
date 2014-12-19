@@ -1,6 +1,8 @@
 <?php
 
-class Prok_Konkursi extends Prokuratura
+namespace GovAlert\Tasks\Prokuratura;
+
+class Prok_Konkursi extends Base
 {
 
 	protected $categoryId = 2;
