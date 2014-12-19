@@ -1,6 +1,9 @@
 <?php
 
-class MvrBurgas extends Mvr
+namespace GovAlert\Tasks\Mvr;
+use GovAlert\Common\Utils;
+
+class MvrBurgas extends Base
 {
 
 	protected $categoryPrefix = '[Бургас] ';
@@ -67,7 +70,7 @@ class MvrBurgas extends Mvr
 						// TODO: FIXME
 						foreach ($item_1 as $itemimg) {
 							$imageurl = "http://www.rdvr-burgas.org/Bul/Suobshtenie/" . $itemimg->getAttribute("src");
-							$imageurl = $this->loadItemImage($imageurl, []);
+							$imageurl = $this->loadItemImage($imageurl);
 							if ($imageurl) {
 								if ($query[count($query) - 1][5] == null)
 									$query[count($query) - 1][5] = array("image" => array());

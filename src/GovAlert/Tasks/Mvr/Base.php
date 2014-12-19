@@ -51,7 +51,10 @@ Links
 46: ямбол изчезнали http://www.yambol.mvr.bg/Izdirvani_lica/default.htm
 */
 
-abstract class Mvr extends Task
+namespace GovAlert\Tasks\Mvr;
+use GovAlert\Common\Utils;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 19;
 
@@ -80,28 +83,33 @@ abstract class Mvr extends Task
 		foreach ($items as $item) {
 			$item_1 = $xpath->query("h3/a", $item);
 			$item_2 = $xpath->query("p[@class='dateOfLink']", $item);
-			if ($item_1->length == 0 || $item_2->length == 0)
+			if ($item_1->length === 0 || $item_2->length === 0) {
 				continue;
+			}
 
 			$url = $this->categoryURLBase . Utils::cleanSpaces($item_1->item(0)->getAttribute("href"));
 			$hash = md5($url);
-			if (!$this->checkHash($hash))
+			if (!$this->checkHash($hash)) {
 				continue;
+			}
 
 			$date = $item_2->item(0)->textContent;
 			$date = Utils::bgMonth(Utils::cleanSpaces($date));
 			$date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "-" . substr($date, 0, 2);
-			if (strtotime($date) < $this->timeDiff('-7 days'))
+			if (strtotime($date) < $this->timeDiff('-7 days')) {
 				continue;
+			}
 
 			$title = $item_1->item(0)->textContent;
 			$title = Utils::cleanSpaces($title);
 			$title = $this->categoryPrefix . $title;
-			if (!$this->checkTitle($title))
+
+			if (!$this->checkTitle($title)) {
 				continue;
+			}
 
 			$description = null;
-			$media = array("image" => array());
+			$media = ['image' => []];
 
 			$html1 = $this->loadURL($url);
 			if ($html1) {

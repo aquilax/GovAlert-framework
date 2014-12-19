@@ -1,8 +1,9 @@
 <?php
 
-class MvrHaskovo extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrHaskovo extends Base
+{
 	protected $categoryPrefix = '[Хасково] ';
 	protected $sourceName = 'МВР Хасково';
 	protected $categoryName = 'новини';

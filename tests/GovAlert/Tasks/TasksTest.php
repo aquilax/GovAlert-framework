@@ -634,6 +634,118 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => 'f701f68c98ca157e88d3611b3d9d4b5e',
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrBlagoevgrad',
+				[
+					'Mvr/MvrBlagoevgrad.html',
+				],
+				'2014-12-16T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Благоевград] Коледно тържество за децата на полицейските служители в ОДМВР - Благоевград',
+        				'description' => null,
+						'date' => '2014-12-18',
+						'url' => 'http://www.blagoevgrad.mvr.bg/Prescentar/Novini/news-20141218.htm',
+						'hash' => 'fb71a14fa0c550afd917e8a6440b3350',
+					]
+				]
+//			], [
+//				'\GovAlert\Tasks\Mvr\MvrBurgas',
+//				[
+//					'Mvr/MvrBurgas.html',
+//				],
+//				'2014-12-16T23:24:23+02:00',
+//				1,
+//				[
+//					[
+//						'title' => '[Благоевград] Коледно тържество за децата на полицейските служители в ОДМВР - Благоевград',
+//						'description' => null,
+//						'date' => '2014-12-18',
+//						'url' => 'http://www.blagoevgrad.mvr.bg/Prescentar/Novini/news-20141218.htm',
+//						'hash' => 'fb71a14fa0c550afd917e8a6440b3350',
+//					]
+//				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrDobrich',
+				[
+					'Mvr/MvrDobrich.html',
+				],
+				'2014-12-06T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Добрич] График на СПО по линия на "Пътна полиция" при ОД МВР Добрич',
+						'description' => null,
+						'date' => '2014-12-05',
+						'url' => 'http://dobrich.mvr.bg/Prescentar/Novini/05122014.htm',
+						'hash' => '60f56803eeb8755e9ad8a1c284a80135',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrGabrovo',
+				[
+					'Mvr/MvrGabrovo.html',
+				],
+				'2014-12-06T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Габрово] Пенчо Пенчев е новият началник на сектор „Пътна полиция” при ОДМВР-Габрово',
+						'description' => null,
+						'date' => '2014-12-17',
+						'url' => 'http://www.gabrovo.mvr.bg/PressOffice/News/news141217_01.htm',
+						'hash' => '5f97a626db490fc6fea8ec229b37c61e',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrGabrovoIzdirvani',
+				[
+					'Mvr/MvrGabrovoIzdirvani.html',
+				],
+				'2013-12-11T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Габрово] ОДМВР-Габрово издирва Дилянка Маркова /на 47 г./ от Габрово',
+						'description' => null,
+						'date' => '2013-12-12',
+						'url' => 'http://www.gabrovo.mvr.bg/PressOffice/Wanted/DMarkova.htm',
+						'hash' => '15dfdca0109da85124a4c01166bf8c2c',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrHaskovo',
+				[
+					'Mvr/MvrHaskovo.html',
+				],
+				'2014-12-11T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Хасково] „Ауди”, „БМВ” и „Мерцедес” само през декември на прегледи и в понеделник',
+						'description' => null,
+						'date' => '2014-12-08',
+						'url' => 'http://haskovo.mvr.bg/Prescentar/Novini/nov_141208_01.htm',
+						'hash' => '61a1938aa3b35532c7a36961a6275617',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrKampanii',
+				[
+					'Mvr/MvrKampanii.html',
+				],
+				'2014-12-11T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => 'Национална благотворителна кампания за подпомагане на децата на загиналите и пострадалите при изпълнение на служебните задължения служители от системата на МВР',
+						'description' => null,
+						'date' => '2014-12-05',
+						'url' => 'http://press.mvr.bg/Kampanii/mvr_1866.htm',
+						'hash' => '89c3e0f493cdf71e312cbe9c69588011',
+					]
+				]
 			]
 		];
 	}
@@ -656,7 +768,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 
 		$loaderMock = $this->getMockBuilder('\GovAlert\Common\Loader')
-			->setMethods(['loadURL'])
+			->setMethods(['loadURL', 'setPageLoad'])
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -672,7 +784,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->willReturn('<html />');
 
 		$processorMock = $this->getMockBuilder('\GovAlert\Common\Processor')
-			->setMethods(['saveItems', 'checkHash'])
+			->setMethods(['saveItems', 'checkHash', 'checkTitle'])
 			->disableOriginalConstructor()
 			->getMock();
 		$processorMock->expects($this->once())
@@ -682,7 +794,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			}));
 		$processorMock->method('checkHash')
 			->willReturn(true);
-
+		$processorMock->method('checkTitle')
+			->willReturn(true);
+		
 		/**
 		 * @var \GovAlert\Tasks\Task $testClass
 		 */

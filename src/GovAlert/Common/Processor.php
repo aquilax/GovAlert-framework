@@ -127,4 +127,9 @@ class Processor {
 		$res = $this->db->query("SELECT hash FROM item WHERE hash='$hash' LIMIT 1");
 		return $res->num_rows == 0;
 	}
+
+	function checkTitle($title, $sourceId) {
+		$res = $this->db->query("SELECT hash FROM item WHERE title='$title' AND sourceid=" . $sourceId . " LIMIT 1");
+		return $res->num_rows == 0;
+	}
 }

@@ -1,8 +1,9 @@
 <?php
 
-class MvrKampanii extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrKampanii extends Base
+{
 	protected $categoryPrefix = '';
 	protected $sourceName = 'МВР';
 	protected $categoryName = 'кампании';
@@ -11,5 +12,4 @@ class MvrKampanii extends Mvr
 	protected $categoryURLBase = 'http://press.mvr.bg';
 	protected $tweetReTweet = false;
 	protected $categoryExpectEmpty = false;
-
 }

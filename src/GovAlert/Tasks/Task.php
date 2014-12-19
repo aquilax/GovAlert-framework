@@ -6,6 +6,7 @@
 namespace GovAlert\Tasks;
 use \GovAlert\Common\Database;
 use \GovAlert\Common\Utils;
+use \GovAlert\Config;
 
 abstract class Task
 {
@@ -81,8 +82,10 @@ abstract class Task
 
 	function checkTitle($title)
 	{
-		if (!$this->checkSession())
+		if (!$this->checkSession()) {
 			return true;
+		}
+		return $this->processor->checkTitle($title, $this->sourceId);
 		$res = $this->db->query("SELECT hash FROM item WHERE title='$title' AND sourceid=" . $this->sourceId . " LIMIT 1");
 		return $res->num_rows == 0;
 	}
@@ -120,6 +123,10 @@ abstract class Task
 		}
 
 		return $filename;
+	}
+
+	private function setPageLoad($url, $loadStart) {
+		$this->loader->setPageLoad($this->sourceId, $this->categoryId, $url, $loadStart);
 	}
 
 	function loadItemImage($url, $type = null, $options = [])

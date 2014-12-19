@@ -8,15 +8,21 @@
 
 */
 
-abstract class Vss extends Task
+namespace GovAlert\Tasks\Vss;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 9;
 	protected $sourceName = 'ВСС';
 	protected $categoryURLName = '';
 
-	function __construct(Database $db, Logger $logger, $debug = false)
+	public function __construct(\GovAlert\Common\Database $db,
+								\GovAlert\Common\Logger $logger,
+								\GovAlert\Common\Loader $loader,
+								\GovAlert\Common\Processor $processor,
+								$debug = false)
 	{
-		parent::__construct($db, $logger, $debug);
+		parent::__construct($db, $logger, $loader, $processor, $debug);
 		$this->categoryURL = $this->getLink($this->categoryURLName);
 	}
 
@@ -34,12 +40,12 @@ abstract class Vss extends Task
 			return null;
 		$html = mb_convert_encoding($html, 'UTF-8', 'cp1251');
 		$html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
-		$doc = new DOMDocument("1.0", "UTF-8");
+		$doc = new \DOMDocument("1.0", "UTF-8");
 		$doc->preserveWhiteSpace = false;
 		$doc->strictErrorChecking = false;
 		$doc->encoding = 'UTF-8';
 		$doc->loadHTML($html);
-		return new DOMXpath($doc);
+		return new \DOMXpath($doc);
 	}
 
 	function xpathDoc($html, $q)

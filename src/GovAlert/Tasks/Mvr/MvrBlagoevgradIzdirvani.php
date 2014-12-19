@@ -1,6 +1,8 @@
 <?php
 
-class MvrBlagoevgradIzdirvani extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrBlagoevgradIzdirvani extends Base
 {
 	protected $categoryPrefix = '[Благоевград] ';
 	protected $sourceName = 'МВР Благоевград';

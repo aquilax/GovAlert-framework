@@ -139,7 +139,7 @@ class Loader {
 		return $html;
 	}
 
-	private function setPageLoad($sourceId, $categoryId, $url, $loadStart)
+	public function setPageLoad($sourceId, $categoryId, $url, $loadStart)
 	{
 		$row = [
 			'sourceid' => $sourceId,
