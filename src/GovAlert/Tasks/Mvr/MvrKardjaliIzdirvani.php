@@ -1,8 +1,9 @@
 <?php
 
-class MvrKardjaliIzdirvani extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrKardjaliIzdirvani extends Base
+{
 	protected $categoryPrefix = '[Кърджали] ';
 	protected $sourceName = 'МВР Кърджали';
 	protected $categoryName = 'изчезнали';
@@ -11,5 +12,4 @@ class MvrKardjaliIzdirvani extends Mvr
 	protected $categoryURLBase = 'http://www.kardjali.mvr.bg';
 	protected $tweetReTweet = 'lipsva';
 	protected $categoryExpectEmpty = true;
-
 }

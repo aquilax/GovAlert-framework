@@ -1,8 +1,9 @@
 <?php
 
-class MvrKiustendil extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrKiustendil extends Base
+{
 	protected $categoryPrefix = '[Кюстендил] ';
 	protected $sourceName = 'МВР Кюстендил';
 	protected $categoryName = 'новини';
@@ -11,5 +12,4 @@ class MvrKiustendil extends Mvr
 	protected $categoryURLBase = 'http://www.kustendil.mvr.bg';
 	protected $tweetReTweet = false;
 	protected $categoryExpectEmpty = false;
-
 }

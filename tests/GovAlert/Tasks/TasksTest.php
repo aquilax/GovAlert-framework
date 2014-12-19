@@ -746,6 +746,56 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '89c3e0f493cdf71e312cbe9c69588011',
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrKardjali',
+				[
+					'Mvr/MvrKardjali.html',
+				],
+				'2014-12-11T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Кърджали] Спасители и полицаи предприемат превантивни мерки във връзка с възможно повишаване на нивото на река Арда',
+						'description' => null,
+						'date' => '2014-12-09',
+						'url' => 'http://www.kardjali.mvr.bg/PressOffice/News/news_91214.htm',
+						'hash' => 'c5d494df7b80658647e1648f62b423f3',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrKiustendil',
+				[
+					'Mvr/MvrKiustendil.html',
+				],
+				'2014-12-03T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Кюстендил] Осигурено е полицейско присъствие в районите на обявените за изплащане на депозитите от КТБ клонове на банки',
+						'description' => null,
+						'date' => '2014-12-04',
+						'url' => 'http://www.kustendil.mvr.bg/PressOffice/News/141204.htm',
+						'hash' => '055d9fa0855876cdff5e1b814517b5b5',
+
+					]
+				]
+			], [
+
+				'\GovAlert\Tasks\Mvr\MvrLovech',
+				[
+					'Mvr/MvrLovech.html',
+				],
+				'2014-12-06T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Ловеч] Полицаи от ОД МВР-Ловеч и пожарникари от РД ПБЗН предприемат превантивни мерки за гарантиране на безопасността по време на студентския празник',
+						'description' => null,
+						'date' => '2014-12-05',
+						'url' => 'http://www.lovech.mvr.bg/PressOffice/News/news141205_01.htm',
+						'hash' => 'b62485643fc2009a0ce0e49555be5045',
+					]
+				]
 			]
 		];
 	}

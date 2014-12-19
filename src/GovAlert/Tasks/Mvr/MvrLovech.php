@@ -1,8 +1,9 @@
 <?php
 
-class MvrLovech extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrLovech extends Base
+{
 	protected $categoryPrefix = '[Ловеч] ';
 	protected $sourceName = 'МВР Ловеч';
 	protected $categoryName = 'новини';
@@ -11,5 +12,4 @@ class MvrLovech extends Mvr
 	protected $categoryURLBase = 'http://www.lovech.mvr.bg';
 	protected $tweetReTweet = false;
 	protected $categoryExpectEmpty = false;
-
 }
