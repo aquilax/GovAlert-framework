@@ -1,8 +1,9 @@
 <?php
 
-class MvrMontana extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrMontana extends Base
+{
 	protected $categoryPrefix = '[Монтана] ';
 	protected $sourceName = 'МВР Монтана';
 	protected $categoryName = 'новини';
@@ -11,5 +12,4 @@ class MvrMontana extends Mvr
 	protected $categoryURLBase = 'http://www.montana.mvr.bg';
 	protected $tweetReTweet = false;
 	protected $categoryExpectEmpty = false;
-
 }

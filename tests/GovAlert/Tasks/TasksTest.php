@@ -780,7 +780,6 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 					]
 				]
 			], [
-
 				'\GovAlert\Tasks\Mvr\MvrLovech',
 				[
 					'Mvr/MvrLovech.html',
@@ -794,6 +793,54 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'date' => '2014-12-05',
 						'url' => 'http://www.lovech.mvr.bg/PressOffice/News/news141205_01.htm',
 						'hash' => 'b62485643fc2009a0ce0e49555be5045',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrLovechIzdirvani',
+				[
+					'Mvr/MvrLovechIzdirvani.html',
+				],
+				'2007-10-29T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Ловеч] ИЗДИРВАНО ЛИЦЕ',
+						'description' => null,
+						'date' => '2007-10-28',
+						'url' => 'http://www.lovech.mvr.bg/PressOffice/Wanted/petar.htm',
+						'hash' => 'f21bfbae5cad360e79acf60652b660a3',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrMontana',
+				[
+					'Mvr/MvrMontana.html',
+				],
+				'2007-10-29T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Монтана] Проблеми на досъдебното производство бяха обсъдени на работни срещи с Прокуратурата',
+						'description' => null,
+						'date' => '2014-12-19',
+						'url' => 'http://www.montana.mvr.bg/PressOffice/News/news_20141219.htm',
+						'hash' => '540adae3991d66af089d6f7df60121cf',
+					]
+				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrMontanaIzdirvani',
+				[
+					'Mvr/MvrMontanaIzdirvani.html',
+				],
+				'2013-07-23T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Монтана] ПЛАМЕН МЛАДЕНОВ КУЗМАНОВ ОТ ГР. СОФИЯ',
+						'description' => null,
+						'date' => '2013-07-23',
+						'url' => 'http://www.montana.mvr.bg/PressOffice/Wanted/5611226644.htm',
+						'hash' => '73f5a372e74a93e12d45569a087b4389',
 					]
 				]
 			]
