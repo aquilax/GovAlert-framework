@@ -1,6 +1,8 @@
 <?php
 
-class MvrNovini extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrNovini extends Base
 {
 
 	protected $categoryPrefix = '';

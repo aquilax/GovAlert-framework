@@ -15,6 +15,8 @@ class MvrBurgas extends Base
 	protected $tweetReTweet = false;
 	protected $categoryExpectEmpty = false;
 
+
+	// TODO: FIXME: This is currently broken
 	function execute($html)
 	{
 		$html = mb_convert_encoding($html, 'UTF-8', 'cp1251');
@@ -38,9 +40,16 @@ class MvrBurgas extends Base
 			} else
 				if (mb_substr($fulltext, -7) == date("Y") . " г." && $item_1->length == 0) {
 					$date = substr($fulltext, 6, 4) . "-" . substr($fulltext, 3, 2) . "-" . substr($fulltext, 0, 2);
-					if (strtotime($date) < $this->timeDiff('-5 days'))
+					if (strtotime($date) < $this->timeDiff('-5 days')) {
 						break;
-					$query[] = array($this->categoryPrefix, "", $date, $this->categoryURL, null, null);
+					}
+					$query[] = [
+						'title' => $this->categoryPrefix,
+						'description' => '',
+						'date' => $date,
+						'url' => $this->categoryURL,
+						'hash' => null,
+					];
 				} else
 					if (count($query) > 0) {
 						if (mb_strlen($query[count($query) - 1][0]) < 100) {

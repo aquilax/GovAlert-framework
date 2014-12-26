@@ -33,7 +33,7 @@ class Processor {
 				'sourceid' => $task->getSourceId(),
 				'category' => $task->getCategoryId(),
 				'pubts' => $item['date'],
-				'readts' => Database::now(),
+				'readts' => $this->db->now(),
 				'url' => $item['url'],
 				'hash' => $item['hash'],
 				'media' => isset($item['media']) ? $item['media'] : null,

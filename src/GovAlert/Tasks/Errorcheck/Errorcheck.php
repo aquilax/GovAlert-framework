@@ -34,7 +34,7 @@ class Errorcheck extends \GovAlert\Tasks\Task
 		$query[] = [
 			'title' => $title,
 			'description' => null,
-			'date' => Database::now(),
+			'date' => $this->db->now(),
 			'url' => $row['url'],
 			'hash' => $hash,
 		];
@@ -61,7 +61,8 @@ class Errorcheck extends \GovAlert\Tasks\Task
 		$this->queueTextTweet($tweet, $query[0]['url']);
 	}
 
-	protected function loader($categoryId, $categoryURL)
+	
+	protected function loadURL()
 	{
 		return 'placeholder';
 	}

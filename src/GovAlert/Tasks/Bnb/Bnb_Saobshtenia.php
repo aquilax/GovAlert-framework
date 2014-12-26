@@ -12,7 +12,6 @@ class Bnb_Saobshtenia extends Base
 	protected function execute($html)
 	{
 		$items = $this->xpathDoc($html, "//div[@id='main']//h3/a");
-		var_dump($items);
 		if (!$items || $items->length == 0) {
 			$this->reportError('Грешка при зареждане на страницата');
 			return;

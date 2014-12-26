@@ -1,6 +1,8 @@
 <?php
 
-class MvrVidin extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrVidin extends Base
 {
 
 	protected $categoryPrefix = '[Видин] ';

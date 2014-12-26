@@ -63,7 +63,7 @@ class ArKonkursi extends Base
 				$query[] = [
 					'title' => $title,
 					'description' => $description,
-					'date' => Database::Now(),
+					'date' => $this->db->now(),
 					'url' => $url,
 					'hash' => $hash
 				];

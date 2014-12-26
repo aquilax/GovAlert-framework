@@ -1,6 +1,10 @@
 <?php
 
-class MvrPlovdiv extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+use GovAlert\Common\Utils;
+
+class MvrPlovdiv extends Base
 {
 
 	protected $categoryPrefix = '[Пловдив] ';

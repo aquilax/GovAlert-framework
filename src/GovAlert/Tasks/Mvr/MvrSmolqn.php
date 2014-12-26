@@ -1,6 +1,8 @@
 <?php
 
-class MvrSmolqn extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrSmolqn extends Base
 {
 
 	protected $categoryPrefix = '[Смолян] ';

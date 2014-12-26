@@ -1,6 +1,8 @@
 <?php
 
-class InterpolIzcheznali extends Interpol
+namespace GovAlert\Tasks\Interpol;
+
+class InterpolIzcheznali extends Base
 {
 
 	protected $categoryId = 1;

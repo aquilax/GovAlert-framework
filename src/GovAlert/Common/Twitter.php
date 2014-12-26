@@ -2,6 +2,8 @@
 
 namespace GovAlert\Common;
 
+use GovAlert\Config;
+
 class Twitter
 {
 	private $db;
@@ -71,7 +73,7 @@ class Twitter
 				if ($connection == false || $currentAccount === false || $currentAccount != strtolower($row['account'])) {
 					$currentAccount = strtolower($row['account']);
 					$currentAuth = $twitterAuth[$currentAccount];
-					$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $currentAuth[0], $currentAuth[1]);
+					$connection = new \TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $currentAuth[0], $currentAuth[1]);
 					$connection->host = "https://api.twitter.com/1.1/";
 					$connection->useragent = 'Activist Dashboard notifier';
 					$connection->ssl_verifypeer = TRUE;
@@ -111,7 +113,7 @@ class Twitter
 					$prefix = "";
 					$postfix = "";
 					if ($row['text'] == null) {
-						$postfix = " http://GovAlert.eu/" . linkCode(intval($row['itemid']));
+						$postfix = " http://GovAlert.eu/" . Utils::linkCode(intval($row['itemid']));
 						// TODO: Figure out message
 						if ($row['url'] != null && mb_strlen($message) <= 134) {
 							$urltype = $this->getUrlFileType($row['url']);
@@ -160,7 +162,8 @@ class Twitter
 						foreach ($accounts as $account) {
 							$query[] = [
 								'account' => $account,
-								'queued' => Database::now(),
+
+								'queued' => $this->db->now(),
 								'retweet' => $tweetid,
 							];
 						}

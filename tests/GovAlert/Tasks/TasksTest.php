@@ -843,6 +843,39 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 						'hash' => '73f5a372e74a93e12d45569a087b4389',
 					]
 				]
+			], [
+				'\GovAlert\Tasks\Mvr\MvrNovini',
+				[
+					'Mvr/MvrNovini.html',
+				],
+				'2013-07-23T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => 'Покана за брифинг',
+						'description' => null,
+						'date' => '2014-12-26',
+						'url' => 'http://press.mvr.bg/NEWS/news141226_02.htm',
+						'hash' => 'a033bb1fd6eafa785849cd4c4bd45fdb',
+					]
+				]
+			], [
+
+				'\GovAlert\Tasks\Mvr\MvrPazardjik',
+				[
+					'Mvr/MvrPazardjik.html',
+				],
+				'2013-07-23T23:24:23+02:00',
+				1,
+				[
+					[
+						'title' => '[Пазарджик] ВАЖНО ! Поради ремонт или рехабилитация на някои главни пътища е въведена временна организация на движението по тях',
+				        'description' => null,
+        				'date' => '2014-11-18',
+						'url' => 'http://pazardjik.mvr.bg/Prescentar/Novini/rexabilitazia+na+patni+otsechki.htm',
+        				'hash' => '8c951344a1e0e79e7aaf83eedb03159d',
+					]
+				]
 			]
 		];
 	}

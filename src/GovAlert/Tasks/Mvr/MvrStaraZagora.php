@@ -1,6 +1,8 @@
 <?php
 
-class MvrStaraZagora extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrStaraZagora extends Base
 {
 
 	protected $categoryPrefix = '[С.Загора] ';

@@ -24,7 +24,7 @@ class Loader {
 		$hashDataDirty = false;
 
 		if (!$this->debug && $linki !== null) {
-			$res = $this->db->query(sprintf('SELECT hash, lastchanged, etag, headpostpone, ignorehead FROM scrape WHERE sourceid= %d  AND url= %d LIMIT 1', $this->sourceId, $linki));
+			$res = $this->db->query(sprintf('SELECT hash, lastchanged, etag, headpostpone, ignorehead FROM scrape WHERE sourceid= %d  AND url= %d LIMIT 1', $sourceId, $linki));
 			if ($res->num_rows > 0) {
 				$hashData = $res->fetch_assoc();
 			}
@@ -103,7 +103,7 @@ class Loader {
 			return false;
 		}
 
-		if (!$this->debug && $linki !== null) {
+		if (!$this->debug && !empty($linki)) {
 			$hash = md5($html);
 			if ($hashData === false) {
 				$this->db->query("replace scrape (sourceid,url,hash,loadts) value (" . $sourceId . ",$linki,'$hash',now())");

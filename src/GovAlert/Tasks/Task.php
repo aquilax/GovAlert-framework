@@ -7,6 +7,8 @@ namespace GovAlert\Tasks;
 use \GovAlert\Common\Database;
 use \GovAlert\Common\Utils;
 use \GovAlert\Config;
+use \GovAlert\Common\Images;
+
 
 abstract class Task
 {
@@ -144,11 +146,11 @@ abstract class Task
 			$loadstart = microtime(true);
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");
 			$this->setPageLoad($url, $loadstart);
-			if (filesize($filename) >= 1.5 * 1024 * 1024)
+			if (filesize($filename) >= 1.5 * 1024 * 1024) {
 				Images::resizeItemImage($filename, $type);
-			else
+			} else {
 				Images::fitinItemImage($filename, $type, $options);
-
+			}
 			usleep(500000);
 		}
 
@@ -215,7 +217,7 @@ abstract class Task
 			$retweet = "'govalerteu'";
 		$fields = [
 			'account' => $account,
-			'queued' => Database::now(),
+			'queued' => $this->db->now(),
 			'text' => $text,
 			'sourceid' => $this->sourceId,
 			'priority' => 1,
@@ -249,7 +251,7 @@ abstract class Task
 			$query[] = [
 				'itemid' => $id,
 				'account' => $account,
-				'queued' => Database::now(),
+				'queued' => $this->db->now(),
 				'retweet' => $retweet
 			];
 		}

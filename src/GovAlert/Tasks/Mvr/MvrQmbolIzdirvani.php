@@ -1,6 +1,8 @@
 <?php
 
-class MvrQmbolIzdirvani extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrQmbolIzdirvani extends Base
 {
 
 	protected $categoryPrefix = '[Ямбол] ';

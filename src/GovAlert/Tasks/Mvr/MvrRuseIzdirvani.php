@@ -1,6 +1,8 @@
 <?php
 
-class MvrRuseIzdirvani extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrRuseIzdirvani extends Base
 {
 
 	protected $categoryPrefix = '[Русе] ';

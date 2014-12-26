@@ -1,6 +1,8 @@
 <?php
 
-class MvrSofiq extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrSofiq extends Base
 {
 
 	protected $categoryPrefix = '[София] ';

@@ -1,8 +1,9 @@
 <?php
 
-class MvrPazardjik extends Mvr
-{
+namespace GovAlert\Tasks\Mvr;
 
+class MvrPazardjik extends Base
+{
 	protected $categoryPrefix = '[Пазарджик] ';
 	protected $sourceName = 'МВР Пазарджик';
 	protected $categoryName = 'новини';
@@ -11,5 +12,4 @@ class MvrPazardjik extends Mvr
 	protected $categoryURLBase = 'http://pazardjik.mvr.bg';
 	protected $tweetReTweet = false;
 	protected $categoryExpectEmpty = false;
-
-} 
+}

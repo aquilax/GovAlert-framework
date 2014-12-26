@@ -1,6 +1,8 @@
 <?php
 
-class MvrPernik extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrPernik extends Base
 {
 
 	protected $categoryPrefix = '[Перник] ';

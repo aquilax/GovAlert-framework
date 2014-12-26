@@ -37,7 +37,7 @@ class VssProtokol extends Vss
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];
@@ -45,4 +45,4 @@ class VssProtokol extends Vss
 		return array_reverse($query);
 	}
 
-} 
+}

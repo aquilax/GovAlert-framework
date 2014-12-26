@@ -1,6 +1,8 @@
 <?php
 
-class MvrPazardjikIzdirvani extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrPazardjikIzdirvani extends Base
 {
 
 	protected $categoryPrefix = '[Пазарджик] ';

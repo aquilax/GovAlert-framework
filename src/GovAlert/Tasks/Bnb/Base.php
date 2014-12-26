@@ -44,7 +44,7 @@ abstract class Base extends \GovAlert\Tasks\Task
 			return false;
 		}
 		$query = array();
-		foreach ($items as $item) {var_dump($item);
+		foreach ($items as $item) {
 			$url = $url . "/" . $item->getAttribute("href");
 			$hash = md5($url);
 

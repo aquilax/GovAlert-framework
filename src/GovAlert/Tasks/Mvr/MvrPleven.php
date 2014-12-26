@@ -1,6 +1,8 @@
 <?php
 
-class MvrPleven extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrPleven extends Base
 {
 
 	protected $categoryPrefix = '[Плевен] ';

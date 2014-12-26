@@ -1,6 +1,8 @@
 <?php
 
-class MvrTargovishte extends Mvr
+namespace GovAlert\Tasks\Mvr;
+
+class MvrTargovishte extends Base
 {
 
 	protected $categoryPrefix = '[Търговище] ';

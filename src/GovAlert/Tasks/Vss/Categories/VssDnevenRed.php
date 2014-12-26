@@ -43,7 +43,7 @@ class VssDnevenRed extends Vss
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];

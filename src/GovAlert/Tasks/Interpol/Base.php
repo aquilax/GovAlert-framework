@@ -7,7 +7,9 @@ Links
 101: новини http://www.interpol.int/Member-countries/Europe/Bulgaria
 */
 
-abstract class Interpol extends Task
+namespace GovAlert\Tasks\Interpol;
+
+abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 18;
 	protected $sourceName = 'Интерпол';
@@ -120,7 +122,7 @@ abstract class Interpol extends Task
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => Database::now(),
+				'date' => $this->db->now(),
 				'url' => $url,
 				'hash' => $hash,
 			];
@@ -140,7 +142,7 @@ abstract class Interpol extends Task
 		}
 	}
 
-	protected function loader($categoryId, $categoryURL)
+	protected function loadURL($categoryId, $categoryURL)
 	{
 		return 'placeholder';
 	}

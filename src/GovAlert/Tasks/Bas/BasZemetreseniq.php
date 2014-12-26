@@ -9,6 +9,7 @@
 namespace GovAlert\Tasks\Bas;
 
 use GovAlert\Common\Database;
+use GovAlert\Common\Utils;
 
 class BasZemetreseniq extends Base
 {
@@ -54,23 +55,7 @@ class BasZemetreseniq extends Base
 				continue;
 			}
 
-			list($town, $direction) = $this->processor->getTownAndDirection($lat, $lng);
-			$res = $this->db->query('SELECT grad, geo FROM s_bas');
-			$town = null;
-			$direction = null;
-			if ($res->num_rows > 0) {
-				while ($row = $res->fetch_array()) {
-					$row[1] = explode(',', $row[1]);
-					$directionNew = $this->direction($row[1][0], $row[1][1], $lat, $lng);
-					if ($direction == null || $directionNew[0] < $direction[0]) {
-						$town = $row[0];
-						$direction = $directionNew;
-						if ($direction[0] < 40) {
-							break;
-						}
-					}
-				}
-			}
+			list($town, $direction) = $this->getTownAndDirection($lat, $lng);
 
 			if ($town == null) {
 				$town = "Пловдив";
@@ -160,6 +145,26 @@ class BasZemetreseniq extends Base
 			$bearing = "З";
 
 		return [$km, $bearing];
+	}
+
+	function getTownAndDirection($lat, $lng) {
+		$res = $this->db->query('SELECT grad, geo FROM s_bas');
+		$town = null;
+		$direction = null;
+		if ($res->num_rows > 0) {
+			while ($row = $res->fetch_array()) {
+				$row[1] = explode(',', $row[1]);
+				$directionNew = $this->direction($row[1][0], $row[1][1], $lat, $lng);
+				if ($direction == null || $directionNew[0] < $direction[0]) {
+					$town = $row[0];
+					$direction = $directionNew;
+					if ($direction[0] < 40) {
+						break;
+					}
+				}
+			}
+		}
+		return [$town, $direction];
 	}
 }
 

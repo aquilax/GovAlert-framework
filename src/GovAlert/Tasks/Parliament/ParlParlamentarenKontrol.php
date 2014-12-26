@@ -27,7 +27,7 @@ class ParlParlamentarenKontrol extends Parliament
 			$query[] = [
 				'title' => $title,
 				'description' => null,
-				'date' => \GovAlert\Common\Database::now(),
+				'date' => $this->db->now(),
 				'url' => 'http://parliament.bg' . $url,
 				'hash' => $hash,
 			];

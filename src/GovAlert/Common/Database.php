@@ -76,11 +76,11 @@ class Database extends \mysqli
 		return '\'' . $text . '\'';
 	}
 
-	function time() {
+	public function time() {
 		return time();
 	}
 
-	function now($timestamp = null)
+	public function now($timestamp = null)
 	{
 		if (is_null($timestamp)) {
 			$timestamp = $this->time();
