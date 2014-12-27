@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+
+    <head>
+        <base href="http://www.mi.government.bg/" />
+        <title>Министерство на икономиката</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="author" content="www.icygen.com" />
+        <meta name="robots" content="index, follow" />
+        
+<script type="text/javascript" src="scripts/jQuery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-ui-1.7.2.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-ui-i18n.min.js"></script>
+
+<link href="themes/default/css/news.css" media="screen" rel="stylesheet" type="text/css" /><script type="text/javascript">
+    //<![CDATA[
+var siteLanguage = "bg";    //]]>
+</script>
+<script type="text/javascript" src="scripts/jQuery-ext/jquery.base64.min.js"></script>
+<script type="text/javascript">
+    //<![CDATA[
+
+jQuery(this).ready(function () {
+    jQuery('#filter').click(function () {
+        filter();
+    });
+    jQuery('#order').click(function () {
+        filter(1);
+    });
+
+    jQuery("input.trigger-filter").click(function(){
+    	jQuery(this).val('');
+   	})
+});
+function filter(isOrder) {
+    var period = 0;
+    var keywords = '';
+    var order = 0;
+
+    if(jQuery('#period').val()) {
+        period = jQuery('#period').val();
+    }
+    if(jQuery('#keywords').val()) {
+        keywords = jQuery('#keywords').val();
+    }
+
+    if(jQuery('#order:checked').val()) {
+        order = 1;
+    }
+
+
+
+    if(period || keywords != 'Ключова дума' || isOrder) {
+
+        keywords = encodeURIComponent(keywords);
+        paramsUrl = jQuery.base64.encode('{"period": "'+period+'", "keywords" : "'+keywords+'", "order" : "'+order+'"}');
+
+        window.location.href = '/bg/discussion-news-0.html?p=' + paramsUrl;
+    }
+
+    return false;
+}
+    //]]>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+jQuery(document).ready(function(){
+	jQuery("#showAllFiles").click(function(){
+		if(jQuery(".importantFiles li").hasClass('hidden')) {
+			jQuery(".importantFiles li.hidden").removeClass("hidden").addClass("visible");
+		} else {
+			jQuery(".importantFiles li.visible").removeClass("visible").addClass("hidden");
+		}
+	})
+})
+    //]]>
+</script>        
+        			<link rel="stylesheet" type="text/css" href="themes/default/css/main.css" media="all"/>
+        	<link rel="stylesheet" type="text/css" href="themes/default/css/tools.css" media="all"/>
+        	<link rel="stylesheet" type="text/css" href="themes/default/css/styles.css" media="all"/>
+			        
+    </head>
+    <body>
+		
+        <div id="shadow">
+            <div class="width-wrap">
+            	                <div id="menu-top">
+                    				<a href="/en/discussion-news-0.html" class="bold">
+		<img src="themes/admin/images/flags/en.gif" width="20" height="13" alt="" class="flag" />
+		English		</a>
+		
+        <div class="separator">&nbsp;</div>	    
+		
+  		  			<a href="/bg/default/contact" >Контакти</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="/bg/pages/help-67.html" >Помощ</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="https://dmi-vpn.mee.government.bg:8443/sslvpn/login" class="imgM" target='_blank'>
+  				<img width="17" height="8" class="key" alt=""
+  				src="themes/default/images/icons/key.gif" />
+  			</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="https://webmail.mee.government.bg/gw/webacc" class="imgM" target='_blank'>
+  				<img width="17" height="8" class="webmail" alt=""
+  				src="themes/default/images/icons/webmail.gif" />
+  			</a>
+  		
+      <div class="separator">&nbsp;</div>
+  		  			<a href="/bg/sitemap.html" >Карта на сайта</a>
+  		
+      <div class="separator">&nbsp;</div>
+
+
+<a href="/index/set-site-style/lang/bg/siteStyle/0/url/L2JnL2Rpc2N1c3Npb24tbmV3cy0wLmh0bWw%3D">
+	Текстова версия</a>
+<div class="separator">&nbsp;</div>
+
+<!-- end navigation top -->
+
+                </div>
+                <div id="header">
+					
+                    <div class="fontsize">
+                        <script type="text/javascript">
+
+function zoomin(zlevel) {
+	var zlevelCurrent = parseInt(jQuery("#zlevel").val());
+	var level = zlevelCurrent+parseInt(zlevel);
+	jQuery("#zlevel").val(level);
+
+   jQuery("body").css("font-size",level);
+}
+
+</script>
+ 
+ <a href="javascript:;" onclick="zoomin(-1);"><img src="themes/default/images/icons/minus.gif" width="8" height="8" alt="" /></a>
+ <div class="separator">&nbsp;</div>
+ <a href="javascript:;" onclick="zoomin(1);"><img src="themes/default/images/icons/plus.gif" width="8" height="8" alt="" /></a>
+ <div class="separator">&nbsp;</div>
+ <div class="right">Размер на шрифта&nbsp;</div>
+
+<input type="hidden" value="12" id="zlevel" />						<a href="/bg/rss.html" class="rss">RSS</a>
+                    </div>
+                    <div class="search-form">
+                        <script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("#quicksearch-keywords").click(function(){
+		if(jQuery(this).val() == 'Търсене') {
+			jQuery(this).val('');
+		}
+		return false;
+	})
+})
+</script>
+
+<form id="quickSearch" action="/search/index/index/lang/bg" method="post">
+    <input type="text" id="quicksearch-keywords" name="keywords" value="Търсене" class="keywords" />
+    <input type="submit" name="go" value="Търсене" class="submit" onclick="quickSearch.submit();" />
+</form>                    </div>
+                    <a href="/bg">
+                                            	<img src="themes/default/images/logo_bg.png" alt="" class="logo" />
+                    </a>
+                </div>
+                <div id="menu-main">
+                    <div class="cl">
+                        <div class="cr">
+                            <ul>
+    <li>
+    	<div >
+        	<a href="/bg/pages/about-us-1.html" >Министерство</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/themes-c238.html" >Икономика</a>
+    	</div>
+    </li>
+    <li>
+    	<div  class="active">
+        	<a href="/bg/news.html" >Новини</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/services-c36-1.html" >Административни услуги</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/competitions-c341-1.html" >Обяви и търгове</a>
+    	</div>
+    </li>
+    <li>
+    	<div >
+        	<a href="/bg/themes-c305.html" >Регистри</a>
+    	</div>
+    </li>
+</ul>
+
+<!-- end navigation top -->
+
+                        </div>
+                    </div>
+                </div>
+                <div id="breadcrumb">
+                 <a id="breadcrumbs-menu5" href="/bg">Начало</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> <a id="breadcrumbs-228" href="/bg/news.html">Новини</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> <a id="breadcrumbs-252" href="javascript:;">За обществено обсъждане</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> <a id="breadcrumbs-268" href="/bg/discussion-news-0.html">Проекти за обществено обсъждане</a> <img src="themes/default/images/icons/arr-1.gif" width="6" height="5" alt="" /> Проекти за обществено обсъждане                   
+                </div>
+                <div class="forPrint">
+                    <div id="page">
+                                            <div class="col1">
+                            <div id="side-menu">
+    <ul>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/news.html" >Новини</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/hot-news.html" >Акценти</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/news-archive.html" >Архив новини и акценти</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/calendar-news-0.html" >Предстоящи събития</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/theme-news-0.html" >Актуални теми</a>
+            </div>
+                    </li>
+            <li  class="active">
+            <div>
+            <img src="themes/default/images/icons/arr-6.gif" width="6" height="6" alt="" />                
+                            <a href="#" >За обществено обсъждане</a>
+            </div>
+            <ul>
+            <li  class="active">
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/discussion-news-0.html" >Проекти за обществено обсъждане</a>
+            </div>
+                </li>
+            <li >
+            <div>
+                <img src="themes/default/images/icons/arr-7.gif" width="3" height="5" alt="" />
+                <a href="/bg/discussion-news-1.html" >Завършили процедури за обществено обсъждане</a>
+            </div>
+                </li>
+    </ul>        </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/interviews/index/list" >Интервюта</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/themes-c170.html" >Парламентарен контрол</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/galleries-0.html" >Фотогалерия</a>
+            </div>
+                    </li>
+            <li >
+            <div>
+            <img src="themes/default/images/icons/arr-5.gif" width="6" height="6" alt="" />
+                            <a href="/bg/videos.html" >Видеогалерия</a>
+            </div>
+                    </li>
+        </ul>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function () {
+	$('div#side-menu a').each(function () {
+		if ($(this).attr('href') == '#') {
+			var iUl = $(this).parent().next('ul:eq(0)');
+			if ($(this).parents('li:eq(0)').hasClass('active')) {
+				iUl.show();
+			} else {
+				iUl.hide();
+			}
+			$(this).click(function () {
+				iUl.toggle();
+				return false;
+			});
+		}
+	});
+});
+//]]>
+</script><div class="highlights">
+    <div class="title-4">Акценти</div>
+        <div class="row">
+        <div class="date">11 декември 2014</div>
+        <a href="/bg/news/ministar-bojidar-lukarski-uchastva-v-parvata-kopka-na-edna-ot-osnovnite-sgradi-v-sofiya-teh-park-1957.html?p=eyJ0eXBlIjoiaG90In0=">Министър Божидар Лукарски участва в първата копка на една от основните сгради в "София Тех Парк"</a>
+    </div>
+        <div class="row">
+        <div class="date">03 декември 2014</div>
+        <a href="/bg/news/ministar-lukarski-sred-vodeshtite-ni-prioriteti-e-da-se-varne-doverieto-na-investitorite-1943.html?p=eyJ0eXBlIjoiaG90In0=">Министър Лукарски: Сред водещите ни приоритети е да се върне доверието на инвеститорите</a>
+    </div>
+        <div class="row">
+        <div class="date">21 ноември 2014</div>
+        <a href="/bg/news/ministar-lukarski-podkrepi-predlojenite-ot-ek-merki-za-zashtita-na-evropeiskiya-biznes-1929.html?p=eyJ0eXBlIjoiaG90In0=">Министър Лукарски подкрепи предложените от ЕК мерки за защита на европейския бизнес</a>
+    </div>
+        <div class="butt-1 left"><div class="cr"><div>
+        <a href="/bg/hot-news.html">още от рубриката</a>
+    </div></div></div>
+    <div class="clear1">&nbsp;</div>
+</div><div class="gallery">
+	<div id="tabGallery" class="tab active">фотогалерия</div>
+    <div id="tabVideo" class="tab">видео</div>
+    <a href="/bg/galleries-1.html" class="all">Всички</a>
+    <div id="contentGallery" class="content left">
+        	<img style="cursor: pointer;" id="prevGallery" src="themes/default/images/icons/arr-3-rtl.gif" width="12" height="23" alt="" class="arr left" />
+    	<div id="cycleGallery" class="left">
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-907-2944.JPG" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-908-2945.JPG" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-909-2946.JPG" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-910-2947.jpg" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”</a></div>
+    		
+    	</div>
+        	<div class="cycleGItem left" style="min-height: 190px;">
+    		    		<a href="/bg/gallery-6747.html"><img src="files/galleries/image/list_file-911-2948.jpg" alt="" class="left" /></a>
+    		<div class="link" ><a href="/bg/gallery-6747.html">Министър Божидар Лукарски на първа копка на една от основните сгради в “София Тех Парк”.</a></div>
+    		
+    	</div>
+        	</div>
+    	<img style="cursor: pointer;" id="nextGallery" src="themes/default/images/icons/arr-3-ltr.gif" width="12" height="23" alt="" class="arr left" />
+    	</div>
+    <div id="contentVideo" class="content" style="display: none;">
+        	<div class="left">&nbsp;</div>
+    	    	<a href="/bg/video-147.html"><img src="files/videos/image/listV_video-147-2863.jpg" alt="" class="clear" /></a>
+		<div class="linkVideo"><a href="/bg/video-147.html">Васил Щонов: Фокусът на работата ни е реформиране на енергийния сектор и повишаване на ефективността в него</a></div>
+        </div>
+</div>
+<script type="text/javascript" src="scripts/jQuery-ext/jquery.cycle.all.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(document).ready(function () {
+	jQuery('div.gallery div.tab').click(function () {
+		jQuery('div.gallery div.tab').removeClass('active');
+		jQuery(this).addClass('active');
+		switch(jQuery(this).attr('id')) {
+    		case 'tabGallery' :
+    			jQuery('#contentVideo').hide();
+        		jQuery('#contentGallery').show();
+        		jQuery('div.gallery a.all').attr('href', '/bg/galleries-1.html');
+    			break;
+    		case 'tabVideo' :
+    			jQuery('#contentGallery').hide();
+    			jQuery('#contentVideo').show();
+    			jQuery('div.gallery a.all').attr('href', '/bg/videos.html');
+    			break;
+		}
+	});
+	jQuery('#cycleGallery').cycle({
+	    fx:     'scrollHorz',
+	    prev:   '#prevGallery',
+	    next:   '#nextGallery',
+	    timeout: 0,
+	    containerResize: 1,
+	});
+});
+//]]>
+</script>                        </div>
+                        <div class="col2">
+                            <div class="title-1">Проекти за обществено обсъждане</div>
+<div class="title-2">Филтрирай по:</div>
+    <div>
+        <form action="" id="filterForm" method="post" class="filter-team">
+
+
+
+            <select name="period" id="period" class="trigger-filter filter-team">
+                <option value="">Дата</option>
+                                <option value="1">24 часа</option>
+                                <option value="7">1 седмица</option>
+                                <option value="30">1 месец</option>
+                            </select>
+            <input type="text" name="keywords" id="keywords" value="Ключова дума" class="trigger-filter name"/>
+
+
+            <div class="butt-1 left"><div class="cr"><div>
+                <a href="javascript:;" id="filter">филтър</a>
+            </div></div></div>
+
+        </form>
+    </div>
+    <div class="clear1">&nbsp;</div>
+    <div class="title-2">Сортирай по азбучен ред: <input type="checkbox" name="order" id="order"  class="trigger-filter checkbox"/></div>
+<div class="separator-1 clear1">&nbsp;</div>
+
+                <div class="row">
+		   <div class="date">17 декември 2014</div>	
+           <strong><a href="/bg/discussion-news/proekt-na-pms-za-dopalnenie-na-naredba-za-dopalnitelnite-merki-saglasno-direktiva-za-opredelyane-na-e-1986-m268-a0-1.html">Проект на ПМС за допълнение на Наредба за допълнителните мерки съгласно Директива за определяне на екодизайна към продуктите, свързани с енергопотреблението</a></strong>
+
+
+           <div>С наредбата за допълнителните мерки от 2010 г. се определиха процедурите за оценяване на съответствието на конкретните продуктови групи от обхвата на приетите регламенти, съгласно Директива за изискванията за екодизайн към продуктите, свързани с енергопотреблението, с изискванията за екопроектиране.</div>
+
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/discussion-news/proekt-na-pms-za-dopalnenie-na-naredba-za-dopalnitelnite-merki-saglasno-direktiva-za-opredelyane-na-e-1986-m268-a0-1.html">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+                <div class="row">
+		   <div class="date">15 декември 2014</div>	
+           <strong><a href="/bg/discussion-news/mi-predlaga-za-obshtestveno-obsajdane-proekt-na-pms-za-izmenenie-i-dopalnenie-na-naredbata-za-sashtestve-1975-m268-a0-1.html">МИ предлага за обществено обсъждане Проект на ПМС за изменение и допълнение на Наредбата за съществените изисквания и оценяване на съответствието на играчките</a></strong>
+
+
+           <div>Предложените изменения и допълнение в Наредбата за съществените изисквания и оценяване на съответствието на играчките са инициирани от промени в европейското законодателство. Проектът на Постановление въвежда изискванията на три директиви на Европейската Комисия.</div>
+
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/discussion-news/mi-predlaga-za-obshtestveno-obsajdane-proekt-na-pms-za-izmenenie-i-dopalnenie-na-naredbata-za-sashtestve-1975-m268-a0-1.html">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+                <div class="row">
+		   <div class="date">12 декември 2014</div>	
+           <strong><a href="/bg/discussion-news/mi-predlaga-proekt-na-zakon-za-izmenenie-na-zakona-za-zabrana-na-himicheskoto-orajie-i-za-kontrol-na-1963-m268-a0-1.html">МИ предлага проект на Закон за изменение на Закона за забрана на химическото оръжие и за контрол на токсичните химически вещества и техните прекурсори</a></strong>
+
+
+           <div>В преходните и заключителни разпоредби на проекта се предвиждат изменения в  закони, регламентиращи правомощия от материалната компетентност на министъра на икономиката и енергетиката, които следва да бъдат поети от министъра на икономиката, респективно разпределени между министрите на икономиката, енергетиката и туризма, с оглед  изпълнението  на  Решението на Народното събрание от 07.11.2014г. за приемане на структура на Министерския съвет на Република България (обн. ДВ, бр.93 от 11.11.2014 г.).
+</div>
+
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/discussion-news/mi-predlaga-proekt-na-zakon-za-izmenenie-na-zakona-za-zabrana-na-himicheskoto-orajie-i-za-kontrol-na-1963-m268-a0-1.html">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+                <div class="row">
+		   <div class="date">09 декември 2014</div>	
+           <strong><a href="/bg/discussion-news/mie-predlaga-za-obshtestveno-obsajdane-proekt-za-dopalnenie-na-naredba-za-iziskvaniyata-za-etiketirane-1961-m268-a0-1.html">МИЕ предлага за обществено обсъждане проект за допълнение на Наредба за изискванията за етикетиране и предоставяне на стандартна информация за продукти, свързани с енергопотреблението</a></strong>
+
+
+           <div>Промените в наредбата се налагат във връзка с новоприето европейско законодателство.
+С наредбата, през 2011 г., в българското законодателство се въведоха изискванията на Директива 2010/30/ЕС относно посочването на консумацията на енергия и на други ресурси от продукти, свързани с енергопотреблението. </div>
+
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/discussion-news/mie-predlaga-za-obshtestveno-obsajdane-proekt-za-dopalnenie-na-naredba-za-iziskvaniyata-za-etiketirane-1961-m268-a0-1.html">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+                <div class="row">
+		   <div class="date">01 декември 2014</div>	
+           <strong><a href="/bg/discussion-news/mie-predlaga-za-obshtestveno-obsajdane-proekt-na-postanovlenie-za-izmenenie-i-dopalnenie-na-pravilnika-1940-m268-a0-1.html">МИЕ предлага за обществено обсъждане проект на Постановление за изменение и допълнение на Правилника за прилагане на ЗОП</a></strong>
+
+
+           <div>С предложените промени правилникът се привежда в съответствие със закона, като по този начин се създават необходимите предпоставки за цялостен и последователен подход при провеждането на процедурите и се доразвива и детайлизира правната уредба в областта на обществените поръчки.</div>
+
+           <div class="butt-1 left"><div class="cr"><div>
+           	<a href="/bg/discussion-news/mie-predlaga-za-obshtestveno-obsajdane-proekt-na-postanovlenie-za-izmenenie-i-dopalnenie-na-pravilnika-1940-m268-a0-1.html">още</a>
+           </div></div></div>
+           <div class="clear1"></div>
+        </div>
+        
+
+                        </div>
+                        <div class="col3">
+    	                    
+<div class="box-2 calendar">
+     <div class="title">Предстоящи събития</div>
+     	<!--<div class="butt-2 left"><div class="cr"><div>
+        	    	</div></div></div>-->
+        <div class="clear1"></div>
+                <div class="text"><span style="color:#fff">17.12.2014</span><br />
+			<a href="/bg/calendar-news-view/ministar-lukarski-zaminava-na-rabotno-poseshtenie-v-sasht-1985-1.html">
+    		Министър Лукарски заминава на работно посещение в САЩ     		</a>
+    	</div>
+        <div class="butt-1 left"><div class="cr"><div>
+         <a href="/bg/calendar-news-1.html">
+                всички</a>
+        </div></div></div>
+      <div class="clear1"></div>
+</div> <div class ="">
+                <a target="_blank" href="/banners/index/click/lang/bg/id/3" title="eufunds">
+                <img border="0" src="files/banners/file/banner-3-36.jpg" alt="eufunds" class="PR3"/></a>
+</div><div class="box-2 contacts">
+                            <div class="title">Пишете ни</div>
+                            <div class="butt-2 left"><div class="cr"><div>
+                                <a href="mailto:press@mee.government.bg">press@mee.government.bg</a>
+                            </div></div></div>  
+                            
+                            <div class="text" style="line-height:21px;">Ресор Икономика: +359 2 940 7322                           
+                            <div class="clear1"></div>
+                        </div>                        </div>
+                        <div class="clear3">&nbsp;</div>
+                                        </div>
+                </div>
+                <div style="clear:left;padding-top:10px;">
+                                    <a target="_blank" href="/banners/index/click/lang/bg/id/7" title="Сайт на Управляващия орган на ОП &amp;quot;Конкурентоспособност&amp;quot; - в нов прозорец">
+                <img border="0" src="files/banners/file/banner-7-590.jpg" alt="Сайт на Управляващия орган на ОП &quot;Конкурентоспособност&quot; - в нов прозорец" class="PR3"/></a>
+                <object width="250" height="90" id="file-5" codebase="http://active.macromedia.com/flash4/cabs/swflash.cab#version=4,0,0,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+                    <param value="files/banners/file/banner-5-417.swf" name="movie" />
+                    <param value="high" name="quality" />
+                    <embed width="250" height="90" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" quality="high" src="files/banners/file/banner-5-417.swf" name="name" />
+                </object>
+                </div>
+                <div id="contacts">
+                  <span class="title">Контакти:</span> <span>София 1052</span> <span>ул. "Славянска" 8</span> <span>тел. центр.: +359 2 9407001</span> <span><a href="mailto:e-docs@mee.government.bg">e-docs@mee.government.bg</a></span>                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="blend">
+                <div class="width-fwrap">
+                	
+		       	 <a class="left" href="/bg/pages/accessibility-72.html" >Достъпност</a>
+   				       	 <a class="left" href="/bg/pages/security-71.html" >Сигурност</a>
+   						  			<a class="left" href="http://old1.mee.government.bg" target="blank">Архив (сайт на МИЕ - не се актуализира)</a>
+					
+
+
+
+                    <div class="icygen"><a href="http://www.icygen.com/" target="_blank">Web Design Internet Marketing</a> by ICYGEN</div>
+                    <div class="copy">© Министерство на икономиката на Република България</div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-25796155-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </body>
+</html>

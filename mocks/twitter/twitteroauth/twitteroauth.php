@@ -12,4 +12,9 @@ class TwitterOAuth
 		$res->id_str = '';
 		return $res;
 	}
+
+	function get()
+	{
+		return [];
+	}
 }
