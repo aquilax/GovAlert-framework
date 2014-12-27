@@ -3,13 +3,15 @@
 namespace GovAlert\Common;
 
 
-class Loader {
+class Loader
+{
 
 	public $error = false;
 
 	public function __construct(Database $db,
 								Logger $logger,
-								$debug = false) {
+								$debug = false)
+	{
 		$this->db = $db;
 		$this->logger = $logger;
 		$this->debug = $debug;
@@ -162,7 +164,7 @@ class Loader {
 		$trace = str_replace("/home/yurukov1/public_html/govalert/", "", $e->getTraceAsString());
 		$message = $message . PHP_EOL . $trace;
 		$this->logger->error("Запазвам грешка [$sourceId,$categoryId]: $message");
-		if ($this->debug){
+		if ($this->debug) {
 			return;
 		}
 		$this->db->insert('error', [

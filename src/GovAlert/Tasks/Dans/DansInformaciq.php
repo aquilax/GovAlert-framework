@@ -60,8 +60,8 @@ class DansInformaciq extends Base
 				$imageurl = str_replace("http://www.dans.int/", "", $imageurl);
 				if (strpos($imageurl, "dans.bg") === false)
 					$imageurl = "http://www.dans.bg/" . $imageurl;
-				$media["image"][] = array($this->loadItemImage($imageurl, []));
-				$imageurl = $this->loadItemImage($imageurl, []);
+				$media["image"][] = array($this->loadItemImage($imageurl));
+				$imageurl = $this->loadItemImage($imageurl);
 				if ($imageurl)
 					$media["image"][] = array($imageurl);
 			}

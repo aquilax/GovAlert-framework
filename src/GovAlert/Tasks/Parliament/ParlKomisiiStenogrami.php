@@ -1,15 +1,17 @@
 <?php
 
-class ParlKomisiiStenogrami extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlKomisiiStenogrami extends Base
 {
 
 	protected $categoryId = 13;
 	protected $categoryName = 'стенограми на комисии';
-	protected $categoryURL = '';
+	protected $categoryURL = null;
 
 	function execute($html)
 	{
-		$checks = array();
+		$checks = [];
 		$res = $this->db->query("SELECT committee_id, name FROM s_parliament_committees order by committee_id");
 		while ($row = $res->fetch_array()) {
 			$checks[] = array("http://parliament.bg/bg/parliamentarycommittees/members/" . $row[0] . "/steno/period/" . date("Y-m"), $row[01]);
@@ -46,9 +48,4 @@ class ParlKomisiiStenogrami extends Parliament
 		}
 		return array_reverse($query);
 	}
-
-	protected function loader($categoryId, $categoryURL)
-	{
-		return 'placeholder';
-	}
-} 
+}

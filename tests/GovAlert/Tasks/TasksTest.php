@@ -419,10 +419,10 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					[
 						'title' => 'Продажба на активи, собственост на "Овча купел" ЕООД, гр. София',
-        				'description' => null,
-        				'date' => '2014-12-10',
-        				'url' => 'http://www.mi.government.bg/bg/competitions/prodajba-na-aktivi-sobstvenost-na-ovcha-kupel-eood-gr-sofiya-935-c37-1.html?p=e30=',
-        				'hash' => 'c27feaddc27f31f0f0fe5d8c4dfe4328',
+						'description' => null,
+						'date' => '2014-12-10',
+						'url' => 'http://www.mi.government.bg/bg/competitions/prodajba-na-aktivi-sobstvenost-na-ovcha-kupel-eood-gr-sofiya-935-c37-1.html?p=e30=',
+						'hash' => 'c27feaddc27f31f0f0fe5d8c4dfe4328',
 					]
 				]
 			], [
@@ -596,10 +596,10 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					[
 						'title' => 'ДВ-103/2014/ Закон за ратифициране на Договора за заем между Република България и ЕЙЧ ЕС БИ СИ БАНК ПИ ЕЛ СИ, СОСИЕТЕ ЖЕНЕРАЛ, СИТИБАНК, ЕН ЕЙ (клон Лондон) и "УНИКРЕДИТ БУЛБАНК" АД - в ролята на регистратори и упълномощени водещи организатори, и "УНИКРЕДИТ БАНК" АГ (клон Лондон) - в ролята на агент',
-        				'description' => null,
-        				'date' => '2014-12-16T23:24:23+02:00',
-        				'url' => 'http://parliament.bg/bg/laws/ID/15122/',
-        				'hash' => '97a627a43a99e3f4df972a9ca821054d',
+						'description' => null,
+						'date' => '2014-12-16T23:24:23+02:00',
+						'url' => 'http://parliament.bg/bg/laws/ID/15122/',
+						'hash' => '97a627a43a99e3f4df972a9ca821054d',
 					]
 				]
 			], [
@@ -613,9 +613,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 					[
 						'title' => 'Новина: Отстранени са тежките аварии по електропреносната мрежа',
 						'description' => '<span>В периодът 3- 13 декември, в резултат на влошена климатична обстановка</span>',
-        				'date' => '2014-12-16T23:24:23+02:00',
-        				'url' => 'http://www.tso.bg/default.aspx/novini/bg',
-        				'hash' => '5b8b536ce523716441e49f3c93a6934d',
+						'date' => '2014-12-16T23:24:23+02:00',
+						'url' => 'http://www.tso.bg/default.aspx/novini/bg',
+						'hash' => '5b8b536ce523716441e49f3c93a6934d',
 					]
 				]
 			], [
@@ -644,7 +644,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					[
 						'title' => '[Благоевград] Коледно тържество за децата на полицейските служители в ОДМВР - Благоевград',
-        				'description' => null,
+						'description' => null,
 						'date' => '2014-12-18',
 						'url' => 'http://www.blagoevgrad.mvr.bg/Prescentar/Novini/news-20141218.htm',
 						'hash' => 'fb71a14fa0c550afd917e8a6440b3350',
@@ -870,10 +870,10 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 				[
 					[
 						'title' => '[Пазарджик] ВАЖНО ! Поради ремонт или рехабилитация на някои главни пътища е въведена временна организация на движението по тях',
-				        'description' => null,
-        				'date' => '2014-11-18',
+						'description' => null,
+						'date' => '2014-11-18',
 						'url' => 'http://pazardjik.mvr.bg/Prescentar/Novini/rexabilitazia+na+patni+otsechki.htm',
-        				'hash' => '8c951344a1e0e79e7aaf83eedb03159d',
+						'hash' => '8c951344a1e0e79e7aaf83eedb03159d',
 					]
 				]
 			]
@@ -926,7 +926,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 			->willReturn(true);
 		$processorMock->method('checkTitle')
 			->willReturn(true);
-		
+
 		/**
 		 * @var \GovAlert\Tasks\Task $testClass
 		 */

@@ -38,7 +38,7 @@ class Prok_Novini extends Base
 				$imagetitle = trim($item->childNodes->item(3)->textContent);
 				$imagetitle = $this->cleanTitle($imagetitle);
 				$imagetitle = $this->cleanText($imagetitle);
-				$media = array("image" => array($this->loadItemImage($imageurl, []), $imagetitle));
+				$media = array("image" => array($this->loadItemImage($imageurl), $imagetitle));
 			}
 
 			$query[] = [

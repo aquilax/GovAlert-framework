@@ -1,12 +1,8 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: aquilax
- * Date: 12/6/14
- * Time: 8:54 AM
- */
-class VssProtokol extends Vss
+namespace GovAlert\Tasks\Vss;
+
+class VssProtokol extends Base
 {
 
 	protected $categoryId = 1;

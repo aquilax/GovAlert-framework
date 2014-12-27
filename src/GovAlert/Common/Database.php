@@ -76,7 +76,8 @@ class Database extends \mysqli
 		return '\'' . $text . '\'';
 	}
 
-	public function time() {
+	public function time()
+	{
 		return time();
 	}
 

@@ -37,7 +37,7 @@ class Prok_Snimki extends Base
 				$imageurl = $mitem->getAttribute("href");
 				$imageurl = "http://www.prb.bg$imageurl";
 				$imageurl = str_replace(array("logo", "pic"), "big", $imageurl);
-				$imageurl = $this->loadItemImage($imageurl, []);
+				$imageurl = $this->loadItemImage($imageurl);
 				if ($imageurl)
 					$media["image"][] = array($imageurl);
 			}

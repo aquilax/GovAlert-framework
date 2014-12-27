@@ -1,6 +1,8 @@
 <?php
 
-class ParlPlenarnoZasedanie extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlPlenarnoZasedanie extends Base
 {
 
 	protected $categoryId = 2;

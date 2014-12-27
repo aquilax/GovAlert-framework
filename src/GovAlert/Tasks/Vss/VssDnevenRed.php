@@ -1,6 +1,8 @@
 <?php
 
-class VssDnevenRed extends Vss
+namespace GovAlert\Tasks\Vss;
+
+class VssDnevenRed extends Base
 {
 	protected $categoryId = 0;
 	protected $categoryName = 'дневен ред';

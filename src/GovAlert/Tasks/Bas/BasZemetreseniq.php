@@ -9,7 +9,7 @@
 namespace GovAlert\Tasks\Bas;
 
 use GovAlert\Common\Database;
-use GovAlert\Common\Utils;
+use	GovAlert\Common\Utils;
 
 class BasZemetreseniq extends Base
 {

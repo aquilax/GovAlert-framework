@@ -8,7 +8,7 @@
 
 namespace GovAlert\Tasks\Adminreg;
 use \GovAlert\Common\Utils;
-use \GovAlert\Common\Database;
+use  \GovAlert\Common\Database;
 
 class ArKonkursi extends Base
 {

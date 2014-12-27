@@ -3,7 +3,8 @@
 namespace GovAlert\Common;
 
 
-class UtilsTest extends \PHPUnit_Framework_TestCase{
+class UtilsTest extends \PHPUnit_Framework_TestCase
+{
 
 	public function transliterateProvider()
 	{
@@ -37,7 +38,8 @@ class UtilsTest extends \PHPUnit_Framework_TestCase{
 		$this->assertEquals($expected, Utils::cleanSpaces($given));
 	}
 
-	public function bgMonthProvider() {
+	public function bgMonthProvider()
+	{
 		return [
 			['Януари', '01'],
 			['ноември', '11'],
@@ -48,11 +50,13 @@ class UtilsTest extends \PHPUnit_Framework_TestCase{
 	/**
 	 * @dataProvider bgMonthProvider
 	 */
-	public function testBgMonth($given, $expected) {
+	public function testBgMonth($given, $expected)
+	{
 		$this->assertEquals($expected, Utils::bgMonth($given));
 	}
 
-	public function fixCaseProvider () {
+	public function fixCaseProvider()
+	{
 		return [
 			['КИФЛА', 'Кифла'],
 			['кифла', 'Кифла'],
@@ -63,7 +67,8 @@ class UtilsTest extends \PHPUnit_Framework_TestCase{
 	/**
 	 * @dataProvider fixCaseProvider
 	 */
-	public function testFixCase($given, $expected) {
+	public function testFixCase($given, $expected)
+	{
 		$this->assertEquals($expected, Utils::fixCase($given));
 	}
 }

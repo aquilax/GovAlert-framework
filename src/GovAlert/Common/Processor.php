@@ -3,9 +3,11 @@
 namespace GovAlert\Common;
 
 
-class Processor {
+class Processor
+{
 
-	public function __construct(Database $db, Logger $logger, $debug = false) {
+	public function __construct(Database $db, Logger $logger, $debug = false)
+	{
 		$this->db = $db;
 		$this->logger = $logger;
 		$this->debug = $debug;
@@ -128,7 +130,8 @@ class Processor {
 		return $res->num_rows == 0;
 	}
 
-	function checkTitle($title, $sourceId) {
+	function checkTitle($title, $sourceId)
+	{
 		$res = $this->db->query("SELECT hash FROM item WHERE title='$title' AND sourceid=" . $sourceId . " LIMIT 1");
 		return $res->num_rows == 0;
 	}

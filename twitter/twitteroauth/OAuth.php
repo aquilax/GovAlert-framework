@@ -268,10 +268,10 @@ class OAuthRequest
 			? 'http'
 			: 'https';
 		@$http_url or $http_url = $scheme .
-				'://' . $_SERVER['HTTP_HOST'] .
-				':' .
-				$_SERVER['SERVER_PORT'] .
-				$_SERVER['REQUEST_URI'];
+			'://' . $_SERVER['HTTP_HOST'] .
+			':' .
+			$_SERVER['SERVER_PORT'] .
+			$_SERVER['REQUEST_URI'];
 		@$http_method or $http_method = $_SERVER['REQUEST_METHOD'];
 
 		// We weren't handed any parameters, so let's find the ones relevant to

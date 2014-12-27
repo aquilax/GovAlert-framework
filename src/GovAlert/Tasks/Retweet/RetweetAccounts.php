@@ -1,11 +1,17 @@
 <?php
 
-class RetweetAccounts extends Retweet
+namespace GovAlert\Tasks\Retweet;
+
+use GovAlert\Config;
+
+class RetweetAccounts extends \GovAlert\Tasks\Task
 {
+	protected $sourceId = 20;
+	protected $sourceName = 'Retweet';
 
 	protected $categoryId = 1;
 	protected $categoryName = 'съобщения';
-	protected $categoryURL = '';
+	protected $categoryURL = null;
 
 
 	function execute($html)
@@ -43,12 +49,12 @@ class RetweetAccounts extends Retweet
 			}
 			$res->free();
 
-			$this->logger->info('> Проверявам за tweets в на $account [спешно=' . ($forceRT ? 1 : 0) . ", средна активност=$avgActivity]");
+			$this->logger->info('> Проверявам за tweets в на '. $account .'[спешно=' . ($forceRT ? 1 : 0) . ", средна активност=$avgActivity]");
 
 			require_once(Config::get('twitterOAuth'));
 			require_once(Config::get('twitterOAuthConfig'));
 
-			$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, CONSUMER_TOKEN_GOVALERTEU, CONSUMER_TOKEN_SECRET_GOVALERTEU);
+			$connection = new \TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, CONSUMER_TOKEN_GOVALERTEU, CONSUMER_TOKEN_SECRET_GOVALERTEU);
 			$connection->host = "https://api.twitter.com/1.1/";
 			$connection->useragent = 'Activist Dashboard notifier';
 			$connection->ssl_verifypeer = TRUE;
@@ -120,10 +126,4 @@ class RetweetAccounts extends Retweet
 		else
 			return $a[0] + $a[1] > $b[0] + $b[1] ? -1 : 1;
 	}
-
-	protected function loader($categoryId, $categoryURL)
-	{
-		return 'placeholder';
-	}
-
 }

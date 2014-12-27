@@ -1,6 +1,8 @@
 <?php
 
-class ParlResheniq extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlResheniq extends Base
 {
 
 	protected $categoryId = 5;

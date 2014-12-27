@@ -9,6 +9,8 @@ Links
 
 namespace GovAlert\Tasks\Interpol;
 
+use GovAlert\Common\Utils;
+
 abstract class Base extends \GovAlert\Tasks\Task
 {
 	protected $sourceId = 18;
@@ -27,7 +29,7 @@ abstract class Base extends \GovAlert\Tasks\Task
 
 		foreach ($prop[2] as $propU) {
 
-			$html = $this->loadURL(sprintf($propU[0], 0), $propU[1] + 1);
+			$html = parent::loadURL(sprintf($propU[0], 0), $propU[1] + 1);
 			if (!$html) return;
 			$xpath = $this->getXPath($html);
 			$items = $this->getXPathItems($xpath, "//div[@class='bloc_pagination']");
@@ -36,7 +38,7 @@ abstract class Base extends \GovAlert\Tasks\Task
 
 			for ($skip = 0; $skip < $profiles; $skip += 9) {
 				if ($skip > 0) {
-					$html = $this->loadURL(sprintf($propU[0], $skip), $propU[1] + $skip / 9 + 1);
+					$html = paloadURL(sprintf($propU[0], $skip), $propU[1] + $skip / 9 + 1);
 					if (!$html) return;
 					$xpath = $this->getXPath($html);
 				}
@@ -101,7 +103,7 @@ abstract class Base extends \GovAlert\Tasks\Task
 			$url = '';
 			if (!$noimage) {
 				$url = $prop[5] . "/" . $row["code"];
-				$this->loadURL($url);
+				$this->loadURL($url, 1);
 				$imgoptions = array('doNotReportError' => 1, 'addInterpol' => ($prop[1] == 1 ? 'yellow' : 'red'));
 				$imageurl = $this->loadItemImage("http://www.interpol.int" . $row["photo"], null, $imgoptions);
 				if ($imageurl == null) {
@@ -141,10 +143,4 @@ abstract class Base extends \GovAlert\Tasks\Task
 			$this->db->query("UPDATE s_interpol SET processed = 1 WHERE code IN ('" . implode("','", $codes) . "')");
 		}
 	}
-
-	protected function loadURL($categoryId, $categoryURL)
-	{
-		return 'placeholder';
-	}
-
 }

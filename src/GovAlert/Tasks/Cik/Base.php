@@ -1,8 +1,5 @@
 <?php
 
-namespace GovAlert\Tasks\Cik;
-use GovAlert\Common\Utils;
-
 /*
 
 0: съобщения http://www.cik.bg/
@@ -13,6 +10,10 @@ use GovAlert\Common\Utils;
 5: принципни решения http://www.cik.bg/reshenie_principni
 
 */
+
+
+namespace GovAlert\Tasks\Cik;
+use GovAlert\Common\Utils;
 
 
 abstract class Base extends \GovAlert\Tasks\Task

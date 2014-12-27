@@ -63,7 +63,7 @@ class GovNovini extends Base
 						$imageURL = mb_ereg_replace('images', 'bigimg', $imageURL, 'im');
 						$imageTitle = trim($itemImg->getAttribute('alt'));
 						$imageTitle = Utils::cleanSpaces($imageTitle);
-						$media['image'][] = [$this->loadItemImage($imageURL, []), $imageTitle];
+						$media['image'][] = [$this->loadItemImage($imageURL), $imageTitle];
 					}
 				}
 			}

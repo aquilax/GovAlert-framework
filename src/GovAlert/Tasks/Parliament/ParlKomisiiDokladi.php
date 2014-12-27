@@ -1,11 +1,13 @@
 <?php
 
-class ParlKomisiiDokladi extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlKomisiiDokladi extends Base
 {
 
 	protected $categoryId = 12;
 	protected $categoryName = 'доклади на комисии';
-	protected $categoryURL = '';
+	protected $categoryURL = null;
 
 
 	function execute($html)
@@ -48,10 +50,4 @@ class ParlKomisiiDokladi extends Parliament
 		}
 		return array_reverse($query);
 	}
-
-	protected function loader($categoryId, $categoryURL)
-	{
-		return 'placeholder';
-	}
-
-} 
+}

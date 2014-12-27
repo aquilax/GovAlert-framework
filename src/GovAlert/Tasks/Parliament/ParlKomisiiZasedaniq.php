@@ -1,6 +1,8 @@
 <?php
 
-class ParlKomisiiZasedaniq extends Parliament
+namespace GovAlert\Tasks\Parliament;
+
+class ParlKomisiiZasedaniq extends Base
 {
 
 	protected $categoryId = 9;
@@ -55,11 +57,4 @@ class ParlKomisiiZasedaniq extends Parliament
 		}
 		return array_reverse($query);
 	}
-
-
-	protected function loader($categoryId, $categoryURL)
-	{
-		return 'placeholder';
-	}
-
-} 
+}

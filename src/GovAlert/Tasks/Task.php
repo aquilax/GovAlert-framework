@@ -4,10 +4,10 @@
  * Class Task - Generic Task class
  */
 namespace GovAlert\Tasks;
-use \GovAlert\Common\Database;
-use \GovAlert\Common\Utils;
-use \GovAlert\Config;
-use \GovAlert\Common\Images;
+
+use GovAlert\Common\Images;
+use GovAlert\Common\Utils;
+use GovAlert\Config;
 
 
 abstract class Task
@@ -46,7 +46,10 @@ abstract class Task
 	public function run()
 	{
 		$this->logger->info(sprintf('Проверявам за %s %s', $this->sourceName, $this->categoryName));
-		$html = $this->loadURL($this->categoryURL, $this->linki);
+		$html = 'placeholder';
+		if (is_string($this->categoryURL)) {
+			$html = $this->loadURL($this->categoryURL, $this->linki);
+		}
 		if ($html) {
 			$items = $this->execute($html);
 			if ($items) {
@@ -55,17 +58,20 @@ abstract class Task
 		}
 	}
 
-	protected function loadUrl($url, $linki = null) {
+	protected function loadURL($url, $linki = null)
+	{
 		return $this->loader->loadURL($this->sourceId, $this->categoryId, $url, $linki);
 	}
 
-	protected function processItems(Array $query) {
+	protected function processItems(Array $query)
+	{
 		$this->logger->info('Възможни ' . count($query) . ' нови ' . $this->categoryName);
 		$itemIds = $this->saveItems($query, $this);
 		$this->queueTweets($itemIds, $this->tweetAccount, $this->tweetReTweet);
 	}
 
-	protected function saveItems(Array $query) {
+	protected function saveItems(Array $query)
+	{
 		return $this->processor->saveItems($query, $this);
 	}
 
@@ -127,7 +133,8 @@ abstract class Task
 		return $filename;
 	}
 
-	private function setPageLoad($url, $loadStart) {
+	private function setPageLoad($url, $loadStart)
+	{
 		$this->loader->setPageLoad($this->sourceId, $this->categoryId, $url, $loadStart);
 	}
 
@@ -141,7 +148,7 @@ abstract class Task
 		if (strtolower($type) != ".jpg" && strtolower($type) != ".jpeg" && strtolower($type) != ".gif" && strtolower($type) != ".png" && strtolower($type) != ".bmp")
 			return null;
 
-		$filename = Config::get('mediaPath') .'item_images/'. md5($url) . ($type == ".bmp" ? ".jpg" : $type);
+		$filename = Config::get('mediaPath') . 'item_images/' . md5($url) . ($type == ".bmp" ? ".jpg" : $type);
 		if (!file_exists($filename)) {
 			$loadstart = microtime(true);
 			exec("wget --header='Connection: keep-alive' --header='Cache-Control: max-age=0' --header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' --header='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' --header='Accept-Encoding: gzip,deflate,sdch' --header='Accept-Language: en-US,en;q=0.8,bg;q=0.6,de;q=0.4' -q -O '$filename' '$url'");
@@ -184,7 +191,7 @@ abstract class Task
 		if ($urls && !is_array($urls))
 			$urls = array($urls);
 
-		$this->logger->info('Планирам tweet за srcid=' . $this->sourceId . ' текст=' . $text. ' и адреси ' . implode(', ', $urls));
+		$this->logger->info('Планирам tweet за srcid=' . $this->sourceId . ' текст=' . $text . ' и адреси ' . implode(', ', $urls));
 
 		$position = 1;
 		foreach ($urls as $url) {
@@ -193,7 +200,7 @@ abstract class Task
 				$row = $res->fetch_assoc();
 				$linkid = intval($row['linkid']);
 			} else {
-				$this->db->insert('link',['url' => $url], 'LOW_PRIORITY');
+				$this->db->insert('link', ['url' => $url], 'LOW_PRIORITY');
 				$linkid = $this->db->insert_id;
 			}
 			if (!$linkid)
@@ -298,18 +305,21 @@ abstract class Task
 	 * @return DOMNodeList
 	 * @throws Exception
 	 */
-	protected function getXPathItems(\DOMXpath $xpath, $query, \DOMNode $contextNode = null)
+	protected function getXPathItems(\DOMXpath $xpath, $query, \DOMNode $contextNode = null, $silent = false)
 	{
 		$items = $xpath->query($query, $contextNode);
 		if (is_null($items)) {
 			throw new \Exception('Path not found: ' . $query);
 		}
-		$this->logger->info('Открити ' . $items->length . ' ' . $this->categoryName);
+		if (!$silent) {
+			$this->logger->info('Открити ' . $items->length . ' ' . $this->categoryName);
+		}
 
 		return $items;
 	}
 
-	function timeDiff($diff) {
+	function timeDiff($diff)
+	{
 		return strtotime(date('c', $this->db->time()) . ' ' . $diff);
 	}
 

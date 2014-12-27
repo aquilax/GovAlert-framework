@@ -1,15 +1,21 @@
 <?php
 
-class VssNovini extends Vss
-{
+namespace GovAlert\Tasks\Vss;
 
+use GovAlert\Common\Utils;
+
+class VssNovini extends Base
+{
 	protected $categoryId = 2;
 	protected $categoryName = 'новини';
 	protected $categoryURL = '';
 
-	function __construct(Database $db, Logger $logger, $debug = false)
-	{
-		parent::__construct($db, $logger, $debug);
+	function __construct(\GovAlert\Common\Database $db,
+						 \GovAlert\Common\Logger $logger,
+						 \GovAlert\Common\Loader $loader,
+						 \GovAlert\Common\Processor $processor,
+						 $debug = false) {
+		parent::__construct($db, $logger, $loader, $processor, $debug);
 		$this->categoryURL = 'http://www.vss.justice.bg/bg/press/' . date('Y') . '/' . date('Y') . '.htm';
 	}
 

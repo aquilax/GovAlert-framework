@@ -8,7 +8,7 @@ class Errorcheck extends \GovAlert\Tasks\Task
 	protected $sourceName = 'липса на новини и възможни грешки';
 	protected $categoryId = 0;
 	protected $categoryName = '';
-	protected $categoryURL = false;
+	protected $categoryURL = null;
 	private $shortName = '';
 
 	function execute($html)
@@ -61,9 +61,4 @@ class Errorcheck extends \GovAlert\Tasks\Task
 		$this->queueTextTweet($tweet, $query[0]['url']);
 	}
 
-	
-	protected function loadURL()
-	{
-		return 'placeholder';
-	}
-} 
+}

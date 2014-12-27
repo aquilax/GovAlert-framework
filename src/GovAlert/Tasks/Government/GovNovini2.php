@@ -20,7 +20,7 @@ class GovNovini2 extends Base
 
 		$query = [];
 		foreach ($items as $item) {
-			$innerItems = $this->getXPathItems($xpath, ".//td", $item);
+			$innerItems = $this->getXPathItems($xpath, ".//td", $item, true);
 
 			if ($innerItems->length != 4) {
 				continue;
@@ -66,7 +66,7 @@ class GovNovini2 extends Base
 						$imageurl = mb_ereg_replace("images", "bigimg", $imageurl, "im");
 						$imagetitle = trim($itemimg->getAttribute("alt"));
 						$imagetitle = Utils::cleanSpaces($imagetitle);
-						$media["image"][] = array($this->loadItemImage($imageurl, []), $imagetitle);
+						$media["image"][] = array($this->loadItemImage($imageurl), $imagetitle);
 					}
 				}
 			}
